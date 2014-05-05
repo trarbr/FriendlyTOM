@@ -25,23 +25,23 @@
         </DataGrid>
         <DockPanel Grid.Row="2">
             <StackPanel Orientation="Horizontal">
-                <Button Width="75" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Button Width="75" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Move selected payment to archive">
                     <StackPanel Orientation="Horizontal">
-                        <Image x:Name="archivePaymentButton" Source="/Images/book_add.png" ToolTip="Move selected payment to archive" Width="16" />
+                        <Image x:Name="archivePaymentButton" Source="/Images/book_add.png" Width="16" />
                         <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Archive</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Width="75" Margin="7,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Button Width="75" Margin="7,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Delete selected payment">
                     <StackPanel Orientation="Horizontal">
-                        <Image x:Name="deletePaymentButton" Source="/Images/delete.png" ToolTip="Delete selected payment" Width="16" />
+                        <Image x:Name="deletePaymentButton" Source="/Images/delete.png" Width="16" />
                         <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
             <StackPanel DockPanel.Dock="Right">
-                <Button x:Name="collapseButton" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="2,0,0,0" Click="collapseButton_Click">
+                <Button x:Name="collapseButton" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="2,0,0,0" Click="collapseButton_Click" ToolTip="Collapse details">
                     <StackPanel Orientation="Horizontal">
-                        <Image x:Name="collapseImage" Source="/Images/collapse-min.png" ToolTip="Delete selected payment" Width="16" />
+                        <Image x:Name="collapseImage" Source="/Images/collapse-min.png" Width="16" />
                     </StackPanel>
                 </Button>
             </StackPanel>
