@@ -40,7 +40,7 @@
         </StackPanel>
         <StackPanel Grid.Column="4">
             <Label Content="Note:"/>
-            <TextBox Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+            <TextBox Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
             <Label Content="Attachments:"/>
             <UserControl x:Name="attachmentsUserControl" MinHeight="75"/>
         </StackPanel>

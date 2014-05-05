@@ -20,10 +20,27 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class AccountingUserControl : UserControl
     {
+        DetailsUserControl detailsWin;
+
         public AccountingUserControl()
         {
             InitializeComponent();
-            detailsUserControl.Content = new DetailsUserControl();
+            detailsWin = new DetailsUserControl();
+            detailsUserControl.Content = detailsWin;
+        }
+
+        private void collapseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (detailsUserControl.Content != null)
+            {
+                detailsUserControl.Content = null;
+                collapseImage.Source = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+            }
+            else
+            {
+                detailsUserControl.Content = detailsWin;
+                collapseImage.Source = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
+            }
         }
     }
 }
