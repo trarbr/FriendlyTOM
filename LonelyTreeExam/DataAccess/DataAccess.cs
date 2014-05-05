@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,6 @@ namespace DataAccess
             {
                 connection.ConnectionString = connectionString;
                 connection.Open();
-                Console.WriteLine("State: {0}", connection.State);
-                Console.WriteLine("ConnectionString: {0}",
-                    connection.ConnectionString);
             }
         }
         /// <summary>
@@ -32,7 +30,7 @@ namespace DataAccess
         /// <returns>connString</returns>
         static private string GetConnectionString()
         {
-            const string connString = @"C:\Users\Spaak\Documents\GitHub\LonelyTreeExam\ConnectString.txt";
+            string connString = File.ReadAllText("C:\\ConnectString.txt");
             return connString;
         }
         #endregion
