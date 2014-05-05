@@ -1,4 +1,4 @@
-﻿using LonelyTreeExam.UserControls;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +14,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LonelyTreeExam
+namespace LonelyTreeExam.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AttachmentsUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AttachmentsUserControl : UserControl
     {
-        public MainWindow()
+        public AttachmentsUserControl()
         {
             InitializeComponent();
-            accountingUserControl.Content = new AccountingUserControl();
+        }
+
+        private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofg = new OpenFileDialog();
+            ofg.ShowDialog();
         }
     }
 }

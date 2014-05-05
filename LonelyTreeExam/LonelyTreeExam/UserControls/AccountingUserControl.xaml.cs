@@ -1,5 +1,4 @@
-﻿using LonelyTreeExam.UserControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LonelyTreeExam
+namespace LonelyTreeExam.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AccountingUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AccountingUserControl : UserControl
     {
-        public MainWindow()
+        public AccountingUserControl()
         {
             InitializeComponent();
-            accountingUserControl.Content = new AccountingUserControl();
+            detailsUserControl.Content = new DetailsUserControl();
         }
     }
 }

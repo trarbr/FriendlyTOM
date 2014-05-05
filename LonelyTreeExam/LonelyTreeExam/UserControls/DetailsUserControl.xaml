@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="LonelyTreeExam.UserControls.DetailsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="880">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0">
+            <Label Content="Id:"/>
+            <Label Content="Name:"/>
+            <Label Content="DueDate:"/>
+            <Label Content="DueAmount:"/>
+            <Label Content="Paid:"/>
+            <Label Content="PaidAmount:"/>
+            <Label Content="PaidDate:"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <TextBox Height="26" TextWrapping="Wrap"/>
+            <TextBox Height="26" TextWrapping="Wrap"/>
+            <DatePicker Height="26"/>
+            <TextBox Height="26" TextWrapping="Wrap"/>
+            <StackPanel Height="26" Orientation="Horizontal">
+                <CheckBox VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBox Height="26" TextWrapping="Wrap"/>
+            <DatePicker Height="26"/>
+        </StackPanel>
+        <StackPanel Grid.Column="4">
+            <Label Content="Note:"/>
+            <TextBox Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+            <Label Content="Attachments:"/>
+            <UserControl x:Name="attachmentsUserControl" MinHeight="75"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <Button Width="75" Margin="0,0,0,5">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="addPaymentButton" Source="/Images/add.png" ToolTip="Add a payment" Width="16"/>
+                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Add</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
