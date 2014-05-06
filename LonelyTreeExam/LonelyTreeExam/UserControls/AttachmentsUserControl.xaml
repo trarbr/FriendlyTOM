@@ -10,7 +10,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <ListView x:Name="attachmentsListView" Grid.Column="1"/>
+            <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9"/>
             <StackPanel Grid.Column="0">
                 <Button x:Name="addAttachmentButton" Click="addAttachmentButton_Click">
                     <Image Source="/Images/add.png" />

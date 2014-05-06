@@ -25,22 +25,30 @@ namespace LonelyTreeExam.UserControls
         public AccountingUserControl()
         {
             InitializeComponent();
+            currentPaymentsUserControl.Content = new CurrentPaymentsUserControl();
             detailsWin = new DetailsUserControl();
-            detailsUserControl.Content = detailsWin;
+            collapseDetailedView();
         }
 
-        private void collapseButton_Click(object sender, RoutedEventArgs e)
+        private void collapseDetailedView()
         {
             if (detailsUserControl.Content != null)
             {
                 detailsUserControl.Content = null;
                 collapseImage.Source = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+                collapseButton.ToolTip = "Show details";
             }
             else
             {
                 detailsUserControl.Content = detailsWin;
                 collapseImage.Source = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
+                collapseButton.ToolTip = "Hide details";
             }
+        }
+
+        private void collapseButton_Click(object sender, RoutedEventArgs e)
+        {
+            collapseDetailedView();
         }
     }
 }

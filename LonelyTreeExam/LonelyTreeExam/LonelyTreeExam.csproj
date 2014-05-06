@@ -71,6 +71,9 @@
     <Compile Include="UserControls\DetailsUserControl.xaml.cs">
       <DependentUpon>DetailsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CurrentPaymentsUserControl.xaml.cs">
+      <DependentUpon>CurrentPaymentsUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DetailsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CurrentPaymentsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +155,11 @@
   <ItemGroup>
     <Resource Include="Images\collapse-min.png" />
     <Resource Include="Images\collapse-plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\basket.png" />
+    <Resource Include="Images\user_red.png" />
+    <Resource Include="Images\user_suit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,7 +10,7 @@
         <StackPanel Grid.Row="0" HorizontalAlignment="Left">
             <Image Source="/Images/lonelytreelogo.jpg" Height="80" Margin="10 10 0 0"/>
         </StackPanel>
-        <TabControl x:Name="mainTabNavigation" TabStripPlacement="Left" HorizontalContentAlignment="Left" Grid.Row="1">
+        <TabControl x:Name="mainTabNavigation" TabStripPlacement="Left" HorizontalContentAlignment="Left" Grid.Row="1" BorderBrush="#FF8C8E94">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -23,11 +23,10 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/book.png" Height="16"/>
-                        <Label Content="Archive"/>
+                        <Image Source="/Images/basket.png" Height="16"/>
+                        <Label Content="Sales" />
                     </StackPanel>
                 </TabItem.Header>
-                <UserControl x:Name="archiveUserControl"/>
             </TabItem>
         </TabControl>
 

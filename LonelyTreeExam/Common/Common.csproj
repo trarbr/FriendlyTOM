@@ -42,20 +42,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{b3012458-de0b-4a63-902c-84f2aab110c5}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{ea3f398c-5fb2-4d1b-9176-7b059c7123aa}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LonelyTreeExam\LonelyTreeExam.csproj">
-      <Project>{be8b3ce1-124f-4fd7-b88e-e4fa32c07128}</Project>
-      <Name>LonelyTreeExam</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Enums\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
