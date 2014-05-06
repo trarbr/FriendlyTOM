@@ -161,9 +161,6 @@
     <Resource Include="Images\book.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\book_add.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\collapse-min.png" />
     <Resource Include="Images\collapse-plus.png" />
   </ItemGroup>
@@ -178,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\book_next2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book_add2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
