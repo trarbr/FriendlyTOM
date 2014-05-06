@@ -10,8 +10,10 @@ namespace DataAccess.Entities
 {
     internal class PaymentEntity : Entity, IPayment
     {
-        public PaymentEntity(int id, DateTime lastModified, bool deleted) : base(id, lastModified, deleted)
+        public PaymentEntity(string paymentName, int id, DateTime lastModified, bool deleted) : base(id, lastModified, deleted)
         {
+            Name = paymentName;
+            _invoice = new List<int>();
         }
 
         public string Name { get; set; }

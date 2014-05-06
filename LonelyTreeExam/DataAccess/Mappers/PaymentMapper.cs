@@ -17,33 +17,40 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentEntity>();
         }
 
-        protected override string insertProcedureName
+        /*protected override string insertProcedureName
         {
             get { return StoredProcedures.; }
-        }
+        }*/
 
         protected override string selectAllProcedureName
         {
-            get { return StoredProcedures.; }
+            get { return StoredProcedures.ReadAllPayments; }
         }
 
-        protected override string updateProcedureName
+        /*protected override string updateProcedureName
         {
-            get { return StoredProcedures.; }
-        }
+            //get { return StoredProcedures.; }
+        }*/
 
         protected override PaymentEntity entityFromReader(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            string paymentName = (string)reader["PaymentName"];
+            int id = (int)reader["PaymentId"];
+            DateTime lastModified = (DateTime)reader["LastModified"];
+            bool deleted = (bool)reader["Deleted"];
+
+            return new PaymentEntity(paymentName, id, lastModified, deleted);
         }
 
         protected override void addInsertParameters(PaymentEntity entity, SqlParameterCollection parameters)
         {
+            //Not added yet
             throw new NotImplementedException();
         }
 
         protected override void addUpdateParameters(PaymentEntity entity, SqlParameterCollection parameters)
         {
+            //Not added yet
             throw new NotImplementedException();
         }
 
