@@ -50,5 +50,6 @@ namespace LonelyTreeExam.UserControls
         {
             collapseDetailedView();
         }
+
     }
 }
