@@ -6,18 +6,52 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    class Payment
+    internal class Payment : IPayment
     {
-        // backing field & fields
+        #region Public Properties/Methods
+        public DateTime DueDate { get; set; }
+        public DateTime PaidDate { get; set; }
+        public Decimal Amount { get; set; }
+        public bool Archived { get; set; }
+        public IReadOnlyList<string> Attachments
+        {
+            get { return _paymentEntity.Invoice; }
+        }
 
-        // Properties
+        public void AddAttachment(string path)
+        {
 
-        // Events
+        }
+        #endregion
 
-        // Constructors
+        internal IPayment paymentEntity
+        {
+            get { return _paymentEntity; }
+            set { _paymentEntity = value; }
+        }
 
-        // Public methods
+        internal Payment(DateTime dueDate, Decimal amount)
+        {
+            DueDate = dueDate;
+            Amount = amount;
+            PaidDate = DateTime.Today;
+        }
 
-        // Private methods
+        internal void Update()
+        {
+
+        }
+
+        internal void Delete()
+        {
+
+        }
+
+        internal void ReadAll()
+        {
+
+        }
+
+        private IPayment _paymentEntity;
     }
 }

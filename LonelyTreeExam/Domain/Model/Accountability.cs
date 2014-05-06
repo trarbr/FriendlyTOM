@@ -6,18 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    class Accountability
+    internal class Accountability
     {
-        // backing field & fields
+        #region public properties
+        public string Status { get; set; }
+        public string Note { get; set; }
+        public string Responsible { get; set; }
+        public string Commisioner { get; set; }
 
-        // Properties
-
-        // Events
-
-        // Constructors
-
-        // Public methods
-
-        // Private methods
+        #endregion
     }
 }
