@@ -8,7 +8,7 @@
     <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9"/>
             <StackPanel Grid.Column="0">

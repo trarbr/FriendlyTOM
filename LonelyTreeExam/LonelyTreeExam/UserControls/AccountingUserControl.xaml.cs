@@ -21,12 +21,16 @@ namespace LonelyTreeExam.UserControls
     public partial class AccountingUserControl : UserControl
     {
         DetailsUserControl detailsWin;
+        BitmapImage collapsePlusImage;
+        BitmapImage collapseMinImage;
 
         public AccountingUserControl()
         {
             InitializeComponent();
             currentPaymentsUserControl.Content = new CurrentPaymentsUserControl();
             detailsWin = new DetailsUserControl();
+            collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+            collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             collapseDetailedView();
         }
 
@@ -35,13 +39,13 @@ namespace LonelyTreeExam.UserControls
             if (detailsUserControl.Content != null)
             {
                 detailsUserControl.Content = null;
-                collapseImage.Source = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+                collapseImage.Source = collapsePlusImage;
                 collapseButton.ToolTip = "Show details";
             }
             else
             {
                 detailsUserControl.Content = detailsWin;
-                collapseImage.Source = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
+                collapseImage.Source = collapseMinImage;
                 collapseButton.ToolTip = "Hide details";
             }
         }
