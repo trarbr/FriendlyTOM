@@ -28,6 +28,7 @@ namespace LonelyTreeExam.UserControls
         {
             InitializeComponent();
             currentPaymentsUserControl.Content = new CurrentPaymentsUserControl();
+            archiveUserControl.Content = new ArchiveUserControl();
             detailsWin = new DetailsUserControl();
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));

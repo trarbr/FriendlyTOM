@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="LonelyTreeExam.UserControls.CurrentPaymentsUserControl"
+﻿<UserControl x:Class="LonelyTreeExam.UserControls.ArchiveUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -23,10 +23,10 @@
 
         <DockPanel Grid.Row="1">
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                <Button Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Move selected payment to archive">
+                <Button Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Move selected payment to current payments">
                     <StackPanel Orientation="Horizontal">
-                        <Image x:Name="archivePaymentButton" Source="/Images/book_add.png" Width="16" />
-                        <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Archive</TextBlock>
+                        <Image x:Name="archivePaymentButton" Source="/Images/book_next2.png" Width="16" />
+                        <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Restore</TextBlock>
                     </StackPanel>
                 </Button>
                 <Button Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Delete selected payment">

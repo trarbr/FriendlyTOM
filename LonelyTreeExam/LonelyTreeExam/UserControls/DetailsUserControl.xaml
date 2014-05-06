@@ -41,11 +41,17 @@
             <Label Content="Attachments:"/>
             <UserControl x:Name="attachmentsUserControl" MinHeight="75"/>
         </StackPanel>
-        <StackPanel Grid.Row="1">
-            <Button x:Name="submitButton" Width="75" Margin="0,0,0,5">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button x:Name="addButton" Width="75" Margin="5,0,0,5">
                 <StackPanel Orientation="Horizontal">
-                    <Image x:Name="addPaymentButton" Source="/Images/add.png" ToolTip="Add a payment" Width="16"/>
-                    <TextBlock x:Name="submitTextBlock" VerticalAlignment="Center" Margin="2,0,0,0">Add</TextBlock>
+                    <Image Source="/Images/add.png" ToolTip="Add a payment" Width="16"/>
+                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Add</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="updateButton" Width="75" Margin="10,0,0,5">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/arrow_refresh_small.png" ToolTip="Add a payment" Width="16"/>
+                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Update</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

@@ -65,6 +65,9 @@
     <Compile Include="UserControls\AccountingUserControl.xaml.cs">
       <DependentUpon>AccountingUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ArchiveUserControl.xaml.cs">
+      <DependentUpon>ArchiveUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AttachmentsUserControl.xaml.cs">
       <DependentUpon>AttachmentsUserControl.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\AccountingUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ArchiveUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,11 +169,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\basket.png" />
-    <Resource Include="Images\user_red.png" />
-    <Resource Include="Images\user_suit.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\book_key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_refresh_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book_next2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
