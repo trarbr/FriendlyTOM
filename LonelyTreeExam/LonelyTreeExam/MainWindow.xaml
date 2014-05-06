@@ -14,7 +14,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/book_open.png" Height="16"/>
+                        <Image Source="/Images/book.png" Height="16"/>
                         <Label Content="Accounting" />
                     </StackPanel>
                 </TabItem.Header>

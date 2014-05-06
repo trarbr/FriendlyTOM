@@ -26,7 +26,7 @@
             <TabItem Height="28">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/book.png" Height="16"/>
+                        <Image Source="/Images/book_key.png" Height="16"/>
                         <Label Content="Archive"/>
                     </StackPanel>
                 </TabItem.Header>
