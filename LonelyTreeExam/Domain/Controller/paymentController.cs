@@ -12,23 +12,30 @@ namespace Domain.Controller
 {
     public class paymentController
     {
+        #region Public Methods
         public paymentController()
         {
             dataAccessFacade = new DataAccessFacade();
 
-            PaymentsCollection = new PaymentsCollection(dataAccessFacade);
+            paymentsCollection = new PaymentsCollection(dataAccessFacade);
 
         }
 
         public List<IPayment> ReadAllArtists()
         {
             List<IPayment> payments = new List<IPayment>();
-            foreach (Payment payment in PaymentsCollection.ReadAll())
+            foreach (Payment payment in paymentsCollection.ReadAll())
             {
                 payments.Add(payment);
             }
 
             return payments;
         }
+        #endregion
+
+        #region Private Properties
+        private IDataAccessFacade dataAccessFacade;
+        private PaymentsCollection paymentsCollection;
+        #endregion
     }
 }
