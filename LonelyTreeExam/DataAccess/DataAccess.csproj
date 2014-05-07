@@ -39,11 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="DataAccessFacade.cs" />
+    <Compile Include="Entities\AAccountabilityEntity.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\PaymentEntity.cs" />
+    <Compile Include="Helpers\StoredProcedures.cs" />
+    <Compile Include="Mappers\ASQLMapper.cs" />
+    <Compile Include="Mappers\PaymentMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mappers\" />
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{dc8ef77f-9bfc-4d77-950d-ab7d6f2bcfdc}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
