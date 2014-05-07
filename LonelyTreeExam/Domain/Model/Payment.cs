@@ -58,7 +58,8 @@ namespace Domain.Model
             set { _paymentEntity = value; }
         }
 
-        internal Payment(DateTime dueDate, Decimal dueAmount, string responsible, string commissioner, DataAccessFacade dataAccessFacade) 
+        internal Payment(DateTime dueDate, Decimal dueAmount, string responsible,
+            string commissioner, DataAccessFacade dataAccessFacade) 
             :base (responsible, commissioner)
         {
             DueDate = dueDate;
@@ -67,7 +68,8 @@ namespace Domain.Model
             //dataAccessFacade.CreatePayment();
         }
 
-        internal Payment(IPayment paymentEntity, DataAccessFacade dataAccessFacade) :base(paymentEntity.Responsible, paymentEntity.Commissioner)
+        internal Payment(IPayment paymentEntity, DataAccessFacade dataAccessFacade) 
+            :base(paymentEntity.Responsible, paymentEntity.Commissioner)
         {
             _paymentEntity = paymentEntity;
             this.dataAccessFacade = dataAccessFacade;
