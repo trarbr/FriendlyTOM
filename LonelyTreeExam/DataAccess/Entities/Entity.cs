@@ -12,11 +12,13 @@ namespace DataAccess.Entities
         internal DateTime LastModified { get; set; }
         internal bool Deleted { get; set; }
 
-        public Entity(int id, DateTime lastModified, bool deleted)
+        internal Entity(int id, DateTime lastModified, bool deleted)
         {
             Id = id;
             LastModified = lastModified;
             Deleted = deleted;
         }
+
+        internal Entity() : this(0, DateTime.MinValue, false) {}
     }
 }

@@ -45,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Compile Include="Model\Accountability.cs" />
+    <Compile Include="Model\Payment.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controller\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

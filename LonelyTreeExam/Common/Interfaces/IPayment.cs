@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    public interface IPayment
+    public interface IPayment : IAccountability
     {
-        string Name { get; set; }
-        IReadOnlyCollection<int> Invoice { get; }
+        DateTime DueDate { get; set; }
+        decimal DueAmount { get; set; }
+        DateTime PaidDate { get; set; }
+        decimal PaidAmount { get; set; }
+        IReadOnlyList<string> Attachments { get; }
+        bool Paid { get; set; }
+        bool Archived { get; set; }
 
-        void Addinvoice(int invoice);
-
+        void AddAttachment(string attachment);
     }
 }

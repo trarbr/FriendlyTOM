@@ -9,6 +9,6 @@ namespace DataAccess.Helpers
 {
     internal static class StoredProcedures
     {
-        internal const string ReadAllPayments = "ReadAllPayments";
+        internal const string READ_ALL_PAYMENTS = "ReadAllPayments";
     }
 }

@@ -5,28 +5,40 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Interfaces;
 
-
 namespace DataAccess.Entities
 {
-    internal class PaymentEntity : Entity, IPayment
+    internal class PaymentEntity : AAccountabilityEntity, IPayment
     {
-        public PaymentEntity(string paymentName, int id, DateTime lastModified, bool deleted) : base(id, lastModified, deleted)
+        public DateTime DueDate { get; set; }
+        public decimal DueAmount { get; set; }
+        public DateTime PaidDate { get; set; }
+        public decimal PaidAmount { get; set; }
+        public bool Paid { get; set; }
+        public bool Archived { get; set; }
+        public IReadOnlyList<string> Attachments
         {
-            Name = paymentName;
-            _invoice = new List<int>();
+            get { return _attachments; }
         }
 
-        public string Name { get; set; }
-        public IReadOnlyCollection<int> Invoice
+        public PaymentEntity(DateTime dueDate, decimal dueAmount, string responsible, 
+            string commissioner) 
+            : base(responsible, commissioner)
         {
-            get { return _invoice; }
+            _attachments = new List<string>();
+
+            DueDate = dueDate;
+            DueAmount = dueAmount;
+            PaidDate = DateTime.MinValue;
+            PaidAmount = 0m;
+            Paid = false;
+            Archived = false;
         }
 
-        public void Addinvoice(int invoice)
+        public void AddAttachment(string attachment)
         {
-            _invoice.Add(invoice);
+            _attachments.Add(attachment);
         }
 
-        private List<int> _invoice;
+        private List<string> _attachments;
     }
 }
