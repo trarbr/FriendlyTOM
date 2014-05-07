@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Common.Interfaces;
 using DataAccess;
 using Domain.Collections;
+using Domain.Model;
 
 namespace Domain.Controller
 {

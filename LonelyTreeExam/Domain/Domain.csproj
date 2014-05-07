@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="Collections\PaymentsCollection.cs" />
     <Compile Include="Controller\paymentController.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
