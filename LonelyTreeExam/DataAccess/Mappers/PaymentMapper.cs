@@ -17,20 +17,20 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentEntity>();
         }
 
-        /*protected override string insertProcedureName
+        protected override string insertProcedureName
         {
-            get { return StoredProcedures.; }
-        }*/
+            get {throw new Exception();}
+        }
 
         protected override string selectAllProcedureName
         {
             get { return StoredProcedures.ReadAllPayments; }
         }
 
-        /*protected override string updateProcedureName
+        protected override string updateProcedureName
         {
-            //get { return StoredProcedures.; }
-        }*/
+            get { throw new Exception(); }
+        }
 
         protected override PaymentEntity entityFromReader(SqlDataReader reader)
         {
