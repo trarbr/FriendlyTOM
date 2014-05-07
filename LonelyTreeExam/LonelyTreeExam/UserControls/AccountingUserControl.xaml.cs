@@ -20,19 +20,31 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class AccountingUserControl : UserControl
     {
-        DetailsUserControl detailsWin;
-        BitmapImage collapsePlusImage;
-        BitmapImage collapseMinImage;
-
         public AccountingUserControl()
         {
             InitializeComponent();
-            currentPaymentsUserControl.Content = new CurrentPaymentsUserControl();
-            archiveUserControl.Content = new ArchiveUserControl();
-            detailsWin = new DetailsUserControl();
+            initializeDataGrids();
+            detailedView = new DetailsUserControl();        
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             collapseDetailedView();
+        }
+
+        private DetailsUserControl detailedView;
+        private BitmapImage collapsePlusImage;
+        private BitmapImage collapseMinImage;
+
+        private void initializeDataGrids()
+        {
+            DataGridUserControl currentPayments = new DataGridUserControl("Archive",
+                new BitmapImage(new Uri("/Images/book_add2.png", UriKind.Relative)),
+                "Move selected payment to archive");
+            DataGridUserControl archivedPayments = new DataGridUserControl("Restore", 
+                new BitmapImage(new Uri("/Images/book_next2.png", UriKind.Relative)),
+                "Move selected payment to current payments");
+
+            currentPaymentsUserControl.Content = currentPayments;
+            archiveUserControl.Content = archivedPayments;
         }
 
         private void collapseDetailedView()
@@ -45,7 +57,7 @@ namespace LonelyTreeExam.UserControls
             }
             else
             {
-                detailsUserControl.Content = detailsWin;
+                detailsUserControl.Content = detailedView;
                 collapseImage.Source = collapseMinImage;
                 collapseButton.ToolTip = "Hide details";
             }
@@ -55,6 +67,5 @@ namespace LonelyTreeExam.UserControls
         {
             collapseDetailedView();
         }
-
     }
 }

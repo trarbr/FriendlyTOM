@@ -16,13 +16,16 @@ using System.Windows.Shapes;
 namespace LonelyTreeExam.UserControls
 {
     /// <summary>
-    /// Interaction logic for CurrentPaymentsUserControl.xaml
+    /// Interaction logic for DataGridUserControl.xaml
     /// </summary>
-    public partial class CurrentPaymentsUserControl : UserControl
+    public partial class DataGridUserControl : UserControl
     {
-        public CurrentPaymentsUserControl()
+        public DataGridUserControl(string submitButtonText, BitmapImage submitButtonImage, string submitButtonToolTip)
         {
             InitializeComponent();
+            this.submitButtonTextBlock.Text = submitButtonText;
+            this.submitButtonImage.Source = submitButtonImage;
+            this.submitButton.ToolTip = submitButtonToolTip;
         }
     }
 }
