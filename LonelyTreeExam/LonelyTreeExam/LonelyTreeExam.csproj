@@ -34,8 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -44,6 +51,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -53,6 +62,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\AccountingUserControl.xaml.cs">
+      <DependentUpon>AccountingUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ArchiveUserControl.xaml.cs">
+      <DependentUpon>ArchiveUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttachmentsUserControl.xaml.cs">
+      <DependentUpon>AttachmentsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DetailsUserControl.xaml.cs">
+      <DependentUpon>DetailsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CurrentPaymentsUserControl.xaml.cs">
+      <DependentUpon>CurrentPaymentsUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,6 +89,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\AccountingUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ArchiveUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AttachmentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DetailsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CurrentPaymentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -94,10 +138,46 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{dc8ef77f-9bfc-4d77-950d-ab7d6f2bcfdc}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{ea3f398c-5fb2-4d1b-9176-7b059c7123aa}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lonelytreelogo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\collapse-min.png" />
+    <Resource Include="Images\collapse-plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\basket.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book_key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_refresh_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book_next2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book_add2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
