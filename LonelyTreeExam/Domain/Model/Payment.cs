@@ -27,7 +27,8 @@ namespace Domain.Model
             set { _paymentEntity = value; }
         }
 
-        internal Payment(DateTime dueDate, Decimal amount, string responsible, string commisioner) :base (responsible, commisioner)
+        internal Payment(DateTime dueDate, Decimal amount, string responsible, string commisioner) 
+            :base (responsible, commisioner)
         {
             DueDate = dueDate;
             Amount = amount;
