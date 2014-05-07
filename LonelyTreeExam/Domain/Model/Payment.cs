@@ -87,15 +87,15 @@ namespace Domain.Model
 
         internal static List<Payment> ReadAll(DataAccessFacade dataAccessFacade)
         {
-            List<IPayment> paymentEntityList = dataAccessFacade.ReadAllPayments();
-            List<Payment> paymentList = new List<Payment>();
+            List<IPayment> paymentEntities = dataAccessFacade.ReadAllPayments();
+            List<Payment> payments = new List<Payment>();
 
-            foreach (IPayment paymentEntity in paymentEntityList)
+            foreach (IPayment paymentEntity in paymentEntities)
             {
                 Payment payment = new Payment(paymentEntity, dataAccessFacade);
-                paymentList.Add(payment);
+                payments.Add(payment);
             }
-            return paymentList;
+            return payments;
         }
 
         private IPayment _paymentEntity;
