@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    internal class Accountability
+    internal abstract class Accountability
     {
         #region public properties
         public string Status { get; set; }
@@ -15,5 +15,11 @@ namespace Domain.Model
         public string Commisioner { get; set; }
 
         #endregion
+
+        public Accountability(string responsible, string commisioner)
+        {
+            Responsible = responsible;
+            Commisioner = commisioner;
+        }
     }
 }
