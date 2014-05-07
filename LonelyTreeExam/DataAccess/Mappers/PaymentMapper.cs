@@ -26,9 +26,19 @@ namespace DataAccess.Mappers
             return payments;
         }
 
+        internal void InsertPayment(PaymentEntity payment)
+        {
+            insert(payment);
+        }
+
+        internal void UpdatePayment(PaymentEntity payment)
+        {
+            update(payment);
+        }
+
         protected override string insertProcedureName
         {
-            get {throw new Exception();}
+            get { return StoredProcedures.CREATE_PAYMENT; }
         }
 
         protected override string selectAllProcedureName
@@ -38,7 +48,7 @@ namespace DataAccess.Mappers
 
         protected override string updateProcedureName
         {
-            get { throw new Exception(); }
+            get { return StoredProcedures.UPDATE_PAYMENT; }
         }
 
         protected override PaymentEntity entityFromReader(SqlDataReader reader)
@@ -53,8 +63,7 @@ namespace DataAccess.Mappers
 
             string responsible = (string)reader["Responsible"];
             string commissioner = (string)reader["Commissioner"];
-            string status = (string)reader["status"];
-            string note = (string)reader["note"];
+            string note = (string)reader["Note"];
 
             int id = (int)reader["PaymentId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
@@ -83,15 +92,82 @@ namespace DataAccess.Mappers
         protected override void addInsertParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
-            //Not added yet
-            throw new NotImplementedException();
+            // Many parameters have 0 or empty strings as values,
+            // because the database does not allow null values.
+
+            SqlParameter parameter = new SqlParameter("@DueDate", entity.DueDate);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@DueAmount", entity.DueAmount);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Paid", 0);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaidDate", DateTime.MinValue);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaidAmount", 0);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Archived", 0);
+            parameters.Add(parameter);
+
+            parameter = new SqlParameter("@Responsible", entity.Responsible);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Commissioner", entity.Commissioner);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Note", entity.Note);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Attachments", "");
+            parameters.Add(parameter);
+
+            parameter = new SqlParameter("@Deleted", 0);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@LastModified", entity.LastModified);
+            parameter.Direction = System.Data.ParameterDirection.Output;
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaymentId", 1337);
+            parameter.Direction = System.Data.ParameterDirection.Output;
+            parameters.Add(parameter);
         }
 
         protected override void addUpdateParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
-            //Not added yet
-            throw new NotImplementedException();
+            SqlParameter parameter = new SqlParameter("@DueDate", entity.DueDate);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@DueAmount", entity.DueAmount);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Paid", entity.Paid);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaidDate", entity.PaidDate);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaidAmount", entity.PaidAmount);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Archived", entity.Archived);
+            parameters.Add(parameter);
+
+            parameter = new SqlParameter("@Responsible", entity.Responsible);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Commissioner", entity.Commissioner);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Note", entity.Note);
+            parameters.Add(parameter);
+
+            // Add all attachments in one string seperated by the character ;
+            string attachmentsString = "";
+            foreach (string attachment in entity.Attachments)
+            {
+                attachmentsString += attachment + ";";
+            }
+            parameter = new SqlParameter("@Attachments", attachmentsString);
+            parameters.Add(parameter);
+
+            parameter = new SqlParameter("@Deleted", entity.Deleted);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@LastModified", entity.LastModified);
+            parameter.Direction = System.Data.ParameterDirection.Output;
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaymentId", entity.Id);
+            parameter.Direction = System.Data.ParameterDirection.Output;
+            parameters.Add(parameter);
+
         }
 
     }
