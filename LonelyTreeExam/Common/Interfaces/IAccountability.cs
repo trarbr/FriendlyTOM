@@ -8,9 +8,9 @@ namespace Common.Interfaces
 {
     public interface IAccountability
     {
-        string Commisioner { get; set; }
-        string Responsible { get; set; }
-        string Note { get; set; }
         string Status { get; set; }
+        string Note { get; set; }
+        string Responsible { get; set; }
+        string Commissioner { get; set; }
     }
 }

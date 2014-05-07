@@ -17,6 +17,15 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentEntity>();
         }
 
+        internal List<PaymentEntity> ReadAll()
+        {
+            List<PaymentEntity> payments = selectAll();
+
+            // Finalize before returning!
+
+            return payments;
+        }
+
         protected override string insertProcedureName
         {
             get {throw new Exception();}
@@ -24,7 +33,7 @@ namespace DataAccess.Mappers
 
         protected override string selectAllProcedureName
         {
-            get { return StoredProcedures.ReadAllPayments; }
+            get { return StoredProcedures.READ_ALL_PAYMENTS; }
         }
 
         protected override string updateProcedureName
@@ -34,12 +43,42 @@ namespace DataAccess.Mappers
 
         protected override PaymentEntity entityFromReader(SqlDataReader reader)
         {
-            string paymentName = (string)reader["PaymentName"];
+            DateTime dueDate = (DateTime)reader["DueDate"];
+            decimal dueAmount = (decimal)reader["DueAmount"];
+            DateTime paidDate = (DateTime)reader["PaidDate"];
+            decimal paidAmount = (decimal)reader["PaidAmount"];
+            bool paid = (bool)reader["Paid"];
+            bool archived = (bool)reader["Archived"];
+            string attachments = (string)reader["Attachments"];
+
+            string responsible = (string)reader["Responsible"];
+            string commissioner = (string)reader["Commissioner"];
+            string status = (string)reader["status"];
+            string note = (string)reader["note"];
+
             int id = (int)reader["PaymentId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
-            return new PaymentEntity(paymentName, id, lastModified, deleted);
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
+                commissioner);
+            paymentEntity.PaidDate = paidDate;
+            paymentEntity.PaidAmount = paidAmount;
+            paymentEntity.Paid = paid;
+            paymentEntity.Archived = archived;
+            foreach (string attachment in attachments.Split(';'))
+            {
+                paymentEntity.AddAttachment(attachment);
+            }
+
+            paymentEntity.Status = status;
+            paymentEntity.Note = note;
+
+            paymentEntity.Id = id;
+            paymentEntity.LastModified = lastModified;
+            paymentEntity.Deleted = deleted;
+
+            return paymentEntity; 
         }
 
         protected override void addInsertParameters(PaymentEntity entity, SqlParameterCollection parameters)
@@ -54,13 +93,5 @@ namespace DataAccess.Mappers
             throw new NotImplementedException();
         }
 
-        internal List<PaymentEntity> ReadAll()
-        {
-            List<PaymentEntity> payments = selectAll();
-
-            // Finalize before returning!
-
-            return payments;
-        }
     }
 }
