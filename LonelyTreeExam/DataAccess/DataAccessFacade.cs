@@ -13,19 +13,12 @@ namespace DataAccess
 {
     public class DataAccessFacade
     {
-        string connectionString;
-        PaymentMapper paymentMapper;
-
-        #region OpenSQLConnection
-       public DataAccessFacade()
+        public DataAccessFacade()
         {
-            // TODO: Read from Text file
             connectionString = File.ReadAllText("C:\\ConnectString.txt");
             paymentMapper = new PaymentMapper(connectionString);
         }
-        #endregion
         
-        #region CRUD
         /// <summary>
         /// Should initiate a connection and a readall procedure from the database.
         /// </summary>
@@ -42,20 +35,7 @@ namespace DataAccess
             return payments;
         }
 
-        private static void Delete()
-        {
-            
-        }
-
-        private static void Insert()
-        {
-            
-        }
-
-        private static void Update()
-        {
-            
-        }
-        #endregion 
+        private string connectionString;
+        private PaymentMapper paymentMapper;
     }
 }
