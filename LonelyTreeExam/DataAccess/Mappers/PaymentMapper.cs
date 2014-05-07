@@ -71,7 +71,6 @@ namespace DataAccess.Mappers
                 paymentEntity.AddAttachment(attachment);
             }
 
-            paymentEntity.Status = status;
             paymentEntity.Note = note;
 
             paymentEntity.Id = id;
@@ -81,13 +80,15 @@ namespace DataAccess.Mappers
             return paymentEntity; 
         }
 
-        protected override void addInsertParameters(PaymentEntity entity, SqlParameterCollection parameters)
+        protected override void addInsertParameters(PaymentEntity entity, 
+            SqlParameterCollection parameters)
         {
             //Not added yet
             throw new NotImplementedException();
         }
 
-        protected override void addUpdateParameters(PaymentEntity entity, SqlParameterCollection parameters)
+        protected override void addUpdateParameters(PaymentEntity entity, 
+            SqlParameterCollection parameters)
         {
             //Not added yet
             throw new NotImplementedException();

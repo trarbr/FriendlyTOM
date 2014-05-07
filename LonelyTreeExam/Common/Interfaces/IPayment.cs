@@ -12,7 +12,7 @@ namespace Common.Interfaces
         decimal DueAmount { get; set; }
         DateTime PaidDate { get; set; }
         decimal PaidAmount { get; set; }
-        IReadOnlyCollection<string> Attachments { get; }
+        IReadOnlyList<string> Attachments { get; }
         bool Paid { get; set; }
         bool Archived { get; set; }
 

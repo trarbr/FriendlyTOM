@@ -15,7 +15,7 @@ namespace DataAccess.Entities
         public decimal PaidAmount { get; set; }
         public bool Paid { get; set; }
         public bool Archived { get; set; }
-        public IReadOnlyCollection<string> Attachments
+        public IReadOnlyList<string> Attachments
         {
             get { return _attachments; }
         }
