@@ -46,42 +46,6 @@ namespace Domain.Model
             get { return _paymentEntity.Attachments; }
         }
 
-        public override string Responsible
-        {
-            get
-            {
-                return _paymentEntity.Responsible;
-            }
-            set
-            {
-                _paymentEntity.Responsible = value;
-            }
-        }
-
-        public override string Commissioner
-        {
-            get
-            {
-                return _paymentEntity.Commissioner;
-            }
-            set
-            {
-                _paymentEntity.Commissioner = value;
-            }
-        }
-
-        public override string Note
-        {
-            get
-            {
-                return _paymentEntity.Note;
-            }
-            set
-            {
-                _paymentEntity.Note = value;
-            }
-        }
-
         public void AddAttachment(string path)
         {
             _paymentEntity.AddAttachment(path);
@@ -97,20 +61,17 @@ namespace Domain.Model
 
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
             string commissioner, IDataAccessFacade dataAccessFacade) 
-            :base (responsible, commissioner)
         {
             this.dataAccessFacade = dataAccessFacade;
 
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);
-
-            _paymentEntity.Commissioner = commissioner;
-            _paymentEntity.Responsible = responsible;
+            this._accountabilityEntity = _paymentEntity;
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
-            :base(paymentEntity.Responsible, paymentEntity.Commissioner)
         {
             _paymentEntity = paymentEntity;
+            this._accountabilityEntity = _paymentEntity;
             this.dataAccessFacade = dataAccessFacade;
         }
 
