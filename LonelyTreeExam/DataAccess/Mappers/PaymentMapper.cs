@@ -22,6 +22,15 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentEntity>();
         }
 
+        internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        {
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner);
+
+            insert(paymentEntity);
+
+            return paymentEntity;
+        }
+
         /// <summary>
         /// returns all thats read from the database
         /// </summary>
@@ -172,5 +181,6 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
         }
         #endregion
+
     }
 }
