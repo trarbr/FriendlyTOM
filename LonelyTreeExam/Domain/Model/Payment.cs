@@ -79,7 +79,7 @@ namespace Domain.Model
 
         internal void Update()
         {
-
+            dataAccessFacade.UpdatePayment(_paymentEntity);
         }
 
         internal void Delete()

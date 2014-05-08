@@ -47,7 +47,7 @@ namespace Domain.Collections
 
          public void Update(Payment payment)
          {
-             dataAccessFacade.UpdatePayment(payment);
+             payment.Update();
          }
         #endregion
 
