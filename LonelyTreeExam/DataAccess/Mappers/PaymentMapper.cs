@@ -163,12 +163,7 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
 
             // Add all attachments in one string seperated by the character ;
-            string attachmentsString = "";
-            foreach (string attachment in entity.Attachments)
-            {
-                attachmentsString += attachment + ";";
-            }
-            parameter = new SqlParameter("@Attachments", attachmentsString);
+            parameter = new SqlParameter("@Attachments", string.Join(";",entity.Attachments));
             parameters.Add(parameter);
         }
         #endregion
