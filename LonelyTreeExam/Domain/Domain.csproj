@@ -39,18 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\PaymentsCollection.cs" />
-    <Compile Include="Controller\paymentController.cs" />
+    <Compile Include="Collections\PaymentCollection.cs" />
+    <Compile Include="Controller\PaymentController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Compile Include="Model\Accountability.cs" />
     <Compile Include="Model\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{dc8ef77f-9bfc-4d77-950d-ab7d6f2bcfdc}</Project>

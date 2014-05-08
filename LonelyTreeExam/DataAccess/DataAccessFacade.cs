@@ -41,12 +41,12 @@ namespace DataAccess
             throw new NotImplementedException();
         }
       
-        public void UpdateArtist(IPayment payment)
+        public void UpdatePayment(IPayment payment)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteArtist(IPayment payment)
+        public void DeletePayment(IPayment payment)
         {
             throw new NotImplementedException();
         }

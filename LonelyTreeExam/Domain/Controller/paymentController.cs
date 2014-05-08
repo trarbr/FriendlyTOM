@@ -10,21 +10,21 @@ using Domain.Model;
 
 namespace Domain.Controller
 {
-    public class paymentController
+    public class PaymentController
     {
         #region Public Methods
-        public paymentController()
+        public PaymentController()
         {
             dataAccessFacade = new DataAccessFacade();
 
-            paymentsCollection = new PaymentsCollection(dataAccessFacade);
+            _paymentCollection = new PaymentCollection(dataAccessFacade);
 
         }
 
-        public List<IPayment> ReadAllArtists()
+        public List<IPayment> ReadAllPayments()
         {
             List<IPayment> payments = new List<IPayment>();
-            foreach (Payment payment in paymentsCollection.ReadAll())
+            foreach (Payment payment in _paymentCollection.ReadAll())
             {
                 payments.Add(payment);
             }
@@ -35,7 +35,7 @@ namespace Domain.Controller
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;
-        private PaymentsCollection paymentsCollection;
+        private PaymentCollection _paymentCollection;
         #endregion
     }
 }

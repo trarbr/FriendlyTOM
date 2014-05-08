@@ -11,8 +11,8 @@ namespace DataAccess
    {
         IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner);
         List<IPayment> ReadAllPayments();
-        void UpdateArtist(IPayment payment);
-        void DeleteArtist(IPayment payment);
+        void UpdatePayment(IPayment payment);
+        void DeletePayment(IPayment payment);
    }
 }
 

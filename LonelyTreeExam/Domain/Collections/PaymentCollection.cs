@@ -8,7 +8,7 @@ using Domain.Model;
 
 namespace Domain.Collections
 {
-    internal class PaymentsCollection
+    internal class PaymentCollection
     {
         #region Internal Methods
 
@@ -16,7 +16,7 @@ namespace Domain.Collections
         /// make a collection of information from readAll.
         /// </summary>
         /// <param name="dataAccessFacade"></param>
-        internal PaymentsCollection(IDataAccessFacade dataAccessFacade)
+        internal PaymentCollection(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
 
