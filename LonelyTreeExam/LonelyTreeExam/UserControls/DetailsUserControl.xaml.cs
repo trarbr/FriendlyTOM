@@ -53,6 +53,23 @@ namespace LonelyTreeExam.UserControls
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             IPayment payment = (IPayment)PaymentsUserControl.mainDataGrid.SelectedItem;
+
+            decimal dueAmount;
+            decimal.TryParse(dueAmountTextBox.Text, out dueAmount);
+
+            decimal paidAmount;
+            decimal.TryParse(paidAmountTextBox.Text, out paidAmount);
+
+            payment.DueDate = dueDateDataPicker.SelectedDate.Value;
+            payment.DueAmount = dueAmount;
+            payment.Responsible = responsibleTextBox.Text;
+            payment.Commissioner = commissionerTextBox.Text;
+            payment.PaidAmount = paidAmount;
+            payment.Paid = paidCheckBox.IsChecked.Value;
+            payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
+            payment.Note = noteTextBox.Text;
+
+            paymentController.UpdatePayment(payment);
         }
 
         private PaymentController paymentController;
