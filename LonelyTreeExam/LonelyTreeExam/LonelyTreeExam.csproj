@@ -65,17 +65,14 @@
     <Compile Include="UserControls\AccountingUserControl.xaml.cs">
       <DependentUpon>AccountingUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ArchiveUserControl.xaml.cs">
-      <DependentUpon>ArchiveUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\PaymentsUserControl.xaml.cs">
+      <DependentUpon>PaymentsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AttachmentsUserControl.xaml.cs">
       <DependentUpon>AttachmentsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\DetailsUserControl.xaml.cs">
       <DependentUpon>DetailsUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CurrentPaymentsUserControl.xaml.cs">
-      <DependentUpon>CurrentPaymentsUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -93,7 +90,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ArchiveUserControl.xaml">
+    <Page Include="UserControls\PaymentsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,10 +99,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DetailsUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\CurrentPaymentsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
