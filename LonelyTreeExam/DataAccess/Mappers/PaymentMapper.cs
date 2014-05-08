@@ -118,10 +118,10 @@ namespace DataAccess.Mappers
         }
 
         /// <summary>
-        /// 
+        /// Adds the required paymentParameters for Insert to parameters
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="parameters"></param>
+        /// <param name="insert"></param>
+        /// <param name="entity, parameters"></param>
         protected override void addInsertParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
@@ -129,16 +129,24 @@ namespace DataAccess.Mappers
         }
 
         /// <summary>
-        /// 
+        /// Adds the required paymentParameters for Update to parameters
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="parameters"></param>
+        /// <param name="update"></param>
+        /// <param name="entity, parameters"></param>
         protected override void addUpdateParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
             addPaymentParameters(entity, parameters);
         }
+        #endregion
 
+
+        #region Private Methods
+        /// <summary>
+        /// Adds the most common parameters shared in Insert and Update
+        /// </summary>
+        /// <param name="addPaymentParameters"></param>
+        /// <param name="entity, parameters"></param>
         private void addPaymentParameters(PaymentEntity entity,
             SqlParameterCollection parameters)
         {
@@ -154,19 +162,15 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Archived", entity.Archived);
             parameters.Add(parameter);
-
             parameter = new SqlParameter("@Responsible", entity.Responsible);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Commissioner", entity.Commissioner);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
-
-            // Add all attachments in one string seperated by the character ;
-            parameter = new SqlParameter("@Attachments", string.Join(";",entity.Attachments));
+            parameter = new SqlParameter("@Attachments", string.Join(";", entity.Attachments));
             parameters.Add(parameter);
         }
         #endregion
-
     }
 }
