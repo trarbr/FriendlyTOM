@@ -39,7 +39,7 @@ namespace Domain.Controller
 
         public void UpdatePayment(IPayment payment)
         {
-            throw new NotImplementedException();
+            paymentCollection.Update((Payment) payment);
         }
         #endregion
 

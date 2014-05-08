@@ -44,6 +44,11 @@ namespace Domain.Collections
 
             return payment;
         }
+
+         public void Update(Payment payment)
+         {
+             dataAccessFacade.UpdatePayment(payment);
+         }
         #endregion
 
         #region Private Properties

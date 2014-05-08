@@ -35,7 +35,7 @@ namespace DataAccess.Mappers
             return payments;
         }
 
-                internal void InsertPayment(PaymentEntity payment)
+        internal void InsertPayment(PaymentEntity payment)
         {
             insert(payment);
         }

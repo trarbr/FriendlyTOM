@@ -43,7 +43,7 @@ namespace DataAccess
       
         public void UpdatePayment(IPayment payment)
         {
-            throw new NotImplementedException();
+            paymentMapper.UpdatePayment((PaymentEntity) payment);
         }
 
         public void DeletePayment(IPayment payment)
