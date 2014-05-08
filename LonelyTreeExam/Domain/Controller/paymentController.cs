@@ -17,25 +17,35 @@ namespace Domain.Controller
         {
             dataAccessFacade = new DataAccessFacade();
 
-            _paymentCollection = new PaymentCollection(dataAccessFacade);
+            paymentCollection = new PaymentCollection(dataAccessFacade);
 
         }
 
         public List<IPayment> ReadAllPayments()
         {
             List<IPayment> payments = new List<IPayment>();
-            foreach (Payment payment in _paymentCollection.ReadAll())
+            foreach (Payment payment in paymentCollection.ReadAll())
             {
                 payments.Add(payment);
             }
 
             return payments;
         }
+
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        {
+            return paymentCollection.Create(dueDate, dueAmount, responsible, commissioner);
+        }
+
+        public void UpdatePayment(IPayment payment)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;
-        private PaymentCollection _paymentCollection;
+        private PaymentCollection paymentCollection;
         #endregion
     }
 }
