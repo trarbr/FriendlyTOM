@@ -47,7 +47,7 @@ namespace LonelyTreeExam.UserControls
             payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
             payment.Note = noteTextBox.Text;
             paymentController.UpdatePayment(payment);
-
+            PaymentsUserControl.mainDataGrid.Items.Refresh();
 
         }
 
@@ -71,6 +71,7 @@ namespace LonelyTreeExam.UserControls
             payment.Note = noteTextBox.Text;
 
             paymentController.UpdatePayment(payment);
+            PaymentsUserControl.mainDataGrid.Items.Refresh();
         }
 
         private PaymentController paymentController;
