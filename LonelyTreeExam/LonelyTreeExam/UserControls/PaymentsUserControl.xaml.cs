@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,17 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class PaymentsUserControl : UserControl
     {
-        public PaymentsUserControl(string submitButtonText, BitmapImage submitButtonImage, string submitButtonToolTip)
+
+        public PaymentsUserControl(string submitButtonText, BitmapImage submitButtonImage, 
+                                   string submitButtonToolTip, PaymentController controller)
         {
+            paymentController = controller;
             InitializeComponent();
             this.submitButtonTextBlock.Text = submitButtonText;
             this.submitButtonImage.Source = submitButtonImage;
             this.submitButton.ToolTip = submitButtonToolTip;
         }
+
+        private PaymentController paymentController;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,24 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class DetailsUserControl : UserControl
     {
-        public DetailsUserControl()
+        public DetailsUserControl(PaymentController controller)
         {
+            paymentController = controller;
             InitializeComponent();
             attachmentsUserControl.Content = new AttachmentsUserControl();
         }
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void updateButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private PaymentController paymentController;
+
     }
 }

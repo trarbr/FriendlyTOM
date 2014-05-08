@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,10 @@ namespace LonelyTreeExam.UserControls
     {
         public AccountingUserControl()
         {
+            paymentController = new PaymentController();
             InitializeComponent();
             initializeDataGrids();
-            detailedView = new DetailsUserControl();        
+            detailedView = new DetailsUserControl(paymentController);        
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             collapseDetailedView();
@@ -38,10 +40,10 @@ namespace LonelyTreeExam.UserControls
         {
             PaymentsUserControl currentPayments = new PaymentsUserControl("Archive",
                 new BitmapImage(new Uri("/Images/book_add2.png", UriKind.Relative)),
-                "Move selected payment to archive");
+                "Move selected payment to archive", paymentController);
             PaymentsUserControl archivedPayments = new PaymentsUserControl("Restore", 
                 new BitmapImage(new Uri("/Images/book_next2.png", UriKind.Relative)),
-                "Move selected payment to current payments");
+                "Move selected payment to current payments", paymentController);
 
             currentPaymentsUserControl.Content = currentPayments;
             archiveUserControl.Content = archivedPayments;
@@ -67,5 +69,8 @@ namespace LonelyTreeExam.UserControls
         {
             collapseDetailedView();
         }
+
+        private PaymentController paymentController;
+
     }
 }

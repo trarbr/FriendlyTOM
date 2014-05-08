@@ -16,8 +16,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="0">
-            <Label Content="Id:"/>
-            <Label Content="Name:"/>
+            <Label Content="Commisioner"/>
+            <Label Content="Responsible:"/>
             <Label Content="DueDate:"/>
             <Label Content="DueAmount:"/>
             <Label Content="Paid:"/>
@@ -25,30 +25,30 @@
             <Label Content="PaidDate:"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
-            <TextBox Height="26" TextWrapping="Wrap"/>
-            <TextBox Height="26" TextWrapping="Wrap"/>
-            <DatePicker Height="26"/>
-            <TextBox Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="commissionerTextBox" Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="responsibleTextBox" Height="26" TextWrapping="Wrap"/>
+            <DatePicker x:Name="dueDateDataPicker" Height="26"/>
+            <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
             <StackPanel Height="26" Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center"/>
+                <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center"/>
             </StackPanel>
-            <TextBox Height="26" TextWrapping="Wrap"/>
-            <DatePicker Height="26"/>
+            <TextBox x:Name="paidAmountTextBox" Height="26" TextWrapping="Wrap"/>
+            <DatePicker x:Name="paidDateDatePicker" Height="26"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>
-            <TextBox Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
             <Label Content="Attachments:"/>
             <UserControl x:Name="attachmentsUserControl" MinHeight="75"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button x:Name="addButton" Width="75" Margin="5,0,0,5" ToolTip="Add payment" >
+            <Button x:Name="addButton" Width="75" Margin="5,0,0,5" ToolTip="Add payment" Click="addButton_Click" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/add.png" Width="16"/>
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Add</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="updateButton" Width="75" Margin="10,0,0,5" ToolTip="Update payment">
+            <Button x:Name="updateButton" Width="75" Margin="10,0,0,5" ToolTip="Update payment" Click="updateButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/arrow_refresh_small.png" Width="16"/>
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Update</TextBlock>
