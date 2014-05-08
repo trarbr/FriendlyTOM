@@ -46,6 +46,42 @@ namespace Domain.Model
             get { return _paymentEntity.Attachments; }
         }
 
+        public override string Responsible
+        {
+            get
+            {
+                return _paymentEntity.Responsible;
+            }
+            set
+            {
+                _paymentEntity.Responsible = value;
+            }
+        }
+
+        public override string Commissioner
+        {
+            get
+            {
+                return _paymentEntity.Commissioner;
+            }
+            set
+            {
+                _paymentEntity.Commissioner = value;
+            }
+        }
+
+        public override string Note
+        {
+            get
+            {
+                return _paymentEntity.Note;
+            }
+            set
+            {
+                _paymentEntity.Note = value;
+            }
+        }
+
         public void AddAttachment(string path)
         {
             _paymentEntity.AddAttachment(path);
@@ -66,6 +102,9 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
 
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);
+
+            _paymentEntity.Commissioner = commissioner;
+            _paymentEntity.Responsible = responsible;
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
