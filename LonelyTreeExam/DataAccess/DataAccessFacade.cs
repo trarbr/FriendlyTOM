@@ -11,14 +11,15 @@ using DataAccess.Mappers;
 
 namespace DataAccess
 {
-    public class DataAccessFacade
+    public class DataAccessFacade : IDataAccessFacade
     {
         public DataAccessFacade()
         {
             connectionString = File.ReadAllText("C:\\ConnectString.txt");
             paymentMapper = new PaymentMapper(connectionString);
         }
-        
+
+        #region Public Methods
         /// <summary>
         /// Should initiate a connection and a readall procedure from the database.
         /// </summary>
@@ -35,7 +36,27 @@ namespace DataAccess
             return payments;
         }
 
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        {
+            throw new NotImplementedException();
+        }
+      
+        public void UpdatePayment(IPayment payment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePayment(IPayment payment)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Private Properties
         private string connectionString;
         private PaymentMapper paymentMapper;
+        #endregion
+
+      
     }
 }
