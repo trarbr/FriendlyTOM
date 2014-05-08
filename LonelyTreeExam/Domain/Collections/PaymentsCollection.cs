@@ -31,7 +31,7 @@ namespace Domain.Collections
         {
             if (payments == null)
             {
-                payments = Payment.ReadAll((DataAccessFacade) dataAccessFacade);
+                payments = Payment.ReadAll(dataAccessFacade);
             }
 
             return payments;
@@ -39,8 +39,8 @@ namespace Domain.Collections
         #endregion
 
         #region Private Properties
-         private IDataAccessFacade dataAccessFacade;
+        private IDataAccessFacade dataAccessFacade;
         private List<Payment> payments;
-#endregion
+        #endregion
     }
 }

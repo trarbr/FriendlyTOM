@@ -13,7 +13,6 @@ namespace DataAccess
 {
     public class DataAccessFacade : IDataAccessFacade
     {
-
         public DataAccessFacade()
         {
             connectionString = File.ReadAllText("C:\\ConnectString.txt");

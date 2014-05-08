@@ -59,7 +59,7 @@ namespace Domain.Model
         }
 
         internal Payment(DateTime dueDate, Decimal dueAmount, string responsible,
-            string commissioner, DataAccessFacade dataAccessFacade) 
+            string commissioner, IDataAccessFacade dataAccessFacade) 
             :base (responsible, commissioner)
         {
             DueDate = dueDate;
@@ -68,7 +68,7 @@ namespace Domain.Model
             //dataAccessFacade.CreatePayment();
         }
 
-        internal Payment(IPayment paymentEntity, DataAccessFacade dataAccessFacade) 
+        internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
             :base(paymentEntity.Responsible, paymentEntity.Commissioner)
         {
             _paymentEntity = paymentEntity;
@@ -85,7 +85,7 @@ namespace Domain.Model
 
         }
 
-        internal static List<Payment> ReadAll(DataAccessFacade dataAccessFacade)
+        internal static List<Payment> ReadAll(IDataAccessFacade dataAccessFacade)
         {
             List<IPayment> paymentEntities = dataAccessFacade.ReadAllPayments();
             List<Payment> payments = new List<Payment>();
@@ -99,6 +99,6 @@ namespace Domain.Model
         }
 
         private IPayment _paymentEntity;
-        private DataAccessFacade dataAccessFacade;
+        private IDataAccessFacade dataAccessFacade;
     }
 }
