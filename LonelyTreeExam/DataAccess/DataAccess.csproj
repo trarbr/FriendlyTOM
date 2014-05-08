@@ -44,6 +44,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\PaymentEntity.cs" />
     <Compile Include="Helpers\StoredProcedures.cs" />
+    <Compile Include="IDataAccessFacade.cs" />
     <Compile Include="Mappers\ASQLMapper.cs" />
     <Compile Include="Mappers\PaymentMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
