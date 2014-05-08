@@ -36,10 +36,10 @@ namespace LonelyTreeExam.UserControls
 
         private void initializeDataGrids()
         {
-            DataGridUserControl currentPayments = new DataGridUserControl("Archive",
+            PaymentsUserControl currentPayments = new PaymentsUserControl("Archive",
                 new BitmapImage(new Uri("/Images/book_add2.png", UriKind.Relative)),
                 "Move selected payment to archive");
-            DataGridUserControl archivedPayments = new DataGridUserControl("Restore", 
+            PaymentsUserControl archivedPayments = new PaymentsUserControl("Restore", 
                 new BitmapImage(new Uri("/Images/book_next2.png", UriKind.Relative)),
                 "Move selected payment to current payments");
 
