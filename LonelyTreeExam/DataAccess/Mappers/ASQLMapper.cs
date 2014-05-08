@@ -112,6 +112,17 @@ namespace DataAccess.Mappers
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = updateProcedureName;
+
+                    SqlParameter parameter = new SqlParameter("@Id", entity.Id);
+                    cmd.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@LastModified", entity.LastModified);
+                    parameter.Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@Deleted", entity.Deleted);
+                    cmd.Parameters.Add(parameter);
+
                     addUpdateParameters(entity, cmd.Parameters);
 
                     con.Open();

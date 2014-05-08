@@ -92,37 +92,16 @@ namespace DataAccess.Mappers
         protected override void addInsertParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
-            SqlParameter parameter = new SqlParameter("@DueDate", entity.DueDate);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@DueAmount", entity.DueAmount);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@Paid", 0);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@PaidDate", DateTime.MinValue);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@PaidAmount", 0);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@Archived", 0);
-            parameters.Add(parameter);
-
-            parameter = new SqlParameter("@Responsible", entity.Responsible);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@Commissioner", entity.Commissioner);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@Note", entity.Note);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@Attachments", "");
-            parameters.Add(parameter);
+            addPaymentParameters(entity, parameters);
         }
 
         protected override void addUpdateParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
-            
-
+            addPaymentParameters(entity, parameters);
         }
 
-        private void commonParameters(PaymentEntity entity,
+        private void addPaymentParameters(PaymentEntity entity,
             SqlParameterCollection parameters)
         {
             SqlParameter parameter = new SqlParameter("@DueDate", entity.DueDate);
@@ -152,15 +131,6 @@ namespace DataAccess.Mappers
                 attachmentsString += attachment + ";";
             }
             parameter = new SqlParameter("@Attachments", attachmentsString);
-            parameters.Add(parameter);
-
-            parameter = new SqlParameter("@Deleted", entity.Deleted);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@LastModified", entity.LastModified);
-            parameter.Direction = System.Data.ParameterDirection.Output;
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@PaymentId", entity.Id);
-            parameter.Direction = System.Data.ParameterDirection.Output;
             parameters.Add(parameter);
         }
 
