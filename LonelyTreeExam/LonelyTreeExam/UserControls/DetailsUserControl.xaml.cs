@@ -46,6 +46,7 @@ namespace LonelyTreeExam.UserControls
             payment.Paid = paidCheckBox.IsChecked.Value;
             payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
             payment.Note = noteTextBox.Text;
+            paymentController.UpdatePayment(payment);
 
 
         }

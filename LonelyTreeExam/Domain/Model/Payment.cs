@@ -63,8 +63,6 @@ namespace Domain.Model
             string commissioner, IDataAccessFacade dataAccessFacade) 
             :base (responsible, commissioner)
         {
-            DueDate = dueDate;
-            DueAmount = dueAmount;
             this.dataAccessFacade = dataAccessFacade;
 
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);

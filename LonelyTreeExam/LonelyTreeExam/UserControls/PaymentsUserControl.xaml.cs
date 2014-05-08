@@ -31,6 +31,7 @@ namespace LonelyTreeExam.UserControls
             this.submitButtonTextBlock.Text = submitButtonText;
             this.submitButtonImage.Source = submitButtonImage;
             this.submitButton.ToolTip = submitButtonToolTip;
+            mainDataGrid.ItemsSource = paymentController.ReadAllPayments();
         }
 
         private PaymentController paymentController;
