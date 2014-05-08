@@ -24,9 +24,10 @@ namespace LonelyTreeExam.UserControls
         public DetailsUserControl DetailsUserControl { get; set; }
 
         public PaymentsUserControl(string submitButtonText, BitmapImage submitButtonImage, 
-                                   string submitButtonToolTip, PaymentController controller)
+                                   string submitButtonToolTip, PaymentController controller, DetailsUserControl details)
         {
             paymentController = controller;
+            DetailsUserControl = details;
             InitializeComponent();
             this.submitButtonTextBlock.Text = submitButtonText;
             this.submitButtonImage.Source = submitButtonImage;

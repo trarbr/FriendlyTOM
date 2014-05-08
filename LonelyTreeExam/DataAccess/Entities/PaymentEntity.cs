@@ -28,7 +28,7 @@ namespace DataAccess.Entities
 
             DueDate = dueDate;
             DueAmount = dueAmount;
-            PaidDate = DateTime.MinValue;
+            PaidDate = new DateTime(1900,01,01);
             PaidAmount = 0m;
             Paid = false;
             Archived = false;

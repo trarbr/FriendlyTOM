@@ -24,7 +24,7 @@ namespace LonelyTreeExam.UserControls
         public AccountingUserControl()
         {
             paymentController = new PaymentController();
-            detailedView = new DetailsUserControl(paymentController);
+            details = new DetailsUserControl(paymentController);
             InitializeComponent();
             initializeDataGrids();
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
@@ -37,7 +37,7 @@ namespace LonelyTreeExam.UserControls
             archiveUserControl.Content = archivedPayments;
         }
 
-        private DetailsUserControl detailedView;
+        private DetailsUserControl details;
         private PaymentsUserControl currentPayments;
         private PaymentsUserControl archivedPayments;
         private BitmapImage collapsePlusImage;
@@ -47,10 +47,10 @@ namespace LonelyTreeExam.UserControls
         {
             currentPayments = new PaymentsUserControl("Archive",
                 new BitmapImage(new Uri("/Images/book_add2.png", UriKind.Relative)),
-                "Move selected payment to archive", paymentController);
+                "Move selected payment to archive", paymentController, details);
             archivedPayments = new PaymentsUserControl("Restore", 
                 new BitmapImage(new Uri("/Images/book_next2.png", UriKind.Relative)),
-                "Move selected payment to current payments", paymentController);
+                "Move selected payment to current payments", paymentController, details);
 
             currentPaymentsUserControl.Content = currentPayments;
             archiveUserControl.Content = archivedPayments;
@@ -66,7 +66,7 @@ namespace LonelyTreeExam.UserControls
             }
             else
             {
-                detailsUserControl.Content = detailedView;
+                detailsUserControl.Content = details;
                 collapseImage.Source = collapseMinImage;
                 collapseButton.ToolTip = "Hide details";
             }
