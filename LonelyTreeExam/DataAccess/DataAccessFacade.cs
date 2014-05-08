@@ -38,12 +38,12 @@ namespace DataAccess
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
         {
-            throw new NotImplementedException();
+            return new PaymentEntity(dueDate,dueAmount, responsible, commissioner);
         }
       
         public void UpdatePayment(IPayment payment)
         {
-            throw new NotImplementedException();
+            paymentMapper.UpdatePayment((PaymentEntity) payment);
         }
 
         public void DeletePayment(IPayment payment)

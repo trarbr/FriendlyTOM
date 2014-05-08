@@ -36,6 +36,19 @@ namespace Domain.Collections
 
             return payments;
         }
+
+         internal Payment Create(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        {
+            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, dataAccessFacade);
+            payments.Add(payment);
+
+            return payment;
+        }
+
+         public void Update(Payment payment)
+         {
+             payment.Update();
+         }
         #endregion
 
         #region Private Properties

@@ -34,16 +34,28 @@ namespace DataAccess.Mappers
 
             return payments;
         }
+
+        internal void InsertPayment(PaymentEntity payment)
+        {
+            insert(payment);
+        }
+
+        internal void UpdatePayment(PaymentEntity payment)
+        {
+            update(payment);
+        }
         #endregion
+
 
         #region Protected Methods
 
         /// <summary>
         /// Gets the insert stored procedure for adding payment to the database
         /// </summary>
+
         protected override string insertProcedureName
         {
-            get {throw new Exception();}
+            get { return StoredProcedures.CREATE_PAYMENT; }
         }
 
         /// <summary>
@@ -58,7 +70,7 @@ namespace DataAccess.Mappers
         /// </summary>
         protected override string updateProcedureName
         {
-            get { throw new Exception(); }
+            get { return StoredProcedures.UPDATE_PAYMENT; }
         }
 
         /// <summary>
@@ -79,8 +91,7 @@ namespace DataAccess.Mappers
 
             string responsible = (string)reader["Responsible"];
             string commissioner = (string)reader["Commissioner"];
-            string status = (string)reader["status"];
-            string note = (string)reader["note"];
+            string note = (string)reader["Note"];
 
             int id = (int)reader["PaymentId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
@@ -107,29 +118,59 @@ namespace DataAccess.Mappers
         }
 
         /// <summary>
-        /// 
+        /// Adds the required paymentParameters for Insert to parameters
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="parameters"></param>
+        /// <param name="insert"></param>
+        /// <param name="entity, parameters"></param>
         protected override void addInsertParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
-            //Not added yet
-            throw new NotImplementedException();
+            addPaymentParameters(entity, parameters);
         }
 
         /// <summary>
-        /// 
+        /// Adds the required paymentParameters for Update to parameters
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="parameters"></param>
+        /// <param name="update"></param>
+        /// <param name="entity, parameters"></param>
         protected override void addUpdateParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
-            //Not added yet
-            throw new NotImplementedException();
+            addPaymentParameters(entity, parameters);
         }
         #endregion
 
+
+        #region Private Methods
+        /// <summary>
+        /// Adds the most common parameters shared in Insert and Update
+        /// </summary>
+        /// <param name="addPaymentParameters"></param>
+        /// <param name="entity, parameters"></param>
+        private void addPaymentParameters(PaymentEntity entity,
+            SqlParameterCollection parameters)
+        {
+            SqlParameter parameter = new SqlParameter("@DueDate", entity.DueDate);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@DueAmount", entity.DueAmount);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Paid", entity.Paid);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaidDate", entity.PaidDate);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PaidAmount", entity.PaidAmount);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Archived", entity.Archived);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Responsible", entity.Responsible);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Commissioner", entity.Commissioner);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Note", entity.Note);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Attachments", string.Join(";", entity.Attachments));
+            parameters.Add(parameter);
+        }
+        #endregion
     }
 }

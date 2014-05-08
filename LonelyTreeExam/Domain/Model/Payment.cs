@@ -52,11 +52,12 @@ namespace Domain.Model
         }
         #endregion
 
-        internal IPayment paymentEntity
-        {
-            get { return _paymentEntity; }
-            set { _paymentEntity = value; }
-        }
+        //skal måske bruges i sprint 2!!
+        //internal IPayment paymentEntity
+        //{
+        //    get { return _paymentEntity; }
+        //    set { _paymentEntity = value; }
+        //}
 
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
             string commissioner, IDataAccessFacade dataAccessFacade) 
@@ -65,7 +66,8 @@ namespace Domain.Model
             DueDate = dueDate;
             DueAmount = dueAmount;
             this.dataAccessFacade = dataAccessFacade;
-            //dataAccessFacade.CreatePayment();
+
+            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
@@ -77,7 +79,7 @@ namespace Domain.Model
 
         internal void Update()
         {
-
+            dataAccessFacade.UpdatePayment(_paymentEntity);
         }
 
         internal void Delete()
