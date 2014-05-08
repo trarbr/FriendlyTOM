@@ -92,9 +92,6 @@ namespace DataAccess.Mappers
         protected override void addInsertParameters(PaymentEntity entity, 
             SqlParameterCollection parameters)
         {
-            // Many parameters have 0 or empty strings as values,
-            // because the database does not allow null values.
-
             SqlParameter parameter = new SqlParameter("@DueDate", entity.DueDate);
             parameters.Add(parameter);
             parameter = new SqlParameter("@DueAmount", entity.DueAmount);
@@ -116,18 +113,16 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Attachments", "");
             parameters.Add(parameter);
-
-            parameter = new SqlParameter("@Deleted", 0);
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@LastModified", entity.LastModified);
-            parameter.Direction = System.Data.ParameterDirection.Output;
-            parameters.Add(parameter);
-            parameter = new SqlParameter("@PaymentId", 1337);
-            parameter.Direction = System.Data.ParameterDirection.Output;
-            parameters.Add(parameter);
         }
 
         protected override void addUpdateParameters(PaymentEntity entity, 
+            SqlParameterCollection parameters)
+        {
+            
+
+        }
+
+        private void commonParameters(PaymentEntity entity,
             SqlParameterCollection parameters)
         {
             SqlParameter parameter = new SqlParameter("@DueDate", entity.DueDate);
@@ -167,7 +162,6 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@PaymentId", entity.Id);
             parameter.Direction = System.Data.ParameterDirection.Output;
             parameters.Add(parameter);
-
         }
 
     }

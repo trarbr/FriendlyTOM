@@ -77,12 +77,24 @@ namespace DataAccess.Mappers
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = insertProcedureName;
+
+                    SqlParameter parameter = new SqlParameter("@Id", entity.Id);
+                    parameter.Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@LastModified", entity.LastModified);
+                    parameter.Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@Deleted", entity.Deleted);
+                    cmd.Parameters.Add(parameter);
+
                     addInsertParameters(entity, cmd.Parameters);
 
                     con.Open();
                     cmd.ExecuteNonQuery();
 
-                    entity.Id = (int)cmd.Parameters["@Id"].Value; // Findes ikke i Payment tabellen! Omdøb PaymentId?
+                    entity.Id = (int)cmd.Parameters["@Id"].Value;
                     entity.LastModified = (DateTime)cmd.Parameters["@LastModified"].Value;
 
                     entityMap.Add(entity.Id, entity);
