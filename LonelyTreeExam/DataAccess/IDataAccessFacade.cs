@@ -9,7 +9,7 @@ namespace DataAccess
 {
    public interface IDataAccessFacade
    {
-        IPayment CreatePayment(string paymentName);
+        IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner);
         List<IPayment> ReadAllPayments();
         void UpdateArtist(IPayment payment);
         void DeleteArtist(IPayment payment);

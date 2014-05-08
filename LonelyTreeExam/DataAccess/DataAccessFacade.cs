@@ -36,13 +36,11 @@ namespace DataAccess
             return payments;
         }
 
-      
-
-        public IPayment CreatePayment(string paymentName)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
         {
             throw new NotImplementedException();
         }
-
+      
         public void UpdateArtist(IPayment payment)
         {
             throw new NotImplementedException();
@@ -58,5 +56,7 @@ namespace DataAccess
         private string connectionString;
         private PaymentMapper paymentMapper;
         #endregion
+
+      
     }
 }
