@@ -21,6 +21,7 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class PaymentsUserControl : UserControl
     {
+        public DetailsUserControl DetailsUserControl { get; set; }
 
         public PaymentsUserControl(string submitButtonText, BitmapImage submitButtonImage, 
                                    string submitButtonToolTip, PaymentController controller)
@@ -33,5 +34,10 @@ namespace LonelyTreeExam.UserControls
         }
 
         private PaymentController paymentController;
+
+        private void mainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DetailsUserControl.PaymentsUserControl = this;
+        }
     }
 }

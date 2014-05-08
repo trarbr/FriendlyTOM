@@ -1,4 +1,5 @@
-﻿using Domain.Controller;
+﻿using Common.Interfaces;
+using Domain.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class DetailsUserControl : UserControl
     {
+        public PaymentsUserControl PaymentsUserControl { get; set; }
+
         public DetailsUserControl(PaymentController controller)
         {
             paymentController = controller;
@@ -30,15 +33,28 @@ namespace LonelyTreeExam.UserControls
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            decimal dueAmount;
+            decimal.TryParse(dueAmountTextBox.Text, out dueAmount);
+
+            IPayment payment = paymentController.CreatePayment(dueDateDataPicker.SelectedDate.Value, dueAmount,
+                                                               responsibleTextBox.Text, commissionerTextBox.Text);
+
+            decimal paidAmount;
+            decimal.TryParse(paidAmountTextBox.Text, out paidAmount);
+
+            payment.PaidAmount = paidAmount;
+            payment.Paid = paidCheckBox.IsChecked.Value;
+            payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
+            payment.Note = noteTextBox.Text;
+
+
         }
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            IPayment payment = (IPayment)PaymentsUserControl.mainDataGrid.SelectedItem;
         }
 
         private PaymentController paymentController;
-
     }
 }

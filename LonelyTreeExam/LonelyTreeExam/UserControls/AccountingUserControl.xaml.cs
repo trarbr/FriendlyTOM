@@ -24,24 +24,31 @@ namespace LonelyTreeExam.UserControls
         public AccountingUserControl()
         {
             paymentController = new PaymentController();
+            detailedView = new DetailsUserControl(paymentController);
             InitializeComponent();
             initializeDataGrids();
-            detailedView = new DetailsUserControl(paymentController);        
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             collapseDetailedView();
+
+
+
+            currentPaymentsUserControl.Content = currentPayments;
+            archiveUserControl.Content = archivedPayments;
         }
 
         private DetailsUserControl detailedView;
+        private PaymentsUserControl currentPayments;
+        private PaymentsUserControl archivedPayments;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
 
         private void initializeDataGrids()
         {
-            PaymentsUserControl currentPayments = new PaymentsUserControl("Archive",
+            currentPayments = new PaymentsUserControl("Archive",
                 new BitmapImage(new Uri("/Images/book_add2.png", UriKind.Relative)),
                 "Move selected payment to archive", paymentController);
-            PaymentsUserControl archivedPayments = new PaymentsUserControl("Restore", 
+            archivedPayments = new PaymentsUserControl("Restore", 
                 new BitmapImage(new Uri("/Images/book_next2.png", UriKind.Relative)),
                 "Move selected payment to current payments", paymentController);
 
