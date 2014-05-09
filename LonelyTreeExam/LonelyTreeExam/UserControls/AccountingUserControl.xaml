@@ -11,7 +11,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TabControl x:Name="mainTabNavigation" HorizontalContentAlignment="Left" Grid.Row="0">
+        <TabControl x:Name="mainTabNavigation" HorizontalContentAlignment="Left" Grid.Row="0"
+                    SelectionChanged="mainTabNavigation_SelectionChanged">
             <TabItem Height="28">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">

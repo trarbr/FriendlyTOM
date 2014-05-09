@@ -21,6 +21,7 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class AccountingUserControl : UserControl
     {
+        int old_tab_selection;
         public AccountingUserControl()
         {
             paymentController = new PaymentController();
@@ -31,6 +32,8 @@ namespace LonelyTreeExam.UserControls
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             collapseDetailedView();
 
+
+            old_tab_selection = 0;
 
 
             currentPaymentsUserControl.Content = currentPayments;
@@ -76,6 +79,17 @@ namespace LonelyTreeExam.UserControls
         private void collapseButton_Click(object sender, RoutedEventArgs e)
         {
             collapseDetailedView();
+        }
+
+        private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (mainTabNavigation.SelectedIndex != old_tab_selection)
+            {
+                archivedPayments.refreshDataGrid();
+                currentPayments.refreshDataGrid();
+
+                old_tab_selection = mainTabNavigation.SelectedIndex;
+            }
         }
 
     }
