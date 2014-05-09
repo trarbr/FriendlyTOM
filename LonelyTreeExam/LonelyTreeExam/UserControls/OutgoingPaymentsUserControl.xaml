@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="LonelyTreeExam.UserControls.CurrentPaymentUserControl"
+﻿<UserControl x:Class="LonelyTreeExam.UserControls.OutgoingPaymentsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -12,9 +12,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <!--<ContentControl Grid.Row="0" x:Name="currentPaymentsDataGrid" Content="{StaticResource PaymentDataGrid}"/>-->
-        <DataGrid x:Name="paymentDataGrid" Grid.Row="0" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" >
-
+        <DataGrid x:Name="paymentsDataGrid" Grid.Row="0" SelectionChanged="paymentsDataGrid_SelectionChanged" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" >
+            <DataGrid.Columns>
+                <StaticResource ResourceKey="Commissioner"/>
+                <StaticResource ResourceKey="DueDate"/>
+                <StaticResource ResourceKey="DueAmount"/>
+                <StaticResource ResourceKey="Paid"/>
+                <StaticResource ResourceKey="PaidDate"/>
+                <StaticResource ResourceKey="PaidAmount"/>
+            </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,0">
             <Button x:Name="newButton" Width="75" Margin="5,0,0,5" ToolTip="Add payment" Click="newButton_Click" >
@@ -23,13 +29,13 @@
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">New</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="submitButton" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="archiveButton" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" Click="archiveButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/book_add2.png" Width="16" />
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Archive</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Delete selected payment">
+            <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Delete selected payment" Click="deleteButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/delete.png" Width="16" />
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
@@ -51,5 +57,6 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+            
     </Grid>
 </UserControl>

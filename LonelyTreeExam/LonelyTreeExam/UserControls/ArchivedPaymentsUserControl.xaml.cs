@@ -22,7 +22,8 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class ArchivedPaymentsUserControl : UserControl
     {
-        PaymentController paymentController;
+        private PaymentController paymentController;
+        private IPayment selectedPayment;
 
         public ArchivedPaymentsUserControl(PaymentController paymentController)
         {
@@ -30,13 +31,13 @@ namespace LonelyTreeExam.UserControls
 
             this.paymentController = paymentController;
 
-            detailsUserControl.Content = new DetailsUserControl(paymentController);
-
-            Refresh();
+            RefreshPaymentDataGrid();
         }
 
-        public void Refresh()
+        internal void RefreshPaymentDataGrid()
         {
+            paymentsDataGrid.ItemsSource = null;
+
             List<IPayment> payments = paymentController.ReadAllPayments();
 
             List<IPayment> archivedPayments = new List<IPayment>();
@@ -48,7 +49,32 @@ namespace LonelyTreeExam.UserControls
                 }
             }
 
-            archivedPaymentsDataGrid.DataContext = archivedPayments;
+            paymentsDataGrid.ItemsSource = archivedPayments;
+        }
+
+        private void restoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedPayment != null)
+            {
+                selectedPayment.Archived = false;
+                paymentsDataGrid.SelectedItem = null;
+                RefreshPaymentDataGrid();
+            }
+        }
+
+        private void paymentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedPayment = (IPayment)paymentsDataGrid.SelectedItem;
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedPayment != null)
+            {
+                paymentController.DeletePayment(selectedPayment);
+                paymentsDataGrid.SelectedItem = null;
+                RefreshPaymentDataGrid();
+            }
         }
     }
 }

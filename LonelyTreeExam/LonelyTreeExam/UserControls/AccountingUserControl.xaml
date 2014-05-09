@@ -17,10 +17,19 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/book_open.png" Height="16"/>
-                        <Label Content="Current" />
+                        <Label Content="Incoming" />
                     </StackPanel>
                 </TabItem.Header>
-                <UserControl x:Name="currentPaymentsUserControl"/>
+                <UserControl x:Name="incomingPaymentsUserControl"/>
+            </TabItem>
+            <TabItem Height="28">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/book_open.png" Height="16"/>
+                        <Label Content="Outgoing" />
+                    </StackPanel>
+                </TabItem.Header>
+                <UserControl x:Name="outgoingPaymentsUserControl"/>
             </TabItem>
             <TabItem Height="28">
                 <TabItem.Header>

@@ -24,17 +24,14 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class DetailsUserControl : UserControl
     {
-        public PaymentsUserControl PaymentsUserControl { get; set; }
-
         public DetailsUserControl(PaymentController controller)
         {
             InitializeComponent();
             paymentController = controller;
-            //attachmentsUserControl.Content = new AttachmentsUserControl();
             culture = new CultureInfo("en-US");
         }
 
-        public void SetValuesInTextBoxes(IPayment payment)
+        internal void SetValuesInTextBoxes(IPayment payment)
         {
             if (payment != null)
             {
@@ -47,12 +44,20 @@ namespace LonelyTreeExam.UserControls
                 paidCheckBox.IsChecked = payment.Paid;
                 noteTextBox.Text = payment.Note;
             }
+            else
+            {
+                dueDateDataPicker.SelectedDate = null;
+                dueAmountTextBox.Text = "";
+                responsibleTextBox.Text = "";
+                commissionerTextBox.Text = "";
+                paidDateDatePicker.SelectedDate = null;
+                paidAmountTextBox.Text = "";
+                paidCheckBox.IsChecked = false;
+                noteTextBox.Text = "";
+            }
         }
 
-        private PaymentController paymentController;
-        private CultureInfo culture;
-
-        private void addButton_Click(object sender, RoutedEventArgs e)
+        internal void CreatePayment()
         {
             decimal dueAmount;
             decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
@@ -68,15 +73,11 @@ namespace LonelyTreeExam.UserControls
             payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
             payment.Note = noteTextBox.Text;
             paymentController.UpdatePayment(payment);
-
-            PaymentsUserControl.refreshDataGrid();
-
         }
 
-        private void updateButton_Click(object sender, RoutedEventArgs e)
+        internal void UpdatePayment(IPayment selectedPayment)
         {
-            IPayment payment = null; // (IPayment)PaymentsUserControl.mainDataGrid.SelectedItem;
-
+            IPayment payment = selectedPayment;
             if (payment != null)
             {
                 decimal dueAmount;
@@ -95,22 +96,12 @@ namespace LonelyTreeExam.UserControls
                 payment.Note = noteTextBox.Text;
 
                 paymentController.UpdatePayment(payment);
-
-                PaymentsUserControl.refreshDataGrid();
             }
         }
 
-        private void clearButton_Click(object sender, RoutedEventArgs e)
-        {
-            dueDateDataPicker.SelectedDate = null;
-            dueAmountTextBox.Text = "";
-            responsibleTextBox.Text = "";
-            commissionerTextBox.Text = "";
-            paidDateDatePicker.SelectedDate = null;
-            paidAmountTextBox.Text = "";
-            paidCheckBox.IsChecked = false;
-            noteTextBox.Text = "";
-        }
+        private PaymentController paymentController;
+        private CultureInfo culture;
+
         private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofg = new OpenFileDialog();

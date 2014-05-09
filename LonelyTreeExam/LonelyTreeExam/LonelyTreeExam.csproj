@@ -68,14 +68,14 @@
     <Compile Include="UserControls\ArchivedPaymentsUserControl.xaml.cs">
       <DependentUpon>ArchivedPaymentsUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CurrentPaymentUserControl.xaml.cs">
-      <DependentUpon>CurrentPaymentUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PaymentsUserControl.xaml.cs">
-      <DependentUpon>PaymentsUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\IncomingPaymentsUserControl.xaml.cs">
+      <DependentUpon>IncomingPaymentsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\DetailsUserControl.xaml.cs">
       <DependentUpon>DetailsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OutgoingPaymentsUserControl.xaml.cs">
+      <DependentUpon>OutgoingPaymentsUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -97,15 +97,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CurrentPaymentUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\PaymentsUserControl.xaml">
+    <Page Include="UserControls\IncomingPaymentsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DetailsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OutgoingPaymentsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

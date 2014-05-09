@@ -21,22 +21,33 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class AccountingUserControl : UserControl
     {
+        int current_tab_index;
+
         public AccountingUserControl()
         {
             InitializeComponent();
             paymentController = new PaymentController();
 
+            incomingPaymentsControl = new IncomingPaymentsUserControl(paymentController);
+            archivedPaymentsControl = new ArchivedPaymentsUserControl(paymentController);
+            outgoingPaymentsControl = new OutgoingPaymentsUserControl(paymentController);
 
-            currentPaymentsUserControl.Content = new CurrentPaymentUserControl(paymentController);
-            archiveUserControl.Content = new ArchivedPaymentsUserControl(paymentController);
+            incomingPaymentsUserControl.Content = incomingPaymentsControl;
+            outgoingPaymentsUserControl.Content = outgoingPaymentsControl;
+            archiveUserControl.Content = archivedPaymentsControl;
+
+            current_tab_index = mainTabNavigation.SelectedIndex;
+
+
         }
 
-        private DetailsUserControl details;
-        private PaymentsUserControl currentPayments;
-        private PaymentsUserControl archivedPayments;
+        // mangler at putte collapseImage ind igen
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
         private PaymentController paymentController;
+        private IncomingPaymentsUserControl incomingPaymentsControl;
+        private OutgoingPaymentsUserControl outgoingPaymentsControl;
+        private ArchivedPaymentsUserControl archivedPaymentsControl;
 
 
         private void collapseButton_Click(object sender, RoutedEventArgs e)
@@ -46,7 +57,14 @@ namespace LonelyTreeExam.UserControls
 
         private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (mainTabNavigation.SelectedIndex != current_tab_index)
+            {
+                incomingPaymentsControl.RefreshPaymentDataGrid();
+                outgoingPaymentsControl.RefreshPaymentDataGrid();
+                archivedPaymentsControl.RefreshPaymentDataGrid();
 
+                current_tab_index = mainTabNavigation.SelectedIndex;
+            }
         }
     }
 }
