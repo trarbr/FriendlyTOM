@@ -14,11 +14,11 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header = "Commissioner" Width="*" Binding="{Binding Commissioner}"/>
                 <DataGridTextColumn Header = "Responsible" Width="*" Binding="{Binding Responsible}"/>
-                <DataGridTextColumn Header = "DueDate" Width="*" Binding="{Binding DueDate, StringFormat=\{0:dd-MM-yyyy\}}"/>
-                <DataGridTextColumn Header = "DueAmount" Width="*" Binding="{Binding DueAmount}"/>
+                <DataGridTextColumn Header = "DueDate" Width="*" Binding="{Binding DueDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
+                <DataGridTextColumn Header = "DueAmount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
                 <DataGridTextColumn Header = "Paid" Width="*" Binding="{Binding Paid}"/>
-                <DataGridTextColumn Header = "PaidDate" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:dd-MM-yyyy\}}"/>
-                <DataGridTextColumn Header = "PaidAmount" Width="*" Binding="{Binding PaidAmount}"/>
+                <DataGridTextColumn Header = "PaidDate" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
+                <DataGridTextColumn Header = "PaidAmount" Width="*" Binding="{Binding PaidAmount, StringFormat=N2}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,0">

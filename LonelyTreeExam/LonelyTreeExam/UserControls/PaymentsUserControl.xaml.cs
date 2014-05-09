@@ -1,4 +1,5 @@
-﻿using Domain.Controller;
+﻿using Common.Interfaces;
+using Domain.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,8 @@ namespace LonelyTreeExam.UserControls
         private void mainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DetailsUserControl.PaymentsUserControl = this;
+            IPayment payment = mainDataGrid.SelectedItem as IPayment;
+            DetailsUserControl.SetValuesInTextBoxes(payment);
         }
     }
 }

@@ -31,6 +31,21 @@ namespace LonelyTreeExam.UserControls
             attachmentsUserControl.Content = new AttachmentsUserControl();
         }
 
+        public void SetValuesInTextBoxes(IPayment payment)
+        {
+            if (payment != null)
+            {
+                dueDateDataPicker.SelectedDate = payment.DueDate;
+                dueAmountTextBox.Text = payment.DueAmount.ToString("N2");
+                responsibleTextBox.Text = payment.Responsible;
+                commissionerTextBox.Text = payment.Commissioner;
+                paidDateDatePicker.SelectedDate = payment.PaidDate;
+                paidAmountTextBox.Text = payment.PaidAmount.ToString("N2");
+                paidCheckBox.IsChecked = payment.Paid;
+                noteTextBox.Text = payment.Note;
+            }
+        }
+
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             decimal dueAmount;
@@ -56,32 +71,35 @@ namespace LonelyTreeExam.UserControls
         {
             IPayment payment = (IPayment)PaymentsUserControl.mainDataGrid.SelectedItem;
 
-            decimal dueAmount;
-            decimal.TryParse(dueAmountTextBox.Text, out dueAmount);
+            if (payment != null)
+            {
+                decimal dueAmount;
+                decimal.TryParse(dueAmountTextBox.Text, out dueAmount);
 
-            decimal paidAmount;
-            decimal.TryParse(paidAmountTextBox.Text, out paidAmount);
+                decimal paidAmount;
+                decimal.TryParse(paidAmountTextBox.Text, out paidAmount);
 
-            payment.DueDate = dueDateDataPicker.SelectedDate.Value;
-            payment.DueAmount = dueAmount;
-            payment.Responsible = responsibleTextBox.Text;
-            payment.Commissioner = commissionerTextBox.Text;
-            payment.PaidAmount = paidAmount;
-            payment.Paid = paidCheckBox.IsChecked.Value;
-            payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
-            payment.Note = noteTextBox.Text;
+                payment.DueDate = dueDateDataPicker.SelectedDate.Value;
+                payment.DueAmount = dueAmount;
+                payment.Responsible = responsibleTextBox.Text;
+                payment.Commissioner = commissionerTextBox.Text;
+                payment.PaidAmount = paidAmount;
+                payment.Paid = paidCheckBox.IsChecked.Value;
+                payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
+                payment.Note = noteTextBox.Text;
 
-            paymentController.UpdatePayment(payment);
+                paymentController.UpdatePayment(payment);
 
-            updateGUI();
+                updateGUI();
+            }
         }
 
         private PaymentController paymentController;
 
         private void updateGUI()
         {
+            PaymentsUserControl.mainDataGrid.ItemsSource = null;
             PaymentsUserControl.mainDataGrid.ItemsSource = paymentController.ReadAllPayments();
-            PaymentsUserControl.mainDataGrid.Items.Refresh();
         }
     }
 }
