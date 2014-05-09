@@ -54,13 +54,13 @@ namespace LonelyTreeExam.UserControls
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             decimal dueAmount;
-            decimal.TryParse(dueAmountTextBox.Text, out dueAmount);
+            decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
 
             IPayment payment = paymentController.CreatePayment(dueDateDataPicker.SelectedDate.Value, dueAmount,
                                                                responsibleTextBox.Text, commissionerTextBox.Text);
 
             decimal paidAmount;
-            decimal.TryParse(paidAmountTextBox.Text, out paidAmount);
+            decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
 
             payment.PaidAmount = paidAmount;
             payment.Paid = paidCheckBox.IsChecked.Value;
