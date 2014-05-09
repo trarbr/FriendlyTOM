@@ -10,12 +10,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="mainDataGrid" Grid.Row="0" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9">
+        <DataGrid x:Name="mainDataGrid" Grid.Row="0" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" SelectionChanged="mainDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header = "Id" Width="*" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header = "Commissioner" Width="*" Binding="{Binding Commissioner}"/>
+                <DataGridTextColumn Header = "Responsible" Width="*" Binding="{Binding Responsible}"/>
                 <DataGridTextColumn Header = "DueDate" Width="*" Binding="{Binding DueDate, StringFormat=\{0:dd-MM-yyyy\}}"/>
                 <DataGridTextColumn Header = "DueAmount" Width="*" Binding="{Binding DueAmount}"/>
-                <DataGridCheckBoxColumn Header = "Paid" Width="*" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header = "Paid" Width="*" Binding="{Binding Paid}"/>
                 <DataGridTextColumn Header = "PaidDate" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:dd-MM-yyyy\}}"/>
                 <DataGridTextColumn Header = "PaidAmount" Width="*" Binding="{Binding PaidAmount}"/>
             </DataGrid.Columns>
