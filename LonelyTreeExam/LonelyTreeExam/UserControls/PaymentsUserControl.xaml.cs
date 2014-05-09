@@ -81,8 +81,11 @@ namespace LonelyTreeExam.UserControls
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             IPayment payment = (IPayment)mainDataGrid.SelectedItem;
-            paymentController.DeletePayment(payment);
-            refreshDataGrid();
+            if (payment != null)
+            {
+                paymentController.DeletePayment(payment);
+                refreshDataGrid();
+            }
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)

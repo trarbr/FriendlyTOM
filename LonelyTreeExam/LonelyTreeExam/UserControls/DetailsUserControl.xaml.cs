@@ -98,5 +98,17 @@ namespace LonelyTreeExam.UserControls
                 PaymentsUserControl.refreshDataGrid();
             }
         }
+
+        private void clearButton_Click(object sender, RoutedEventArgs e)
+        {
+            dueDateDataPicker.SelectedDate = null;
+            dueAmountTextBox.Text = "";
+            responsibleTextBox.Text = "";
+            commissionerTextBox.Text = "";
+            paidDateDatePicker.SelectedDate = null;
+            paidAmountTextBox.Text = "";
+            paidCheckBox.IsChecked = false;
+            noteTextBox.Text = "";
+        }
     }
 }
