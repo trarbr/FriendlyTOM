@@ -53,6 +53,12 @@ namespace DataAccess.Mappers
         {
             update(payment);
         }
+
+        internal void Delete(PaymentEntity payment)
+        {
+            payment.Deleted = true;
+            update(payment);
+        }
         #endregion
 
 

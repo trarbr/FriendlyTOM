@@ -49,6 +49,12 @@ namespace Domain.Collections
          {
              payment.Update();
          }
+
+         internal void Delete(Payment payment)
+         {
+             payment.Delete();
+             payments.Remove(payment);
+         }
         #endregion
 
         #region Private Properties

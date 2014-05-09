@@ -48,7 +48,8 @@ namespace DataAccess
 
         public void DeletePayment(IPayment payment)
         {
-            throw new NotImplementedException();
+            PaymentEntity pay = payment as PaymentEntity;
+            paymentMapper.Delete(pay);
         }
         #endregion
 

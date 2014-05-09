@@ -41,6 +41,12 @@ namespace Domain.Controller
         {
             paymentCollection.Update((Payment) payment);
         }
+
+        public void DeleteArtist(IPayment payment)
+        {
+            Payment pay = payment as Payment;
+            paymentCollection.Delete(pay);
+        }
         #endregion
 
         #region Private Properties
