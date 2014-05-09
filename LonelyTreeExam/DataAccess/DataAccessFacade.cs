@@ -43,12 +43,13 @@ namespace DataAccess
       
         public void UpdatePayment(IPayment payment)
         {
-            paymentMapper.UpdatePayment((PaymentEntity) payment);
+            paymentMapper.Update((PaymentEntity) payment);
         }
 
         public void DeletePayment(IPayment payment)
         {
-            throw new NotImplementedException();
+            PaymentEntity pay = payment as PaymentEntity;
+            paymentMapper.Delete(pay);
         }
         #endregion
 

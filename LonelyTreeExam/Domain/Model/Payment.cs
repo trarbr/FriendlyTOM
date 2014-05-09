@@ -82,7 +82,7 @@ namespace Domain.Model
 
         internal void Delete()
         {
-
+            dataAccessFacade.DeletePayment(_paymentEntity);
         }
 
         internal static List<Payment> ReadAll(IDataAccessFacade dataAccessFacade)
