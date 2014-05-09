@@ -8,7 +8,6 @@ namespace UnitTestProject
     [TestClass]
     public class PaymentEntityTest
     {
-        // test efter constructor ingen værdier null
         [TestMethod]
         public void TestConstructorSetsAllProperties()
         {
@@ -37,7 +36,6 @@ namespace UnitTestProject
             Assert.AreEqual(expectedAttachmentsCount, paymentEntity.Attachments.Count);
         }
 
-        // test add attachment
         public void TestAddAttachment()
         {
             DateTime dueDate = new DateTime(2010, 10, 10);
@@ -48,15 +46,23 @@ namespace UnitTestProject
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
                 commissioner);
 
-            List<string> attachments = new List<string>();
-            attachments.Add("attachment1");
-            IReadOnlyCollection<string> expectedAttachments = attachments;
+            List<string> expectedAttachments = new List<string>();
+            expectedAttachments.Add("attachment1");
+            expectedAttachments.Add("attachment2");
+            expectedAttachments.Add("attachment3");
 
             paymentEntity.AddAttachment("attachment1");
+            paymentEntity.AddAttachment("attachment2");
+            paymentEntity.AddAttachment("attachment3");
 
-            CollectionAssert.AreEqual(expectedAttachments, paymentEntity.Attachments);
+            List<string> actualAttachments = new List<string>();
 
+            foreach (string attachment in paymentEntity.Attachments)
+            {
+                actualAttachments.Add(attachment);
+            }
 
+            CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
         }
     }
 }
