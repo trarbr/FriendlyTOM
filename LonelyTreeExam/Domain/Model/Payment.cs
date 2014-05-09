@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +15,20 @@ namespace Domain.Model
         public DateTime DueDate
         {
             get { return _paymentEntity.DueDate; }
-            set { _paymentEntity.DueDate = value; }
+            set
+            {
+                validateDueDateNotNull(value);
+                _paymentEntity.DueDate = value;
+            }
         }
         public decimal DueAmount
         {
             get { return _paymentEntity.DueAmount; }
-            set { _paymentEntity.DueAmount = value; }
+            set
+            {
+                validateDueAmount(value);
+                _paymentEntity.DueAmount = value;
+            }
         }
         public DateTime PaidDate
         {
@@ -29,7 +38,11 @@ namespace Domain.Model
         public decimal PaidAmount
         {
             get { return _paymentEntity.PaidAmount; }
-            set { _paymentEntity.PaidAmount = value; }
+            set
+            {
+                validatePaidAmount(value);
+                _paymentEntity.PaidAmount = value;
+            }
         }
         public bool Archived
         {
@@ -62,6 +75,11 @@ namespace Domain.Model
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
             string commissioner, IDataAccessFacade dataAccessFacade) 
         {
+            validateDueAmount(dueAmount);
+            validateDueDateNotNull(dueDate);
+            validateResponsible(responsible);
+            validateCommissioner(commissioner);
+
             this.dataAccessFacade = dataAccessFacade;
 
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);
@@ -97,6 +115,37 @@ namespace Domain.Model
             }
             return payments;
         }
+
+        #region ValidationDecimalsAndDueDate
+
+        private void validateDueAmount(decimal value)
+        {
+            validateDecimal(value, "DueAmount");
+        }
+
+        private void validatePaidAmount(decimal value)
+        {
+            validateDecimal(value, "PaidAmount");
+        }
+
+        private void validateDecimal(decimal number, string paramName)
+        {
+            if (number <= 0)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "may not be less than zero");
+            }
+        }
+
+        private void validateDueDateNotNull(DateTime date)
+        {
+            string paramName = "DueDate";
+            if (date == null)
+            {
+                throw new ArgumentNullException(paramName, "dato må ikke være tom");
+            }
+        }
+
+        #endregion
 
         private IPayment _paymentEntity;
         private IDataAccessFacade dataAccessFacade;

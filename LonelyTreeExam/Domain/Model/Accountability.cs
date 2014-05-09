@@ -13,17 +13,30 @@ namespace Domain.Model
         public string Note 
         {
             get { return _accountabilityEntity.Note; }
-            set { _accountabilityEntity.Note = value; }
+            set
+            {
+                validateNoteLength(value);
+                _accountabilityEntity.Note = value;
+            }
         }
         public string Responsible 
         {
             get { return _accountabilityEntity.Responsible; }
-            set { _accountabilityEntity.Responsible = value; }
+            set
+            {
+                validateResponsible(value);
+                _accountabilityEntity.Responsible = value;
+            }
         }
+
         public string Commissioner 
         {
             get { return _accountabilityEntity.Commissioner; }
-            set { _accountabilityEntity.Commissioner = value; }
+            set
+            {
+                validateCommissioner(value);
+                _accountabilityEntity.Commissioner = value;
+            }
         }
 
         #endregion
@@ -33,6 +46,43 @@ namespace Domain.Model
 
         internal IAccountability _accountabilityEntity;
 
+        #region ValidateAllProperties
 
+        protected void validateResponsible(string value)
+        {
+            validateNullOrWhiteSpace(value, "Responsible");
+        }
+
+        protected void validateCommissioner(string value)
+        {
+            validateNullOrWhiteSpace(value, "Commissioner");
+        }
+
+        private void validateNullOrWhiteSpace(string text, string paramName)
+        {
+            validateTextLength(text, paramName);
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentOutOfRangeException(paramName, "may not be empty");
+            }
+        }
+
+        protected void validateNoteLength(string value)
+        {
+            string paramName = "Note";
+            if (value.Length > 2000)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "text may not be over 2000 caracters");
+            }
+        }
+
+        private void validateTextLength(string text, string paramName)
+        {
+            if (text.Length > 100)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "text may not be over 100 caracters");
+            }
+        }
+        #endregion
     }
 }
