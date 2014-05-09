@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.Entities;
+using System.Collections.Generic;
 
 namespace UnitTestProject
 {
@@ -34,9 +35,28 @@ namespace UnitTestProject
             Assert.AreEqual(expectedPaid, paymentEntity.Paid);
             Assert.AreEqual(expectedArchived, paymentEntity.Archived);
             Assert.AreEqual(expectedAttachmentsCount, paymentEntity.Attachments.Count);
-            
         }
 
         // test add attachment
+        public void TestAddAttachment()
+        {
+            DateTime dueDate = new DateTime(2010, 10, 10);
+            decimal dueAmount = 100m;
+            string commissioner = "Henry";
+            string responsible = "Peter";
+
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
+                commissioner);
+
+            List<string> attachments = new List<string>();
+            attachments.Add("attachment1");
+            IReadOnlyCollection<string> expectedAttachments = attachments;
+
+            paymentEntity.AddAttachment("attachment1");
+
+            CollectionAssert.AreEqual(expectedAttachments, paymentEntity.Attachments);
+
+
+        }
     }
 }
