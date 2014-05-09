@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DataGridTextColumn x:Key="Commissioner" Header = "Commissioner" Width="*" Binding="{Binding Commissioner}"/>
+        <DataGridTextColumn x:Key="Responsible" Header = "Responsible" Width="*" Binding="{Binding Responsible}"/>
+        <DataGridTextColumn x:Key="DueDate" Header = "DueDate" Width="*" Binding="{Binding DueDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
+        <DataGridTextColumn x:Key="DueAmount"  Header = "DueAmount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
+        <DataGridTextColumn x:Key="Paid" Header = "Paid" Width="*" Binding="{Binding Paid}"/>
+        <DataGridTextColumn x:Key="PaidDate" Header = "PaidDate" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
+        <DataGridTextColumn x:Key="PaidAmount" Header = "PaidAmount" Width="*" Binding="{Binding PaidAmount, StringFormat=N2}"/>
     </Application.Resources>
 </Application>

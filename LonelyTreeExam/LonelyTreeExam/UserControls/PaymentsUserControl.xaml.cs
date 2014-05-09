@@ -35,10 +35,26 @@ namespace LonelyTreeExam.UserControls
             this.submitButton.ToolTip = submitButtonToolTip;
             DetailsUserControl.PaymentsUserControl = this;
             refreshDataGrid();
+            dataGrid.DataContext = findArchivedPayments();
+        }
+
+        public List<IPayment> findArchivedPayments()
+        {
+            List<IPayment> archivedPayments = new List<IPayment>();
+            foreach (IPayment payment in paymentController.ReadAllPayments())
+            {
+                if (payment.Archived == true)
+                {
+                    archivedPayments.Add(payment);
+                }
+            }
+
+            return archivedPayments;
         }
         
         public void refreshDataGrid()
         {
+            /*
             mainDataGrid.ItemsSource = null;
 
             if (submitButtonTextBlock.Text == "Archive")
@@ -65,6 +81,7 @@ namespace LonelyTreeExam.UserControls
                 }
                 mainDataGrid.ItemsSource = archivedPayments;
             }
+            */
         }
 
         private PaymentController paymentController;
@@ -73,23 +90,28 @@ namespace LonelyTreeExam.UserControls
 
         private void mainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /*
             DetailsUserControl.PaymentsUserControl = this;
             IPayment payment = (IPayment) mainDataGrid.SelectedItem;
             DetailsUserControl.SetValuesInTextBoxes(payment);
+            */
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
+            /*
             IPayment payment = (IPayment)mainDataGrid.SelectedItem;
             if (payment != null)
             {
                 paymentController.DeletePayment(payment);
                 refreshDataGrid();
             }
+            */
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
+            /*
             if (mainDataGrid.SelectedItem != null)
             {
                 if (submitButtonTextBlock.Text == "Archive")
@@ -107,6 +129,7 @@ namespace LonelyTreeExam.UserControls
                     refreshDataGrid();
                 }
             }
+            */
         }
     }
 }

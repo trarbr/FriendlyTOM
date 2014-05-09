@@ -65,6 +65,12 @@
     <Compile Include="UserControls\AccountingUserControl.xaml.cs">
       <DependentUpon>AccountingUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ArchivedPaymentsUserControl.xaml.cs">
+      <DependentUpon>ArchivedPaymentsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CurrentPaymentUserControl.xaml.cs">
+      <DependentUpon>CurrentPaymentUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PaymentsUserControl.xaml.cs">
       <DependentUpon>PaymentsUserControl.xaml</DependentUpon>
     </Compile>
@@ -84,6 +90,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\AccountingUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ArchivedPaymentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CurrentPaymentUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

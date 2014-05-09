@@ -28,8 +28,8 @@ namespace LonelyTreeExam.UserControls
 
         public DetailsUserControl(PaymentController controller)
         {
-            paymentController = controller;
             InitializeComponent();
+            paymentController = controller;
             //attachmentsUserControl.Content = new AttachmentsUserControl();
             culture = new CultureInfo("en-US");
         }
@@ -75,7 +75,7 @@ namespace LonelyTreeExam.UserControls
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
-            IPayment payment = (IPayment)PaymentsUserControl.mainDataGrid.SelectedItem;
+            IPayment payment = null; // (IPayment)PaymentsUserControl.mainDataGrid.SelectedItem;
 
             if (payment != null)
             {
