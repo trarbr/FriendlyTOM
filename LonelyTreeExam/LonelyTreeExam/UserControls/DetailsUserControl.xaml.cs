@@ -2,6 +2,7 @@
 using Domain.Controller;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,8 @@ namespace LonelyTreeExam.UserControls
         {
             paymentController = controller;
             InitializeComponent();
-            attachmentsUserControl.Content = new AttachmentsUserControl();
+            //attachmentsUserControl.Content = new AttachmentsUserControl();
+            culture = new CultureInfo("en-US");
         }
 
         public void SetValuesInTextBoxes(IPayment payment)
@@ -36,15 +38,18 @@ namespace LonelyTreeExam.UserControls
             if (payment != null)
             {
                 dueDateDataPicker.SelectedDate = payment.DueDate;
-                dueAmountTextBox.Text = payment.DueAmount.ToString("N2");
+                dueAmountTextBox.Text = payment.DueAmount.ToString("N2", culture.NumberFormat);
                 responsibleTextBox.Text = payment.Responsible;
                 commissionerTextBox.Text = payment.Commissioner;
                 paidDateDatePicker.SelectedDate = payment.PaidDate;
-                paidAmountTextBox.Text = payment.PaidAmount.ToString("N2");
+                paidAmountTextBox.Text = payment.PaidAmount.ToString("N2", culture.NumberFormat);
                 paidCheckBox.IsChecked = payment.Paid;
                 noteTextBox.Text = payment.Note;
             }
         }
+
+        private PaymentController paymentController;
+        private CultureInfo culture;
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
@@ -74,10 +79,10 @@ namespace LonelyTreeExam.UserControls
             if (payment != null)
             {
                 decimal dueAmount;
-                decimal.TryParse(dueAmountTextBox.Text, out dueAmount);
+                decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
 
                 decimal paidAmount;
-                decimal.TryParse(paidAmountTextBox.Text, out paidAmount);
+                decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
 
                 payment.DueDate = dueDateDataPicker.SelectedDate.Value;
                 payment.DueAmount = dueAmount;
@@ -93,8 +98,6 @@ namespace LonelyTreeExam.UserControls
                 updateGUI();
             }
         }
-
-        private PaymentController paymentController;
 
         private void updateGUI()
         {

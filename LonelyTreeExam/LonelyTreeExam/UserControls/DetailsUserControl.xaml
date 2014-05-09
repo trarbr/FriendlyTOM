@@ -38,8 +38,8 @@
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>
             <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
-            <Label Content="Attachments:"/>
-            <UserControl x:Name="attachmentsUserControl" MinHeight="75"/>
+            <Label Content="Attachments:" Visibility="Hidden"/>
+            <UserControl x:Name="attachmentsUserControl" MinHeight="15"/> <!-- 75 if attachments visible -->
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button x:Name="addButton" Width="75" Margin="5,0,0,5" ToolTip="Add payment" Click="addButton_Click" >
