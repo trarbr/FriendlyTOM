@@ -44,12 +44,7 @@ namespace DataAccess.Mappers
             return payments;
         }
 
-        internal void InsertPayment(PaymentEntity payment)
-        {
-            insert(payment);
-        }
-
-        internal void UpdatePayment(PaymentEntity payment)
+        internal void Update(PaymentEntity payment)
         {
             update(payment);
         }
@@ -57,7 +52,7 @@ namespace DataAccess.Mappers
         internal void Delete(PaymentEntity payment)
         {
             payment.Deleted = true;
-            update(payment);
+            Update(payment);
         }
         #endregion
 

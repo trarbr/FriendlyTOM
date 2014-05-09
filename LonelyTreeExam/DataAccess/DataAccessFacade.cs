@@ -43,7 +43,7 @@ namespace DataAccess
       
         public void UpdatePayment(IPayment payment)
         {
-            paymentMapper.UpdatePayment((PaymentEntity) payment);
+            paymentMapper.Update((PaymentEntity) payment);
         }
 
         public void DeletePayment(IPayment payment)
