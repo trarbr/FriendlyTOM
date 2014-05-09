@@ -26,7 +26,7 @@ namespace Domain.Model
             get { return _paymentEntity.DueAmount; }
             set
             {
-                chooseDueAmount(value);
+                validateDueAmount(value);
                 _paymentEntity.DueAmount = value;
             }
         }
@@ -40,7 +40,7 @@ namespace Domain.Model
             get { return _paymentEntity.PaidAmount; }
             set
             {
-                choosePaidAmount(value);
+                validatePaidAmount(value);
                 _paymentEntity.PaidAmount = value;
             }
         }
@@ -75,6 +75,11 @@ namespace Domain.Model
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
             string commissioner, IDataAccessFacade dataAccessFacade) 
         {
+            validateDueAmount(dueAmount);
+            validateDueDateNotNull(dueDate);
+            validateResponsible(responsible);
+            validateCommissioner(commissioner);
+
             this.dataAccessFacade = dataAccessFacade;
 
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);
@@ -112,21 +117,20 @@ namespace Domain.Model
         }
 
         #region ValidationDecimalsAndDueDate
-        //duedate må ikke være null
 
-        private void chooseDueAmount(decimal value)
+        private void validateDueAmount(decimal value)
         {
             validateDecimal(value, "DueAmount");
         }
 
-        private void choosePaidAmount(decimal value)
+        private void validatePaidAmount(decimal value)
         {
             validateDecimal(value, "PaidAmount");
         }
 
         private void validateDecimal(decimal number, string paramName)
         {
-            if (number < 0)
+            if (number <= 0)
             {
                 throw new ArgumentOutOfRangeException(paramName, "may not be less than zero");
             }
