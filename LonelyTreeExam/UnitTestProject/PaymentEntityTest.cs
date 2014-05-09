@@ -36,6 +36,7 @@ namespace UnitTestProject
             Assert.AreEqual(expectedAttachmentsCount, paymentEntity.Attachments.Count);
         }
 
+        [TestMethod]
         public void TestAddAttachment()
         {
             DateTime dueDate = new DateTime(2010, 10, 10);
