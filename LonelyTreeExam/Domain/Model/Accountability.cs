@@ -13,17 +13,29 @@ namespace Domain.Model
         public string Note 
         {
             get { return _accountabilityEntity.Note; }
-            set { _accountabilityEntity.Note = value; }
+            set
+            {
+                _accountabilityEntity.Note = value;
+            }
         }
         public string Responsible 
         {
             get { return _accountabilityEntity.Responsible; }
-            set { _accountabilityEntity.Responsible = value; }
+            set
+            {
+                chooseResponsible(value);
+                _accountabilityEntity.Responsible = value;
+            }
         }
+
         public string Commissioner 
         {
             get { return _accountabilityEntity.Commissioner; }
-            set { _accountabilityEntity.Commissioner = value; }
+            set
+            {
+                chooseCommissioner(value);
+                _accountabilityEntity.Commissioner = value;
+            }
         }
 
         #endregion
@@ -33,6 +45,25 @@ namespace Domain.Model
 
         internal IAccountability _accountabilityEntity;
 
+        #region ValidateResponsibleAndCommissioner
 
+        private void chooseResponsible(string value)
+        {
+            validateNullOrWhiteSpace(value, "Responsible");
+        }
+
+        private void chooseCommissioner(string value)
+        {
+            validateNullOrWhiteSpace(value, "Commissioner");
+        }
+
+        private void validateNullOrWhiteSpace(string text, string paramName)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentOutOfRangeException(paramName, "may not be empty");
+            }
+        }
+        #endregion
     }
 }
