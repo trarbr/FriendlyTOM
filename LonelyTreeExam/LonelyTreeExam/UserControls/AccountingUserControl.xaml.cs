@@ -42,6 +42,7 @@ namespace LonelyTreeExam.UserControls
         private PaymentsUserControl archivedPayments;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
+        private PaymentController paymentController;
 
         private void initializeDataGrids()
         {
@@ -76,8 +77,6 @@ namespace LonelyTreeExam.UserControls
         {
             collapseDetailedView();
         }
-
-        private PaymentController paymentController;
 
     }
 }

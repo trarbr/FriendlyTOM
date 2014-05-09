@@ -33,17 +33,77 @@ namespace LonelyTreeExam.UserControls
             this.submitButtonTextBlock.Text = submitButtonText;
             this.submitButtonImage.Source = submitButtonImage;
             this.submitButton.ToolTip = submitButtonToolTip;
-            mainDataGrid.ItemsSource = paymentController.ReadAllPayments();
             DetailsUserControl.PaymentsUserControl = this;
+            refreshDataGrid();
+        }
+        
+        public void refreshDataGrid()
+        {
+            mainDataGrid.ItemsSource = null;
+
+            if (submitButtonTextBlock.Text == "Archive")
+            {
+                currentPayments = new List<IPayment>();
+                foreach (IPayment payment in paymentController.ReadAllPayments())
+                {
+                    if (payment.Archived == false)
+                    {
+                        currentPayments.Add(payment);
+                    }
+                }
+                mainDataGrid.ItemsSource = currentPayments;
+            }
+            else if (submitButtonTextBlock.Text == "Restore")
+            {
+                archivedPayments = new List<IPayment>();
+                foreach (IPayment payment in paymentController.ReadAllPayments())
+                {
+                    if (payment.Archived == true)
+                    {
+                        archivedPayments.Add(payment);
+                    }
+                }
+                mainDataGrid.ItemsSource = archivedPayments;
+            }
         }
 
         private PaymentController paymentController;
+        private List<IPayment> archivedPayments;
+        private List<IPayment> currentPayments;
 
         private void mainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DetailsUserControl.PaymentsUserControl = this;
             IPayment payment = (IPayment) mainDataGrid.SelectedItem;
             DetailsUserControl.SetValuesInTextBoxes(payment);
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            IPayment payment = (IPayment)mainDataGrid.SelectedItem;
+            paymentController.DeletePayment(payment);
+            refreshDataGrid();
+        }
+
+        private void submitButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainDataGrid.SelectedItem != null)
+            {
+                if (submitButtonTextBlock.Text == "Archive")
+                {
+                    IPayment payment = (IPayment)mainDataGrid.SelectedItem;
+                    payment.Archived = true;
+                    paymentController.UpdatePayment(payment);
+                    refreshDataGrid();
+                }
+                else if (submitButtonTextBlock.Text == "Restore")
+                {
+                    IPayment payment = (IPayment)mainDataGrid.SelectedItem;
+                    payment.Archived = false;
+                    paymentController.UpdatePayment(payment);
+                    refreshDataGrid();
+                }
+            }
         }
     }
 }

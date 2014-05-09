@@ -22,13 +22,13 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,0">
-            <Button x:Name="submitButton" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="submitButton" Width="75" HorizontalAlignment="Left" VerticalAlignment="Top" Click="submitButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image x:Name="submitButtonImage" Width="16" />
                     <TextBlock x:Name="submitButtonTextBlock" VerticalAlignment="Center" Margin="2,0,0,0"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Delete selected payment">
+            <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Delete selected payment" Click="deleteButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/delete.png" Width="16" />
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>

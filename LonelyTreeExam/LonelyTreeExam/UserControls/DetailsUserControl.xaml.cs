@@ -68,7 +68,7 @@ namespace LonelyTreeExam.UserControls
             payment.Note = noteTextBox.Text;
             paymentController.UpdatePayment(payment);
 
-            updateGUI();
+            PaymentsUserControl.refreshDataGrid();
 
         }
 
@@ -95,14 +95,8 @@ namespace LonelyTreeExam.UserControls
 
                 paymentController.UpdatePayment(payment);
 
-                updateGUI();
+                PaymentsUserControl.refreshDataGrid();
             }
-        }
-
-        private void updateGUI()
-        {
-            PaymentsUserControl.mainDataGrid.ItemsSource = null;
-            PaymentsUserControl.mainDataGrid.ItemsSource = paymentController.ReadAllPayments();
         }
     }
 }

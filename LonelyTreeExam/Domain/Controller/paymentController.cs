@@ -42,7 +42,7 @@ namespace Domain.Controller
             paymentCollection.Update((Payment) payment);
         }
 
-        public void DeleteArtist(IPayment payment)
+        public void DeletePayment(IPayment payment)
         {
             Payment pay = payment as Payment;
             paymentCollection.Delete(pay);
