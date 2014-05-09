@@ -130,7 +130,7 @@ namespace Domain.Model
 
         private void validateDecimal(decimal number, string paramName)
         {
-            if (number <= 0)
+            if (number < 0)
             {
                 throw new ArgumentOutOfRangeException(paramName, "may not be less than zero");
             }

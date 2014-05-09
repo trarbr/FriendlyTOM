@@ -1,5 +1,6 @@
 ﻿using Common.Interfaces;
 using Domain.Controller;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -109,6 +110,11 @@ namespace LonelyTreeExam.UserControls
             paidAmountTextBox.Text = "";
             paidCheckBox.IsChecked = false;
             noteTextBox.Text = "";
+        }
+        private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofg = new OpenFileDialog();
+            ofg.ShowDialog();
         }
     }
 }

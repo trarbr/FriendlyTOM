@@ -38,8 +38,23 @@
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>
             <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
-            <!-- <Label Content="Attachments:" /> -->
-            <!-- <UserControl x:Name="attachmentsUserControl" MinHeight="15"/> -->
+            <Label Content="Attachments:" />
+            <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button x:Name="addAttachmentButton" Click="addAttachmentButton_Click">
+                <Image Source="/Images/add.png" />
+            </Button>
+            <Button x:Name="deleteAttachmentButton">
+                <Image Source="/Images/delete.png" />
+            </Button>
+        </StackPanel>
+        <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9"/>
+            </Grid>
+            
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
             <Button x:Name="addButton" Width="75" Margin="5,0,0,5" ToolTip="Add payment" Click="addButton_Click" >
