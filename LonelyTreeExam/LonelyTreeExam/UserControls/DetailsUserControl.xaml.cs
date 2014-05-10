@@ -154,6 +154,10 @@ namespace LonelyTreeExam.UserControls
             {
                 responsibleTextBox.FocusComboBox();
             }
+            else if (e.Key == Key.Enter)
+            {
+                responsibleTextBox.SelectItem();
+            }
         }
     }
 }

@@ -95,6 +95,14 @@ namespace LonelyTreeExam.AutoComplete
             }
         }
 
+        public void SelectItem()
+        {
+            if (comboBox.HasItems)
+            {
+                comboBox.SelectedIndex = 0;
+            }
+        }
+
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (null != comboBox.SelectedItem)
