@@ -23,10 +23,6 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class IncomingPaymentsUserControl : UserControl
     {
-        private PaymentController paymentController;
-        private DetailsUserControl details;
-        private IPayment selectedPayment;
-
         public IncomingPaymentsUserControl(PaymentController paymentController)
         {
             InitializeComponent();
@@ -34,6 +30,8 @@ namespace LonelyTreeExam.UserControls
             this.paymentController = paymentController;
 
             details = new DetailsUserControl(paymentController);
+            details.commissionerTextBox.Text = "Lonely Tree";
+            details.commissionerTextBox.IsEnabled = false;
             detailsUserControl.Content = details;
 
             RefreshPaymentDataGrid();
@@ -56,11 +54,17 @@ namespace LonelyTreeExam.UserControls
             }
 
             paymentsDataGrid.ItemsSource = incomingPayments;
+            details.commissionerTextBox.Text = "Lonely Tree";
         }
+
+        private PaymentController paymentController;
+        private DetailsUserControl details;
+        private IPayment selectedPayment;
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
             paymentsDataGrid.SelectedItem = null;
+            details.commissionerTextBox.Text = "Lonely Tree";
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
@@ -71,7 +75,7 @@ namespace LonelyTreeExam.UserControls
             }
             else
             {
-                details.UpdatePayment(selectedPayment);
+                details.UpdatePayment();
             }
 
             RefreshPaymentDataGrid();
@@ -80,12 +84,13 @@ namespace LonelyTreeExam.UserControls
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
             paymentsDataGrid.SelectedItem = null;
+            details.commissionerTextBox.Text = "Lonely Tree";
         }
 
         private void paymentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedPayment = (IPayment)paymentsDataGrid.SelectedItem;
-            details.SetValuesInTextBoxes(selectedPayment);
+            details.SetSelectedPayment(selectedPayment);
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
@@ -94,6 +99,7 @@ namespace LonelyTreeExam.UserControls
             {
                 paymentController.DeletePayment(selectedPayment);
                 paymentsDataGrid.SelectedItem = null;
+                details.commissionerTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
             }
         }
@@ -104,6 +110,7 @@ namespace LonelyTreeExam.UserControls
             {
                 selectedPayment.Archived = true;
                 paymentsDataGrid.SelectedItem = null;
+                details.commissionerTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
             }
         }

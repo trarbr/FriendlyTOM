@@ -31,22 +31,103 @@ namespace LonelyTreeExam.UserControls
             culture = new CultureInfo("en-US");
         }
 
-        internal void SetValuesInTextBoxes(IPayment payment)
+
+        internal void CreatePayment()
         {
-            if (payment != null)
+            if (dueDateDatePicker.SelectedDate != null)
             {
-                dueDateDataPicker.SelectedDate = payment.DueDate;
-                dueAmountTextBox.Text = payment.DueAmount.ToString("N2", culture.NumberFormat);
-                responsibleTextBox.Text = payment.Responsible;
-                commissionerTextBox.Text = payment.Commissioner;
-                paidDateDatePicker.SelectedDate = payment.PaidDate;
-                paidAmountTextBox.Text = payment.PaidAmount.ToString("N2", culture.NumberFormat);
-                paidCheckBox.IsChecked = payment.Paid;
-                noteTextBox.Text = payment.Note;
+                try
+                {
+                    decimal dueAmount;
+                    decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
+                    DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
+                    IPayment payment = paymentController.CreatePayment(dueDate, dueAmount,
+                                                               responsibleTextBox.Text, commissionerTextBox.Text);
+
+                    decimal paidAmount;
+                    decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
+
+                    payment.PaidAmount = paidAmount;
+                    payment.Paid = paidCheckBox.IsChecked.Value;
+                    if (paidDateDatePicker.SelectedDate != null)
+                    {
+                        payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
+                    }
+                    payment.Note = noteTextBox.Text;
+                    paymentController.UpdatePayment(payment);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {
-                dueDateDataPicker.SelectedDate = null;
+                MessageBox.Show("Must select a due date");
+            }
+        }
+
+        internal void UpdatePayment()
+        {
+            if (selectedPayment != null)
+            {
+                decimal dueAmount;
+                decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
+
+                decimal paidAmount;
+                decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
+
+                if (dueDateDatePicker.SelectedDate != null)
+                {
+                    selectedPayment.DueDate = dueDateDatePicker.SelectedDate.Value;
+                }
+                selectedPayment.DueAmount = dueAmount;
+                selectedPayment.Responsible = responsibleTextBox.Text;
+                selectedPayment.Commissioner = commissionerTextBox.Text;
+                selectedPayment.PaidAmount = paidAmount;
+                selectedPayment.Paid = paidCheckBox.IsChecked.Value;
+                if (paidDateDatePicker.SelectedDate != null)
+                {
+                    selectedPayment.PaidDate = paidDateDatePicker.SelectedDate.Value;
+                }
+                selectedPayment.Note = noteTextBox.Text;
+
+                paymentController.UpdatePayment(selectedPayment);
+            }
+        }
+
+        private PaymentController paymentController;
+        private CultureInfo culture;
+        private IPayment selectedPayment;
+
+        private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofg = new OpenFileDialog();
+            ofg.ShowDialog();
+        }
+
+        internal void SetSelectedPayment(IPayment selectedPayment)
+        {
+            this.selectedPayment = selectedPayment;
+            setValuesInTextBoxes();
+        }
+
+        private void setValuesInTextBoxes()
+        {
+            if (selectedPayment != null)
+            {
+                dueDateDatePicker.SelectedDate = selectedPayment.DueDate;
+                dueAmountTextBox.Text = selectedPayment.DueAmount.ToString("N2", culture.NumberFormat);
+                responsibleTextBox.Text = selectedPayment.Responsible;
+                commissionerTextBox.Text = selectedPayment.Commissioner;
+                paidDateDatePicker.SelectedDate = selectedPayment.PaidDate;
+                paidAmountTextBox.Text = selectedPayment.PaidAmount.ToString("N2", culture.NumberFormat);
+                paidCheckBox.IsChecked = selectedPayment.Paid;
+                noteTextBox.Text = selectedPayment.Note;
+            }
+            else
+            {
+                dueDateDatePicker.SelectedDate = null;
                 dueAmountTextBox.Text = "";
                 responsibleTextBox.Text = "";
                 commissionerTextBox.Text = "";
@@ -55,57 +136,6 @@ namespace LonelyTreeExam.UserControls
                 paidCheckBox.IsChecked = false;
                 noteTextBox.Text = "";
             }
-        }
-
-        internal void CreatePayment()
-        {
-            decimal dueAmount;
-            decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
-
-            IPayment payment = paymentController.CreatePayment(dueDateDataPicker.SelectedDate.Value, dueAmount,
-                                                               responsibleTextBox.Text, commissionerTextBox.Text);
-
-            decimal paidAmount;
-            decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
-
-            payment.PaidAmount = paidAmount;
-            payment.Paid = paidCheckBox.IsChecked.Value;
-            payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
-            payment.Note = noteTextBox.Text;
-            paymentController.UpdatePayment(payment);
-        }
-
-        internal void UpdatePayment(IPayment selectedPayment)
-        {
-            IPayment payment = selectedPayment;
-            if (payment != null)
-            {
-                decimal dueAmount;
-                decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
-
-                decimal paidAmount;
-                decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
-
-                payment.DueDate = dueDateDataPicker.SelectedDate.Value;
-                payment.DueAmount = dueAmount;
-                payment.Responsible = responsibleTextBox.Text;
-                payment.Commissioner = commissionerTextBox.Text;
-                payment.PaidAmount = paidAmount;
-                payment.Paid = paidCheckBox.IsChecked.Value;
-                payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
-                payment.Note = noteTextBox.Text;
-
-                paymentController.UpdatePayment(payment);
-            }
-        }
-
-        private PaymentController paymentController;
-        private CultureInfo culture;
-
-        private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog ofg = new OpenFileDialog();
-            ofg.ShowDialog();
         }
     }
 }

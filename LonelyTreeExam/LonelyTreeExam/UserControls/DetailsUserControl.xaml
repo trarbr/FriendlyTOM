@@ -27,7 +27,7 @@
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <TextBox x:Name="commissionerTextBox" Height="26" TextWrapping="Wrap"/>
             <TextBox x:Name="responsibleTextBox" Height="26" TextWrapping="Wrap"/>
-            <DatePicker x:Name="dueDateDataPicker" Height="26"/>
+            <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
             <StackPanel Height="26" Orientation="Horizontal">
                 <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center"/>
