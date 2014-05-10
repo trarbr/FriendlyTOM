@@ -89,7 +89,10 @@ namespace LonelyTreeExam.AutoComplete
 
         public void FocusComboBox()
         {
-            comboBox.Focus();
+            if (comboBox.HasItems)
+            {
+                comboBox.Focus();
+            }
         }
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
