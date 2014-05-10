@@ -17,9 +17,9 @@
                 <StaticResource ResourceKey="Responsible"/>
                 <StaticResource ResourceKey="DueDate"/>
                 <StaticResource ResourceKey="DueAmount"/>
-                <StaticResource ResourceKey="Paid"/>
                 <StaticResource ResourceKey="PaidDate"/>
                 <StaticResource ResourceKey="PaidAmount"/>
+                <StaticResource ResourceKey="Paid"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,0">

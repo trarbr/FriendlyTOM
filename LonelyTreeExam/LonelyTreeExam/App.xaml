@@ -7,8 +7,8 @@
         <DataGridTextColumn x:Key="Responsible" x:Shared="False" Header = "Responsible" Width="*" Binding="{Binding Responsible}"/>
         <DataGridTextColumn x:Key="DueDate" x:Shared="False"  Header = "DueDate" Width="*" Binding="{Binding DueDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
         <DataGridTextColumn x:Key="DueAmount" x:Shared="False"  Header = "DueAmount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
-        <DataGridTextColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="*" Binding="{Binding Paid}"/>
         <DataGridTextColumn x:Key="PaidDate" x:Shared="False" Header = "PaidDate" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
         <DataGridTextColumn x:Key="PaidAmount" x:Shared="False" Header = "PaidAmount" Width="*" Binding="{Binding PaidAmount, StringFormat=N2}"/>
+        <DataGridCheckBoxColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="*" Binding="{Binding Paid}"/>
     </Application.Resources>
 </Application>
