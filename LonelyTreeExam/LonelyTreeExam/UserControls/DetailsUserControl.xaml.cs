@@ -1,5 +1,6 @@
 ﻿using Common.Interfaces;
 using Domain.Controller;
+using LonelyTreeExam.AutoComplete;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace LonelyTreeExam.UserControls
             InitializeComponent();
             paymentController = controller;
             culture = new CultureInfo("en-US");
+            AddAutoCompleteEntries();
         }
 
 
@@ -135,6 +137,22 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = "";
                 paidCheckBox.IsChecked = false;
                 noteTextBox.Text = "";
+            }
+        }
+
+        private void AddAutoCompleteEntries()
+        {
+            foreach (IPayment payment in paymentController.ReadAllPayments())
+            {
+                responsibleTextBox.AddItem(new AutoCompleteEntry(payment.Responsible, null));
+            }
+        }
+
+        private void responsibleTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                responsibleTextBox.FocusComboBox();
             }
         }
     }

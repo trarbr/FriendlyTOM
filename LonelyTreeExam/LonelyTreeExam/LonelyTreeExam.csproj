@@ -62,6 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutoComplete\AutoCompleteEntry.cs" />
+    <Compile Include="AutoComplete\AutoCompleteTextBox.xaml.cs">
+      <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AccountingUserControl.xaml.cs">
       <DependentUpon>AccountingUserControl.xaml</DependentUpon>
     </Compile>
@@ -80,6 +84,10 @@
     <Compile Include="UserControls\SuppliersUserControl.xaml.cs">
       <DependentUpon>SuppliersUserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="AutoComplete\AutoCompleteTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

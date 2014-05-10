@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:local="clr-namespace:LonelyTreeExam.AutoComplete"
              d:DesignHeight="300" d:DesignWidth="880">
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +27,7 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <TextBox x:Name="commissionerTextBox" Height="26" TextWrapping="Wrap"/>
-            <TextBox x:Name="responsibleTextBox" Height="26" TextWrapping="Wrap"/>
+            <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" DelayTime="150" PreviewKeyDown="responsibleTextBox_PreviewKeyDown"/>
             <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
             <StackPanel Height="26" Orientation="Horizontal">
