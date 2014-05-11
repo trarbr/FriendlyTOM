@@ -122,7 +122,14 @@ namespace LonelyTreeExam.UserControls
                 dueAmountTextBox.Text = selectedPayment.DueAmount.ToString("N2", culture.NumberFormat);
                 responsibleTextBox.Text = selectedPayment.Responsible;
                 commissionerTextBox.Text = selectedPayment.Commissioner;
-                paidDateDatePicker.SelectedDate = selectedPayment.PaidDate;
+                if (selectedPayment.PaidDate == new DateTime(1900, 1, 1))
+                {
+                    paidDateDatePicker.SelectedDate = null;
+                }
+                else
+                {
+                    paidDateDatePicker.SelectedDate = selectedPayment.PaidDate;
+                }
                 paidAmountTextBox.Text = selectedPayment.PaidAmount.ToString("N2", culture.NumberFormat);
                 paidCheckBox.IsChecked = selectedPayment.Paid;
                 noteTextBox.Text = selectedPayment.Note;
