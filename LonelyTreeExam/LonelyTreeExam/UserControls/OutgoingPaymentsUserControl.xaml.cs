@@ -32,6 +32,8 @@ namespace LonelyTreeExam.UserControls
             details.responsibleTextBox.Text = "Lonely Tree";
             details.responsibleTextBox.IsEnabled = false;
             detailsUserControl.Content = details;
+            collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+            collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
 
             RefreshPaymentDataGrid();
         }
@@ -59,6 +61,8 @@ namespace LonelyTreeExam.UserControls
         private PaymentController paymentController;
         private DetailsUserControl details;
         private IPayment selectedPayment;
+        private BitmapImage collapsePlusImage;
+        private BitmapImage collapseMinImage;
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
@@ -112,6 +116,50 @@ namespace LonelyTreeExam.UserControls
                 details.responsibleTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
             }
+        }
+
+        private void collapseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (detailsUserControl.Content != null)
+            {
+                detailsUserControl.Content = null;
+                collapseImage.Source = collapsePlusImage;
+                collapseButton.ToolTip = "Show details";
+                bottomStackPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                detailsUserControl.Content = details;
+                collapseImage.Source = collapseMinImage;
+                collapseButton.ToolTip = "Hide details";
+                bottomStackPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchTextBox.Text != "")
+            {
+                List<IPayment> searchedPayments = new List<IPayment>();
+                paymentsDataGrid.ItemsSource = searchedPayments;
+
+                foreach (IPayment payment in paymentController.ReadAllPayments())
+                {
+                    string searchData = string.Format("{0} {1} {2} {3}", payment.Commissioner, payment.DueDate,
+                        payment.DueAmount, payment.PaidDate, payment.PaidAmount);
+
+                    if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        searchedPayments.Add(payment);
+                    }
+                }
+            }
+            else
+            {
+                RefreshPaymentDataGrid();
+            }
+
+            paymentsDataGrid.Items.Refresh();
         }
     }
 }

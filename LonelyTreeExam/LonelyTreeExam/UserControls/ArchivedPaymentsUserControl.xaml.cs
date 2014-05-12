@@ -76,5 +76,31 @@ namespace LonelyTreeExam.UserControls
                 RefreshPaymentDataGrid();
             }
         }
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchTextBox.Text != "")
+            {
+                List<IPayment> searchedPayments = new List<IPayment>();
+                paymentsDataGrid.ItemsSource = searchedPayments;
+
+                foreach (IPayment payment in paymentController.ReadAllPayments())
+                {
+                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Responsible, payment.Commissioner, payment.DueDate,
+                        payment.DueAmount, payment.PaidDate, payment.PaidAmount);
+
+                    if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        searchedPayments.Add(payment);
+                    }
+                }
+            }
+            else
+            {
+                RefreshPaymentDataGrid();
+            }
+
+            paymentsDataGrid.Items.Refresh();
+        }
     }
 }
