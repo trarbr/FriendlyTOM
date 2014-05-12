@@ -1,4 +1,5 @@
-﻿using Common.Interfaces;
+﻿using Common.Enums;
+using Common.Interfaces;
 using Domain.Controller;
 using LonelyTreeExam.AutoComplete;
 using Microsoft.Win32;
@@ -31,6 +32,7 @@ namespace LonelyTreeExam.UserControls
             paymentController = controller;
             culture = new CultureInfo("en-US");
             AddAutoCompleteEntries();
+            paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentTypes));
         }
 
 
@@ -164,6 +166,22 @@ namespace LonelyTreeExam.UserControls
             else if (e.Key == Key.Enter)
             {
                 responsibleTextBox.SelectItem();
+            }
+        }
+
+        private void paidCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (paidCheckBox.IsChecked == true)
+            {
+                paidDateDatePicker.IsEnabled = true;
+                paidAmountTextBox.IsEnabled = true;
+                paymentTypeComboBox.IsEnabled = true;
+            }
+            else
+            {
+                paidDateDatePicker.IsEnabled = false;
+                paidAmountTextBox.IsEnabled = false;
+                paymentTypeComboBox.IsEnabled = false;
             }
         }
     }
