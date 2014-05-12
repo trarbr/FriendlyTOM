@@ -21,17 +21,8 @@ namespace LonelyTreeExam.AutoComplete
     /// </summary>    
     public partial class AutoCompleteTextBox : Canvas
     {
-        private VisualCollection controls;
-        private TextBox textBox;
-        private ComboBox comboBox;
-        private ObservableCollection<AutoCompleteEntry> autoCompletionList;
-        private System.Timers.Timer keypressTimer;
-        private delegate void TextChangedCallback();
-        private bool insertText;
-        private int delayTime;
-        private int searchThreshold;
 
-        #region Constructor
+        #region Public
         public AutoCompleteTextBox()
         {
             controls = new VisualCollection(this);
@@ -57,9 +48,7 @@ namespace LonelyTreeExam.AutoComplete
             controls.Add(comboBox);
             controls.Add(textBox);
         }
-        #endregion
 
-        #region Methods
         public string Text
         {
             get { return textBox.Text; }
@@ -102,6 +91,39 @@ namespace LonelyTreeExam.AutoComplete
                 comboBox.SelectedIndex = 0;
             }
         }
+        #endregion
+
+
+        #region Protected
+        protected override Size ArrangeOverride(Size arrangeSize)
+        {
+            textBox.Arrange(new Rect(arrangeSize));
+            comboBox.Arrange(new Rect(arrangeSize));
+            return base.ArrangeOverride(arrangeSize);
+        }
+
+        protected override Visual GetVisualChild(int index)
+        {
+            return controls[index];
+        }
+
+        protected override int VisualChildrenCount
+        {
+            get { return controls.Count; }
+        }
+        #endregion
+
+
+        #region Private
+        private VisualCollection controls;
+        private TextBox textBox;
+        private ComboBox comboBox;
+        private ObservableCollection<AutoCompleteEntry> autoCompletionList;
+        private System.Timers.Timer keypressTimer;
+        private delegate void TextChangedCallback();
+        private bool insertText;
+        private int delayTime;
+        private int searchThreshold;
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -165,23 +187,6 @@ namespace LonelyTreeExam.AutoComplete
                 }
                 else TextChanged();
             }
-        }
-
-        protected override Size ArrangeOverride(Size arrangeSize)
-        {
-            textBox.Arrange(new Rect(arrangeSize));
-            comboBox.Arrange(new Rect(arrangeSize));
-            return base.ArrangeOverride(arrangeSize);
-        }
-
-        protected override Visual GetVisualChild(int index)
-        {
-            return controls[index];
-        }
-
-        protected override int VisualChildrenCount
-        {
-            get { return controls.Count; }
         }
         #endregion
     }
