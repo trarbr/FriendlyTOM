@@ -44,7 +44,7 @@ namespace LonelyTreeExam.UserControls
             paymentsDataGrid.ItemsSource = null;
 
             List<IPayment> allPayments = paymentController.ReadAllPayments();
-            List<IPayment> outgoingPayments = new List<IPayment>();
+            outgoingPayments = new List<IPayment>();
 
             foreach (IPayment payment in allPayments)
             {
@@ -63,6 +63,7 @@ namespace LonelyTreeExam.UserControls
         private IPayment selectedPayment;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
+        private List<IPayment> outgoingPayments;
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
@@ -143,7 +144,7 @@ namespace LonelyTreeExam.UserControls
                 List<IPayment> searchedPayments = new List<IPayment>();
                 paymentsDataGrid.ItemsSource = searchedPayments;
 
-                foreach (IPayment payment in paymentController.ReadAllPayments())
+                foreach (IPayment payment in outgoingPayments)
                 {
                     string searchData = string.Format("{0} {1} {2} {3}", payment.Commissioner, payment.DueDate,
                         payment.DueAmount, payment.PaidDate, payment.PaidAmount);
@@ -156,7 +157,7 @@ namespace LonelyTreeExam.UserControls
             }
             else
             {
-                RefreshPaymentDataGrid();
+                paymentsDataGrid.ItemsSource = outgoingPayments;
             }
 
             paymentsDataGrid.Items.Refresh();
