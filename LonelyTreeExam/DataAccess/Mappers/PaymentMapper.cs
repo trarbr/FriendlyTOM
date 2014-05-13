@@ -116,9 +116,12 @@ namespace DataAccess.Mappers
             paymentEntity.PaidAmount = paidAmount;
             paymentEntity.Paid = paid;
             paymentEntity.Archived = archived;
-            foreach (string attachment in attachments.Split(';'))
+            if (attachments != "")
             {
-                paymentEntity.AddAttachment(attachment);
+                foreach (string attachment in attachments.Split(';'))
+                {
+                    paymentEntity.AddAttachment(attachment);
+                }
             }
 
             paymentEntity.Note = note;
