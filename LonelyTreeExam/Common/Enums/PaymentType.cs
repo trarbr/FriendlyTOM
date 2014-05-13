@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Common.Enums
 {
-    public enum PaymentTypes
+    public enum PaymentType
     {
-        Full, Balance, Depositum
+        Full, Balance, Deposit
     }
 }

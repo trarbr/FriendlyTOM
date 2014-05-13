@@ -32,7 +32,7 @@ namespace LonelyTreeExam.UserControls
             paymentController = controller;
             culture = new CultureInfo("en-US");
             AddAutoCompleteEntries();
-            paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentTypes));
+            paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
         }
 
 

@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\PaymentTypes.cs" />
+    <Compile Include="Enums\PaymentType.cs" />
     <Compile Include="Interfaces\IAccountability.cs" />
     <Compile Include="Interfaces\IPayment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
