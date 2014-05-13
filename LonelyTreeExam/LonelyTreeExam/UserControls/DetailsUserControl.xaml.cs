@@ -35,6 +35,7 @@ namespace LonelyTreeExam.UserControls
             culture = new CultureInfo("en-US");
             AddAutoCompleteEntries();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
+            paymentTypeComboBox.SelectedIndex = 0;
         }
 
         #region Internal Methods
@@ -160,7 +161,7 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = "";
                 paidCheckBox.IsChecked = false;
                 noteTextBox.Text = "";
-                paymentTypeComboBox.SelectedIndex = -1;
+                paymentTypeComboBox.SelectedIndex = 0;
                 attachmentsListView.ItemsSource = null;
             }
         }
