@@ -87,8 +87,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (IPayment payment in archivedPayments)
                 {
-                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Responsible, payment.Commissioner, payment.DueDate,
-                        payment.DueAmount, payment.PaidDate, payment.PaidAmount);
+                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Responsible,
+                        payment.Commissioner, payment.DueDate, payment.DueAmount,
+                        payment.PaidDate, payment.PaidAmount);
 
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
