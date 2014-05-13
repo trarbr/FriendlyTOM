@@ -21,22 +21,22 @@
             <Label Content="Responsible:"/>
             <Label Content="DueDate:"/>
             <Label Content="DueAmount:"/>
+            <Label Content="Type:"/>
             <Label Content="Paid:"/>
             <Label Content="PaidAmount:"/>
             <Label Content="PaidDate:"/>
-            <Label Content="PaymentType:"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <local:AutoCompleteTextBox Height="26" x:Name="commissionerTextBox" Threshold="1" DelayTime="150"/>
             <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" DelayTime="150"/>
             <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
+            <ComboBox x:Name="paymentTypeComboBox" Margin="0,4,0,0"/>
             <StackPanel Height="26" Orientation="Horizontal">
                 <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center"/>
             </StackPanel>
             <TextBox x:Name="paidAmountTextBox" Height="26" TextWrapping="Wrap"/>
             <DatePicker x:Name="paidDateDatePicker" Height="26"/>
-            <ComboBox x:Name="paymentTypeComboBox" Margin="0,4,0,0"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>

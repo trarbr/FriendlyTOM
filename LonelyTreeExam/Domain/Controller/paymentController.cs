@@ -7,6 +7,7 @@ using Common.Interfaces;
 using DataAccess;
 using Domain.Collections;
 using Domain.Model;
+using Common.Enums;
 
 namespace Domain.Controller
 {
@@ -33,9 +34,9 @@ namespace Domain.Controller
         }
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, 
-            string commissioner)
+            string commissioner, PaymentType type)
         {
-            return paymentCollection.Create(dueDate, dueAmount, responsible, commissioner);
+            return paymentCollection.Create(dueDate, dueAmount, responsible, commissioner, type);
         }
 
         public void UpdatePayment(IPayment payment)

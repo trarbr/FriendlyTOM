@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Interfaces;
+using Common.Enums;
 using DataAccess;
 
 namespace Domain.Model
@@ -54,6 +55,12 @@ namespace Domain.Model
             get { return _paymentEntity.Paid; }
             set { _paymentEntity.Paid = value; }
         }
+        public PaymentType Type
+        {
+            get { return _paymentEntity.Type; }
+            set { _paymentEntity.Type = value; }
+        }
+        
         public IReadOnlyList<string> Attachments
         {
             get { return _paymentEntity.Attachments; }
@@ -73,7 +80,7 @@ namespace Domain.Model
         //}
 
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, IDataAccessFacade dataAccessFacade) 
+            string commissioner, PaymentType type, IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
             validateDueDateNotNull(dueDate);
@@ -82,7 +89,7 @@ namespace Domain.Model
 
             this.dataAccessFacade = dataAccessFacade;
 
-            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);
+            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner, type);
             this._accountabilityEntity = _paymentEntity;
         }
 

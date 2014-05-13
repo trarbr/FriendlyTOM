@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Interfaces;
+using Common.Enums;
 
 namespace DataAccess.Entities
 {
@@ -15,13 +16,14 @@ namespace DataAccess.Entities
         public decimal PaidAmount { get; set; }
         public bool Paid { get; set; }
         public bool Archived { get; set; }
+        public PaymentType Type { get; set; }
         public IReadOnlyList<string> Attachments
         {
             get { return _attachments; }
         }
 
         public PaymentEntity(DateTime dueDate, decimal dueAmount, string responsible, 
-            string commissioner) 
+            string commissioner, PaymentType type) 
             : base(responsible, commissioner)
         {
             _attachments = new List<string>();
@@ -32,6 +34,7 @@ namespace DataAccess.Entities
             PaidAmount = 0m;
             Paid = false;
             Archived = false;
+            Type = type;
         }
 
         public void AddAttachment(string attachment)

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Entities;
 using DataAccess.Helpers;
+using Common.Enums;
 
 namespace DataAccess.Mappers
 {
@@ -22,9 +23,10 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentEntity>();
         }
 
-        internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, string responsible,
+            string commissioner, PaymentType type)
         {
-            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner);
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type);
 
             insert(paymentEntity);
 
@@ -102,13 +104,14 @@ namespace DataAccess.Mappers
             string responsible = (string)reader["Responsible"];
             string commissioner = (string)reader["Commissioner"];
             string note = (string)reader["Note"];
+            PaymentType type = (PaymentType)Enum.Parse(typeof(PaymentType), reader["Type"].ToString());
 
             int id = (int)reader["PaymentId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
-                commissioner);
+                commissioner, type);
             paymentEntity.PaidDate = paidDate;
             paymentEntity.PaidAmount = paidAmount;
             paymentEntity.Paid = paid;
@@ -179,6 +182,8 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Attachments", string.Join(";", entity.Attachments));
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Type", entity.Type.ToString());
             parameters.Add(parameter);
         }
         #endregion

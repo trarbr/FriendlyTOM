@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataAccess.Entities;
 using System.Collections.Generic;
+using Common.Enums;
 
 namespace UnitTestProject
 {
@@ -15,9 +16,10 @@ namespace UnitTestProject
             decimal dueAmount = 100m;
             string commissioner = "Henry";
             string responsible = "Peter";
+            PaymentType type = PaymentType.Full;
 
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
-                commissioner);
+                commissioner, type);
 
             DateTime expectedPaidDate = new DateTime(1900, 01, 01);
             decimal expectedPaidAmount = 0m;
@@ -43,9 +45,10 @@ namespace UnitTestProject
             decimal dueAmount = 100m;
             string commissioner = "Henry";
             string responsible = "Peter";
+            PaymentType type = PaymentType.Full;
 
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
-                commissioner);
+                commissioner, type);
 
             List<string> expectedAttachments = new List<string>();
             expectedAttachments.Add("attachment1");

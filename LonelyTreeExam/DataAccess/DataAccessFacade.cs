@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Common.Interfaces;
 using DataAccess.Entities;
 using DataAccess.Mappers;
+using Common.Enums;
 
 namespace DataAccess
 {
@@ -36,9 +37,10 @@ namespace DataAccess
             return payments;
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible,
+            string commissioner, PaymentType type)
         {
-            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner);
+            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner, type);
         }
       
         public void UpdatePayment(IPayment payment)

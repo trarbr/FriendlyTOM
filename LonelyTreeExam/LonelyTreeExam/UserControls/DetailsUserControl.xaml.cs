@@ -46,7 +46,8 @@ namespace LonelyTreeExam.UserControls
                     decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
                     DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
                     IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, 
-                        responsibleTextBox.Text, commissionerTextBox.Text);
+                        responsibleTextBox.Text, commissionerTextBox.Text,
+                        (PaymentType)paymentTypeComboBox.SelectedItem);
 
                     decimal paidAmount;
                     decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
@@ -124,6 +125,7 @@ namespace LonelyTreeExam.UserControls
                 dueAmountTextBox.Text = selectedPayment.DueAmount.ToString("N2", culture.NumberFormat);
                 responsibleTextBox.Text = selectedPayment.Responsible;
                 commissionerTextBox.Text = selectedPayment.Commissioner;
+                paymentTypeComboBox.SelectedItem = selectedPayment.Type;
                 if (selectedPayment.PaidDate == new DateTime(1900, 1, 1))
                 {
                     paidDateDatePicker.SelectedDate = null;
@@ -146,6 +148,7 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = "";
                 paidCheckBox.IsChecked = false;
                 noteTextBox.Text = "";
+                paymentTypeComboBox.SelectedIndex = -1;
             }
         }
 

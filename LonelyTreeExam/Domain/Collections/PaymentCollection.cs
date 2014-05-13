@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
 using Domain.Model;
+using Common.Enums;
 
 namespace Domain.Collections
 {
@@ -37,9 +38,10 @@ namespace Domain.Collections
             return payments;
         }
 
-         internal Payment Create(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+         internal Payment Create(DateTime dueDate, decimal dueAmount, string responsible,
+             string commissioner, PaymentType type)
         {
-            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, dataAccessFacade);
+            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type, dataAccessFacade);
             payments.Add(payment);
 
             return payment;
