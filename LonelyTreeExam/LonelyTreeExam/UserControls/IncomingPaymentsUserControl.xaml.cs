@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 using Domain.Controller;
 using Common.Interfaces;
-using System.Globalization;
 
 namespace LonelyTreeExam.UserControls
 {
@@ -69,6 +58,7 @@ namespace LonelyTreeExam.UserControls
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
+            details.attachmentsListView.ItemsSource = null;
             paymentsDataGrid.SelectedItem = null;
             details.commissionerTextBox.Text = "Lonely Tree";
         }
@@ -90,6 +80,7 @@ namespace LonelyTreeExam.UserControls
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
             paymentsDataGrid.SelectedItem = null;
+            details.attachmentsListView.ItemsSource = null;
             details.commissionerTextBox.Text = "Lonely Tree";
         }
 
