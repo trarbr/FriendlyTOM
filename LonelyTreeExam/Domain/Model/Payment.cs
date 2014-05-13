@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,7 +67,8 @@ namespace Domain.Model
 
         public void AddAttachment(string attachment)
         {
-            _paymentEntity.AddAttachment(attachment);
+            validateFilePathExists(attachment);
+            _paymentEntity.AddAttachment(attachment);    
         }
         #endregion
 
@@ -147,6 +149,14 @@ namespace Domain.Model
             if (date == null)
             {
                 throw new ArgumentNullException(paramName, "may not be null");
+            }
+        }
+
+        private void validateFilePathExists(string pathName)
+        {
+            if (!File.Exists(pathName))
+            {
+                throw new Exception("File name does not exists");
             }
         }
 

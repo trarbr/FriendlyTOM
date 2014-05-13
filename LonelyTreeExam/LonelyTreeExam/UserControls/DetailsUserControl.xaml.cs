@@ -37,7 +37,9 @@ namespace LonelyTreeExam.UserControls
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
         }
 
+        #region Internal Methods
 
+        
         internal void CreatePayment()
         {
             if (dueDateDatePicker.SelectedDate != null)
@@ -108,46 +110,22 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
+        internal void SetSelectedPayment(IPayment selectedPayment)
+        {
+            this.selectedPayment = selectedPayment;
+            setValuesInTextBoxes();
+
+        }
+        #endregion
+
         #region Private Fields
         private List<string> attachmentList;
         private PaymentController paymentController;
         private CultureInfo culture;
         private IPayment selectedPayment;
         #endregion
-
-        private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog ofg = new OpenFileDialog();
-            ofg.ShowDialog();
-            string pathName;
-            pathName = ofg.FileName;
-
-            if(pathName != "")
-            {
-                if(selectedPayment == null)
-                {
-                    attachmentList = new List<string>();
-                    attachmentList.Add(pathName);
-                    attachmentsListView.ItemsSource = null;
-                    attachmentsListView.ItemsSource = attachmentList;
-                }
-                else if(selectedPayment != null)
-                {
-                    selectedPayment.AddAttachment(pathName);
-                    UpdatePayment();
-                    attachmentsListView.ItemsSource = null;
-                    attachmentsListView.ItemsSource = selectedPayment.Attachments;
-                }
-            }
-        }
-
-        internal void SetSelectedPayment(IPayment selectedPayment)
-        {
-            this.selectedPayment = selectedPayment;
-            setValuesInTextBoxes();
-            
-        }
-
+        
+        #region Private Method
         private void setValuesInTextBoxes()
         {
             if (selectedPayment != null)
@@ -219,6 +197,32 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
+        private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofg = new OpenFileDialog();
+            ofg.ShowDialog();
+            string pathName;
+            pathName = ofg.FileName;
+
+            if (pathName != "")
+            {
+                if (selectedPayment == null)
+                {
+                    attachmentList = new List<string>();
+                    attachmentList.Add(pathName);
+                    attachmentsListView.ItemsSource = null;
+                    attachmentsListView.ItemsSource = attachmentList;
+                }
+                else if (selectedPayment != null)
+                {
+                    selectedPayment.AddAttachment(pathName);
+                    UpdatePayment();
+                    attachmentsListView.ItemsSource = null;
+                    attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                }
+            }
+        }
+
         private void deleteAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
             string delAttachment = "";
@@ -260,10 +264,11 @@ namespace LonelyTreeExam.UserControls
 
                 x = new Exception(MessageBox.Show("File was not found").ToString());
             }
-            
-            
-            
-        }
 
- }
+
+
+        }
+        #endregion
+
+    }
 }
