@@ -13,8 +13,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
-        <DataGrid x:Name="suppliersDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" >
+        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" 
+                 Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
+        <DataGrid x:Name="suppliersDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
+                  VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
+                  AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" >
             <DataGrid.Columns>
                 <StaticResource ResourceKey="Supplier"/>
             </DataGrid.Columns>
@@ -26,7 +29,8 @@
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">New</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Delete selected payment">
+            <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    ToolTip="Delete selected supplier">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/delete.png" Width="16" />
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
@@ -35,7 +39,7 @@
         </StackPanel>
         <UserControl Grid.Row="3" x:Name="detailsUserControl"/>
         <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
-            <Button x:Name="saveButton" Width="75" Margin="10,0,0,5" ToolTip="Update payment">
+            <Button x:Name="saveButton" Width="75" Margin="10,0,0,5" ToolTip="Save changes">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/arrow_refresh_small.png" Width="16"/>
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Save</TextBlock>

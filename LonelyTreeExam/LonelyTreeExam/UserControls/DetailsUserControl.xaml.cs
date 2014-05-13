@@ -43,8 +43,8 @@ namespace LonelyTreeExam.UserControls
                     decimal dueAmount;
                     decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
                     DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
-                    IPayment payment = paymentController.CreatePayment(dueDate, dueAmount,
-                                                               responsibleTextBox.Text, commissionerTextBox.Text);
+                    IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, 
+                        responsibleTextBox.Text, commissionerTextBox.Text);
 
                     decimal paidAmount;
                     decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
