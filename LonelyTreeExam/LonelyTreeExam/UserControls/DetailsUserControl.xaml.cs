@@ -1,4 +1,5 @@
-﻿using Common.Enums;
+﻿using System.Diagnostics;
+using Common.Enums;
 using Common.Interfaces;
 using Domain.Controller;
 using LonelyTreeExam.AutoComplete;
@@ -30,6 +31,7 @@ namespace LonelyTreeExam.UserControls
         {
             InitializeComponent();
             paymentController = controller;
+            attachmentList =  new List<string>();
             culture = new CultureInfo("en-US");
             AddAutoCompleteEntries();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
@@ -96,24 +98,49 @@ namespace LonelyTreeExam.UserControls
                 }
                 selectedPayment.Note = noteTextBox.Text;
 
+                foreach (string attachments in attachmentList)
+                {
+                    selectedPayment.AddAttachment(attachments);
+                }
+
                 paymentController.UpdatePayment(selectedPayment);
             }
         }
 
+        #region Private Fields
+        private List<string> attachmentList;
         private PaymentController paymentController;
         private CultureInfo culture;
         private IPayment selectedPayment;
+        #endregion
 
         private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofg = new OpenFileDialog();
             ofg.ShowDialog();
+            string pathName;
+            pathName = ofg.FileName;
+
+            if(selectedPayment == null)
+            {
+             attachmentList.Add(pathName);
+             attachmentsListView.ItemsSource = attachmentList;
+            }
+            else if(selectedPayment != null)
+            {
+                selectedPayment.AddAttachment(pathName);
+                UpdatePayment();
+                attachmentsListView.ItemsSource = selectedPayment.Attachments;
+            }
+            
+            
         }
 
         internal void SetSelectedPayment(IPayment selectedPayment)
         {
             this.selectedPayment = selectedPayment;
             setValuesInTextBoxes();
+            
         }
 
         private void setValuesInTextBoxes()
@@ -135,6 +162,7 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = selectedPayment.PaidAmount.ToString("N2", culture.NumberFormat);
                 paidCheckBox.IsChecked = selectedPayment.Paid;
                 noteTextBox.Text = selectedPayment.Note;
+                attachmentsListView.ItemsSource = selectedPayment.Attachments;
             }
             else
             {
@@ -184,5 +212,16 @@ namespace LonelyTreeExam.UserControls
                 paymentTypeComboBox.IsEnabled = false;
             }
         }
-    }
+
+        private void deleteAttachmentButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void attachmentsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(attachmentsListView.SelectedItem.ToString());
+        }
+
+ }
 }
