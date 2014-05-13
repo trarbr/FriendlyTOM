@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using Domain.Controller;
 using Common.Interfaces;
+using System.Globalization;
 
 namespace LonelyTreeExam.UserControls
 {
@@ -33,6 +34,8 @@ namespace LonelyTreeExam.UserControls
             details.commissionerTextBox.Text = "Lonely Tree";
             details.commissionerTextBox.IsEnabled = false;
             detailsUserControl.Content = details;
+            collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+            collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
 
             RefreshPaymentDataGrid();
         }
@@ -43,7 +46,7 @@ namespace LonelyTreeExam.UserControls
             paymentsDataGrid.ItemsSource = null;
 
             List<IPayment> allPayments = paymentController.ReadAllPayments();
-            List<IPayment> incomingPayments = new List<IPayment>();
+            incomingPayments = new List<IPayment>();
 
             foreach (IPayment payment in allPayments)
             {
@@ -60,6 +63,9 @@ namespace LonelyTreeExam.UserControls
         private PaymentController paymentController;
         private DetailsUserControl details;
         private IPayment selectedPayment;
+        private BitmapImage collapsePlusImage;
+        private BitmapImage collapseMinImage;
+        private List<IPayment> incomingPayments;
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
@@ -113,6 +119,51 @@ namespace LonelyTreeExam.UserControls
                 details.commissionerTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
             }
+        }
+
+        private void collapseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (detailsUserControl.Content != null)
+            {
+                detailsUserControl.Content = null;
+                collapseImage.Source = collapsePlusImage;
+                collapseButton.ToolTip = "Show details";
+                bottomStackPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                detailsUserControl.Content = details;
+                collapseImage.Source = collapseMinImage;
+                collapseButton.ToolTip = "Hide details";
+                bottomStackPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchTextBox.Text != "")
+            {
+                List<IPayment> searchedPayments = new List<IPayment>();
+                paymentsDataGrid.ItemsSource = searchedPayments;
+
+                foreach (IPayment payment in incomingPayments)
+                {
+                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Responsible,
+                        payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
+                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note);
+
+                    if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        searchedPayments.Add(payment);
+                    }
+                }
+            }
+            else
+            {
+                paymentsDataGrid.ItemsSource = incomingPayments;
+            }
+
+            paymentsDataGrid.Items.Refresh();
         }
     }
 }

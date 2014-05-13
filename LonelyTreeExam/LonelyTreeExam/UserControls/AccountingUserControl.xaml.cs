@@ -41,19 +41,10 @@ namespace LonelyTreeExam.UserControls
 
         }
 
-        // mangler at putte collapseImage ind igen
-        private BitmapImage collapsePlusImage;
-        private BitmapImage collapseMinImage;
         private PaymentController paymentController;
         private IncomingPaymentsUserControl incomingPaymentsControl;
         private OutgoingPaymentsUserControl outgoingPaymentsControl;
         private ArchivedPaymentsUserControl archivedPaymentsControl;
-
-
-        private void collapseButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
