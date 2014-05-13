@@ -222,7 +222,15 @@ namespace LonelyTreeExam.UserControls
 
         private void attachmentsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(attachmentsListView.SelectedItem.ToString());
+            if (attachmentsListView.SelectedItem != null)
+            {
+                Process.Start(attachmentsListView.SelectedItem.ToString());    
+            }
+            else if(attachmentsListView.SelectedItem == null)
+            {
+                MessageBox.Show("Need to select file");
+            }
+            
         }
 
  }
