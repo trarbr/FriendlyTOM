@@ -51,11 +51,11 @@
                     <Button x:Name="addAttachmentButton" Click="addAttachmentButton_Click">
                         <Image Source="/Images/add.png" />
                     </Button>
-                    <Button x:Name="deleteAttachmentButton">
+                    <Button x:Name="deleteAttachmentButton" Click="deleteAttachmentButton_Click">
                         <Image Source="/Images/delete.png" />
                     </Button>
                 </StackPanel>
-                <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9"/>
+                <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9" MouseDoubleClick="attachmentsListView_MouseDoubleClick"/>
             </Grid>
         </StackPanel>
     </Grid>

@@ -18,6 +18,8 @@ namespace Common.Interfaces
         bool Archived { get; set; }
         PaymentType Type { get; set; }
 
+        void DeleteAttachment(string attachment);
+
         void AddAttachment(string attachment);
     }
 }

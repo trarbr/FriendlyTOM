@@ -37,6 +37,11 @@ namespace DataAccess.Entities
             Type = type;
         }
 
+        public void DeleteAttachment(string attachment)
+        {
+            _attachments.Remove(attachment);
+        }
+
         public void AddAttachment(string attachment)
         {
             _attachments.Add(attachment);
