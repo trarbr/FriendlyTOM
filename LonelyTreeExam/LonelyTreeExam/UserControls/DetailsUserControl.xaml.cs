@@ -199,10 +199,10 @@ namespace LonelyTreeExam.UserControls
 
         private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofg = new OpenFileDialog();
-            ofg.ShowDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
             string pathName;
-            pathName = ofg.FileName;
+            pathName = openFileDialog.FileName;
 
             if (pathName != "")
             {
@@ -225,19 +225,19 @@ namespace LonelyTreeExam.UserControls
 
         private void deleteAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
-            string delAttachment = "";
-            delAttachment = attachmentsListView.SelectedItem.ToString();
-            if(delAttachment != "")
+            string selectedAttachment = "";
+            selectedAttachment = attachmentsListView.SelectedItem.ToString();
+            if(selectedAttachment != "")
             {
                 if (selectedPayment == null)
                 {
-                    attachmentList.Remove(delAttachment);
+                    attachmentList.Remove(selectedAttachment);
                     attachmentsListView.ItemsSource = null;
                     attachmentsListView.ItemsSource = attachmentList;
                 }
                 else
                 {
-                    selectedPayment.DeleteAttachment(delAttachment);
+                    selectedPayment.DeleteAttachment(selectedAttachment);
                     attachmentsListView.ItemsSource = null;
                     attachmentsListView.ItemsSource = selectedPayment.Attachments;
                 }
