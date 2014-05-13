@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using Domain.Controller;
 using Common.Interfaces;
+using System.Globalization;
 
 namespace LonelyTreeExam.UserControls
 {
@@ -147,7 +148,7 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (IPayment payment in incomingPayments)
                 {
-                    string searchData = string.Format("{0} {1} {2} {3}", payment.Responsible, payment.DueDate,
+                    string searchData = string.Format("{0} {1} {2} {3}", payment.Responsible, payment.DueDate.ToString(),
                         payment.DueAmount, payment.PaidDate, payment.PaidAmount);
 
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
