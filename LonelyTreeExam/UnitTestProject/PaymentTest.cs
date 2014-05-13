@@ -99,17 +99,10 @@ namespace UnitTestProject
 
             Payment payment = new Payment(entity, stub);
 
-            DateTime expecteddueDate = new DateTime(2010, 10, 10);
-            decimal expecteddueAmount = 100m;
-            string expectedcommissioner = "Henry";
-            string expectedresponsible = "Peter";
-            PaymentEntity expectedPaymentEntity = new PaymentEntity(expecteddueDate, expecteddueAmount, expectedresponsible, expectedcommissioner);
-            DataAccessFacadeStub expectedStub = new DataAccessFacadeStub();
-
-            Payment expectedPayment = new Payment(expectedPaymentEntity,expectedStub);
-
-            Assert.AreEqual(expectedPaymentEntity, entity);
-            Assert.AreEqual(expectedStub, stub);
+            Assert.AreEqual(dueDate, payment.DueDate);
+            Assert.AreEqual(dueAmount, payment.DueAmount);
+            Assert.AreEqual(commissioner, payment.Commissioner);
+            Assert.AreEqual(responsible, payment.Responsible);
         }
     }
 }
