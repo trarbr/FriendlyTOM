@@ -141,8 +141,7 @@ namespace Domain.Model
             string paramName = "DueDate";
             if (date == null)
             {
-                //throw new ArgumentNullException(paramName, );
-                throw new ArgumentOutOfRangeException(paramName, "ikke null tak");
+                throw new ArgumentNullException(paramName, "may not be null");
             }
         }
 
