@@ -15,8 +15,8 @@
                  HorizontalAlignment="Left" Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
         <DataGrid x:Name="paymentsDataGrid" SelectionChanged="paymentsDataGrid_SelectionChanged" Grid.Row="1"
                   Width="auto" Height="auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                  ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False" IsReadOnly="True"
-                  Background="White" Margin="0" BorderBrush="#FFC6C6C9" >
+                  ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False" 
+                  IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" >
             <DataGrid.Columns>
                 <StaticResource ResourceKey="Commissioner"/>
                 <StaticResource ResourceKey="Responsible"/>
