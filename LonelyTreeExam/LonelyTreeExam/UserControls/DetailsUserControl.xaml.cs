@@ -60,6 +60,12 @@ namespace LonelyTreeExam.UserControls
                         payment.PaidDate = paidDateDatePicker.SelectedDate.Value;
                     }
                     payment.Note = noteTextBox.Text;
+
+                    foreach (string attachments in attachmentList)
+                    {
+                        payment.AddAttachment(attachments);
+                    }
+
                     paymentController.UpdatePayment(payment);
                 }
                 catch (Exception ex)
@@ -98,11 +104,6 @@ namespace LonelyTreeExam.UserControls
                 }
                 selectedPayment.Note = noteTextBox.Text;
 
-                foreach (string attachments in attachmentList)
-                {
-                    selectedPayment.AddAttachment(attachments);
-                }
-
                 paymentController.UpdatePayment(selectedPayment);
             }
         }
@@ -130,10 +131,9 @@ namespace LonelyTreeExam.UserControls
             {
                 selectedPayment.AddAttachment(pathName);
                 UpdatePayment();
+                attachmentsListView.ItemsSource = null;
                 attachmentsListView.ItemsSource = selectedPayment.Attachments;
             }
-            
-            
         }
 
         internal void SetSelectedPayment(IPayment selectedPayment)
