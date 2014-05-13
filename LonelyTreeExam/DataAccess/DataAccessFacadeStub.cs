@@ -10,27 +10,33 @@ namespace DataAccess
 {
     public class DataAccessFacadeStub : IDataAccessFacade
     {
+        List<IPayment> payments = new List<IPayment>();
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
         {
-            return new PaymentEntity(dueDate, dueAmount, responsible, commissioner);
+            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner);           
+            payments.Add(entity);
+
+            return entity;
         }
 
         public List<IPayment> ReadAllPayments()
         {
-            throw new NotImplementedException();
+            return payments;
         }
 
         public void UpdatePayment(IPayment payment)
         {
-            throw new NotImplementedException();
+            PaymentEntity entity = (PaymentEntity)payment;
+
+            entity.LastModified = DateTime.Now;
         }
 
         public void DeletePayment(IPayment payment)
         {
             PaymentEntity entity = (PaymentEntity) payment;
 
-            entity.Deleted = 1;
+            entity.Deleted = true;
         }
     }
 }
