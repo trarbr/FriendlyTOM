@@ -106,6 +106,7 @@ namespace LonelyTreeExam.UserControls
                     selectedPayment.PaidDate = paidDateDatePicker.SelectedDate.Value;
                 }
                 selectedPayment.Note = noteTextBox.Text;
+                selectedPayment.Type = (PaymentType)paymentTypeComboBox.SelectedItem;
                 
                 paymentController.UpdatePayment(selectedPayment);
             }
