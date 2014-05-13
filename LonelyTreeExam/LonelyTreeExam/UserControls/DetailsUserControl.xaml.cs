@@ -168,21 +168,5 @@ namespace LonelyTreeExam.UserControls
                 responsibleTextBox.SelectItem();
             }
         }
-
-        private void paidCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            if (paidCheckBox.IsChecked == true)
-            {
-                paidDateDatePicker.IsEnabled = true;
-                paidAmountTextBox.IsEnabled = true;
-                paymentTypeComboBox.IsEnabled = true;
-            }
-            else
-            {
-                paidDateDatePicker.IsEnabled = false;
-                paidAmountTextBox.IsEnabled = false;
-                paymentTypeComboBox.IsEnabled = false;
-            }
-        }
     }
 }

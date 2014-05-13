@@ -34,11 +34,11 @@
             <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
             <StackPanel Height="26" Orientation="Horizontal">
-                <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center" Click="paidCheckBox_Click"/>
+                <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center"/>
             </StackPanel>
-            <TextBox x:Name="paidAmountTextBox" Height="26" TextWrapping="Wrap" IsEnabled="False"/>
-            <DatePicker x:Name="paidDateDatePicker" Height="26" IsEnabled="False"/>
-            <ComboBox x:Name="paymentTypeComboBox" Margin="0,4,0,0" IsEnabled="False"/>
+            <TextBox x:Name="paidAmountTextBox" Height="26" TextWrapping="Wrap"/>
+            <DatePicker x:Name="paidDateDatePicker" Height="26"/>
+            <ComboBox x:Name="paymentTypeComboBox" Margin="0,4,0,0"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>
