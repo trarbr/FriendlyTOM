@@ -148,8 +148,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (IPayment payment in incomingPayments)
                 {
-                    string searchData = string.Format("{0} {1} {2} {3}", payment.Responsible, payment.DueDate,
-                        payment.DueAmount, payment.PaidDate, payment.PaidAmount);
+                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Responsible,
+                        payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
+                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note);
 
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
