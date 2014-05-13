@@ -217,19 +217,29 @@ namespace LonelyTreeExam.UserControls
 
         private void deleteAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
-
+            //selectedPayment.DeleteAttachment;
         }
 
         private void attachmentsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (attachmentsListView.SelectedItem != null)
+            try
             {
-                Process.Start(attachmentsListView.SelectedItem.ToString());    
+                if (attachmentsListView.SelectedItem != null)
+                {
+                    Process.Start(attachmentsListView.SelectedItem.ToString());    
+                }
+                else if (attachmentsListView.SelectedItem == null)
+                {
+                    MessageBox.Show("Need to select file");
+                }
             }
-            else if(attachmentsListView.SelectedItem == null)
+            catch (Exception x)
             {
-                MessageBox.Show("Need to select file");
+
+                x = new Exception(MessageBox.Show("File was not found").ToString());
             }
+            
+            
             
         }
 

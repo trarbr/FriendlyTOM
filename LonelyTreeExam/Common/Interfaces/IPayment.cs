@@ -16,6 +16,8 @@ namespace Common.Interfaces
         bool Paid { get; set; }
         bool Archived { get; set; }
 
+        void DeleteAttachment(string attachment);
+
         void AddAttachment(string attachment);
     }
 }

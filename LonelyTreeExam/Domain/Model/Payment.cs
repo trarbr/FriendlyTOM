@@ -59,6 +59,11 @@ namespace Domain.Model
             get { return _paymentEntity.Attachments; }
         }
 
+        public void DeleteAttachment(string attachment)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddAttachment(string path)
         {
             _paymentEntity.AddAttachment(path);
