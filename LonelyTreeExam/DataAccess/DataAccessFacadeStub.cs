@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Entities;
 
 namespace DataAccess
 {
@@ -12,7 +13,7 @@ namespace DataAccess
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
         {
-            throw new NotImplementedException();
+            return new PaymentEntity(dueDate, dueAmount, responsible, commissioner);
         }
 
         public List<IPayment> ReadAllPayments()
@@ -27,7 +28,9 @@ namespace DataAccess
 
         public void DeletePayment(IPayment payment)
         {
-            throw new NotImplementedException();
+            PaymentEntity entity = (PaymentEntity) payment;
+
+            entity.Deleted = 1;
         }
     }
 }
