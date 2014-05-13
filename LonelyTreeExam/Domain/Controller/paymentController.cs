@@ -32,20 +32,20 @@ namespace Domain.Controller
             return payments;
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, 
+            string commissioner)
         {
             return paymentCollection.Create(dueDate, dueAmount, responsible, commissioner);
         }
 
         public void UpdatePayment(IPayment payment)
         {
-            paymentCollection.Update((Payment) payment);
+            paymentCollection.Update((Payment)payment);
         }
 
         public void DeletePayment(IPayment payment)
         {
-            Payment pay = payment as Payment;
-            paymentCollection.Delete(pay);
+            paymentCollection.Delete((Payment)payment);
         }
         #endregion
 
