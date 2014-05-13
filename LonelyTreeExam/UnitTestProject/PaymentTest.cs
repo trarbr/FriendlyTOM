@@ -104,5 +104,16 @@ namespace UnitTestProject
             Assert.AreEqual(commissioner, payment.Commissioner);
             Assert.AreEqual(responsible, payment.Responsible);
         }
+
+        [TestMethod]
+        public void TestPaidAmountPositiveData()
+        {
+            IPayment payment = ValidPaymentInput();
+            payment.PaidAmount = 100m;
+
+            Assert.AreEqual(100, payment.PaidAmount);
+        }
+
+        //test attachments exceptions
     }
 }
