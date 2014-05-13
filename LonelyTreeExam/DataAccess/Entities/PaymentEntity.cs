@@ -36,7 +36,7 @@ namespace DataAccess.Entities
 
         public void DeleteAttachment(string attachment)
         {
-            
+            _attachments.Remove(attachment);
         }
 
         public void AddAttachment(string attachment)

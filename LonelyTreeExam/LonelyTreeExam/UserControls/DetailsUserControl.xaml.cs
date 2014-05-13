@@ -65,7 +65,7 @@ namespace LonelyTreeExam.UserControls
                     {
                         payment.AddAttachment(attachments);
                     }
-
+                    
                     paymentController.UpdatePayment(payment);
                 }
                 catch (Exception ex)
@@ -103,7 +103,7 @@ namespace LonelyTreeExam.UserControls
                     selectedPayment.PaidDate = paidDateDatePicker.SelectedDate.Value;
                 }
                 selectedPayment.Note = noteTextBox.Text;
-
+                
                 paymentController.UpdatePayment(selectedPayment);
             }
         }
@@ -179,6 +179,7 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = "";
                 paidCheckBox.IsChecked = false;
                 noteTextBox.Text = "";
+                attachmentsListView.ItemsSource = null;
             }
         }
 
@@ -220,7 +221,25 @@ namespace LonelyTreeExam.UserControls
 
         private void deleteAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
-            //selectedPayment.DeleteAttachment;
+            string delAttachment = "";
+            delAttachment = attachmentsListView.SelectedItem.ToString();
+            if(delAttachment != "")
+            {
+                if (selectedPayment == null)
+                {
+                    attachmentList.Remove(delAttachment);
+                    attachmentsListView.ItemsSource = null;
+                    attachmentsListView.ItemsSource = attachmentList;
+                }
+                else
+                {
+                    selectedPayment.DeleteAttachment(delAttachment);
+                    attachmentsListView.ItemsSource = null;
+                    attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                }
+
+                
+            }
         }
 
         private void attachmentsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
