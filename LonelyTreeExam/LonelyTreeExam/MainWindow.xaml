@@ -23,10 +23,11 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/basket.png" Height="16"/>
-                        <Label Content="Sales" />
+                        <Image Source="/Images/user_suit.png" Height="16"/>
+                        <Label Content="Suppliers" />
                     </StackPanel>
                 </TabItem.Header>
+                <UserControl x:Name="suppliersUserControl"/>
             </TabItem>
         </TabControl>
 

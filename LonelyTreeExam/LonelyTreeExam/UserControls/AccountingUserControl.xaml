@@ -6,22 +6,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <TabControl x:Name="mainTabNavigation" HorizontalContentAlignment="Left" Grid.Row="0">
-            <TabItem Height="28">
+        <TabControl x:Name="mainTabNavigation" HorizontalContentAlignment="Left"
+                    SelectionChanged="mainTabNavigation_SelectionChanged">
+            <TabItem Height="30">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/book_open.png" Height="16"/>
-                        <Label Content="Current" />
+                        <Label Content="Incoming" />
                     </StackPanel>
                 </TabItem.Header>
-                <UserControl x:Name="currentPaymentsUserControl"/>
+                <UserControl x:Name="incomingPaymentsUserControl"/>
             </TabItem>
-            <TabItem Height="28">
+            <TabItem Height="30">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/book_open.png" Height="16"/>
+                        <Label Content="Outgoing" />
+                    </StackPanel>
+                </TabItem.Header>
+                <UserControl x:Name="outgoingPaymentsUserControl"/>
+            </TabItem>
+            <TabItem Height="30">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/book_key.png" Height="16"/>
@@ -31,15 +36,5 @@
                 <UserControl x:Name="archiveUserControl"/>
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Row="1" Margin="0,5,0,0">
-            <Button x:Name="collapseButton" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="2,0,0,0" Click="collapseButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image x:Name="collapseImage" Source="/Images/collapse-min.png" Width="16" />
-                </StackPanel>
-            </Button>
-        </StackPanel>
-        <StackPanel Grid.Row="2">
-            <UserControl x:Name="detailsUserControl"/>
-        </StackPanel>
     </Grid>
 </UserControl>

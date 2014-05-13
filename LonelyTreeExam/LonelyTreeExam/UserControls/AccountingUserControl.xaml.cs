@@ -21,63 +21,50 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class AccountingUserControl : UserControl
     {
+        int current_tab_index;
+
         public AccountingUserControl()
         {
-            paymentController = new PaymentController();
-            details = new DetailsUserControl(paymentController);
             InitializeComponent();
-            initializeDataGrids();
-            collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
-            collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
-            collapseDetailedView();
+            paymentController = new PaymentController();
+
+            incomingPaymentsControl = new IncomingPaymentsUserControl(paymentController);
+            archivedPaymentsControl = new ArchivedPaymentsUserControl(paymentController);
+            outgoingPaymentsControl = new OutgoingPaymentsUserControl(paymentController);
+
+            incomingPaymentsUserControl.Content = incomingPaymentsControl;
+            outgoingPaymentsUserControl.Content = outgoingPaymentsControl;
+            archiveUserControl.Content = archivedPaymentsControl;
+
+            current_tab_index = mainTabNavigation.SelectedIndex;
 
 
-
-            currentPaymentsUserControl.Content = currentPayments;
-            archiveUserControl.Content = archivedPayments;
         }
 
-        private DetailsUserControl details;
-        private PaymentsUserControl currentPayments;
-        private PaymentsUserControl archivedPayments;
+        // mangler at putte collapseImage ind igen
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
+        private PaymentController paymentController;
+        private IncomingPaymentsUserControl incomingPaymentsControl;
+        private OutgoingPaymentsUserControl outgoingPaymentsControl;
+        private ArchivedPaymentsUserControl archivedPaymentsControl;
 
-        private void initializeDataGrids()
-        {
-            currentPayments = new PaymentsUserControl("Archive",
-                new BitmapImage(new Uri("/Images/book_add2.png", UriKind.Relative)),
-                "Move selected payment to archive", paymentController, details);
-            archivedPayments = new PaymentsUserControl("Restore", 
-                new BitmapImage(new Uri("/Images/book_next2.png", UriKind.Relative)),
-                "Move selected payment to current payments", paymentController, details);
-
-            currentPaymentsUserControl.Content = currentPayments;
-            archiveUserControl.Content = archivedPayments;
-        }
-
-        private void collapseDetailedView()
-        {
-            if (detailsUserControl.Content != null)
-            {
-                detailsUserControl.Content = null;
-                collapseImage.Source = collapsePlusImage;
-                collapseButton.ToolTip = "Show details";
-            }
-            else
-            {
-                detailsUserControl.Content = details;
-                collapseImage.Source = collapseMinImage;
-                collapseButton.ToolTip = "Hide details";
-            }
-        }
 
         private void collapseButton_Click(object sender, RoutedEventArgs e)
         {
-            collapseDetailedView();
+
         }
 
-        private PaymentController paymentController;
+        private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (mainTabNavigation.SelectedIndex != current_tab_index)
+            {
+                incomingPaymentsControl.RefreshPaymentDataGrid();
+                outgoingPaymentsControl.RefreshPaymentDataGrid();
+                archivedPaymentsControl.RefreshPaymentDataGrid();
 
+                current_tab_index = mainTabNavigation.SelectedIndex;
+            }
+        }
     }
 }
