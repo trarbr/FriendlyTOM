@@ -122,19 +122,22 @@ namespace LonelyTreeExam.UserControls
             string pathName;
             pathName = ofg.FileName;
 
-            if(selectedPayment == null)
+            if(pathName != "")
             {
-                attachmentList = new List<string>();
-                attachmentList.Add(pathName);
-                attachmentsListView.ItemsSource = null;
-                attachmentsListView.ItemsSource = attachmentList;
-            }
-            else if(selectedPayment != null)
-            {
-                selectedPayment.AddAttachment(pathName);
-                UpdatePayment();
-                attachmentsListView.ItemsSource = null;
-                attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                if(selectedPayment == null)
+                {
+                    attachmentList = new List<string>();
+                    attachmentList.Add(pathName);
+                    attachmentsListView.ItemsSource = null;
+                    attachmentsListView.ItemsSource = attachmentList;
+                }
+                else if(selectedPayment != null)
+                {
+                    selectedPayment.AddAttachment(pathName);
+                    UpdatePayment();
+                    attachmentsListView.ItemsSource = null;
+                    attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                }
             }
         }
 

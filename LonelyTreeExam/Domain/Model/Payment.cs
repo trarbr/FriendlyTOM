@@ -61,12 +61,12 @@ namespace Domain.Model
 
         public void DeleteAttachment(string attachment)
         {
-            throw new NotImplementedException();
+            _paymentEntity.DeleteAttachment(attachment);
         }
 
-        public void AddAttachment(string path)
+        public void AddAttachment(string attachment)
         {
-            _paymentEntity.AddAttachment(path);
+            _paymentEntity.AddAttachment(attachment);
         }
         #endregion
 

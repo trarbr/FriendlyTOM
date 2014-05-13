@@ -36,7 +36,7 @@ namespace DataAccess.Entities
 
         public void DeleteAttachment(string attachment)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void AddAttachment(string attachment)
