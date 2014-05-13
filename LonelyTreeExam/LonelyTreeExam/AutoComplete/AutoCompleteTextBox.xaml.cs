@@ -149,7 +149,7 @@ namespace LonelyTreeExam.AutoComplete
                     {
                         foreach (string word in entry.KeywordStrings)
                         {
-                            if (word.StartsWith(textBox.Text, StringComparison.CurrentCultureIgnoreCase))
+                            if (word.IndexOf(textBox.Text, StringComparison.CurrentCultureIgnoreCase) >= 0)
                             {
                                 ComboBoxItem cbItem = new ComboBoxItem();
                                 cbItem.Content = entry.ToString();
