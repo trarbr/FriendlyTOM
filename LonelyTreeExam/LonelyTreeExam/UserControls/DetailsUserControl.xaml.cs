@@ -154,18 +154,7 @@ namespace LonelyTreeExam.UserControls
             foreach (IPayment payment in paymentController.ReadAllPayments())
             {
                 responsibleTextBox.AddItem(new AutoCompleteEntry(payment.Responsible, null));
-            }
-        }
-
-        private void responsibleTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Down)
-            {
-                responsibleTextBox.FocusComboBox();
-            }
-            else if (e.Key == Key.Enter)
-            {
-                responsibleTextBox.SelectItem();
+                commissionerTextBox.AddItem(new AutoCompleteEntry(payment.Commissioner, null));
             }
         }
     }

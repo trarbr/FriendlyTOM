@@ -27,10 +27,8 @@
             <Label Content="PaymentType:"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
-            <TextBox x:Name="commissionerTextBox" Height="26" TextWrapping="Wrap"/>
-            <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" 
-                                       DelayTime="150" 
-                                       PreviewKeyDown="responsibleTextBox_PreviewKeyDown"/>
+            <local:AutoCompleteTextBox Height="26" x:Name="commissionerTextBox" Threshold="1" DelayTime="100"/>
+            <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" DelayTime="100"/>
             <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
             <StackPanel Height="26" Orientation="Horizontal">
