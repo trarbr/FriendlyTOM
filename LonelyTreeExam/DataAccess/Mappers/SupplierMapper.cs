@@ -58,7 +58,7 @@ namespace DataAccess.Mappers
 
         protected override string updateProcedureName
         {
-            get { return StoredProcedures.READ_ALL_SUPPLIERS; }
+            get { return StoredProcedures.UPDATE_SUPPLIER; }
         }
 
         protected override SupplierEntity entityFromReader(SqlDataReader reader)
@@ -73,10 +73,6 @@ namespace DataAccess.Mappers
             bool deleted = (bool)reader["Deleted"];
 
             SupplierEntity supplierEntity = new SupplierEntity(paymentInfo, type, note, name);
-            supplierEntity.Name = name;
-            supplierEntity.Note = note;
-            supplierEntity.PaymentInfo = paymentInfo;
-            supplierEntity.Type = type;
             supplierEntity.Id = id;
             supplierEntity.LastModified = lastModified;
             supplierEntity.Deleted = deleted;

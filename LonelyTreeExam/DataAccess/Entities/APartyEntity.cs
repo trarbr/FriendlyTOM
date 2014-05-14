@@ -9,29 +9,8 @@ namespace DataAccess.Entities
 {
     internal abstract class APartyEntity : Entity, IParty
     {
-        public string Name
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string Note
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string Name { get; set; }
+        public string Note { get; set; }
 
         internal APartyEntity(string note, string name)
         {

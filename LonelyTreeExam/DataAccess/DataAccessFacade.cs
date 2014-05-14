@@ -31,6 +31,7 @@ namespace DataAccess
             }
 
             paymentMapper = new PaymentMapper(connectionString);
+            supplierMapper = new SupplierMapper(connectionString);
         }
 
         #region Public Methods
@@ -62,8 +63,7 @@ namespace DataAccess
 
         public void DeletePayment(IPayment payment)
         {
-            PaymentEntity pay = payment as PaymentEntity;
-            paymentMapper.Delete(pay);
+            paymentMapper.Delete((PaymentEntity) payment);
         }
         #endregion
 
