@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Common.Interfaces;
 using DataAccess.Entities;
 using DataAccess.Mappers;
+using Common.Enums;
 
 namespace DataAccess
 {
@@ -71,10 +72,7 @@ namespace DataAccess
         private PaymentMapper paymentMapper;
         #endregion
 
-
-
-
-        public ISupplier CreateSupplier()
+        public ISupplier CreateSupplier(string name, string note, string paymentInfo, SupplierType type)
         {
             throw new NotImplementedException();
         }

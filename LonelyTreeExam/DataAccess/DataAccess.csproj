@@ -50,6 +50,7 @@
     <Compile Include="IDataAccessFacade.cs" />
     <Compile Include="Mappers\ASQLMapper.cs" />
     <Compile Include="Mappers\PaymentMapper.cs" />
+    <Compile Include="Mappers\SupplierMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

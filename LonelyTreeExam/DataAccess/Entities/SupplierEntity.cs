@@ -13,6 +13,11 @@ namespace DataAccess.Entities
         public string PaymentInfo { get; set; }
         public SupplierType Type { get; set; }
 
-
+        public SupplierEntity(string paymentInfo, SupplierType type, string note, string name) 
+            :base(note, name)
+        {
+            PaymentInfo = paymentInfo;
+            Type = type;
+        }
     }
 }

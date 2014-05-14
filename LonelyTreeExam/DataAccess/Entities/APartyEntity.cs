@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Entities
 {
-    internal abstract class APartyEntity : IParty
+    internal abstract class APartyEntity : Entity, IParty
     {
         public string Name
         {
@@ -31,6 +31,12 @@ namespace DataAccess.Entities
             {
                 throw new NotImplementedException();
             }
+        }
+
+        internal APartyEntity(string note, string name)
+        {
+            Note = note;
+            Name = name;
         }
     }
 }
