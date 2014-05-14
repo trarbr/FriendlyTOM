@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Model\Accountability.cs" />
     <Compile Include="Model\AParty.cs" />
+    <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Payment.cs" />
     <Compile Include="Model\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

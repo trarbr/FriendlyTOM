@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Enums;
 using Common.Interfaces;
 
 namespace DataAccess
@@ -19,7 +20,7 @@ namespace DataAccess
        void UpdateSupplier(ISupplier supplier);
        void DeleteSupplier(ISupplier supplier);
 
-       ICustomer CreateCustomer();
+       ICustomer CreateCustomer(CustomerType type);
        List<ICustomer> ReadAllCustomers();
        void UpdateCustomers(ICustomer customer);
        void DeleteCustomer(ICustomer customer);
