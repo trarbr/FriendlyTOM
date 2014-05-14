@@ -11,11 +11,7 @@ namespace DataAccess.Entities
     internal class CustomerEntity : APartyEntity, ICustomer
     {
         public CustomerType Type { get; set; }
-        public IReadOnlyList<string> Customers
-        {
-            get { return _customers; }
-        } 
-
+        
         public CustomerEntity(CustomerType type, string note, string name) : base(note, name)
         {
             _customers = new List<string>();

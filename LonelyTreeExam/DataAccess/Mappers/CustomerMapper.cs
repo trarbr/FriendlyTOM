@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Enums;
 using DataAccess.Entities;
+using DataAccess.Helpers;
 
 namespace DataAccess.Mappers
 {
@@ -48,33 +49,58 @@ namespace DataAccess.Mappers
         #region Protected Methods
         protected override string insertProcedureName
         {
-            get { throw new NotImplementedException(); }
+            get { return StoredProcedures.CREATE_CUSTOMER; }
         }
 
         protected override string selectAllProcedureName
         {
-            get { throw new NotImplementedException(); }
+            get { return StoredProcedures.READ_ALL_CUSTOMERS; }
         }
 
         protected override string updateProcedureName
         {
-            get { throw new NotImplementedException(); }
+            get { return StoredProcedures.UPDATE_CUSTOMER; }
         }
 
         protected override CustomerEntity entityFromReader(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            string note = (string) reader["Note"];
+            string name = (string) reader["Name"];
+            CustomerType type = (CustomerType) reader["Type"];
+            int id = (int) reader["PartyId"];
+            bool deletede = (bool) reader["Deletede"];
+            DateTime lastmodified = (DateTime) reader["LastModified"];
+
+            CustomerEntity customerEntity = new CustomerEntity(type, note, name);
+            customerEntity.Name = name;
+            customerEntity.Note = note;
+            customerEntity.Type = type;
+            customerEntity.Id = id;
+            customerEntity.Deleted = deletede;
+            customerEntity.LastModified = lastmodified;
+
+            return customerEntity;
         }
 
         protected override void addInsertParameters(CustomerEntity entity, SqlParameterCollection parameters)
         {
-            throw new NotImplementedException();
+            addCustomerParameters(entity, parameters);
         }
 
         protected override void addUpdateParameters(CustomerEntity entity, SqlParameterCollection parameters)
         {
-            throw new NotImplementedException();
+            addCustomerParameters(entity, parameters);
         }
         #endregion
+
+        private void addCustomerParameters(CustomerEntity entity, SqlParameterCollection parameters)
+        {
+            SqlParameter parameter = new SqlParameter("@Name", entity.Name);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Note", entity.Note);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Type", entity.Type);
+            parameters.Add(parameter);
+        }
     }
 }
