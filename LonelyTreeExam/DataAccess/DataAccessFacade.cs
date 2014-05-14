@@ -8,14 +8,28 @@ using System.Threading.Tasks;
 using Common.Interfaces;
 using DataAccess.Entities;
 using DataAccess.Mappers;
+using Common.Enums;
 
 namespace DataAccess
 {
     public class DataAccessFacade : IDataAccessFacade
     {
-        public DataAccessFacade()
+        /// <summary>
+        /// Initializes a DataAccessFacade for accessing a MS SQL database
+        /// </summary>
+        /// <param name="test">For integration tests, set test = true to use test database</param>
+        public DataAccessFacade(bool test = false)
         {
-            connectionString = File.ReadAllText("C:\\ConnectString.txt");
+            if (!test)
+            {
+                connectionString = File.ReadAllText("C:\\ConnectString.txt");
+            }
+            else
+            {
+                connectionString = 
+                    @"Data Source=localhost\SQLEXPRESS;Initial Catalog=LTTEST;Integrated Security=True";
+            }
+
             paymentMapper = new PaymentMapper(connectionString);
         }
 
@@ -36,9 +50,10 @@ namespace DataAccess
             return payments;
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible,
+            string commissioner, PaymentType type, string sale, int booking)
         {
-            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner);
+            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
         }
       
         public void UpdatePayment(IPayment payment)
@@ -58,6 +73,47 @@ namespace DataAccess
         private PaymentMapper paymentMapper;
         #endregion
 
-      
+
+
+
+        public ISupplier CreateSupplier()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ISupplier> ReadAllSuppliers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateSupplier(ISupplier supplier)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteSupplier(ISupplier supplier)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICustomer CreateCustomer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ICustomer> ReadAllCustomers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateCustomers(ICustomer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteCustomer(ICustomer customer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

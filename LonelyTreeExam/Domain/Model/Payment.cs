@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Interfaces;
+using Common.Enums;
 using DataAccess;
 
 namespace Domain.Model
@@ -55,6 +56,30 @@ namespace Domain.Model
             get { return _paymentEntity.Paid; }
             set { _paymentEntity.Paid = value; }
         }
+        public PaymentType Type
+        {
+            get { return _paymentEntity.Type; }
+            set { _paymentEntity.Type = value; }
+        }
+        public string Sale
+        {
+            get { return _paymentEntity.Sale; }
+            set
+            {
+                validateSale(value);
+                _paymentEntity.Sale = value;
+            }
+        }
+        public int Booking
+        {
+            get { return _paymentEntity.Booking; }
+            set { _paymentEntity.Booking = value; }
+        }
+        public string Invoice
+        {
+            get { return _paymentEntity.Invoice; }
+            set { _paymentEntity.Invoice = value; }
+        }
         public IReadOnlyList<string> Attachments
         {
             get { return _paymentEntity.Attachments; }
@@ -72,24 +97,21 @@ namespace Domain.Model
         }
         #endregion
 
-        //skal måske bruges i sprint 2!!
-        //internal IPayment paymentEntity
-        //{
-        //    get { return _paymentEntity; }
-        //    set { _paymentEntity = value; }
-        //}
 
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, IDataAccessFacade dataAccessFacade) 
+            string commissioner, PaymentType type, string sale, int booking,
+            IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
             validateDueDateNotNull(dueDate);
             validateResponsible(responsible);
             validateCommissioner(commissioner);
+            validateSale(sale);
 
             this.dataAccessFacade = dataAccessFacade;
 
-            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner);
+            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible,
+                commissioner, type, sale, booking);
             this._accountabilityEntity = _paymentEntity;
         }
 
@@ -158,6 +180,11 @@ namespace Domain.Model
             {
                 throw new Exception("File name does not exists");
             }
+        }
+
+        private void validateSale(string value)
+        {
+            validateNullOrWhiteSpace(value, "Sale");
         }
 
         #endregion

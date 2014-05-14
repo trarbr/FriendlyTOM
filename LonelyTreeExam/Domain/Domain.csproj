@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Accountability.cs" />
+    <Compile Include="Model\Party.cs" />
     <Compile Include="Model\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
