@@ -43,7 +43,7 @@ namespace LonelyTreeExam.UserControls
             // denne logik skal muligvis ned i Controller laget
             paymentsDataGrid.ItemsSource = null;
 
-            List<IPayment> payments = paymentController.ReadAllOutgoingPayments();
+            outgoingPayments = paymentController.ReadAllOutgoingPayments();
             /*
             outgoingPayments = new List<IPayment>();
 
@@ -56,7 +56,7 @@ namespace LonelyTreeExam.UserControls
             }
             */
 
-            paymentsDataGrid.ItemsSource = payments;
+            paymentsDataGrid.ItemsSource = outgoingPayments;
             details.responsibleTextBox.Text = "Lonely Tree";
         }
 
@@ -115,6 +115,7 @@ namespace LonelyTreeExam.UserControls
             if (selectedPayment != null)
             {
                 selectedPayment.Archived = true;
+                paymentController.UpdatePayment(selectedPayment);
                 paymentsDataGrid.SelectedItem = null;
                 details.responsibleTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
