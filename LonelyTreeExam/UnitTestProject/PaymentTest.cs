@@ -34,7 +34,7 @@ namespace UnitTestProject
         }
 
         [TestMethod]
-        public void TestConstructorValidData()
+        public void TestPaymentConstructorValidData()
         {
             IPayment validPayment = ValidPaymentInput();
 
@@ -45,7 +45,6 @@ namespace UnitTestProject
             PaymentType expectedType = PaymentType.Balance;
             string expectedSale = "lort";
             int expectedBooking = 2134567;
-            string expectedInvoice = "mmmmmmh";
 
             Assert.AreEqual(expectedCommisioner, validPayment.Commissioner);
             Assert.AreEqual(expectedDueAmount, validPayment.DueAmount);
