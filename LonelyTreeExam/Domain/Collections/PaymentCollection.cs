@@ -105,32 +105,20 @@ namespace Domain.Collections
                  if (!archivedPayments.Contains(payment))
                  {
                      archivedPayments.Add(payment);
-                     if (incomingPayments.Contains(payment))
-                     {
-                         incomingPayments.Remove(payment);
-                     }
-                     else if (outgoingPayments.Contains(payment))
-                     {
-                         outgoingPayments.Remove(payment);
-                     }
+                     incomingPayments.Remove(payment);
+                     outgoingPayments.Remove(payment);
                  }
              }
              else if (payment.Archived == false)
              {
-                 if (archivedPayments.Contains(payment))
-                 {
-                     archivedPayments.Remove(payment);
-                 }
+                 archivedPayments.Remove(payment);
 
                  if (payment.Commissioner == "Lonely Tree")
                  {
                      if (!incomingPayments.Contains(payment))
                      {
                          incomingPayments.Add(payment);
-                         if (outgoingPayments.Contains(payment))
-                         {
-                             outgoingPayments.Remove(payment);
-                         }
+                         outgoingPayments.Remove(payment);
                      }
                  }
                  if (payment.Responsible == "Lonely Tree")
@@ -138,15 +126,10 @@ namespace Domain.Collections
                      if (!outgoingPayments.Contains(payment))
                      {
                          outgoingPayments.Add(payment);
-
-                         if (incomingPayments.Contains(payment))
-                         {
-                             incomingPayments.Remove(payment);
-                         }
+                         incomingPayments.Remove(payment);
                      }
                  }
              }
-
              payment.Update();
          }
 
