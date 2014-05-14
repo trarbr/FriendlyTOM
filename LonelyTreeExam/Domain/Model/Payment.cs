@@ -19,7 +19,6 @@ namespace Domain.Model
             get { return _paymentEntity.DueDate; }
             set
             {
-                validateDueDateNotNull(value);
                 _paymentEntity.DueDate = value;
             }
         }
@@ -103,7 +102,6 @@ namespace Domain.Model
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
-            validateDueDateNotNull(dueDate);
             validateResponsible(responsible);
             validateCommissioner(commissioner);
             validateSale(sale);
@@ -162,15 +160,6 @@ namespace Domain.Model
             if (number < 0)
             {
                 throw new ArgumentOutOfRangeException(paramName, "may not be less than zero");
-            }
-        }
-
-        private void validateDueDateNotNull(DateTime date)
-        {
-            string paramName = "DueDate";
-            if (date == null)
-            {
-                throw new ArgumentNullException(paramName, "may not be null");
             }
         }
 
