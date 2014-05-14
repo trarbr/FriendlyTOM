@@ -17,10 +17,7 @@ namespace Domain.Model
         public DateTime DueDate
         {
             get { return _paymentEntity.DueDate; }
-            set
-            {
-                _paymentEntity.DueDate = value;
-            }
+            set { _paymentEntity.DueDate = value; }
         }
         public decimal DueAmount
         {
