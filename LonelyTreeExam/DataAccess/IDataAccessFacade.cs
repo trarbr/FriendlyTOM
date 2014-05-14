@@ -15,6 +15,16 @@ namespace DataAccess
         List<IPayment> ReadAllPayments();
         void UpdatePayment(IPayment payment);
         void DeletePayment(IPayment payment);
+
+       ISupplier CreateSupplier();
+       List<ISupplier> ReadAllSuppliers();
+       void UpdateSupplier(ISupplier supplier);
+       void DeleteSupplier(ISupplier supplier);
+
+       ICustomer CreateCustomer();
+       List<ICustomer> ReadAllCustomers();
+       void UpdateCustomers(ICustomer customer);
+       void DeleteCustomer(ICustomer customer);
    }
 }
 
