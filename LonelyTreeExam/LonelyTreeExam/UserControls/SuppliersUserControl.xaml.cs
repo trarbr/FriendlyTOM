@@ -25,11 +25,11 @@ namespace LonelyTreeExam.UserControls
         public SuppliersUserControl()
         {
             InitializeComponent();
-            paymentController = new PaymentController();
-            suppliersDataGrid.ItemsSource = paymentController.ReadAllPayments();
+            supplierController = new SupplierController();
+            suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
         }
 
-        private PaymentController paymentController; // Skift til SupplierController
+        private SupplierController supplierController;
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -39,7 +39,7 @@ namespace LonelyTreeExam.UserControls
                 List<IPayment> searchedSuppliers = new List<IPayment>();
                 suppliersDataGrid.ItemsSource = searchedSuppliers;
 
-                foreach (IPayment supplier in paymentController.ReadAllPayments())
+                foreach (IPayment supplier in supplierController.ReadAllSuppliers())
                 {
                     // Kun find resultater hvor navnet starter med søgeteksten:
                     // if (supplier.Responsible.StartsWith(searchTextBox.Text, StringComparison.OrdinalIgnoreCase)
@@ -58,7 +58,7 @@ namespace LonelyTreeExam.UserControls
             }
             else
             {
-                suppliersDataGrid.ItemsSource = paymentController.ReadAllPayments();
+                suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             }
 
             suppliersDataGrid.Items.Refresh();

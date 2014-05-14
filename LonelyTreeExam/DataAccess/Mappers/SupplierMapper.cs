@@ -68,7 +68,7 @@ namespace DataAccess.Mappers
             string paymentInfo = (string) reader["PaymentInfo"];
             SupplierType type = (SupplierType) Enum.Parse(typeof (SupplierType), reader["Type"].ToString());
 
-            int id = (int)reader["SupplierId"];
+            int id = (int)reader["PartyId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
