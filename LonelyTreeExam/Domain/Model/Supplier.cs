@@ -11,17 +11,18 @@ namespace Domain.Model
 {
     internal class Supplier : AParty, ISupplier
     {
-        public string Name
-        {
-            get { return _supplierEntity.Name; }
-            set { _supplierEntity.Name = value; }
-        }
+        //SLET DEM!!
+        //public string Name
+        //{
+        //    get { return _supplierEntity.Name; }
+        //    set { _supplierEntity.Name = value; }
+        //}
 
-        public string Note
-        {
-            get { return _supplierEntity.Note; }
-            set { _supplierEntity.Note = value; }
-        }
+        //public string Note
+        //{
+        //    get { return _supplierEntity.Note; }
+        //    set { _supplierEntity.Note = value; }
+        //}
 
         public string PaymentInfo
         {
