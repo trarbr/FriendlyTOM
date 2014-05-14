@@ -31,9 +31,9 @@ namespace Domain.Controller
             return customers;
         }
 
-        public ICustomer CreateCustomer(CustomerType type)
+        public ICustomer CreateCustomer(CustomerType type, string name, string note)
         {
-            return customerCollection.Create(type);
+            return customerCollection.Create(type, name, note);
         }
 
         public void UpdateCustomer(ICustomer customer)

@@ -13,7 +13,7 @@ namespace Domain.Model
             set { _customerEntity.Type = value; }
         }
 
-        internal Customer(CustomerType type)
+        internal Customer(CustomerType type, string name, string note)
         {
             _customerEntity = dataAccessFacade.CreateCustomer(Type);
             this._partyEntity = _customerEntity;

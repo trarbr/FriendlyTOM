@@ -27,9 +27,9 @@ namespace Domain.Collections
             return customers;
         }
 
-        internal Customer Create(CustomerType type)
+        internal Customer Create(CustomerType type, string name, string note)
         {
-            Customer customer = new Customer(type);
+            Customer customer = new Customer(type, name, note);
             customers.Add(customer);
             return customer;
         }
