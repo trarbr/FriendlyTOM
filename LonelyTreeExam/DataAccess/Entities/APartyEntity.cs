@@ -38,5 +38,6 @@ namespace DataAccess.Entities
             Note = note;
             Name = name;
         }
-    }
+
+     }
 }

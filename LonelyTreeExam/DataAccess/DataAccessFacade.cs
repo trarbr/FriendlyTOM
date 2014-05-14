@@ -92,6 +92,11 @@ namespace DataAccess
             throw new NotImplementedException();
         }
 
+        public ICustomer CreateCustomer(CustomerType type)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICustomer CreateCustomer()
         {
             throw new NotImplementedException();

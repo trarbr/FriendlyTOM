@@ -21,6 +21,8 @@ namespace Domain.Model
 
         internal Customer(ICustomer customerEntity, IDataAccessFacade dataAccessFacade)
         {
+            _customerEntity = customerEntity;
+            this._partyEntity = _customerEntity;
             this.dataAccessFacade = dataAccessFacade;
         }
 
