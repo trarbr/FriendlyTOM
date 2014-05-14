@@ -42,8 +42,9 @@
     <Compile Include="DataAccessFacade.cs" />
     <Compile Include="Entities\AAccountabilityEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\PartyEntity.cs" />
+    <Compile Include="Entities\APartyEntity.cs" />
     <Compile Include="Entities\PaymentEntity.cs" />
+    <Compile Include="Entities\SupplierEntity.cs" />
     <Compile Include="Helpers\StoredProcedures.cs" />
     <Compile Include="IDataAccessFacade.cs" />
     <Compile Include="Mappers\ASQLMapper.cs" />

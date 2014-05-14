@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Entities
 {
-    internal class PartyEntity : IParty
+    internal abstract class APartyEntity : IParty
     {
         public string Name
         {

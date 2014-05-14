@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    internal class Party : IParty
+    internal abstract class AParty : IParty
     {
         public string Name { get; set; }
         public string Note { get; set; }
