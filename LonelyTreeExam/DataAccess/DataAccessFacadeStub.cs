@@ -13,7 +13,8 @@ namespace DataAccess
     {
         List<IPayment> payments = new List<IPayment>();
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, PaymentType type, string sale, int booking)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, 
+            PaymentType type, string sale, int booking)
         {
             PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);           
             payments.Add(entity);
