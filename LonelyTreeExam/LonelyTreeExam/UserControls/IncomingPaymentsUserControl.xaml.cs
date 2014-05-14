@@ -34,7 +34,8 @@ namespace LonelyTreeExam.UserControls
             // denne logik skal muligvis ned i Controller laget
             paymentsDataGrid.ItemsSource = null;
 
-            List<IPayment> allPayments = paymentController.ReadAllPayments();
+            List<IPayment> payments = paymentController.ReadAllIncomingPayments();
+            /*
             incomingPayments = new List<IPayment>();
 
             foreach (IPayment payment in allPayments)
@@ -45,7 +46,8 @@ namespace LonelyTreeExam.UserControls
                 }
             }
 
-            paymentsDataGrid.ItemsSource = incomingPayments;
+            */
+            paymentsDataGrid.ItemsSource = payments;
             details.commissionerTextBox.Text = "Lonely Tree";
         }
 

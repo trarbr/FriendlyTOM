@@ -33,6 +33,39 @@ namespace Domain.Controller
             return payments;
         }
 
+        public List<IPayment> ReadAllArchivedPayments()
+        {
+            List<IPayment> payments = new List<IPayment>();
+            foreach (Payment payment in paymentCollection.ReadAllArchived())
+            {
+                payments.Add(payment);
+            }
+
+            return payments;
+        }
+
+        public List<IPayment> ReadAllIncomingPayments()
+        {
+            List<IPayment> payments = new List<IPayment>();
+            foreach (Payment payment in paymentCollection.ReadAllIncoming())
+            {
+                payments.Add(payment);
+            }
+
+            return payments;
+        }
+
+        public List<IPayment> ReadAllOutgoingPayments()
+        {
+            List<IPayment> payments = new List<IPayment>();
+            foreach (Payment payment in paymentCollection.ReadAllOutgoing())
+            {
+                payments.Add(payment);
+            }
+
+            return payments;
+        }
+
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, 
             string commissioner, PaymentType type, string sale, int booking)
         {

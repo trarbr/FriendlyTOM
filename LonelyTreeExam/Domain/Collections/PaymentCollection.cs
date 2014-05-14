@@ -70,7 +70,22 @@ namespace Domain.Collections
 
         internal List<Payment> ReadAllIncoming()
         {
-            throw new NotImplementedException();
+            if (payments == null)
+            {
+                ReadAll();
+            }
+
+            return incomingPayments;
+        }
+
+        internal List<Payment> ReadAllOutgoing()
+        {
+            if (payments == null)
+            {
+                ReadAll();
+            }
+
+            return outgoingPayments;
         }
 
         internal Payment Create(DateTime dueDate, decimal dueAmount, string responsible,
