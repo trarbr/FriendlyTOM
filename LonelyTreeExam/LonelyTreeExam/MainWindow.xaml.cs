@@ -24,7 +24,7 @@ namespace LonelyTreeExam
         public MainWindow()
         {
             InitializeComponent();
-            //accountingUserControl.Content = new AccountingUserControl();
+            accountingUserControl.Content = new AccountingUserControl();
             suppliersUserControl.Content = new SuppliersUserControl();
         }
     }
