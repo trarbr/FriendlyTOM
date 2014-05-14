@@ -11,7 +11,7 @@ namespace Domain.Model
 {
     internal class Supplier : AParty, ISupplier
     {
-
+        #region Public Properties/Methods
         public string PaymentInfo
         {
             get { return _supplierEntity.PaymentInfo; }
@@ -22,9 +22,13 @@ namespace Domain.Model
             get { return _supplierEntity.Type; }
             set { _supplierEntity.Type = value; }
         }
+        #endregion
 
+        #region Internal Methods
         internal Supplier(string name, string note, string paymentInfo, SupplierType type, IDataAccessFacade dataAccessFacade)
         {
+            validateName(name);
+
             this.dataAccessFacade = dataAccessFacade;
 
             this._partyEntity = _supplierEntity;
@@ -60,6 +64,7 @@ namespace Domain.Model
             }
             return suppliers;
         }
+        #endregion
 
         private IDataAccessFacade dataAccessFacade;
         private ISupplier _supplierEntity;

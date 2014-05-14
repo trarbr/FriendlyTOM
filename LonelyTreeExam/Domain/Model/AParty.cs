@@ -14,6 +14,7 @@ namespace Domain.Model
             get { return _partyEntity.Name; }
             set
             {
+                validateName(value);
                 _partyEntity.Name = value;
             }
         }
@@ -26,6 +27,16 @@ namespace Domain.Model
                 _partyEntity.Note = value;
             }
         }
+
+        #region Validation
+        protected void validateName(string paramName)
+        {
+            if (paramName == "")
+            {
+                throw new ArgumentOutOfRangeException(paramName, "Name may not be empty");
+            }
+        }
+        #endregion
 
         internal IParty _partyEntity;
     }

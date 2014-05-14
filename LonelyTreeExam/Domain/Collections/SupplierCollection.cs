@@ -29,9 +29,9 @@ namespace Domain.Collections
             return suppliers;
         }
 
-        internal Supplier Create(string name, string note, string paymentType, SupplierType type)
+        internal Supplier Create(string name, string note, string paymentInfo, SupplierType type)
         {
-            Supplier supplier = new Supplier(name, note, paymentType, type, dataAccessFacade);
+            Supplier supplier = new Supplier(name, note, paymentInfo, type, dataAccessFacade);
             suppliers.Add(supplier);
 
             return supplier;
