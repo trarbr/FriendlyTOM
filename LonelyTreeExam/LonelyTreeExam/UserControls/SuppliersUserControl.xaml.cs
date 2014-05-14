@@ -1,4 +1,5 @@
-﻿using Common.Interfaces;
+﻿using Common.Enums;
+using Common.Interfaces;
 using Domain.Controller;
 using System;
 using System.Collections.Generic;
@@ -27,29 +28,22 @@ namespace LonelyTreeExam.UserControls
             InitializeComponent();
             supplierController = new SupplierController();
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
+            supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
         }
 
         private SupplierController supplierController;
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Skift IPayment til IParty!
             if (searchTextBox.Text != "")
             {
-                List<IPayment> searchedSuppliers = new List<IPayment>();
+                List<ISupplier> searchedSuppliers = new List<ISupplier>();
                 suppliersDataGrid.ItemsSource = searchedSuppliers;
 
-                foreach (IPayment supplier in supplierController.ReadAllSuppliers())
+                foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
                 {
-                    // Kun find resultater hvor navnet starter med søgeteksten:
-                    // if (supplier.Responsible.StartsWith(searchTextBox.Text, StringComparison.OrdinalIgnoreCase)
-                    // {
-                    //    searchedSuppliers.Add(supplier);
-                    // }
-
-                    // Find resultater hvor søgeteksten indegår:
-                    // Fordel: nemt at tilføje flere søgekritier til searchData (feks fakturaId, datoer etc)
-                    string searchData = string.Format("{0}",supplier.Responsible);
+                    string searchData = string.Format("{0} {1} {2} {3}",
+                        supplier.Name, supplier.Note, supplier.PaymentInfo, supplier.Type.ToString());
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         searchedSuppliers.Add(supplier);
@@ -62,6 +56,18 @@ namespace LonelyTreeExam.UserControls
             }
 
             suppliersDataGrid.Items.Refresh();
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = nameTextBox.Text;
+            SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
+            string paymentInfo = paymentInfoTextBox.Text;
+            string note = noteTextBox.Text;
+
+            supplierController.CreateSupplier(name, note, paymentInfo, type);
+            suppliersDataGrid.ItemsSource = null;
+            suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
         }
     }
 }

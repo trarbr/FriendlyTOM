@@ -31,8 +31,8 @@ namespace Domain.Model
 
             this.dataAccessFacade = dataAccessFacade;
 
+            _supplierEntity = dataAccessFacade.CreateSupplier(name, note, paymentInfo, type);
             this._partyEntity = _supplierEntity;
-            dataAccessFacade.CreateSupplier(name, note, paymentInfo, type);
         }
 
         internal Supplier(IDataAccessFacade dataAccessFacade, ISupplier supplierEntity)
