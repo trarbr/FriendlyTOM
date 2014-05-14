@@ -32,6 +32,7 @@ namespace LonelyTreeExam.UserControls
         }
 
         private SupplierController supplierController;
+        private ISupplier selectedSupplier;
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -60,14 +61,55 @@ namespace LonelyTreeExam.UserControls
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            string name = nameTextBox.Text;
-            SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-            string paymentInfo = paymentInfoTextBox.Text;
-            string note = noteTextBox.Text;
+            if (selectedSupplier == null)
+            {
+                string name = nameTextBox.Text;
+                SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                string paymentInfo = paymentInfoTextBox.Text;
+                string note = noteTextBox.Text;
 
-            supplierController.CreateSupplier(name, note, paymentInfo, type);
+                supplierController.CreateSupplier(name, note, paymentInfo, type);
+            }
+            else
+            {
+                selectedSupplier.Name = nameTextBox.Text;
+                selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                selectedSupplier.PaymentInfo = paymentInfoTextBox.Text;
+                selectedSupplier.Note = noteTextBox.Text;
+
+                supplierController.UpdateSupplier(selectedSupplier);
+            }
             suppliersDataGrid.ItemsSource = null;
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
+        }
+
+        private void setValuesInTextBoxes()
+        {
+            if (selectedSupplier != null)
+            {
+                nameTextBox.Text = selectedSupplier.Name;
+                supplierTypeComboBox.SelectedItem = selectedSupplier.Type;
+                paymentInfoTextBox.Text = selectedSupplier.PaymentInfo;
+                noteTextBox.Text = selectedSupplier.Note;
+            }
+            else
+            {
+                nameTextBox.Text = "";
+                supplierTypeComboBox.SelectedIndex = 0;
+                paymentInfoTextBox.Text = "";
+                noteTextBox.Text = "";
+            }
+        }
+
+        private void suppliersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedSupplier = (ISupplier)suppliersDataGrid.SelectedItem;
+            setValuesInTextBoxes();
+        }
+
+        private void newButton_Click(object sender, RoutedEventArgs e)
+        {
+            suppliersDataGrid.SelectedItem = null;
         }
     }
 }
