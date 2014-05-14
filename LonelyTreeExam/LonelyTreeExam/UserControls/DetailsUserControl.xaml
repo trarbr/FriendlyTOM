@@ -46,7 +46,8 @@
         </StackPanel>
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>
-            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"/>
             <Label Content="Attachments:" />
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -61,7 +62,8 @@
                         <Image Source="/Images/delete.png" />
                     </Button>
                 </StackPanel>
-                <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9" MouseDoubleClick="attachmentsListView_MouseDoubleClick"/>
+                <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9"
+                          MouseDoubleClick="attachmentsListView_MouseDoubleClick"/>
             </Grid>
         </StackPanel>
     </Grid>
