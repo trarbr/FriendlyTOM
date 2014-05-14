@@ -50,9 +50,11 @@ namespace LonelyTreeExam.UserControls
                     decimal dueAmount;
                     decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
                     DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
+                    int booking;
+                    int.TryParse(bookingTextBox.Text, out booking);
                     IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, 
                         responsibleTextBox.Text, commissionerTextBox.Text,
-                        (PaymentType)paymentTypeComboBox.SelectedItem);
+                        (PaymentType)paymentTypeComboBox.SelectedItem, saleTextBox.Text, booking);
 
                     decimal paidAmount;
                     decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
@@ -69,6 +71,7 @@ namespace LonelyTreeExam.UserControls
                     {
                         payment.AddAttachment(attachments);
                     }
+                    payment.Invoice = invoiceTextBox.Text;
                     
                     paymentController.UpdatePayment(payment);
                 }
@@ -108,6 +111,11 @@ namespace LonelyTreeExam.UserControls
                 }
                 selectedPayment.Note = noteTextBox.Text;
                 selectedPayment.Type = (PaymentType)paymentTypeComboBox.SelectedItem;
+                selectedPayment.Sale = saleTextBox.Text;
+                int booking;
+                int.TryParse(bookingTextBox.Text, out booking);
+                selectedPayment.Booking = booking;
+                selectedPayment.Invoice = invoiceTextBox.Text;
                 
                 paymentController.UpdatePayment(selectedPayment);
             }
@@ -149,6 +157,9 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = selectedPayment.PaidAmount.ToString("N2", culture.NumberFormat);
                 paidCheckBox.IsChecked = selectedPayment.Paid;
                 noteTextBox.Text = selectedPayment.Note;
+                saleTextBox.Text = selectedPayment.Sale;
+                bookingTextBox.Text = selectedPayment.Booking.ToString();
+                invoiceTextBox.Text = selectedPayment.Invoice;
                 attachmentsListView.ItemsSource = selectedPayment.Attachments;
             }
             else
@@ -162,6 +173,9 @@ namespace LonelyTreeExam.UserControls
                 paidCheckBox.IsChecked = false;
                 noteTextBox.Text = "";
                 paymentTypeComboBox.SelectedIndex = 0;
+                saleTextBox.Text = "";
+                bookingTextBox.Text = "";
+                invoiceTextBox.Text = "";
                 attachmentsListView.ItemsSource = null;
             }
         }

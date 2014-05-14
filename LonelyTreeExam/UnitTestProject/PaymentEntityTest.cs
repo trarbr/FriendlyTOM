@@ -17,9 +17,11 @@ namespace UnitTestProject
             string commissioner = "Henry";
             string responsible = "Peter";
             PaymentType type = PaymentType.Full;
+            string sale = "VF March";
+            int booking = 128;
 
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
-                commissioner, type);
+                commissioner, type, sale, booking);
 
             DateTime expectedPaidDate = new DateTime(1900, 01, 01);
             decimal expectedPaidAmount = 0m;
@@ -46,9 +48,11 @@ namespace UnitTestProject
             string commissioner = "Henry";
             string responsible = "Peter";
             PaymentType type = PaymentType.Full;
+            string sale = "SR Josef";
+            int booking = 59;
 
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
-                commissioner, type);
+                commissioner, type, sale, booking);
 
             List<string> expectedAttachments = new List<string>();
             expectedAttachments.Add("attachment1");

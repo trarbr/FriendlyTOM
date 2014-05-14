@@ -17,13 +17,16 @@ namespace DataAccess.Entities
         public bool Paid { get; set; }
         public bool Archived { get; set; }
         public PaymentType Type { get; set; }
+        public string Sale { get; set; }
+        public int Booking { get; set; }
+        public string Invoice { get; set; }
         public IReadOnlyList<string> Attachments
         {
             get { return _attachments; }
         }
 
         public PaymentEntity(DateTime dueDate, decimal dueAmount, string responsible, 
-            string commissioner, PaymentType type) 
+            string commissioner, PaymentType type, string sale, int booking) 
             : base(responsible, commissioner)
         {
             _attachments = new List<string>();
@@ -35,6 +38,9 @@ namespace DataAccess.Entities
             Paid = false;
             Archived = false;
             Type = type;
+            Sale = sale;
+            Booking = booking;
+            Invoice = "";
         }
 
         public void DeleteAttachment(string attachment)

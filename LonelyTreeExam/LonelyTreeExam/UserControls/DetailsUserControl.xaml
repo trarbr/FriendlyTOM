@@ -22,6 +22,9 @@
             <Label Content="DueDate:"/>
             <Label Content="DueAmount:"/>
             <Label Content="Type:"/>
+            <Label Content="Sale:"/>
+            <Label Content="Booking:"/>
+            <Label Content="Invoice:"/>
             <Label Content="Paid:"/>
             <Label Content="PaidAmount:"/>
             <Label Content="PaidDate:"/>
@@ -31,7 +34,10 @@
             <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" DelayTime="150"/>
             <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
-            <ComboBox x:Name="paymentTypeComboBox" Margin="0,4,0,0"/>
+            <ComboBox x:Name="paymentTypeComboBox" Margin="0,2"/>
+            <TextBox x:Name="saleTextBox" Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="bookingTextBox" Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="invoiceTextBox" Height="26" TextWrapping="Wrap"/>
             <StackPanel Height="26" Orientation="Horizontal">
                 <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center"/>
             </StackPanel>

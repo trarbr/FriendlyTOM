@@ -17,6 +17,9 @@ namespace Common.Interfaces
         bool Paid { get; set; }
         bool Archived { get; set; }
         PaymentType Type { get; set; }
+        string Sale { get; set; }
+        int Booking { get; set; }
+        string Invoice { get; set; }
 
         void DeleteAttachment(string attachment);
 

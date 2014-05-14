@@ -61,7 +61,21 @@ namespace Domain.Model
             get { return _paymentEntity.Type; }
             set { _paymentEntity.Type = value; }
         }
-        
+        public string Sale
+        {
+            get { return _paymentEntity.Sale; }
+            set { _paymentEntity.Sale = value; }
+        }
+        public int Booking
+        {
+            get { return _paymentEntity.Booking; }
+            set { _paymentEntity.Booking = value; }
+        }
+        public string Invoice
+        {
+            get { return _paymentEntity.Invoice; }
+            set { _paymentEntity.Invoice = value; }
+        }
         public IReadOnlyList<string> Attachments
         {
             get { return _paymentEntity.Attachments; }
@@ -79,15 +93,10 @@ namespace Domain.Model
         }
         #endregion
 
-        //skal måske bruges i sprint 2!!
-        //internal IPayment paymentEntity
-        //{
-        //    get { return _paymentEntity; }
-        //    set { _paymentEntity = value; }
-        //}
 
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type, IDataAccessFacade dataAccessFacade) 
+            string commissioner, PaymentType type, string sale, int booking,
+            IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
             validateDueDateNotNull(dueDate);
@@ -96,7 +105,8 @@ namespace Domain.Model
 
             this.dataAccessFacade = dataAccessFacade;
 
-            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible, commissioner, type);
+            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible,
+                commissioner, type, sale, booking);
             this._accountabilityEntity = _paymentEntity;
         }
 

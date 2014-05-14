@@ -24,9 +24,10 @@ namespace DataAccess.Mappers
         }
 
         internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type)
+            string commissioner, PaymentType type, string sale, int booking)
         {
-            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type);
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner,
+                type, sale, booking);
 
             insert(paymentEntity);
 
@@ -105,13 +106,16 @@ namespace DataAccess.Mappers
             string commissioner = (string)reader["Commissioner"];
             string note = (string)reader["Note"];
             PaymentType type = (PaymentType)Enum.Parse(typeof(PaymentType), reader["Type"].ToString());
+            string sale = (string)reader["Sale"];
+            int booking = (int)reader["Booking"];
+            string invoice = (string)reader["Invoice"];
 
             int id = (int)reader["PaymentId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
-                commissioner, type);
+                commissioner, type, sale, booking);
             paymentEntity.PaidDate = paidDate;
             paymentEntity.PaidAmount = paidAmount;
             paymentEntity.Paid = paid;
@@ -125,6 +129,7 @@ namespace DataAccess.Mappers
             }
 
             paymentEntity.Note = note;
+            paymentEntity.Invoice = invoice;
 
             paymentEntity.Id = id;
             paymentEntity.LastModified = lastModified;
@@ -187,6 +192,12 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@Attachments", string.Join(";", entity.Attachments));
             parameters.Add(parameter);
             parameter = new SqlParameter("@Type", entity.Type.ToString());
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Sale", entity.Sale);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Booking", entity.Booking);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Invoice", entity.Invoice);
             parameters.Add(parameter);
         }
         #endregion

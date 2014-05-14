@@ -38,9 +38,9 @@ namespace DataAccess
         }
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type)
+            string commissioner, PaymentType type, string sale, int booking)
         {
-            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner, type);
+            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
         }
       
         public void UpdatePayment(IPayment payment)

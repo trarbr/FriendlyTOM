@@ -39,9 +39,10 @@ namespace Domain.Collections
         }
 
          internal Payment Create(DateTime dueDate, decimal dueAmount, string responsible,
-             string commissioner, PaymentType type)
+             string commissioner, PaymentType type, string sale, int booking)
         {
-            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type, dataAccessFacade);
+            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type,
+                sale, booking, dataAccessFacade);
             payments.Add(payment);
 
             return payment;
