@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Model;
 using Common.Interfaces;
 using DataAccess.Entities;
+using Common.Enums;
 
 namespace UnitTestProject
 {
@@ -21,10 +22,13 @@ namespace UnitTestProject
             decimal dueAmount = 100m;
             string commissioner = "Henry";
             string responsible = "Peter";
+            PaymentType type = PaymentType.Balance;
+            string sale = "lort";
+            int booking = 2134567;
 
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
 
-            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, stub);
+            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type, sale, booking, stub);
 
             return payment;
         }
@@ -38,11 +42,18 @@ namespace UnitTestProject
             decimal expectedDueAmount = 100m;
             string expectedCommisioner = "Henry";
             string expectedResponsible = "Peter";
+            PaymentType expectedType = PaymentType.Balance;
+            string expectedSale = "lort";
+            int expectedBooking = 2134567;
+            string expectedInvoice = "mmmmmmh";
 
             Assert.AreEqual(expectedCommisioner, validPayment.Commissioner);
             Assert.AreEqual(expectedDueAmount, validPayment.DueAmount);
             Assert.AreEqual(expectedDueDate, validPayment.DueDate);
             Assert.AreEqual(expectedResponsible, validPayment.Responsible);
+            Assert.AreEqual(expectedType, validPayment.Type);
+            Assert.AreEqual(expectedSale, validPayment.Sale);
+            Assert.AreEqual(expectedBooking, validPayment.Booking);
         }
 
         [TestMethod]
@@ -52,6 +63,9 @@ namespace UnitTestProject
             decimal dueAmount = -100m;
             string commissioner = "Henry";
             string responsible = "Peter";
+            PaymentType type = PaymentType.Balance;
+            string sale = "lort";
+            int booking = 2134567;
 
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
 
@@ -59,7 +73,7 @@ namespace UnitTestProject
 
             try
             {
-                Payment paymentLessThanZero = new Payment(dueDate, dueAmount, responsible, commissioner, stub);
+                Payment paymentLessThanZero = new Payment(dueDate, dueAmount, responsible, commissioner, type, sale, booking, stub);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -94,8 +108,11 @@ namespace UnitTestProject
             decimal dueAmount = 100m;
             string commissioner = "Henry";
             string responsible = "Peter";
+            PaymentType type = PaymentType.Balance;
+            string sale = "lort";
+            int booking = 2134567;
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
-            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner);
+            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
 
             Payment payment = new Payment(entity, stub);
 
