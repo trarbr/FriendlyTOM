@@ -1,5 +1,6 @@
 ﻿using Common.Enums;
 using DataAccess;
+using DataAccess.Entities;
 using Domain.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -22,8 +23,9 @@ namespace UnitTestProject
             SupplierType type = SupplierType.Cruise;
 
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
+            SupplierEntity entity = new SupplierEntity(paymentinfo, type, note, name);
 
-            Supplier supplier = new Supplier(name, note, paymentinfo, type, stub);
+            Supplier supplier = new Supplier(stub, entity);
 
             string expectedName = "gert";
             string expectedNote = "total fed note";
@@ -58,7 +60,7 @@ namespace UnitTestProject
                 callException = true;
             }
 
-            Assert.AreEqual(false, callException);
+            Assert.AreEqual(true, callException);
         }
     }
 }
