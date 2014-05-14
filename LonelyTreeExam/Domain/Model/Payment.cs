@@ -64,7 +64,11 @@ namespace Domain.Model
         public string Sale
         {
             get { return _paymentEntity.Sale; }
-            set { _paymentEntity.Sale = value; }
+            set
+            {
+                validateSale(value);
+                _paymentEntity.Sale = value;
+            }
         }
         public int Booking
         {
@@ -102,6 +106,7 @@ namespace Domain.Model
             validateDueDateNotNull(dueDate);
             validateResponsible(responsible);
             validateCommissioner(commissioner);
+            validateSale(sale);
 
             this.dataAccessFacade = dataAccessFacade;
 
@@ -175,6 +180,11 @@ namespace Domain.Model
             {
                 throw new Exception("File name does not exists");
             }
+        }
+
+        private void validateSale(string value)
+        {
+            validateNullOrWhiteSpace(value, "Sale");
         }
 
         #endregion
