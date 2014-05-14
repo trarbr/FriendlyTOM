@@ -35,8 +35,10 @@ namespace LonelyTreeExam.UserControls
         {
             paymentsDataGrid.ItemsSource = null;
 
-            List<IPayment> payments = paymentController.ReadAllPayments();
+            //List<IPayment> payments = paymentController.ReadAllPayments();
+            archivedPayments = paymentController.ReadAllArchivedPayments();
 
+            /*
             archivedPayments = new List<IPayment>();
             foreach (IPayment payment in payments)
             {
@@ -45,6 +47,7 @@ namespace LonelyTreeExam.UserControls
                     archivedPayments.Add(payment);
                 }
             }
+            */
 
             paymentsDataGrid.ItemsSource = archivedPayments;
         }
@@ -58,6 +61,7 @@ namespace LonelyTreeExam.UserControls
             if (selectedPayment != null)
             {
                 selectedPayment.Archived = false;
+                paymentController.UpdatePayment(selectedPayment);
                 paymentsDataGrid.SelectedItem = null;
                 RefreshPaymentDataGrid();
             }

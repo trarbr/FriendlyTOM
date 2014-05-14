@@ -24,6 +24,7 @@
                 <StaticResource ResourceKey="Commissioner"/>
                 <StaticResource ResourceKey="DueDate"/>
                 <StaticResource ResourceKey="DueAmount"/>
+                <StaticResource ResourceKey="Type"/>
                 <StaticResource ResourceKey="PaidDate"/>
                 <StaticResource ResourceKey="PaidAmount"/>
                 <StaticResource ResourceKey="Paid"/>

@@ -50,9 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PaymentTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PaymentEntityTest.cs" />
     <Compile Include="SupplierTest.cs" />
+    <Compile Include="PaymentControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

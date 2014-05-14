@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessFacade.cs" />
+    <Compile Include="DataAccessFacadeStub.cs" />
     <Compile Include="Entities\AAccountabilityEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\APartyEntity.cs" />

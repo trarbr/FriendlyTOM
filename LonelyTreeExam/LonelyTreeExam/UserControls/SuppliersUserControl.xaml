@@ -13,8 +13,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" 
-                 Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
+        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap"
+                 HorizontalAlignment="Left" Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
         <DataGrid x:Name="suppliersDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
                   VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
                   AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" >

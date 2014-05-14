@@ -9,6 +9,8 @@
         <DataGridTextColumn x:Key="DueAmount" x:Shared="False"  Header = "DueAmount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
         <DataGridTextColumn x:Key="PaidDate" x:Shared="False" Header = "PaidDate" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
         <DataGridTextColumn x:Key="PaidAmount" x:Shared="False" Header = "PaidAmount" Width="*" Binding="{Binding PaidAmount, StringFormat=N2}"/>
-        <DataGridCheckBoxColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="*" Binding="{Binding Paid}"/>
+        <DataGridTextColumn x:Key="Type" x:Shared="False"  Header = "Type" Width="*" Binding="{Binding Type}"/>
+        <DataGridCheckBoxColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="Auto" Binding="{Binding Paid}"/>
+        <DataGridTextColumn x:Key="Supplier" x:Shared="False"  Header = "Supplier" Width="*" Binding="{Binding Responsible}"/>
     </Application.Resources>
 </Application>
