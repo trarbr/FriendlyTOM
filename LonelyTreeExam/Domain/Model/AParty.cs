@@ -11,5 +11,7 @@ namespace Domain.Model
     {
         public string Name { get; set; }
         public string Note { get; set; }
+
+        internal IParty _partyEntity;
     }
 }
