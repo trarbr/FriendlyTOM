@@ -16,7 +16,7 @@ namespace DataAccess.Entities
             get { return _customers; }
         } 
 
-        public CustomerEntity(string note, string name) : base(note, name)
+        public CustomerEntity(CustomerType type, string note, string name) : base(note, name)
         {
             _customers = new List<string>();
             Name = name;

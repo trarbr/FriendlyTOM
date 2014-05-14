@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Enums;
 using DataAccess.Entities;
 
 namespace DataAccess.Mappers
@@ -18,9 +19,9 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, CustomerEntity>();
         }
 
-        internal CustomerEntity Create(string note, string name)
+        internal CustomerEntity Create(CustomerType type, string note, string name)
         {
-            CustomerEntity customerEntity = new CustomerEntity(note, name);
+            CustomerEntity customerEntity = new CustomerEntity(type, note, name);
             insert(customerEntity);
 
             return customerEntity;

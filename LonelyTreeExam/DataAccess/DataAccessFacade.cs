@@ -98,7 +98,7 @@ namespace DataAccess
         #region Public Customer Methods
         public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
-            return customerMapper.Create(note, name);
+            return customerMapper.Create(type, note, name);
         }
 
        public List<ICustomer> ReadAllCustomers()
