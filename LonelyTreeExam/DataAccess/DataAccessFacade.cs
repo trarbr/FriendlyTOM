@@ -31,9 +31,10 @@ namespace DataAccess
             }
 
             paymentMapper = new PaymentMapper(connectionString);
+            customerMapper = new CustomerMapper(connectionString);
         }
 
-        #region Public Methods
+        #region Public Payment Methods
         /// <summary>
         /// Should initiate a connection and a readall procedure from the database.
         /// </summary>
@@ -62,16 +63,11 @@ namespace DataAccess
 
         public void DeletePayment(IPayment payment)
         {
-            PaymentEntity pay = payment as PaymentEntity;
-            paymentMapper.Delete(pay);
+            paymentMapper.Delete((PaymentEntity) payment);
         }
         #endregion
-
-        #region Private Properties
-        private string connectionString;
-        private PaymentMapper paymentMapper;
-        #endregion
-
+        
+        #region Public Supplier Methods
         public ISupplier CreateSupplier(string name, string note, string paymentInfo, SupplierType type)
         {
             throw new NotImplementedException();
@@ -97,24 +93,41 @@ namespace DataAccess
             throw new NotImplementedException();
         }
 
-        public ICustomer CreateCustomer()
+        #endregion
+
+        #region Public Customer Methods
+        public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
-            throw new NotImplementedException();
+            return customerMapper.Create(note, name);
         }
 
-        public List<ICustomer> ReadAllCustomers()
+       public List<ICustomer> ReadAllCustomers()
         {
-            throw new NotImplementedException();
+            List<ICustomer> customers = new List<ICustomer>();
+           List<CustomerEntity> customerEntities = customerMapper.ReadAll();
+
+           foreach (CustomerEntity customerEntity in customerEntities)
+           {
+               customers.Add(customerEntity);
+           }
+           return customers;
         }
 
         public void UpdateCustomers(ICustomer customer)
         {
-            throw new NotImplementedException();
+           customerMapper.Update((CustomerEntity) customer);
         }
 
         public void DeleteCustomer(ICustomer customer)
         {
-            throw new NotImplementedException();
+            customerMapper.Delete((CustomerEntity) customer);
         }
+        #endregion
+
+        #region Private Properties
+        private string connectionString;
+        private PaymentMapper paymentMapper;
+        private CustomerMapper customerMapper;
+        #endregion
     }
 }

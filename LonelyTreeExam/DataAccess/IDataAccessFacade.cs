@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Enums;
 using Common.Interfaces;
-using Common.Enums;
 
 namespace DataAccess
 {

@@ -12,5 +12,9 @@ namespace DataAccess.Helpers
         internal const string READ_ALL_PAYMENTS = "ReadAllPayments";
         internal const string CREATE_PAYMENT = "InsertPayment";
         internal const string UPDATE_PAYMENT = "UpdatePayment";
+
+        internal const string READ_ALL_CUSTOMERS = "ReadAllCustomers";
+        internal const string CREATE_CUSTOMER = "InsertCustomer";
+        internal const string UPDATE_CUSTOMER = "UpdateCustomer";
     }
 }
