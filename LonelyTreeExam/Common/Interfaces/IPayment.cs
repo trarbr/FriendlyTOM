@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace Common.Interfaces
         IReadOnlyList<string> Attachments { get; }
         bool Paid { get; set; }
         bool Archived { get; set; }
+        PaymentType Type { get; set; }
+        string Sale { get; set; }
+        int Booking { get; set; }
+        string Invoice { get; set; }
 
         void DeleteAttachment(string attachment);
 
