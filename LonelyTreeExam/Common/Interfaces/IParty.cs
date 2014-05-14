@@ -8,5 +8,7 @@ namespace Common.Interfaces
 {
     public interface IParty
     {
+        string Name { get; set; }
+        string Note { get; set; }
     }
 }

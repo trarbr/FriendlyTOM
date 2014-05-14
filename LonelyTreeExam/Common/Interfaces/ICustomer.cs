@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    public class ICustomer : IParty
+    public interface ICustomer : IParty
     {
     }
 }
