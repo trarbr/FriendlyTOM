@@ -13,6 +13,10 @@ namespace DataAccess
 {
     public class DataAccessFacade : IDataAccessFacade
     {
+        /// <summary>
+        /// Initializes a DataAccessFacade for accessing a MS SQL database
+        /// </summary>
+        /// <param name="test">For integration tests, set test = true to use test database</param>
         public DataAccessFacade(bool test = false)
         {
             if (!test)
