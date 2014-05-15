@@ -13,9 +13,10 @@ namespace Domain.Model
             set { _customerEntity.Type = value; }
         }
 
-        internal Customer(CustomerType type, string name, string note)
+        internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
         {
-            _customerEntity = dataAccessFacade.CreateCustomer(type, name, note);
+            this.dataAccessFacade = dataAccessFacade;
+            _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
             this._partyEntity = _customerEntity;
         }
 
