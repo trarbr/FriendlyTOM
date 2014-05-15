@@ -36,7 +36,7 @@ namespace UnitTestProject
         }
 
         [TestMethod]
-        public void TestConstructorValidData()
+        public void TestPaymentConstructorValidData()
         {
             Payment validPayment = createValidPayment();
 
