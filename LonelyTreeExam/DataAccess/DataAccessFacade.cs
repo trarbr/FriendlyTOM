@@ -34,7 +34,7 @@ namespace DataAccess
             supplierMapper = new SupplierMapper(connectionString);
         }
 
-        #region Public Methods
+        #region Public Payment Methods
         /// <summary>
         /// Should initiate a connection and a readall procedure from the database.
         /// </summary>
@@ -104,24 +104,31 @@ namespace DataAccess
         }
         #endregion
 
-        public ICustomer CreateCustomer()
+        #region Customer Methods
+        private List<ICustomer> customers;
+        public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
-            throw new NotImplementedException();
+            CustomerEntity entity = new CustomerEntity(type, note, name);
+            customers.Add(entity);
+            return entity;
         }
 
         public List<ICustomer> ReadAllCustomers()
         {
-            throw new NotImplementedException();
+            return customers;
         }
 
         public void UpdateCustomers(ICustomer customer)
         {
-            throw new NotImplementedException();
+            CustomerEntity entity = (CustomerEntity)customer;
+            entity.LastModified = DateTime.Now;
         }
 
         public void DeleteCustomer(ICustomer customer)
         {
-            throw new NotImplementedException();
+            CustomerEntity entity = (CustomerEntity)customer;
+            entity.Deleted = true;
         }
+        #endregion
     }
 }

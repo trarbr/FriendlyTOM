@@ -17,6 +17,7 @@ namespace DataAccess
         public DataAccessFacadeStub()
         {
             payments = new List<IPayment>();
+            customers = new List<ICustomer>();
         }
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, 
@@ -78,24 +79,31 @@ namespace DataAccess
         #endregion
 
         #region Customer Stuff
-        public ICustomer CreateCustomer()
+
+        private List<ICustomer> customers;
+
+        public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
-            throw new NotImplementedException();
+            CustomerEntity entity = new CustomerEntity(type, note, name);
+            customers.Add(entity);
+            return entity;
         }
 
         public List<ICustomer> ReadAllCustomers()
         {
-            throw new NotImplementedException();
+            return customers;
         }
 
         public void UpdateCustomers(ICustomer customer)
         {
-            throw new NotImplementedException();
+            CustomerEntity entity = (CustomerEntity) customer;
+            entity.LastModified = DateTime.Now;
         }
 
         public void DeleteCustomer(ICustomer customer)
         {
-            throw new NotImplementedException();
+            CustomerEntity entity = (CustomerEntity) customer;
+            entity.Deleted = true;
         }
         #endregion
         

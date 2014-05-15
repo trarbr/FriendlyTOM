@@ -7,8 +7,10 @@ using Common.Enums;
 
 namespace Common.Interfaces
 {
-    public interface ICustomer : IParty
+    public interface ICustomer : IAccountability
     {
         CustomerType Type { get; set; }
+        string Name { get; set; }
+        string Note { get; set; }
     }
 }

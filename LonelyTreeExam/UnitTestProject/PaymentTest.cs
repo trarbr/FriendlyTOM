@@ -386,7 +386,7 @@ namespace UnitTestProject
 
             try
             {
-                payment.AddAttachment("asdfasdfagdfgdfg");
+                payment.AddAttachment("nonexcistingfile");
             }
             catch (ArgumentOutOfRangeException)
             {

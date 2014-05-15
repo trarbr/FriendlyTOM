@@ -34,8 +34,8 @@ namespace Domain.Model
         internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
-            _customerEntity = dataAccessFacade.CreateCustomer();
-            this._accountabilityEntity = (IAccountability) _customerEntity;
+            _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
+            this._accountabilityEntity = _customerEntity;
         }
 
         internal Customer(ICustomer customerEntity, IDataAccessFacade dataAccessFacade)

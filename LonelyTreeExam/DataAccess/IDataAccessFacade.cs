@@ -21,7 +21,7 @@ namespace DataAccess
        void UpdateSupplier(ISupplier supplier);
        void DeleteSupplier(ISupplier supplier);
 
-       ICustomer CreateCustomer();
+       ICustomer CreateCustomer(CustomerType type, string note, string name);
        List<ICustomer> ReadAllCustomers();
        void UpdateCustomers(ICustomer customer);
        void DeleteCustomer(ICustomer customer);
