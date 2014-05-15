@@ -40,12 +40,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\PaymentCollection.cs" />
+    <Compile Include="Collections\SupplierCollection.cs" />
     <Compile Include="Controller\PaymentController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\SupplierController.cs" />
     <Compile Include="Model\Accountability.cs" />
-    <Compile Include="Model\Party.cs" />
+    <Compile Include="Model\AParty.cs" />
     <Compile Include="Model\Payment.cs" />
+    <Compile Include="Model\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
