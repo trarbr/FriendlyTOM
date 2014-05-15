@@ -13,17 +13,13 @@ namespace UnitTestProject
     [TestClass]
     public class CustomerTest
     {
-        [TestMethod]
         public ICustomer ValidCustomerInput()
         {
             string name = "Christine";
             string note = "So sweet";
             CustomerType type = CustomerType.PrivateCustomer;
             CustomerEntity customerEntity = new CustomerEntity(type, name, note);
-
-            Assert.AreEqual(name, customerEntity.Name);
-
-            return null;
+            return customerEntity;
         }
     }
 }
