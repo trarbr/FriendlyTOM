@@ -31,12 +31,7 @@
                 </StackPanel>
             </Button>
             <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                    ToolTip="Delete selected supplier">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/delete.png" Width="16" />
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
-                </StackPanel>
-            </Button>
+                    ToolTip="Delete selected supplier" ContentTemplate="{StaticResource DeleteButton}"/>
         </StackPanel>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>

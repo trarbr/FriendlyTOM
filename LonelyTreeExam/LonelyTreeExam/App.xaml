@@ -12,5 +12,12 @@
         <DataGridTextColumn x:Key="Type" x:Shared="False"  Header = "Type" Width="*" Binding="{Binding Type}"/>
         <DataGridCheckBoxColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="Auto" Binding="{Binding Paid}"/>
         <DataGridTextColumn x:Key="Supplier" x:Shared="False"  Header = "Supplier" Width="*" Binding="{Binding Responsible}"/>
+
+        <DataTemplate x:Key="DeleteButton">
+            <StackPanel>
+                <Image Source="/Images/delete.png" Width="16"/>
+                <Label Content="Delete"/>
+            </StackPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>
