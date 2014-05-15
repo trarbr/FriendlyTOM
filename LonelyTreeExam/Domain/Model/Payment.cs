@@ -164,7 +164,7 @@ namespace Domain.Model
         {
             if (!File.Exists(pathName))
             {
-                throw new Exception("File name does not exists");
+                throw new ArgumentOutOfRangeException("attachment", "Filename doesn't exist");
             }
         }
 

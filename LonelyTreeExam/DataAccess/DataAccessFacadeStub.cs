@@ -12,6 +12,7 @@ namespace DataAccess
     public class DataAccessFacadeStub : IDataAccessFacade
     {
         List<IPayment> payments;
+        #region Payment Stuff
 
         public DataAccessFacadeStub()
         {
@@ -21,7 +22,7 @@ namespace DataAccess
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, 
             PaymentType type, string sale, int booking)
         {
-            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);           
+            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
             payments.Add(entity);
 
             return entity;
@@ -41,31 +42,42 @@ namespace DataAccess
 
         public void DeletePayment(IPayment payment)
         {
-            PaymentEntity entity = (PaymentEntity) payment;
+            PaymentEntity entity = (PaymentEntity)payment;
 
             entity.Deleted = true;
         }
+        #endregion
 
-        public ISupplier CreateSupplier()
+        #region Supplier Stuff
+        List<ISupplier> supplierList = new List<ISupplier>();
+
+        public ISupplier CreateSupplier(string paymentinfo, string name, string note, SupplierType type)
         {
-            throw new NotImplementedException();
+            SupplierEntity entity = new SupplierEntity(paymentinfo, type, note, name);
+            supplierList.Add(entity);
+
+            return entity;
         }
 
         public List<ISupplier> ReadAllSuppliers()
         {
-            throw new NotImplementedException();
+            return supplierList;
         }
 
         public void UpdateSupplier(ISupplier supplier)
         {
-            throw new NotImplementedException();
+            SupplierEntity entity = (SupplierEntity) supplier;
+            entity.LastModified = DateTime.Now;
         }
 
         public void DeleteSupplier(ISupplier supplier)
         {
-            throw new NotImplementedException();
+            SupplierEntity entity = (SupplierEntity) supplier;
+            entity.Deleted = true;
         }
+        #endregion
 
+        #region Customer Stuff
         public ICustomer CreateCustomer()
         {
             throw new NotImplementedException();
@@ -85,5 +97,7 @@ namespace DataAccess
         {
             throw new NotImplementedException();
         }
+        #endregion
+        
     }
 }

@@ -34,12 +34,9 @@ namespace UnitTestProject
             validSale = "VF Jan";
             validBooking = 2;
         }
-        // TODO: Test ReadAll
-        // TODO: Test with valid invoice
-        // TODO: Test DeleteAttachment
 
         [TestMethod]
-        public void TestConstructorValidData()
+        public void TestPaymentConstructorValidData()
         {
             Payment validPayment = createValidPayment();
 
@@ -287,6 +284,33 @@ namespace UnitTestProject
             Assert.AreEqual(true, caughtException);
         }
 
+        [TestMethod]
+        public void TestReadAllPayments()
+        {
+            Payment payment1 = createValidPayment();
+            payment1.Commissioner = "jørgen";
+            Payment payment2 = createValidPayment();
+            payment2.Commissioner = "kurt";
+            Payment payment3 = createValidPayment();
+            payment3.Commissioner = "peter";
+            Payment payment4 = createValidPayment();
+            payment4.Commissioner = "søren";
+
+            List<Payment> actualPayments = Payment.ReadAll(dataAccessFacadeStub);
+
+            List<Payment> expectedPayments = new List<Payment>();
+
+            expectedPayments.Add(payment1);
+            expectedPayments.Add(payment2);
+            expectedPayments.Add(payment3);
+            expectedPayments.Add(payment4);
+
+            for (int i = 0; i < actualPayments.Count; i++)
+            {
+                Assert.AreEqual(expectedPayments[i].Commissioner, actualPayments[i].Commissioner);
+            }
+        }
+
         //test attachments exceptions
         [TestMethod]
         public void TestAttachmentOneValidString()
@@ -315,6 +339,34 @@ namespace UnitTestProject
             {
                 payment.AddAttachment(attachment);
             }
+
+            List<string> actualAttachments = new List<string>();
+
+            foreach (string attachment in payment.Attachments)
+            {
+                actualAttachments.Add(attachment);
+            }
+
+            CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
+        }
+
+        [TestMethod]
+        public void TestDeleteOneAttachment()
+        {
+            Payment payment = createValidPayment();
+
+            List<string> expectedAttachments = new List<string>();
+            expectedAttachments.Add(@"C:\ConnectString.txt");
+            expectedAttachments.Add(@"C:\Windows\notepad.exe");
+            expectedAttachments.Add(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe");
+
+            foreach (string attachment in expectedAttachments)
+            {
+                payment.AddAttachment(attachment);
+            }
+
+            payment.DeleteAttachment(@"C:\ConnectString.txt");
+            expectedAttachments.Remove(@"C:\ConnectString.txt");
 
             List<string> actualAttachments = new List<string>();
 
@@ -362,24 +414,37 @@ namespace UnitTestProject
             Assert.AreEqual(true, caughtException);
         }
 
+        //[TestMethod]
+        //public void TestInvoiceNull()
+        //{
+        //    // Since this is a test related to DB, maybe it should be in PaymentEntity?
+        //    // Wow, maybe we need validators in DataAccess as well! (mindblown)
+        //    //both Sale and Invoice.
+        //    Payment payment = createValidPayment();
+        //    bool caughtException = false;
+
+        //    try
+        //    {
+        //        payment.Invoice = null;
+        //    }
+        //    catch (ArgumentOutOfRangeException)
+        //    {
+        //        caughtException = true;
+        //    }
+
+        //    Assert.AreEqual(true, caughtException);
+        //}
+        
         [TestMethod]
-        public void TestInvoiceNull()
+        public void TestInvoiceValidData()
         {
-            // Since this is a test related to DB, maybe it should be in PaymentEntity?
-            // Wow, maybe we need validators in DataAccess as well! (mindblown)
             Payment payment = createValidPayment();
-            bool caughtException = false;
 
-            try
-            {
-                payment.Invoice = null;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                caughtException = true;
-            }
+            payment.Invoice = "factura 685467584";
 
-            Assert.AreEqual(true, caughtException);
+            string expectedInvoice = "factura 685467584";
+
+            Assert.AreEqual(expectedInvoice, payment.Invoice);
         }
 
         private Payment createValidPayment()

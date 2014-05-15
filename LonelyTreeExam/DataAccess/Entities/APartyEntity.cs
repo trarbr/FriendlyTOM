@@ -5,11 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Model
+namespace DataAccess.Entities
 {
-    internal class Party : IParty
+    internal abstract class APartyEntity : Entity, IParty
     {
         public string Name { get; set; }
         public string Note { get; set; }
+
+        internal APartyEntity(string note, string name)
+        {
+            Note = note;
+            Name = name;
+        }
     }
 }
