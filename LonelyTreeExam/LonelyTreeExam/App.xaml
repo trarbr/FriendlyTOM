@@ -19,5 +19,23 @@
                 <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="NewButton">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/add.png" Width="16"/>
+                <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">New</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="SaveButton">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/arrow_refresh_small.png" Width="16"/>
+                <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Save</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ClearButton">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/cancel.png" Width="16"/>
+                <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Clear</TextBlock>
+            </StackPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>
