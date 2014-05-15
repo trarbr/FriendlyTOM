@@ -23,7 +23,7 @@ namespace UnitTestProject
 
             Assert.AreEqual(name, customerEntity.Name);
 
-            return ;
+            return null;
         }
     }
 }
