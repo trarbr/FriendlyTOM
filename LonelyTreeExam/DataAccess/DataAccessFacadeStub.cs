@@ -11,7 +11,12 @@ namespace DataAccess
 {
     public class DataAccessFacadeStub : IDataAccessFacade
     {
-        List<IPayment> payments = new List<IPayment>();
+        List<IPayment> payments;
+
+        public DataAccessFacadeStub()
+        {
+            payments = new List<IPayment>();
+        }
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, 
             PaymentType type, string sale, int booking)

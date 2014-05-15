@@ -13,74 +13,72 @@ namespace UnitTestProject
     [TestClass]
     public class PaymentTest
     {
-        //lav ny Payment med parametre hvor al data er iorden.
-        //test hvor decimal er større mindre og lig med nul
+        IDataAccessFacade dataAccessFacadeStub;
+        DateTime validDueDate;
+        decimal validDueAmount;
+        string validResponsible;
+        string validCommissioner;
+        PaymentType validType;
+        string validSale;
+        int validBooking;
+
+        [TestInitialize]
+        public void SetValidData()
+        {
+            dataAccessFacadeStub = new DataAccessFacadeStub();
+            validDueDate = new DateTime(2010, 10, 10);
+            validDueAmount = 1m;
+            validResponsible = "Lonely Tree";
+            validCommissioner = "Galasam";
+            validType = PaymentType.Balance;
+            validSale = "VF Jan";
+            validBooking = 2;
+        }
+        // TODO: Test ReadAll
+        // TODO: Test with valid invoice
+        // TODO: Test DeleteAttachment
+
         [TestMethod]
         public void TestConstructorValidData()
         {
             Payment validPayment = createValidPayment();
 
-            DateTime expectedDueDate = new DateTime(2010, 10, 10);
-            decimal expectedDueAmount = 1000m;
-            string expectedCommisioner = "Galasam";
-            string expectedResponsible = "Lonely Tree";
-            PaymentType expectedType = PaymentType.Balance;
-            string expectedSale = "VF Jan";
-            int expectedBooking = 2;
-
-            Assert.AreEqual(expectedCommisioner, validPayment.Commissioner);
-            Assert.AreEqual(expectedDueAmount, validPayment.DueAmount);
-            Assert.AreEqual(expectedDueDate, validPayment.DueDate);
-            Assert.AreEqual(expectedResponsible, validPayment.Responsible);
-            Assert.AreEqual(expectedType, validPayment.Type);
-            Assert.AreEqual(expectedSale, validPayment.Sale);
-            Assert.AreEqual(expectedBooking, validPayment.Booking);
+            Assert.AreEqual(validDueDate, validPayment.DueDate);
+            Assert.AreEqual(validDueAmount, validPayment.DueAmount);
+            Assert.AreEqual(validResponsible, validPayment.Responsible);
+            Assert.AreEqual(validCommissioner, validPayment.Commissioner);
+            Assert.AreEqual(validType, validPayment.Type);
+            Assert.AreEqual(validSale, validPayment.Sale);
+            Assert.AreEqual(validBooking, validPayment.Booking);
         }
 
+        // Should EntityConstructor test for invalid data?
         [TestMethod]
         public void TestEntityConstructorValidData()
         {
-            DateTime expectedDueDate = new DateTime(2010, 10, 10);
-            decimal expectedDueAmount = 1000m;
-            string expectedCommissioner = "Galasam";
-            string expectedResponsible = "Lonely Tree";
-            PaymentType expectedType = PaymentType.Balance;
-            string expectedSale = "VF Jan";
-            int expectedBooking = 2;
-            IDataAccessFacade dataAccessFacadeStub = new DataAccessFacadeStub();
-
-            PaymentEntity entity = new PaymentEntity(expectedDueDate, expectedDueAmount, expectedResponsible, 
-                expectedCommissioner, expectedType, expectedSale, expectedBooking);
+            PaymentEntity entity = new PaymentEntity(validDueDate, validDueAmount, validResponsible, 
+                validCommissioner, validType, validSale, validBooking);
             Payment payment = new Payment(entity, dataAccessFacadeStub);
 
-            Assert.AreEqual(expectedDueDate, payment.DueDate);
-            Assert.AreEqual(expectedDueAmount, payment.DueAmount);
-            Assert.AreEqual(expectedCommissioner, payment.Commissioner);
-            Assert.AreEqual(expectedResponsible, payment.Responsible);
-            Assert.AreEqual(expectedType, payment.Type);
-            Assert.AreEqual(expectedSale, payment.Sale);
-            Assert.AreEqual(expectedBooking, payment.Booking);
+            Assert.AreEqual(validDueDate, payment.DueDate);
+            Assert.AreEqual(validDueAmount, payment.DueAmount);
+            Assert.AreEqual(validResponsible, payment.Responsible);
+            Assert.AreEqual(validCommissioner, payment.Commissioner);
+            Assert.AreEqual(validType, payment.Type);
+            Assert.AreEqual(validSale, payment.Sale);
+            Assert.AreEqual(validBooking, payment.Booking);
         }
 
         [TestMethod]
         public void TestConstructorValidatesDueAmount()
         {
-            DateTime dueDate = new DateTime(2010, 10, 10);
-            decimal dueAmount = -1m;
-            string commissioner = "Galasam";
-            string responsible = "Lonely Tree";
-            PaymentType type = PaymentType.Balance;
-            string sale = "VF Jan";
-            int booking = 2;
-
-            IDataAccessFacade dataAccessFacadeStub = new DataAccessFacadeStub();
-
+            decimal invalidDueAmount = -1m;
             bool callException = false;
 
             try
             {
-                Payment paymentLessThanZero = new Payment(dueDate, dueAmount, responsible, commissioner, type, sale, 
-                    booking, dataAccessFacadeStub);
+                Payment payment = new Payment(validDueDate, invalidDueAmount, validResponsible, 
+                    validCommissioner, validType, validSale, validBooking, dataAccessFacadeStub);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -91,23 +89,63 @@ namespace UnitTestProject
         }
 
         [TestMethod]
-        public void TestConstructorValidatesCommissioner()
+        public void TestConstructorValidatesResponsible()
         {
-            Assert.Fail("Write me!");
+            string invalidResponsible = "";
+            bool caughtException = false;
+
+            try
+            {
+                Payment payment = new Payment(validDueDate, validDueAmount, invalidResponsible, validCommissioner,
+                    validType, validSale, validBooking, dataAccessFacadeStub);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
         }
 
         [TestMethod]
-        public void TestConstructorValidatesResponsible()
+        public void TestConstructorValidatesCommissioner()
         {
-            Assert.Fail("Write me!");
+            string invalidCommissioner = "";
+            bool caughtException = false;
+
+            try
+            {
+                Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, invalidCommissioner,
+                    validType, validSale, validBooking, dataAccessFacadeStub);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
         }
 
         [TestMethod]
         public void TestConstructorValidatesSale()
         {
-            Assert.Fail("Write me!");
+            string invalidSale = "";
+            bool caughtException = false;
+
+            try
+            {
+                Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, validCommissioner,
+                    validType, invalidSale, validBooking, dataAccessFacadeStub);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
         }
 
+        //test hvor decimal er større mindre og lig med nul
         [TestMethod]
         public void TestPaidAmountLessThanZero()
         {
@@ -346,18 +384,8 @@ namespace UnitTestProject
 
         private Payment createValidPayment()
         {
-            DateTime dueDate = new DateTime(2010, 10, 10);
-            decimal dueAmount = 1000m;
-            string commissioner = "Galasam";
-            string responsible = "Lonely Tree";
-            PaymentType type = PaymentType.Balance;
-            string sale = "VF Jan";
-            int booking = 2;
-
-            IDataAccessFacade dataAccessFacadeStub = new DataAccessFacadeStub();
-
-            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type, sale, booking, 
-                dataAccessFacadeStub);
+            Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, validCommissioner, validType, 
+                validSale, validBooking, dataAccessFacadeStub);
 
             return payment;
         }
