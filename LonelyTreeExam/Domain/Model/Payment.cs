@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Interfaces;
 using Common.Enums;
 using DataAccess;
@@ -93,7 +89,7 @@ namespace Domain.Model
         }
         #endregion
 
-
+        #region Internal Methods
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
             string commissioner, PaymentType type, string sale, int booking,
             IDataAccessFacade dataAccessFacade) 
@@ -139,6 +135,7 @@ namespace Domain.Model
             }
             return payments;
         }
+        #endregion
 
         #region ValidationDecimalsAndDueDate
 
@@ -172,7 +169,6 @@ namespace Domain.Model
         {
             validateNullOrWhiteSpace(value, "Sale");
         }
-
         #endregion
 
         private IPayment _paymentEntity;
