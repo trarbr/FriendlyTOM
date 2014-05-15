@@ -14,9 +14,9 @@
         <DataGridTextColumn x:Key="Supplier" x:Shared="False"  Header = "Supplier" Width="*" Binding="{Binding Responsible}"/>
 
         <DataTemplate x:Key="DeleteButton">
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/delete.png" Width="16"/>
-                <Label Content="Delete"/>
+                <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
             </StackPanel>
         </DataTemplate>
     </Application.Resources>
