@@ -46,15 +46,10 @@ namespace UnitTestProject
             Payment p3 = createValidPayment();
             p3.Note = "C3";
 
-            PaymentCollection paymentCollection = new PaymentCollection(dataAccessFacade);
-
             List<Payment> expectedPayments = new List<Payment>() { p1, p2, p3 };
             List<Payment> actualPayments = paymentCollection.ReadAll();
 
-            for (int i = 0; i < expectedPayments.Count; i++)
-            {
-                Assert.AreEqual(expectedPayments[i].Note, actualPayments[i].Note);
-            }
+            CollectionAssert.AreEqual(expectedPayments, actualPayments);
         }
 
         [TestMethod]
@@ -142,10 +137,7 @@ namespace UnitTestProject
             List<Payment> expectedArchivedPayments = new List<Payment>() { p1 };
             List<Payment> actualArchivedPayments = paymentCollection.ReadAllArchived();
 
-            for (int i = 0; i < expectedArchivedPayments.Count; i++)
-            {
-                Assert.AreEqual(expectedArchivedPayments[i].Note, actualArchivedPayments[i].Note);
-            }
+            CollectionAssert.AreEqual(expectedArchivedPayments, actualArchivedPayments);
 
             List<Payment> expectedOutgoingPayments = new List<Payment>();
             List<Payment> actualOutgoingPayments = paymentCollection.ReadAllOutgoing();
@@ -176,10 +168,7 @@ namespace UnitTestProject
             List<Payment> expectedOutgoingPayments = new List<Payment>() { p1 };
             List<Payment> actualOutgoingPayments = paymentCollection.ReadAllOutgoing();
 
-            for (int i = 0; i < expectedOutgoingPayments.Count; i++)
-            {
-                Assert.AreEqual(expectedOutgoingPayments[i].Note, actualOutgoingPayments[i].Note);
-            }
+            CollectionAssert.AreEqual(expectedOutgoingPayments, actualOutgoingPayments);
 
             List<Payment> expectedIncomingPayments = new List<Payment>();
             List<Payment> actualIncomingPayments = paymentCollection.ReadAllIncoming();
@@ -210,10 +199,7 @@ namespace UnitTestProject
             List<Payment> expectedIncomingPayments = new List<Payment>() { p1 };
             List<Payment> actualIncomingPayments = paymentCollection.ReadAllIncoming();
 
-            for (int i = 0; i < expectedOutgoingPayments.Count; i++)
-            {
-                Assert.AreEqual(expectedIncomingPayments[i].Note, actualIncomingPayments[i].Note);
-            }
+            CollectionAssert.AreEqual(expectedIncomingPayments, actualIncomingPayments);
         }
 
         [TestMethod]
@@ -239,10 +225,7 @@ namespace UnitTestProject
             List<Payment> expectedOutgoingPayments = new List<Payment>() { p1 };
             List<Payment> actualOutgoingPayments = paymentCollection.ReadAllOutgoing();
 
-            for (int i = 0; i < expectedOutgoingPayments.Count; i++)
-            {
-                Assert.AreEqual(expectedOutgoingPayments[i].Note, actualOutgoingPayments[i].Note);
-            }
+            CollectionAssert.AreEqual(expectedOutgoingPayments, actualOutgoingPayments);
 
             List<Payment> expectedIncomingPayments = new List<Payment>();
             List<Payment> actualIncomingPayments = paymentCollection.ReadAllIncoming();
