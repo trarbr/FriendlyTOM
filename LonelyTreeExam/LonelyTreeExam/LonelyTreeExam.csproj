@@ -72,6 +72,9 @@
     <Compile Include="UserControls\ArchivedPaymentsUserControl.xaml.cs">
       <DependentUpon>ArchivedPaymentsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CustomersUserControl.xaml.cs">
+      <DependentUpon>CustomersUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\IncomingPaymentsUserControl.xaml.cs">
       <DependentUpon>IncomingPaymentsUserControl.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ArchivedPaymentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CustomersUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\user_suit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\user_red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

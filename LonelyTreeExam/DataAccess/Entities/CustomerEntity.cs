@@ -12,24 +12,10 @@ namespace DataAccess.Entities
     {
         public CustomerType Type { get; set; }
         
-        public CustomerEntity(CustomerType type, string note, string name) : base(note, name)
+        public CustomerEntity(CustomerType type, string note, string name) 
+            : base(note, name)
         {
-            _customers = new List<string>();
-            Name = name;
-            Note = note;
+            Type = type;
         }
-
-        public void DeleteCustomer(string customer)
-        {
-            _customers.Remove(customer);
-        }
-
-        public void AddCustomer(string customer)
-        {
-            _customers.Add(customer);
-        }
-
-
-        private List<string> _customers;
     }
 }

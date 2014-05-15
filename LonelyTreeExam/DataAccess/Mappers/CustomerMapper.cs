@@ -66,17 +66,17 @@ namespace DataAccess.Mappers
         {
             string note = (string) reader["Note"];
             string name = (string) reader["Name"];
-            CustomerType type = (CustomerType) reader["Type"];
+            CustomerType type = (CustomerType) Enum.Parse(typeof(CustomerType), reader["Type"].ToString());
             int id = (int) reader["PartyId"];
-            bool deletede = (bool) reader["Deletede"];
+            bool deleted = (bool) reader["Deleted"];
             DateTime lastmodified = (DateTime) reader["LastModified"];
 
-            CustomerEntity customerEntity = new CustomerEntity(type, note, name);
+            CustomerEntity customerEntity = new CustomerEntity(type, name, note);
             customerEntity.Name = name;
             customerEntity.Note = note;
             customerEntity.Type = type;
             customerEntity.Id = id;
-            customerEntity.Deleted = deletede;
+            customerEntity.Deleted = deleted;
             customerEntity.LastModified = lastmodified;
 
             return customerEntity;
@@ -99,7 +99,7 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Type", entity.Type);
+            parameter = new SqlParameter("@Type", entity.Type.ToString());
             parameters.Add(parameter);
         }
     }
