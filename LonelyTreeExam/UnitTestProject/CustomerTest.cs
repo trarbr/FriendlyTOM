@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Enums;
 using Common.Interfaces;
+using DataAccess.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestProject
@@ -16,8 +18,12 @@ namespace UnitTestProject
         {
             string name = "Christine";
             string note = "So sweet";
+            CustomerType type = CustomerType.PrivateCustomer;
+            CustomerEntity customerEntity = new CustomerEntity(type, name, note);
 
-            return null;
+            Assert.AreEqual(name, customerEntity.Name);
+
+            return ;
         }
     }
 }
