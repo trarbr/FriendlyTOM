@@ -9,6 +9,7 @@ namespace Domain.Model
 {
     internal abstract class AParty : IParty
     {
+        #region Public Properties
         public string Name
         {
             get { return _partyEntity.Name; }
@@ -27,6 +28,7 @@ namespace Domain.Model
                 _partyEntity.Note = value;
             }
         }
+        #endregion
 
         #region Validation
         protected void validateName(string paramName)
@@ -38,6 +40,8 @@ namespace Domain.Model
         }
         #endregion
 
+        #region Internal Fields
         internal IParty _partyEntity;
+        #endregion
     }
 }

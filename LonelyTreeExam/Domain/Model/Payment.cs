@@ -97,10 +97,10 @@ namespace Domain.Model
         }
         #endregion
 
-
+        #region Internal Constructors/Methods
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
             string commissioner, PaymentType type, string sale, int booking,
-            IDataAccessFacade dataAccessFacade) 
+            IDataAccessFacade dataAccessFacade)
         {
             validateDueAmount(dueAmount);
             validateDueDateNotNull(dueDate);
@@ -115,7 +115,7 @@ namespace Domain.Model
             this._accountabilityEntity = _paymentEntity;
         }
 
-        internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
+        internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade)
         {
             _paymentEntity = paymentEntity;
             this._accountabilityEntity = _paymentEntity;
@@ -144,7 +144,8 @@ namespace Domain.Model
             }
             return payments;
         }
-
+        #endregion
+        
         #region ValidationDecimalsAndDueDate
 
         private void validateDueAmount(decimal value)
@@ -189,7 +190,9 @@ namespace Domain.Model
 
         #endregion
 
+        #region Private Fields
         private IPayment _paymentEntity;
         private IDataAccessFacade dataAccessFacade;
+        #endregion
     }
 }

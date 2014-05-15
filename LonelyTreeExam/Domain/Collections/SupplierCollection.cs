@@ -11,7 +11,7 @@ namespace Domain.Collections
 {
     internal class SupplierCollection
     {
-
+        #region Internal Constructors/Methods
         internal SupplierCollection(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
@@ -47,6 +47,7 @@ namespace Domain.Collections
             supplier.Delete();
             suppliers.Remove(supplier);
         }
+        #endregion
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;

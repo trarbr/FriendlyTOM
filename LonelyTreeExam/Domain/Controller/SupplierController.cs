@@ -51,7 +51,6 @@ namespace Domain.Controller
        #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private SupplierCollection supplierCollection;
-
         #endregion
     }
 }

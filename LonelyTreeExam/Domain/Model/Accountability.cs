@@ -41,10 +41,12 @@ namespace Domain.Model
 
         #endregion
 
+        #region Internal Constructors/Fields
         internal Accountability()
         { }
 
         internal IAccountability _accountabilityEntity;
+        #endregion
 
         #region ValidateAllProperties
 

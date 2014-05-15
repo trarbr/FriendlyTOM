@@ -66,7 +66,9 @@ namespace Domain.Model
         }
         #endregion
 
+        #region Private Fields
         private IDataAccessFacade dataAccessFacade;
         private ISupplier _supplierEntity;
+        #endregion
     }
 }
