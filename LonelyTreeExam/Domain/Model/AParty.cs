@@ -32,6 +32,23 @@ namespace Domain.Model
                 throw new ArgumentOutOfRangeException(paramName, "Name may not be empty");
             }
         }
+
+        protected void validateNullOrWhiteSpace(string text, string paramName)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentOutOfRangeException(paramName, "may not be empty");
+            }
+            validateTextLength(text, paramName);
+        }
+
+        private void validateTextLength(string text, string paramName)
+        {
+            if (text.Length > 100)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "text may not be over 100 caracters");
+            }
+        }
         #endregion
 
         internal IParty _partyEntity;

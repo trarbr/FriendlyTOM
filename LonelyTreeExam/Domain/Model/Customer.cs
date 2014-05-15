@@ -9,7 +9,7 @@ using DataAccess;
 
 namespace Domain.Model
 {
-    internal class Customer : Accountability, ICustomer
+    internal class Customer : AParty, ICustomer
     {
         #region Public Properties
 
@@ -18,30 +18,23 @@ namespace Domain.Model
             get { return _customerEntity.Type; }
             set { _customerEntity.Type = value; }
         }
-
-        public string Name
-        {
-            get { return _customerEntity.Name; }
-            set
-            {
-                validateName(value);
-                _customerEntity.Name = value;
-            }
-        }
+        
         #endregion
 
         #region Internal Methods
-        internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
+        internal Customer(CustomerType type, string note, string name,
+            IDataAccessFacade dataAccessFacade)
         {
+            validateName(name);
             this.dataAccessFacade = dataAccessFacade;
             _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
-            this._accountabilityEntity = _customerEntity;
+            this._partyEntity = (IParty) _customerEntity;
         }
 
         internal Customer(ICustomer customerEntity, IDataAccessFacade dataAccessFacade)
         {
             _customerEntity = customerEntity;
-            this._accountabilityEntity = (IAccountability) _customerEntity;
+            this._partyEntity = (IParty) _customerEntity;
             this.dataAccessFacade = dataAccessFacade;
         }
 
@@ -69,25 +62,17 @@ namespace Domain.Model
         }
         #endregion
 
-        #region Validation
-
         private void validateName(string value)
         {
             validateNullOrWhiteSpace(value, "Name");
         }
-
-        private void validateNote(string value)
-        {
-            validateNullOrWhiteSpace(value, "Note");
-        }
-
-        #endregion
 
         #region Private Properties
         private ICustomer _customerEntity;
         private IDataAccessFacade dataAccessFacade;
         #endregion
 
-        
+        public string Responsible { get; set; }
+        public string Commissioner { get; set; }
     }
 }
