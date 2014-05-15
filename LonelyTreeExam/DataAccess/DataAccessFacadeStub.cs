@@ -11,10 +11,16 @@ namespace DataAccess
 {
     public class DataAccessFacadeStub : IDataAccessFacade
     {
+        List<IPayment> payments;
         #region Payment Stuff
-        List<IPayment> payments = new List<IPayment>();
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, PaymentType type, string sale, int booking)
+        public DataAccessFacadeStub()
+        {
+            payments = new List<IPayment>();
+        }
+
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, 
+            PaymentType type, string sale, int booking)
         {
             PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
             payments.Add(entity);

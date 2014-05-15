@@ -17,11 +17,7 @@ namespace Domain.Model
         public DateTime DueDate
         {
             get { return _paymentEntity.DueDate; }
-            set
-            {
-                validateDueDateNotNull(value);
-                _paymentEntity.DueDate = value;
-            }
+            set { _paymentEntity.DueDate = value; }
         }
         public decimal DueAmount
         {
@@ -103,7 +99,6 @@ namespace Domain.Model
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
-            validateDueDateNotNull(dueDate);
             validateResponsible(responsible);
             validateCommissioner(commissioner);
             validateSale(sale);
@@ -165,20 +160,11 @@ namespace Domain.Model
             }
         }
 
-        private void validateDueDateNotNull(DateTime date)
-        {
-            string paramName = "DueDate";
-            if (date == null)
-            {
-                throw new ArgumentNullException(paramName, "may not be null");
-            }
-        }
-
         private void validateFilePathExists(string pathName)
         {
             if (!File.Exists(pathName))
             {
-                throw new Exception("File name does not exists");
+                throw new ArgumentOutOfRangeException("attachment", "Filename doesn't exist");
             }
         }
 

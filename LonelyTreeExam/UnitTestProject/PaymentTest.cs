@@ -13,123 +13,446 @@ namespace UnitTestProject
     [TestClass]
     public class PaymentTest
     {
-        //lav ny Payment med parametre hvor al data er iorden.
-        //test hvor decimal er større mindre og lig med nul
+        IDataAccessFacade dataAccessFacadeStub;
+        DateTime validDueDate;
+        decimal validDueAmount;
+        string validResponsible;
+        string validCommissioner;
+        PaymentType validType;
+        string validSale;
+        int validBooking;
 
-        public IPayment ValidPaymentInput()
+        [TestInitialize]
+        public void SetValidData()
         {
-            DateTime dueDate = new DateTime(2010, 10, 10);
-            decimal dueAmount = 100m;
-            string commissioner = "Henry";
-            string responsible = "Peter";
-            PaymentType type = PaymentType.Balance;
-            string sale = "lort";
-            int booking = 2134567;
-
-            DataAccessFacadeStub stub = new DataAccessFacadeStub();
-
-            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type, sale, booking, stub);
-
-            return payment;
+            dataAccessFacadeStub = new DataAccessFacadeStub();
+            validDueDate = new DateTime(2010, 10, 10);
+            validDueAmount = 1m;
+            validResponsible = "Lonely Tree";
+            validCommissioner = "Galasam";
+            validType = PaymentType.Balance;
+            validSale = "VF Jan";
+            validBooking = 2;
         }
 
         [TestMethod]
         public void TestPaymentConstructorValidData()
         {
-            IPayment validPayment = ValidPaymentInput();
+            Payment validPayment = createValidPayment();
 
-            DateTime expectedDueDate = new DateTime(2010, 10, 10);
-            decimal expectedDueAmount = 100m;
-            string expectedCommisioner = "Henry";
-            string expectedResponsible = "Peter";
-            PaymentType expectedType = PaymentType.Balance;
-            string expectedSale = "lort";
-            int expectedBooking = 2134567;
+            Assert.AreEqual(validDueDate, validPayment.DueDate);
+            Assert.AreEqual(validDueAmount, validPayment.DueAmount);
+            Assert.AreEqual(validResponsible, validPayment.Responsible);
+            Assert.AreEqual(validCommissioner, validPayment.Commissioner);
+            Assert.AreEqual(validType, validPayment.Type);
+            Assert.AreEqual(validSale, validPayment.Sale);
+            Assert.AreEqual(validBooking, validPayment.Booking);
+        }
 
-            Assert.AreEqual(expectedCommisioner, validPayment.Commissioner);
-            Assert.AreEqual(expectedDueAmount, validPayment.DueAmount);
-            Assert.AreEqual(expectedDueDate, validPayment.DueDate);
-            Assert.AreEqual(expectedResponsible, validPayment.Responsible);
-            Assert.AreEqual(expectedType, validPayment.Type);
-            Assert.AreEqual(expectedSale, validPayment.Sale);
-            Assert.AreEqual(expectedBooking, validPayment.Booking);
+        // Should EntityConstructor test for invalid data?
+        [TestMethod]
+        public void TestEntityConstructorValidData()
+        {
+            PaymentEntity entity = new PaymentEntity(validDueDate, validDueAmount, validResponsible, 
+                validCommissioner, validType, validSale, validBooking);
+            Payment payment = new Payment(entity, dataAccessFacadeStub);
+
+            Assert.AreEqual(validDueDate, payment.DueDate);
+            Assert.AreEqual(validDueAmount, payment.DueAmount);
+            Assert.AreEqual(validResponsible, payment.Responsible);
+            Assert.AreEqual(validCommissioner, payment.Commissioner);
+            Assert.AreEqual(validType, payment.Type);
+            Assert.AreEqual(validSale, payment.Sale);
+            Assert.AreEqual(validBooking, payment.Booking);
+        }
+
+        [TestMethod]
+        public void TestConstructorValidatesDueAmount()
+        {
+            decimal invalidDueAmount = -1m;
+            bool callException = false;
+
+            try
+            {
+                Payment payment = new Payment(validDueDate, invalidDueAmount, validResponsible, 
+                    validCommissioner, validType, validSale, validBooking, dataAccessFacadeStub);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                callException = true;
+            }
+
+            Assert.AreEqual(true, callException);
+        }
+
+        [TestMethod]
+        public void TestConstructorValidatesResponsible()
+        {
+            string invalidResponsible = "";
+            bool caughtException = false;
+
+            try
+            {
+                Payment payment = new Payment(validDueDate, validDueAmount, invalidResponsible, validCommissioner,
+                    validType, validSale, validBooking, dataAccessFacadeStub);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
+        }
+
+        [TestMethod]
+        public void TestConstructorValidatesCommissioner()
+        {
+            string invalidCommissioner = "";
+            bool caughtException = false;
+
+            try
+            {
+                Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, invalidCommissioner,
+                    validType, validSale, validBooking, dataAccessFacadeStub);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
+        }
+
+        [TestMethod]
+        public void TestConstructorValidatesSale()
+        {
+            string invalidSale = "";
+            bool caughtException = false;
+
+            try
+            {
+                Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, validCommissioner,
+                    validType, invalidSale, validBooking, dataAccessFacadeStub);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
+        }
+
+        //test hvor decimal er større mindre og lig med nul
+        [TestMethod]
+        public void TestPaidAmountLessThanZero()
+        {
+            Payment payment = createValidPayment();
+            bool caughtException = false;
+
+            try
+            {
+                payment.PaidAmount = -1m;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
+        }
+
+        [TestMethod]
+        public void TestPaidAmountEqualZero()
+        {
+            Payment payment = createValidPayment();
+            decimal expectedPaidAmount = 0m;
+            payment.PaidAmount = expectedPaidAmount;
+
+            Assert.AreEqual(expectedPaidAmount, payment.PaidAmount);
+        }
+
+        [TestMethod]
+        public void TestPaidAmountMoreThanZero()
+        {
+            Payment payment = createValidPayment();
+            decimal expectedPaidAmount = 1m;
+            payment.PaidAmount = expectedPaidAmount;
+
+            Assert.AreEqual(expectedPaidAmount, payment.PaidAmount);
         }
 
         [TestMethod]
         public void TestDueAmountLessThanZero()
         {
-            DateTime dueDate = new DateTime(2010, 10, 10);
-            decimal dueAmount = -100m;
-            string commissioner = "Henry";
-            string responsible = "Peter";
-            PaymentType type = PaymentType.Balance;
-            string sale = "lort";
-            int booking = 2134567;
-
-            DataAccessFacadeStub stub = new DataAccessFacadeStub();
-
-            bool callException = false;
+            Payment payment = createValidPayment();
+            bool caughtException = false;
 
             try
             {
-                Payment paymentLessThanZero = new Payment(dueDate, dueAmount, responsible, commissioner, type, sale, booking, stub);
+                payment.DueAmount = -1m;
             }
             catch (ArgumentOutOfRangeException)
             {
-                callException = true;
+                caughtException = true;
             }
 
-            Assert.AreEqual(true, callException);
+            Assert.AreEqual(true, caughtException);
         }
 
         [TestMethod]
-        public void TestPaidAmountLessThanZero()
+        public void TestDueAmountEqualZero()
         {
-            IPayment payment = ValidPaymentInput();
-            bool callException = false;
+            Payment payment = createValidPayment();
+            decimal expectedDueAmount = 0m;
+            payment.DueAmount = expectedDueAmount;
+
+            Assert.AreEqual(expectedDueAmount, payment.DueAmount);
+        }
+
+        [TestMethod]
+        public void TestDueAmountMoreThanZero()
+        {
+            Payment payment = createValidPayment();
+            decimal expectedDueAmount = 1m;
+            payment.DueAmount = expectedDueAmount;
+
+            Assert.AreEqual(expectedDueAmount, payment.DueAmount);
+        }
+
+        [TestMethod]
+        public void TestSaleValidString()
+        {
+            Payment payment = createValidPayment();
+
+            string expectedSale = "VF Chris";
+            payment.Sale = expectedSale;
+
+            Assert.AreEqual(expectedSale, payment.Sale);
+        }
+
+        [TestMethod]
+        public void TestSaleNull()
+        {
+            Payment payment = createValidPayment();
+            bool caughtException = false;
 
             try
             {
-                payment.PaidAmount = -100m;
+                payment.Sale = null;
             }
             catch (ArgumentOutOfRangeException)
             {
-                callException = true;
+                caughtException = true;
             }
 
-            Assert.AreEqual(true, callException);
+            Assert.AreEqual(true, caughtException);
         }
 
         [TestMethod]
-        public void TestEntityConstructorValidData()
+        public void TestSaleEmptyString()
         {
-            DateTime dueDate = new DateTime(2010, 10, 10);
-            decimal dueAmount = 100m;
-            string commissioner = "Henry";
-            string responsible = "Peter";
-            PaymentType type = PaymentType.Balance;
-            string sale = "lort";
-            int booking = 2134567;
-            DataAccessFacadeStub stub = new DataAccessFacadeStub();
-            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
+            Payment payment = createValidPayment();
+            bool caughtException = false;
 
-            Payment payment = new Payment(entity, stub);
+            try
+            {
+                payment.Sale = "";
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
 
-            Assert.AreEqual(dueDate, payment.DueDate);
-            Assert.AreEqual(dueAmount, payment.DueAmount);
-            Assert.AreEqual(commissioner, payment.Commissioner);
-            Assert.AreEqual(responsible, payment.Responsible);
+            Assert.AreEqual(true, caughtException);
         }
 
         [TestMethod]
-        public void TestPaidAmountPositiveData()
+        public void TestSaleWhitespace()
         {
-            IPayment payment = ValidPaymentInput();
-            payment.PaidAmount = 100m;
+            Payment payment = createValidPayment();
+            bool caughtException = false;
 
-            Assert.AreEqual(100, payment.PaidAmount);
+            try
+            {
+                payment.Sale = " ";
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
+        }
+
+        [TestMethod]
+        public void TestReadAllPayments()
+        {
+            Payment payment1 = createValidPayment();
+            payment1.Commissioner = "jørgen";
+            Payment payment2 = createValidPayment();
+            payment2.Commissioner = "kurt";
+            Payment payment3 = createValidPayment();
+            payment3.Commissioner = "peter";
+            Payment payment4 = createValidPayment();
+            payment4.Commissioner = "søren";
+
+            List<Payment> actualPayments = Payment.ReadAll(dataAccessFacadeStub);
+
+            List<Payment> expectedPayments = new List<Payment>();
+
+            expectedPayments.Add(payment1);
+            expectedPayments.Add(payment2);
+            expectedPayments.Add(payment3);
+            expectedPayments.Add(payment4);
+
+            for (int i = 0; i < actualPayments.Count; i++)
+            {
+                Assert.AreEqual(expectedPayments[i].Commissioner, actualPayments[i].Commissioner);
+            }
         }
 
         //test attachments exceptions
+        [TestMethod]
+        public void TestAttachmentOneValidString()
+        {
+            Payment payment = createValidPayment();
+            string expectedAttachment = @"C:\ConnectString.txt";        
+
+            payment.AddAttachment(expectedAttachment);
+
+            string actualAttachment = payment.Attachments[0];
+
+            Assert.AreEqual(expectedAttachment, actualAttachment);
+        }
+
+        [TestMethod]
+        public void TestAttachmentManyValidStrings()
+        {
+            Payment payment = createValidPayment();
+
+            List<string> expectedAttachments = new List<string>();
+            expectedAttachments.Add(@"C:\ConnectString.txt");
+            expectedAttachments.Add(@"C:\Windows\notepad.exe");
+            expectedAttachments.Add(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe");
+
+            foreach (string attachment in expectedAttachments)
+            {
+                payment.AddAttachment(attachment);
+            }
+
+            List<string> actualAttachments = new List<string>();
+
+            foreach (string attachment in payment.Attachments)
+            {
+                actualAttachments.Add(attachment);
+            }
+
+            CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
+        }
+
+        [TestMethod]
+        public void TestDeleteOneAttachment()
+        {
+            Payment payment = createValidPayment();
+
+            List<string> expectedAttachments = new List<string>();
+            expectedAttachments.Add(@"C:\ConnectString.txt");
+            expectedAttachments.Add(@"C:\Windows\notepad.exe");
+            expectedAttachments.Add(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe");
+
+            foreach (string attachment in expectedAttachments)
+            {
+                payment.AddAttachment(attachment);
+            }
+
+            payment.DeleteAttachment(@"C:\ConnectString.txt");
+            expectedAttachments.Remove(@"C:\ConnectString.txt");
+
+            List<string> actualAttachments = new List<string>();
+
+            foreach (string attachment in payment.Attachments)
+            {
+                actualAttachments.Add(attachment);
+            }
+
+            CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
+        }
+
+        [TestMethod]
+        public void TestAttachmentNonexistingFile()
+        {
+            Payment payment = createValidPayment();
+            bool caughtException = false;
+
+            try
+            {
+                payment.AddAttachment("asdfasdfagdfgdfg");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
+        }
+
+        [TestMethod]
+        public void TestAttachmentNull()
+        {
+            Payment payment = createValidPayment();
+            bool caughtException = false;
+
+            try
+            {
+                payment.AddAttachment(null);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                caughtException = true;
+            }
+
+            Assert.AreEqual(true, caughtException);
+        }
+
+        //[TestMethod]
+        //public void TestInvoiceNull()
+        //{
+        //    // Since this is a test related to DB, maybe it should be in PaymentEntity?
+        //    // Wow, maybe we need validators in DataAccess as well! (mindblown)
+        //    //both Sale and Invoice.
+        //    Payment payment = createValidPayment();
+        //    bool caughtException = false;
+
+        //    try
+        //    {
+        //        payment.Invoice = null;
+        //    }
+        //    catch (ArgumentOutOfRangeException)
+        //    {
+        //        caughtException = true;
+        //    }
+
+        //    Assert.AreEqual(true, caughtException);
+        //}
+        
+        [TestMethod]
+        public void TestInvoiceValidData()
+        {
+            Payment payment = createValidPayment();
+
+            payment.Invoice = "factura 685467584";
+
+            string expectedInvoice = "factura 685467584";
+
+            Assert.AreEqual(expectedInvoice, payment.Invoice);
+        }
+
+        private Payment createValidPayment()
+        {
+            Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, validCommissioner, validType, 
+                validSale, validBooking, dataAccessFacadeStub);
+
+            return payment;
+        }
     }
 }

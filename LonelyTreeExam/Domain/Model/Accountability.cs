@@ -60,11 +60,11 @@ namespace Domain.Model
 
         protected void validateNullOrWhiteSpace(string text, string paramName)
         {
-            validateTextLength(text, paramName);
             if (string.IsNullOrWhiteSpace(text))
             {
                 throw new ArgumentOutOfRangeException(paramName, "may not be empty");
             }
+            validateTextLength(text, paramName);
         }
 
         protected void validateNoteLength(string value)
