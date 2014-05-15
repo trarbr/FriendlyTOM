@@ -21,28 +21,33 @@
             <Label Content="Responsible:"/>
             <Label Content="DueDate:"/>
             <Label Content="DueAmount:"/>
+            <Label Content="Type:"/>
+            <Label Content="Sale:"/>
+            <Label Content="Booking:"/>
+            <Label Content="Invoice:"/>
             <Label Content="Paid:"/>
             <Label Content="PaidAmount:"/>
             <Label Content="PaidDate:"/>
-            <Label Content="PaymentType:"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
-            <TextBox x:Name="commissionerTextBox" Height="26" TextWrapping="Wrap"/>
-            <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" 
-                                       DelayTime="150" 
-                                       PreviewKeyDown="responsibleTextBox_PreviewKeyDown"/>
+            <local:AutoCompleteTextBox Height="26" x:Name="commissionerTextBox" Threshold="1" DelayTime="150"/>
+            <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" DelayTime="150"/>
             <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
+            <ComboBox x:Name="paymentTypeComboBox" Margin="0,2"/>
+            <TextBox x:Name="saleTextBox" Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="bookingTextBox" Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="invoiceTextBox" Height="26" TextWrapping="Wrap"/>
             <StackPanel Height="26" Orientation="Horizontal">
-                <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center" Click="paidCheckBox_Click"/>
+                <CheckBox x:Name="paidCheckBox" VerticalAlignment="Center"/>
             </StackPanel>
-            <TextBox x:Name="paidAmountTextBox" Height="26" TextWrapping="Wrap" IsEnabled="False"/>
-            <DatePicker x:Name="paidDateDatePicker" Height="26" IsEnabled="False"/>
-            <ComboBox x:Name="paymentTypeComboBox" Margin="0,4,0,0" IsEnabled="False"/>
+            <TextBox x:Name="paidAmountTextBox" Height="26" TextWrapping="Wrap"/>
+            <DatePicker x:Name="paidDateDatePicker" Height="26"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>
-            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"/>
             <Label Content="Attachments:" />
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -57,7 +62,8 @@
                         <Image Source="/Images/delete.png" />
                     </Button>
                 </StackPanel>
-                <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9" MouseDoubleClick="attachmentsListView_MouseDoubleClick"/>
+                <ListView x:Name="attachmentsListView" Grid.Column="1" BorderBrush="#FFC6C6C9"
+                          MouseDoubleClick="attachmentsListView_MouseDoubleClick"/>
             </Grid>
         </StackPanel>
     </Grid>

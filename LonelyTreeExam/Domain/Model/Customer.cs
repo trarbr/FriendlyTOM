@@ -15,7 +15,7 @@ namespace Domain.Model
 
         internal Customer(CustomerType type, string name, string note)
         {
-            _customerEntity = dataAccessFacade.CreateCustomer(Type);
+            _customerEntity = dataAccessFacade.CreateCustomer(type, name, note);
             this._partyEntity = _customerEntity;
         }
 

@@ -31,7 +31,11 @@ namespace DataAccess
             }
 
             paymentMapper = new PaymentMapper(connectionString);
+
             customerMapper = new CustomerMapper(connectionString);
+
+            supplierMapper = new SupplierMapper(connectionString);
+
         }
 
         #region Public Payment Methods
@@ -51,9 +55,10 @@ namespace DataAccess
             return payments;
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible,
+            string commissioner, PaymentType type, string sale, int booking)
         {
-            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner);
+            return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
         }
       
         public void UpdatePayment(IPayment payment)
@@ -66,36 +71,39 @@ namespace DataAccess
             paymentMapper.Delete((PaymentEntity) payment);
         }
         #endregion
+
         
         #region Public Supplier Methods
         public ISupplier CreateSupplier(string name, string note, string paymentInfo, SupplierType type)
         {
-            throw new NotImplementedException();
+            return supplierMapper.Create(name, note, paymentInfo, type);
         }
 
         public List<ISupplier> ReadAllSuppliers()
         {
-            throw new NotImplementedException();
+            List<ISupplier> suppliers = new List<ISupplier>();
+            List<SupplierEntity> supplierEntities = supplierMapper.ReadAll();
+            foreach (SupplierEntity supplierEntity in supplierEntities)
+            {
+                suppliers.Add(supplierEntity);
+            }
+
+            return suppliers;
         }
 
         public void UpdateSupplier(ISupplier supplier)
         {
-            throw new NotImplementedException();
+            supplierMapper.Update((SupplierEntity)supplier);
         }
 
         public void DeleteSupplier(ISupplier supplier)
         {
-            throw new NotImplementedException();
+            SupplierEntity sup = supplier as SupplierEntity;
+            supplierMapper.Delete(sup);
         }
-
-        public ICustomer CreateCustomer(CustomerType type)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
 
-        #region Public Customer Methods
+       #region Public Customer Methods
         public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
             return customerMapper.Create(type, note, name);
@@ -128,6 +136,8 @@ namespace DataAccess
         private string connectionString;
         private PaymentMapper paymentMapper;
         private CustomerMapper customerMapper;
+        private SupplierMapper supplierMapper;
+
         #endregion
     }
 }

@@ -42,9 +42,11 @@
     <Compile Include="Collections\CustomerCollection.cs" />
     <Compile Include="Collections\PaymentCollection.cs" />
     <Compile Include="Controller\CustomerController.cs" />
+    <Compile Include="Collections\SupplierCollection.cs" />
     <Compile Include="Controller\PaymentController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\SupplierController.cs" />
     <Compile Include="Model\Accountability.cs" />
     <Compile Include="Model\AParty.cs" />
     <Compile Include="Model\Customer.cs" />

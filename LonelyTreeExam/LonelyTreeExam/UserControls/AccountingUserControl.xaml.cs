@@ -46,6 +46,8 @@ namespace LonelyTreeExam.UserControls
         private OutgoingPaymentsUserControl outgoingPaymentsControl;
         private ArchivedPaymentsUserControl archivedPaymentsControl;
 
+        // ReadAllPayments and refresh DataGrid when changing tabs
+        // current_tab_index is implemented to avoid xaml error before build is complete
         private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (mainTabNavigation.SelectedIndex != current_tab_index)

@@ -4,26 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600">
+             d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" 
-                 Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
+        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap"
+                 HorizontalAlignment="Left" Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
         <DataGrid x:Name="suppliersDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
                   VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
-                  AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" >
+                  AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9" SelectionChanged="suppliersDataGrid_SelectionChanged" >
             <DataGrid.Columns>
-                <StaticResource ResourceKey="Supplier"/>
+                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header = "PaymentInfo" Width="*" Binding="{Binding PaymentInfo}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
-            <Button x:Name="newButton" Width="75" Margin="5,0,0,5" ToolTip="Add payment">
+            <Button x:Name="newButton" Width="75" Margin="5,0,0,5" ToolTip="Add payment" Click="newButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/add.png" Width="16"/>
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">New</TextBlock>
@@ -37,9 +38,30 @@
                 </StackPanel>
             </Button>
         </StackPanel>
-        <UserControl Grid.Row="3" x:Name="detailsUserControl"/>
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
-            <Button x:Name="saveButton" Width="75" Margin="10,0,0,5" ToolTip="Save changes">
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="0">
+            <Label Content="Name:"/>
+            <Label Content="SupplierType:"/>
+            <Label Content="PaymentInfo:"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+            <TextBox x:Name="nameTextBox" Height="26" TextWrapping="Wrap"/>
+            <ComboBox x:Name="supplierTypeComboBox" Margin="0,4,0,0"/>
+            <TextBox x:Name="paymentInfoTextBox" Height="26" TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Margin="20,0,0,0">
+            <Label Content="Note:"/>
+            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Auto"/>
+        </StackPanel>
+        </Grid>
+    <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
+            <Button x:Name="saveButton" Width="75" Margin="10,0,0,5" ToolTip="Save changes" Click="saveButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/arrow_refresh_small.png" Width="16"/>
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Save</TextBlock>

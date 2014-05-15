@@ -43,6 +43,7 @@ namespace LonelyTreeExam.AutoComplete
 
             textBox = new TextBox();
             textBox.TextChanged += new TextChangedEventHandler(textBox_TextChanged);
+            textBox.PreviewKeyDown += new KeyEventHandler(textBox_PreviewKeyDown);
             textBox.VerticalContentAlignment = VerticalAlignment.Center;
 
             controls.Add(comboBox);
@@ -74,22 +75,6 @@ namespace LonelyTreeExam.AutoComplete
         public void AddItem(AutoCompleteEntry entry)
         {
             autoCompletionList.Add(entry);
-        }
-
-        public void FocusComboBox()
-        {
-            if (comboBox.HasItems)
-            {
-                comboBox.Focus();
-            }
-        }
-
-        public void SelectItem()
-        {
-            if (comboBox.HasItems)
-            {
-                comboBox.SelectedIndex = 0;
-            }
         }
         #endregion
 
@@ -135,6 +120,24 @@ namespace LonelyTreeExam.AutoComplete
             }
         }
 
+        private void textBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                if (comboBox.HasItems)
+                {
+                    comboBox.Focus();
+                }
+            }
+            else if (e.Key == Key.Enter)
+            {
+                if (comboBox.HasItems)
+                {
+                    comboBox.SelectedIndex = 0;
+                }
+            }
+        }
+
         private void TextChanged()
         {
             try
@@ -146,7 +149,7 @@ namespace LonelyTreeExam.AutoComplete
                     {
                         foreach (string word in entry.KeywordStrings)
                         {
-                            if (word.StartsWith(textBox.Text, StringComparison.CurrentCultureIgnoreCase))
+                            if (word.IndexOf(textBox.Text, StringComparison.CurrentCultureIgnoreCase) >= 0)
                             {
                                 ComboBoxItem cbItem = new ComboBoxItem();
                                 cbItem.Content = entry.ToString();

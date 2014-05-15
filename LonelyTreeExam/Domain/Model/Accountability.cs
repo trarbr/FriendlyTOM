@@ -58,7 +58,7 @@ namespace Domain.Model
             validateNullOrWhiteSpace(value, "Commissioner");
         }
 
-        private void validateNullOrWhiteSpace(string text, string paramName)
+        protected void validateNullOrWhiteSpace(string text, string paramName)
         {
             validateTextLength(text, paramName);
             if (string.IsNullOrWhiteSpace(text))

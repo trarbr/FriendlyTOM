@@ -35,6 +35,7 @@ namespace LonelyTreeExam.UserControls
             culture = new CultureInfo("en-US");
             AddAutoCompleteEntries();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
+            paymentTypeComboBox.SelectedIndex = 0;
         }
 
         #region Internal Methods
@@ -49,8 +50,11 @@ namespace LonelyTreeExam.UserControls
                     decimal dueAmount;
                     decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
                     DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
+                    int booking;
+                    int.TryParse(bookingTextBox.Text, out booking);
                     IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, 
-                        responsibleTextBox.Text, commissionerTextBox.Text);
+                        responsibleTextBox.Text, commissionerTextBox.Text,
+                        (PaymentType)paymentTypeComboBox.SelectedItem, saleTextBox.Text, booking);
 
                     decimal paidAmount;
                     decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
@@ -67,6 +71,7 @@ namespace LonelyTreeExam.UserControls
                     {
                         payment.AddAttachment(attachments);
                     }
+                    payment.Invoice = invoiceTextBox.Text;
                     
                     paymentController.UpdatePayment(payment);
                 }
@@ -105,6 +110,12 @@ namespace LonelyTreeExam.UserControls
                     selectedPayment.PaidDate = paidDateDatePicker.SelectedDate.Value;
                 }
                 selectedPayment.Note = noteTextBox.Text;
+                selectedPayment.Type = (PaymentType)paymentTypeComboBox.SelectedItem;
+                selectedPayment.Sale = saleTextBox.Text;
+                int booking;
+                int.TryParse(bookingTextBox.Text, out booking);
+                selectedPayment.Booking = booking;
+                selectedPayment.Invoice = invoiceTextBox.Text;
                 
                 paymentController.UpdatePayment(selectedPayment);
             }
@@ -134,6 +145,7 @@ namespace LonelyTreeExam.UserControls
                 dueAmountTextBox.Text = selectedPayment.DueAmount.ToString("N2", culture.NumberFormat);
                 responsibleTextBox.Text = selectedPayment.Responsible;
                 commissionerTextBox.Text = selectedPayment.Commissioner;
+                paymentTypeComboBox.SelectedItem = selectedPayment.Type;
                 if (selectedPayment.PaidDate == new DateTime(1900, 1, 1))
                 {
                     paidDateDatePicker.SelectedDate = null;
@@ -145,6 +157,9 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = selectedPayment.PaidAmount.ToString("N2", culture.NumberFormat);
                 paidCheckBox.IsChecked = selectedPayment.Paid;
                 noteTextBox.Text = selectedPayment.Note;
+                saleTextBox.Text = selectedPayment.Sale;
+                bookingTextBox.Text = selectedPayment.Booking.ToString();
+                invoiceTextBox.Text = selectedPayment.Invoice;
                 attachmentsListView.ItemsSource = selectedPayment.Attachments;
             }
             else
@@ -157,6 +172,10 @@ namespace LonelyTreeExam.UserControls
                 paidAmountTextBox.Text = "";
                 paidCheckBox.IsChecked = false;
                 noteTextBox.Text = "";
+                paymentTypeComboBox.SelectedIndex = 0;
+                saleTextBox.Text = "";
+                bookingTextBox.Text = "";
+                invoiceTextBox.Text = "";
                 attachmentsListView.ItemsSource = null;
             }
         }
@@ -166,34 +185,7 @@ namespace LonelyTreeExam.UserControls
             foreach (IPayment payment in paymentController.ReadAllPayments())
             {
                 responsibleTextBox.AddItem(new AutoCompleteEntry(payment.Responsible, null));
-            }
-        }
-
-        private void responsibleTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Down)
-            {
-                responsibleTextBox.FocusComboBox();
-            }
-            else if (e.Key == Key.Enter)
-            {
-                responsibleTextBox.SelectItem();
-            }
-        }
-
-        private void paidCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            if (paidCheckBox.IsChecked == true)
-            {
-                paidDateDatePicker.IsEnabled = true;
-                paidAmountTextBox.IsEnabled = true;
-                paymentTypeComboBox.IsEnabled = true;
-            }
-            else
-            {
-                paidDateDatePicker.IsEnabled = false;
-                paidAmountTextBox.IsEnabled = false;
-                paymentTypeComboBox.IsEnabled = false;
+                commissionerTextBox.AddItem(new AutoCompleteEntry(payment.Commissioner, null));
             }
         }
 

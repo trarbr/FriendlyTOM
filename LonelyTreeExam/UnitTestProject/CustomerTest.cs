@@ -16,6 +16,8 @@ namespace UnitTestProject
         {
             string name = "Christine";
             string note = "So sweet";
+
+            return null;
         }
     }
 }
