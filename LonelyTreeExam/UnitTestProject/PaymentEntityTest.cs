@@ -40,6 +40,8 @@ namespace UnitTestProject
             Assert.AreEqual(expectedAttachmentsCount, paymentEntity.Attachments.Count);
         }
 
+        // TODO: Test DeleteAttachment
+
         [TestMethod]
         public void TestAddAttachment()
         {

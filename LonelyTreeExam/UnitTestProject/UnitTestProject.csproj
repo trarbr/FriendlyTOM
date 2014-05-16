@@ -55,6 +55,7 @@
     <Compile Include="PaymentEntityTest.cs" />
     <Compile Include="SupplierTest.cs" />
     <Compile Include="PaymentControllerTest.cs" />
+    <Compile Include="PaymentCollectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
