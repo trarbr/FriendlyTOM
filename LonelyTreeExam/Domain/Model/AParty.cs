@@ -5,6 +5,7 @@ namespace Domain.Model
 {
     internal abstract class AParty : IParty
     {
+        #region Public Properties
         public string Name
         {
             get { return _partyEntity.Name; }
@@ -23,8 +24,10 @@ namespace Domain.Model
                 _partyEntity.Note = value;
             }
         }
+        #endregion
 
         #region Validation
+        //Validates the name is not empty.
         protected void validateName(string paramName)
         {
             if (paramName == "")
@@ -33,6 +36,7 @@ namespace Domain.Model
             }
         }
 
+        //validation method for checking for whitespace or null. 
         protected void validateNullOrWhiteSpace(string text, string paramName)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -42,6 +46,7 @@ namespace Domain.Model
             validateTextLength(text, paramName);
         }
 
+        //Validation method for checking the length of a string.
         private void validateTextLength(string text, string paramName)
         {
             if (text.Length > 100)

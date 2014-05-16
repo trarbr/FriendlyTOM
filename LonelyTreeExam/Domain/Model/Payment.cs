@@ -165,13 +165,16 @@ namespace Domain.Model
             }
         }
 
+        //Checks if the value of the "name" is not null or whitespace
         private void validateSale(string value)
         {
             validateNullOrWhiteSpace(value, "Sale");
         }
         #endregion
 
+        #region Private Properties
         private IPayment _paymentEntity;
         private IDataAccessFacade dataAccessFacade;
+        #endregion
     }
 }
