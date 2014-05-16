@@ -31,19 +31,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
-            <Button x:Name="restoreButton" Width="75" ToolTip="Restore selected payment" Click="restoreButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/book_next2.png" Width="16" />
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Restore</TextBlock>
-                </StackPanel>
+            <Button x:Name="restoreButton" Width="75" ToolTip="Restore selected payment" Click="restoreButton_Click"
+                    ContentTemplate="{StaticResource RestoreButton}">
             </Button>
             <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" ToolTip="Delete selected payment"
-                    Click="deleteButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/delete.png" Width="16" />
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
-                </StackPanel>
-            </Button>
+                    Click="deleteButton_Click" ContentTemplate="{StaticResource DeleteButton}"/>
         </StackPanel>
     </Grid>
 </UserControl>

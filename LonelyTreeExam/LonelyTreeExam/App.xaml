@@ -15,6 +15,18 @@
         <DataGridCheckBoxColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="Auto" Binding="{Binding Paid}"/>
         <DataGridTextColumn x:Key="Supplier" x:Shared="False"  Header = "Supplier" Width="*" Binding="{Binding Responsible}"/>
 
+        <DataTemplate x:Key="RestoreButton">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/book_next2.png" Width="16" />
+                <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Restore</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ArchiveButton">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/book_add2.png" Width="16" />
+                <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Archive</TextBlock>
+            </StackPanel>
+        </DataTemplate>
         <DataTemplate x:Key="DeleteButton">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/delete.png" Width="16"/>

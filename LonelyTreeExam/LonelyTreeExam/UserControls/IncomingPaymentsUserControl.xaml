@@ -38,26 +38,12 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,10">
-            <Button x:Name="newButton" Width="75" ToolTip="New payment" Click="newButton_Click" >
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/add.png" Width="16"/>
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">New</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button x:Name="archiveButton" Width="75" Margin="10,0,0,0"
-                    ToolTip="Move selected payment to archive" Click="archiveButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/book_add2.png" Width="16" />
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Archive</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" ToolTip="Delete selected payment"
-                    Click="deleteButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/delete.png" Width="16" />
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>
-                </StackPanel>
-            </Button>
+                <Button x:Name="newButton" Width="75" ToolTip="New payment" Click="newButton_Click"
+                    ContentTemplate="{StaticResource NewButton}"/>
+                <Button x:Name="archiveButton" Width="75" Margin="10,0,0,0" ToolTip="Move selected payment to archive" 
+                    Click="archiveButton_Click" ContentTemplate="{StaticResource ArchiveButton}"/>
+                <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" ToolTip="Delete selected payment"
+                    Click="deleteButton_Click" ContentTemplate="{StaticResource DeleteButton}"/>
             </StackPanel>
             <Button x:Name="collapseButton" Grid.Column="1" VerticalAlignment="Top" Margin="0,10,0,0"
                     Click="collapseButton_Click" ToolTip="Hide details">
@@ -69,20 +55,10 @@
         <UserControl Grid.Row="3" x:Name="detailsUserControl"/>
         <StackPanel x:Name="bottomStackPanel" Grid.Row="4" Grid.ColumnSpan="3"
                     Orientation="Horizontal" Margin="0,15,0,0">
-            <Button x:Name="saveButton" Width="75" ToolTip="Save payment"
-                    Click="saveButton_Click" Margin="0,0,0,5">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/arrow_refresh_small.png" Width="16"/>
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Save</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button x:Name="clearButton" Width="75" Margin="10,0,0,5"
-                    ToolTip="Clear textboxes" Click="clearButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/cancel.png" Width="16"/>
-                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Clear</TextBlock>
-                </StackPanel>
-            </Button>
+            <Button x:Name="saveButton" Width="75" ToolTip="Save payment" Click="saveButton_Click" Margin="0,0,0,5"
+                    ContentTemplate="{StaticResource SaveButton}"/>
+            <Button x:Name="clearButton" Width="75" Margin="10,0,0,5" ToolTip="Clear textboxes" 
+                    Click="clearButton_Click" ContentTemplate="{StaticResource ClearButton}"/>
         </StackPanel>
     </Grid>
 </UserControl>
