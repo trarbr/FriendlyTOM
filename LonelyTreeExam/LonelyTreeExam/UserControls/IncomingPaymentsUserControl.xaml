@@ -21,6 +21,8 @@
                   AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
                   BorderBrush="#FFC6C6C9">
             <DataGrid.Columns>
+                <StaticResource ResourceKey="Sale"/>
+                <StaticResource ResourceKey="Booking"/>
                 <StaticResource ResourceKey="Responsible"/>
                 <StaticResource ResourceKey="DueDate"/>
                 <StaticResource ResourceKey="DueAmount"/>

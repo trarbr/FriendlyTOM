@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <DataGridTextColumn x:Key="Commissioner" x:Shared="False"  Header = "Commissioner" Width="*" Binding="{Binding Commissioner}"/>
-        <DataGridTextColumn x:Key="Responsible" x:Shared="False" Header = "Responsible" Width="*" Binding="{Binding Responsible}"/>
-        <DataGridTextColumn x:Key="DueDate" x:Shared="False"  Header = "DueDate" Width="*" Binding="{Binding DueDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
-        <DataGridTextColumn x:Key="DueAmount" x:Shared="False"  Header = "DueAmount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
-        <DataGridTextColumn x:Key="PaidDate" x:Shared="False" Header = "PaidDate" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
-        <DataGridTextColumn x:Key="PaidAmount" x:Shared="False" Header = "PaidAmount" Width="*" Binding="{Binding PaidAmount, StringFormat=N2}"/>
+        <DataGridTextColumn x:Key="Sale" x:Shared="False"  Header = "Sale" Width="*" Binding="{Binding Sale}"/>
+        <DataGridTextColumn x:Key="Booking" x:Shared="False"  Header = "Booking" Width="*" Binding="{Binding Booking}"/>
+        <DataGridTextColumn x:Key="Commissioner" x:Shared="False"  Header = "Beneficiary" Width="*" Binding="{Binding Commissioner}"/>
+        <DataGridTextColumn x:Key="Responsible" x:Shared="False" Header = "Benefactor" Width="*" Binding="{Binding Responsible}"/>
+        <DataGridTextColumn x:Key="DueDate" x:Shared="False"  Header = "Due Date" Width="*" Binding="{Binding DueDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
+        <DataGridTextColumn x:Key="DueAmount" x:Shared="False"  Header = "Due Amount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
+        <DataGridTextColumn x:Key="PaidDate" x:Shared="False" Header = "Paid Date" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
+        <DataGridTextColumn x:Key="PaidAmount" x:Shared="False" Header = "Paid Amount" Width="*" Binding="{Binding PaidAmount, StringFormat=N2}"/>
         <DataGridTextColumn x:Key="Type" x:Shared="False"  Header = "Type" Width="*" Binding="{Binding Type}"/>
         <DataGridCheckBoxColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="Auto" Binding="{Binding Paid}"/>
         <DataGridTextColumn x:Key="Supplier" x:Shared="False"  Header = "Supplier" Width="*" Binding="{Binding Responsible}"/>
