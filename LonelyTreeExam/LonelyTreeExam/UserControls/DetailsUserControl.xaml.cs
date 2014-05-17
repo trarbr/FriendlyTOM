@@ -182,28 +182,26 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
-        internal void AddAutoCompleteEntries(List<IParty> parties, bool responsible)
+        internal void AddSuppliersToAutoComplete(List<ISupplier> suppliers)
         {
-            if (responsible == true)
+            foreach (ISupplier supplier in suppliers)
             {
-                foreach (IParty party in parties)
+                if (!autoCompleteEntries.Contains(supplier.Name))
                 {
-                    if (!autoCompleteEntries.Contains(party.Name))
-                    {
-                        responsibleTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
-                        autoCompleteEntries.Add(party.Name);
-                    }
+                    commissionerTextBox.AddItem(new AutoCompleteEntry(supplier.Name, null));
+                    autoCompleteEntries.Add(supplier.Name);
                 }
             }
-            else
+        }
+
+        internal void AddCustomersToAutoComplete(List<ICustomer> customers)
+        {
+            foreach (ICustomer customer in customers)
             {
-                foreach (IParty party in parties)
+                if (!autoCompleteEntries.Contains(customer.Name))
                 {
-                    if (!autoCompleteEntries.Contains(party.Name))
-                    {
-                        commissionerTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
-                        autoCompleteEntries.Add(party.Name);
-                    }
+                    responsibleTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
+                    autoCompleteEntries.Add(customer.Name);
                 }
             }
         }

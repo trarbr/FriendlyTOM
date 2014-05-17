@@ -47,12 +47,7 @@ namespace LonelyTreeExam.UserControls
             paymentsDataGrid.ItemsSource = outgoingPayments;
             details.responsibleTextBox.Text = "Lonely Tree";
 
-            List<IParty> suppliers = new List<IParty>();
-            foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
-            {
-                suppliers.Add(supplier);
-            }
-            details.AddAutoCompleteEntries(suppliers, false);
+            details.AddSuppliersToAutoComplete(supplierController.ReadAllSuppliers());
         }
 
         private PaymentController paymentController;
