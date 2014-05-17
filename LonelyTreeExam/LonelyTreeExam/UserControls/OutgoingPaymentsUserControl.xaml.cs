@@ -27,6 +27,7 @@ namespace LonelyTreeExam.UserControls
             InitializeComponent();
 
             this.paymentController = paymentController;
+            this.supplierController = supplierController;
 
             details = new DetailsUserControl(paymentController);
             details.responsibleTextBox.Text = "Lonely Tree";
@@ -34,15 +35,6 @@ namespace LonelyTreeExam.UserControls
             detailsUserControl.Content = details;
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
-
-            List<IParty> suppliers = new List<IParty>();
-
-            foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
-            {
-                suppliers.Add(supplier);
-            }
-
-            details.AddAutoCompleteEntries(suppliers, false);
 
             RefreshPaymentDataGrid();
         }
@@ -54,6 +46,13 @@ namespace LonelyTreeExam.UserControls
             outgoingPayments = paymentController.ReadAllOutgoingPayments();
             paymentsDataGrid.ItemsSource = outgoingPayments;
             details.responsibleTextBox.Text = "Lonely Tree";
+
+            List<IParty> suppliers = new List<IParty>();
+            foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
+            {
+                suppliers.Add(supplier);
+            }
+            details.AddAutoCompleteEntries(suppliers, false);
         }
 
         private PaymentController paymentController;

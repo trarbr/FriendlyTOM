@@ -36,6 +36,7 @@ namespace LonelyTreeExam.UserControls
             //AddAutoCompleteEntries();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
             paymentTypeComboBox.SelectedIndex = 0;
+            autoCompleteEntries = new HashSet<string>();
         }
 
         #region Internal Methods
@@ -134,6 +135,7 @@ namespace LonelyTreeExam.UserControls
         private PaymentController paymentController;
         private CultureInfo culture;
         private IPayment selectedPayment;
+        private HashSet<string> autoCompleteEntries;
         #endregion
         
         #region Private Method
@@ -186,21 +188,23 @@ namespace LonelyTreeExam.UserControls
             {
                 foreach (IParty party in parties)
                 {
-                    responsibleTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
+                    if (!autoCompleteEntries.Contains(party.Name))
+                    {
+                        responsibleTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
+                        autoCompleteEntries.Add(party.Name);
+                    }
                 }
             }
             else
             {
                 foreach (IParty party in parties)
                 {
-                    commissionerTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
+                    if (!autoCompleteEntries.Contains(party.Name))
+                    {
+                        commissionerTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
+                        autoCompleteEntries.Add(party.Name);
+                    }
                 }
-            }
-            // this dynamic is different for incoming and outgoing payments
-            foreach (IPayment payment in paymentController.ReadAllPayments())
-            {
-                responsibleTextBox.AddItem(new AutoCompleteEntry(payment.Responsible, null));
-                commissionerTextBox.AddItem(new AutoCompleteEntry(payment.Commissioner, null));
             }
         }
 
