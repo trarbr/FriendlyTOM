@@ -149,9 +149,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (IPayment payment in outgoingPayments)
                 {
-                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Commissioner,
+                    string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6}", payment.Commissioner,
                         payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
-                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note);
+                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note, payment.Sale);
 
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {

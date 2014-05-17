@@ -8,6 +8,6 @@ namespace Common.Enums
 {
     public enum PaymentType
     {
-        Full, Balance, Deposit
+        Full, Balance, Deposit, Credit
     }
 }
