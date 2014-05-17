@@ -22,7 +22,7 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class OutgoingPaymentsUserControl : UserControl
     {
-        public OutgoingPaymentsUserControl(PaymentController paymentController)
+        public OutgoingPaymentsUserControl(PaymentController paymentController, SupplierController supplierController)
         {
             InitializeComponent();
 
@@ -35,32 +35,29 @@ namespace LonelyTreeExam.UserControls
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
 
+            List<IParty> suppliers = new List<IParty>();
+
+            foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
+            {
+                suppliers.Add(supplier);
+            }
+
+            details.AddAutoCompleteEntries(suppliers, false);
+
             RefreshPaymentDataGrid();
         }
 
         internal void RefreshPaymentDataGrid()
         {
-            // denne logik skal muligvis ned i Controller laget
             paymentsDataGrid.ItemsSource = null;
 
             outgoingPayments = paymentController.ReadAllOutgoingPayments();
-            /*
-            outgoingPayments = new List<IPayment>();
-
-            foreach (IPayment payment in payments)
-            {
-                if (payment.Archived == false && payment.Commissioner != "Lonely Tree")
-                {
-                    outgoingPayments.Add(payment);
-                }
-            }
-            */
-
             paymentsDataGrid.ItemsSource = outgoingPayments;
             details.responsibleTextBox.Text = "Lonely Tree";
         }
 
         private PaymentController paymentController;
+        private SupplierController supplierController;
         private DetailsUserControl details;
         private IPayment selectedPayment;
         private BitmapImage collapsePlusImage;

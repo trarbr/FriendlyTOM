@@ -33,7 +33,7 @@ namespace LonelyTreeExam.UserControls
             paymentController = controller;
             attachmentList =  new List<string>();
             culture = new CultureInfo("en-US");
-            AddAutoCompleteEntries();
+            //AddAutoCompleteEntries();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
             paymentTypeComboBox.SelectedIndex = 0;
         }
@@ -180,8 +180,23 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
-        private void AddAutoCompleteEntries()
+        internal void AddAutoCompleteEntries(List<IParty> parties, bool responsible)
         {
+            if (responsible == true)
+            {
+                foreach (IParty party in parties)
+                {
+                    responsibleTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
+                }
+            }
+            else
+            {
+                foreach (IParty party in parties)
+                {
+                    commissionerTextBox.AddItem(new AutoCompleteEntry(party.Name, null));
+                }
+            }
+            // this dynamic is different for incoming and outgoing payments
             foreach (IPayment payment in paymentController.ReadAllPayments())
             {
                 responsibleTextBox.AddItem(new AutoCompleteEntry(payment.Responsible, null));
