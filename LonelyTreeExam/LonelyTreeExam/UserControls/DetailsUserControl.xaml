@@ -17,8 +17,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="0">
-            <Label Content="Beneficiary:"/>
-            <Label Content="Benefactor:"/>
+            <Label Content="Payee:"/>
+            <Label Content="Payer:"/>
             <Label Content="Due Date:"/>
             <Label Content="Due Amount:"/>
             <Label Content="Payment Type:"/>
