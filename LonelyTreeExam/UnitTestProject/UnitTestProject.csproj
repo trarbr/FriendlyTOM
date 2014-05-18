@@ -50,9 +50,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CustomerEntityTest.cs" />
-    <Compile Include="CustomerTest.cs" />
-    <Compile Include="PaymentTest.cs" />
     <Compile Include="CustomerTest\CustomerEntityTest.cs" />
     <Compile Include="CustomerTest\CustomerTest.cs" />
     <Compile Include="PaymentTest\PaymentTest.cs" />
@@ -60,10 +57,6 @@
     <Compile Include="PaymentTest\PaymentEntityTest.cs" />
     <Compile Include="SupplierTest\SupplierTest.cs" />
     <Compile Include="PaymentTest\PaymentControllerTest.cs" />
-    <Compile Include="PaymentEntityTest.cs" />
-    <Compile Include="SupplierTest.cs" />
-    <Compile Include="PaymentControllerTest.cs" />
-    <Compile Include="PaymentCollectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
