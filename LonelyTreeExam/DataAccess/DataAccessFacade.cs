@@ -103,13 +103,13 @@ namespace DataAccess
         }
         #endregion
 
-       #region Public Customer Methods
+        #region Public Customer Methods
         public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
             return customerMapper.Create(type, note, name);
         }
 
-       public List<ICustomer> ReadAllCustomers()
+        public List<ICustomer> ReadAllCustomers()
         {
             List<ICustomer> customers = new List<ICustomer>();
            List<CustomerEntity> customerEntities = customerMapper.ReadAll();
@@ -118,6 +118,7 @@ namespace DataAccess
            {
                customers.Add(customerEntity);
            }
+
            return customers;
         }
 
@@ -137,7 +138,6 @@ namespace DataAccess
         private PaymentMapper paymentMapper;
         private CustomerMapper customerMapper;
         private SupplierMapper supplierMapper;
-
         #endregion
     }
 }

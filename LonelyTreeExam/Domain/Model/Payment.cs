@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Interfaces;
 using Common.Enums;
 using DataAccess;
@@ -17,11 +13,7 @@ namespace Domain.Model
         public DateTime DueDate
         {
             get { return _paymentEntity.DueDate; }
-            set
-            {
-                validateDueDateNotNull(value);
-                _paymentEntity.DueDate = value;
-            }
+            set { _paymentEntity.DueDate = value; }
         }
         public decimal DueAmount
         {
@@ -97,13 +89,12 @@ namespace Domain.Model
         }
         #endregion
 
-
+        #region Internal Methods
         internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
             string commissioner, PaymentType type, string sale, int booking,
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
-            validateDueDateNotNull(dueDate);
             validateResponsible(responsible);
             validateCommissioner(commissioner);
             validateSale(sale);
@@ -144,6 +135,7 @@ namespace Domain.Model
             }
             return payments;
         }
+        #endregion
 
         #region ValidationDecimalsAndDueDate
 
@@ -165,31 +157,24 @@ namespace Domain.Model
             }
         }
 
-        private void validateDueDateNotNull(DateTime date)
-        {
-            string paramName = "DueDate";
-            if (date == null)
-            {
-                throw new ArgumentNullException(paramName, "may not be null");
-            }
-        }
-
         private void validateFilePathExists(string pathName)
         {
             if (!File.Exists(pathName))
             {
-                throw new Exception("File name does not exists");
+                throw new ArgumentOutOfRangeException("attachment", "Filename doesn't exist");
             }
         }
 
+        //Checks if the value of the "name" is not null or whitespace
         private void validateSale(string value)
         {
             validateNullOrWhiteSpace(value, "Sale");
         }
-
         #endregion
 
+        #region Private Properties
         private IPayment _paymentEntity;
         private IDataAccessFacade dataAccessFacade;
+        #endregion
     }
 }

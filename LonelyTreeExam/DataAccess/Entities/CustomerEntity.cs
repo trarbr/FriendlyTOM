@@ -11,11 +11,14 @@ namespace DataAccess.Entities
     internal class CustomerEntity : APartyEntity, ICustomer
     {
         public CustomerType Type { get; set; }
-        
-        public CustomerEntity(CustomerType type, string note, string name) 
+
+        public CustomerEntity(CustomerType type, string note, string name)
             : base(note, name)
         {
             Type = type;
         }
+
+        public string Responsible { get; set; }
+        public string Commissioner { get; set; }
     }
 }

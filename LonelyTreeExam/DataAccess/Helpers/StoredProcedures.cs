@@ -20,6 +20,5 @@ namespace DataAccess.Helpers
         internal const string READ_ALL_SUPPLIERS = "ReadAllSuppliers";
         internal const string CREATE_SUPPLIER = "InsertSupplier";
         internal const string UPDATE_SUPPLIER = "UpdateSupplier";
-
     }
 }
