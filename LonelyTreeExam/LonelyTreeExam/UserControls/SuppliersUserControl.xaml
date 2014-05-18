@@ -31,7 +31,7 @@
                 </StackPanel>
             </Button>
             <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                    ToolTip="Delete selected supplier">
+                    ToolTip="Delete selected supplier" Click="deleteButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/delete.png" Width="16" />
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Delete</TextBlock>

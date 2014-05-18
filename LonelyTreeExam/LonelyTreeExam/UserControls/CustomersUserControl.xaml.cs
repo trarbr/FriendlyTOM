@@ -30,6 +30,7 @@ namespace LonelyTreeExam.UserControls
             customerController = new CustomerController();
             customersDataGrid.ItemsSource = customerController.ReadAllCustomers();
             customerTypeComboBox.ItemsSource = Enum.GetValues(typeof(CustomerType));
+            customerTypeComboBox.SelectedIndex = 0;
         }
 
         private CustomerController customerController;
