@@ -28,12 +28,11 @@ namespace Domain.Model
 
         #region Validation
         //Validates the name is not empty.
-        protected void validateName(string paramName)
+        protected void validateName(string value)
         {
-            if (paramName == "")
-            {
-                throw new ArgumentOutOfRangeException(paramName, "Name may not be empty");
-            }
+            string paramName = "Name";
+            validateNullOrWhiteSpace(value, paramName);
+            validateTextLength(value, paramName);
         }
 
         //validation method for checking for whitespace or null. 
@@ -43,7 +42,6 @@ namespace Domain.Model
             {
                 throw new ArgumentOutOfRangeException(paramName, "may not be empty");
             }
-            validateTextLength(text, paramName);
         }
 
         //Validation method for checking the length of a string.
