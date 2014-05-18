@@ -30,10 +30,14 @@ namespace LonelyTreeExam.UserControls
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
             supplierTypeComboBox.SelectedIndex = 0;
+            collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+            collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
         }
 
         private SupplierController supplierController;
         private ISupplier selectedSupplier;
+        private BitmapImage collapsePlusImage;
+        private BitmapImage collapseMinImage;
 
         private void refreshDataGrid()
         {
@@ -134,6 +138,24 @@ namespace LonelyTreeExam.UserControls
                 supplierController.DeleteSupplier(selectedSupplier);
                 suppliersDataGrid.SelectedItem = null;
                 refreshDataGrid();
+            }
+        }
+
+        private void collapseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (detailsGrid.Visibility != Visibility.Collapsed)
+            {
+                detailsGrid.Visibility = Visibility.Collapsed;
+                bottomButtonsGrid.Visibility = Visibility.Collapsed;
+                collapseImage.Source = collapsePlusImage;
+                collapseButton.ToolTip = "Show details";
+            }
+            else
+            {
+                detailsGrid.Visibility = Visibility.Visible;
+                bottomButtonsGrid.Visibility = Visibility.Visible;
+                collapseImage.Source = collapseMinImage;
+                collapseButton.ToolTip = "Hide details";
             }
         }
     }
