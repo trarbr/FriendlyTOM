@@ -10,7 +10,5 @@ namespace Common.Interfaces
     public interface ICustomer : IParty
     {
         CustomerType Type { get; set; }
-        string Name { get; set; }
-        string Note { get; set; }
     }
 }
