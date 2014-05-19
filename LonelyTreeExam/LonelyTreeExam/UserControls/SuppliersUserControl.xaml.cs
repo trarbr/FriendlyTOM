@@ -135,7 +135,10 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedSupplier != null)
             {
-                supplierController.DeleteSupplier(selectedSupplier);
+                foreach (ISupplier supplier in suppliersDataGrid.SelectedItems)
+                {
+                    supplierController.DeleteSupplier(supplier);
+                }
                 suppliersDataGrid.SelectedItem = null;
                 refreshDataGrid();
             }

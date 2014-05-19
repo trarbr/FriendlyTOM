@@ -96,7 +96,10 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedPayment != null)
             {
-                paymentController.DeletePayment(selectedPayment);
+                foreach (IPayment payment in paymentsDataGrid.SelectedItems)
+                {
+                    paymentController.DeletePayment(payment);
+                }
                 paymentsDataGrid.SelectedItem = null;
                 details.responsibleTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
@@ -107,8 +110,11 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedPayment != null)
             {
-                selectedPayment.Archived = true;
-                paymentController.UpdatePayment(selectedPayment);
+                foreach (IPayment payment in paymentsDataGrid.SelectedItems)
+                {
+                    payment.Archived = true;
+                    paymentController.UpdatePayment(payment);
+                }
                 paymentsDataGrid.SelectedItem = null;
                 details.responsibleTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();

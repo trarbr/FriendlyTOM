@@ -131,7 +131,10 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedCustomer != null)
             {
-                customerController.DeleteCustomer(selectedCustomer);
+                foreach (ICustomer customer in customersDataGrid.SelectedItems)
+                {
+                    customerController.DeleteCustomer(customer);
+                }
                 customersDataGrid.SelectedItem = null;
                 refreshDataGrid();
             }
