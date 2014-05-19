@@ -31,22 +31,9 @@ namespace LonelyTreeExam.UserControls
 
         internal void RefreshPaymentDataGrid()
         {
-            // denne logik skal muligvis ned i Controller laget
             paymentsDataGrid.ItemsSource = null;
 
             incomingPayments = paymentController.ReadAllIncomingPayments();
-            /*
-            incomingPayments = new List<IPayment>();
-
-            foreach (IPayment payment in allPayments)
-            {
-                if (payment.Archived == false && payment.Responsible != "Lonely Tree")
-                {
-                    incomingPayments.Add(payment);
-                }
-            }
-
-            */
             paymentsDataGrid.ItemsSource = incomingPayments;
             details.commissionerTextBox.Text = "Lonely Tree";
         }
@@ -142,9 +129,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (IPayment payment in incomingPayments)
                 {
-                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Responsible,
-                        payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
-                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note);
+                    string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6}", payment.Responsible, 
+                        payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount, 
+                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note, payment.Sale);
 
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {

@@ -23,14 +23,15 @@ namespace LonelyTreeExam.UserControls
     {
         int current_tab_index;
 
-        public AccountingUserControl()
+        public AccountingUserControl(PaymentController paymentController, SupplierController supplierController)
         {
             InitializeComponent();
-            paymentController = new PaymentController();
+            this.paymentController = paymentController;
+            this.supplierController = supplierController;
 
             incomingPaymentsControl = new IncomingPaymentsUserControl(paymentController);
             archivedPaymentsControl = new ArchivedPaymentsUserControl(paymentController);
-            outgoingPaymentsControl = new OutgoingPaymentsUserControl(paymentController);
+            outgoingPaymentsControl = new OutgoingPaymentsUserControl(paymentController, supplierController);
 
             incomingPaymentsUserControl.Content = incomingPaymentsControl;
             outgoingPaymentsUserControl.Content = outgoingPaymentsControl;
@@ -42,6 +43,7 @@ namespace LonelyTreeExam.UserControls
         }
 
         private PaymentController paymentController;
+        private SupplierController supplierController;
         private IncomingPaymentsUserControl incomingPaymentsControl;
         private OutgoingPaymentsUserControl outgoingPaymentsControl;
         private ArchivedPaymentsUserControl archivedPaymentsControl;

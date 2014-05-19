@@ -22,11 +22,12 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class OutgoingPaymentsUserControl : UserControl
     {
-        public OutgoingPaymentsUserControl(PaymentController paymentController)
+        public OutgoingPaymentsUserControl(PaymentController paymentController, SupplierController supplierController)
         {
             InitializeComponent();
 
             this.paymentController = paymentController;
+            this.supplierController = supplierController;
 
             details = new DetailsUserControl(paymentController);
             details.responsibleTextBox.Text = "Lonely Tree";
@@ -40,27 +41,17 @@ namespace LonelyTreeExam.UserControls
 
         internal void RefreshPaymentDataGrid()
         {
-            // denne logik skal muligvis ned i Controller laget
             paymentsDataGrid.ItemsSource = null;
 
             outgoingPayments = paymentController.ReadAllOutgoingPayments();
-            /*
-            outgoingPayments = new List<IPayment>();
-
-            foreach (IPayment payment in payments)
-            {
-                if (payment.Archived == false && payment.Commissioner != "Lonely Tree")
-                {
-                    outgoingPayments.Add(payment);
-                }
-            }
-            */
-
             paymentsDataGrid.ItemsSource = outgoingPayments;
             details.responsibleTextBox.Text = "Lonely Tree";
+
+            details.AddSuppliersToAutoComplete(supplierController.ReadAllSuppliers());
         }
 
         private PaymentController paymentController;
+        private SupplierController supplierController;
         private DetailsUserControl details;
         private IPayment selectedPayment;
         private BitmapImage collapsePlusImage;
@@ -149,9 +140,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (IPayment payment in outgoingPayments)
                 {
-                    string searchData = string.Format("{0} {1} {2} {3} {4}", payment.Commissioner,
+                    string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6}", payment.Commissioner,
                         payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
-                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note);
+                        payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note, payment.Sale);
 
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {

@@ -33,9 +33,10 @@ namespace LonelyTreeExam.UserControls
             paymentController = controller;
             attachmentList =  new List<string>();
             culture = new CultureInfo("en-US");
-            AddAutoCompleteEntries();
+            //AddAutoCompleteEntries();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
             paymentTypeComboBox.SelectedIndex = 0;
+            autoCompleteEntries = new HashSet<string>();
         }
 
         #region Internal Methods
@@ -134,6 +135,7 @@ namespace LonelyTreeExam.UserControls
         private PaymentController paymentController;
         private CultureInfo culture;
         private IPayment selectedPayment;
+        private HashSet<string> autoCompleteEntries;
         #endregion
         
         #region Private Method
@@ -180,12 +182,27 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
-        private void AddAutoCompleteEntries()
+        internal void AddSuppliersToAutoComplete(List<ISupplier> suppliers)
         {
-            foreach (IPayment payment in paymentController.ReadAllPayments())
+            foreach (ISupplier supplier in suppliers)
             {
-                responsibleTextBox.AddItem(new AutoCompleteEntry(payment.Responsible, null));
-                commissionerTextBox.AddItem(new AutoCompleteEntry(payment.Commissioner, null));
+                if (!autoCompleteEntries.Contains(supplier.Name))
+                {
+                    commissionerTextBox.AddItem(new AutoCompleteEntry(supplier.Name, null));
+                    autoCompleteEntries.Add(supplier.Name);
+                }
+            }
+        }
+
+        internal void AddCustomersToAutoComplete(List<ICustomer> customers)
+        {
+            foreach (ICustomer customer in customers)
+            {
+                if (!autoCompleteEntries.Contains(customer.Name))
+                {
+                    responsibleTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
+                    autoCompleteEntries.Add(customer.Name);
+                }
             }
         }
 

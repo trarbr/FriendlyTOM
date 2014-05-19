@@ -23,10 +23,10 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class SuppliersUserControl : UserControl
     {
-        public SuppliersUserControl()
+        public SuppliersUserControl(SupplierController supplierController)
         {
             InitializeComponent();
-            supplierController = new SupplierController();
+            this.supplierController = supplierController;
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
             supplierTypeComboBox.SelectedIndex = 0;

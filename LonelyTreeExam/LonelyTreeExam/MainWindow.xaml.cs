@@ -1,4 +1,5 @@
-﻿using LonelyTreeExam.UserControls;
+﻿using Domain.Controller;
+using LonelyTreeExam.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,11 @@ namespace LonelyTreeExam
         public MainWindow()
         {
             InitializeComponent();
-            accountingUserControl.Content = new AccountingUserControl();
-            suppliersUserControl.Content = new SuppliersUserControl();
+            PaymentController paymentController = new PaymentController();
+            SupplierController supplierController = new SupplierController();
+
+            accountingUserControl.Content = new AccountingUserControl(paymentController, supplierController);
+            suppliersUserControl.Content = new SuppliersUserControl(supplierController);
             customersUserControl.Content = new CustomersUserControl();
         }
     }
