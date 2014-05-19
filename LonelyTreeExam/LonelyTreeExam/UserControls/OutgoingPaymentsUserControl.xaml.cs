@@ -80,12 +80,6 @@ namespace LonelyTreeExam.UserControls
             RefreshPaymentDataGrid();
         }
 
-        private void clearButton_Click(object sender, RoutedEventArgs e)
-        {
-            paymentsDataGrid.SelectedItem = null;
-            details.responsibleTextBox.Text = "Lonely Tree";
-        }
-
         private void paymentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedPayment = (IPayment)paymentsDataGrid.SelectedItem;
