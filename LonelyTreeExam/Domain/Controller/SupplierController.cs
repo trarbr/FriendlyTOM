@@ -16,7 +16,7 @@ namespace Domain.Controller
         #region Public Methods
 		public SupplierController()
         {
-            dataAccessFacade = new DataAccessFacade();
+            dataAccessFacade = DataAccessFacade.GetInstance();
             supplierCollection = new SupplierCollection(dataAccessFacade);
         }
 

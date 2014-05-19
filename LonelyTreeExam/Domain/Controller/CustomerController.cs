@@ -17,7 +17,8 @@ namespace Domain.Controller
 
         public CustomerController()
         {
-            dataAccessFacade = new DataAccessFacade();
+
+            dataAccessFacade = DataAccessFacade.GetInstance();
             customerCollection = new CustomerCollection(dataAccessFacade);
         }
 
