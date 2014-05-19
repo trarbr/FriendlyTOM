@@ -10,7 +10,8 @@
         <StackPanel Grid.Row="0" HorizontalAlignment="Left">
             <Image Source="/Images/lonelytreelogo.jpg" Height="80" Margin="10 10 0 0"/>
         </StackPanel>
-        <TabControl x:Name="mainTabNavigation" TabStripPlacement="Left" HorizontalContentAlignment="Left" Grid.Row="1" BorderBrush="#FF8C8E94">
+        <TabControl x:Name="mainTabNavigation" TabStripPlacement="Left" HorizontalContentAlignment="Left" Grid.Row="1" 
+                    BorderBrush="#FF8C8E94" SelectionChanged="mainTabNavigation_SelectionChanged">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">

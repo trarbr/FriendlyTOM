@@ -23,15 +23,17 @@ namespace LonelyTreeExam.UserControls
     {
         int current_tab_index;
 
-        public AccountingUserControl(PaymentController paymentController, SupplierController supplierController)
+        public AccountingUserControl(PaymentController paymentController, SupplierController supplierController,
+            CustomerController customerController)
         {
             InitializeComponent();
             this.paymentController = paymentController;
             this.supplierController = supplierController;
+            this.customerController = customerController;
 
-            incomingPaymentsControl = new IncomingPaymentsUserControl(paymentController);
-            archivedPaymentsControl = new ArchivedPaymentsUserControl(paymentController);
+            incomingPaymentsControl = new IncomingPaymentsUserControl(paymentController, customerController);
             outgoingPaymentsControl = new OutgoingPaymentsUserControl(paymentController, supplierController);
+            archivedPaymentsControl = new ArchivedPaymentsUserControl(paymentController);
 
             incomingPaymentsUserControl.Content = incomingPaymentsControl;
             outgoingPaymentsUserControl.Content = outgoingPaymentsControl;
@@ -42,8 +44,16 @@ namespace LonelyTreeExam.UserControls
 
         }
 
+        internal void RefreshAll()
+        {
+            incomingPaymentsControl.RefreshPaymentDataGrid();
+            outgoingPaymentsControl.RefreshPaymentDataGrid();
+            archivedPaymentsControl.RefreshPaymentDataGrid();
+        }
+
         private PaymentController paymentController;
         private SupplierController supplierController;
+        private CustomerController customerController;
         private IncomingPaymentsUserControl incomingPaymentsControl;
         private OutgoingPaymentsUserControl outgoingPaymentsControl;
         private ArchivedPaymentsUserControl archivedPaymentsControl;
@@ -54,9 +64,7 @@ namespace LonelyTreeExam.UserControls
         {
             if (mainTabNavigation.SelectedIndex != current_tab_index)
             {
-                incomingPaymentsControl.RefreshPaymentDataGrid();
-                outgoingPaymentsControl.RefreshPaymentDataGrid();
-                archivedPaymentsControl.RefreshPaymentDataGrid();
+                RefreshAll();
 
                 current_tab_index = mainTabNavigation.SelectedIndex;
             }
