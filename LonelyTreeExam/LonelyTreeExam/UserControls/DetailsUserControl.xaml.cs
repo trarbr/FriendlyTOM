@@ -75,6 +75,7 @@ namespace LonelyTreeExam.UserControls
                     payment.Invoice = invoiceTextBox.Text;
                     
                     paymentController.UpdatePayment(payment);
+                    SetSelectedPayment(null);
                 }
                 catch (Exception ex)
                 {
@@ -91,34 +92,42 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedPayment != null)
             {
-                decimal dueAmount;
-                decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
-
-                decimal paidAmount;
-                decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
-
-                if (dueDateDatePicker.SelectedDate != null)
+                try
                 {
-                    selectedPayment.DueDate = dueDateDatePicker.SelectedDate.Value;
+                    decimal dueAmount;
+                    decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
+
+                    decimal paidAmount;
+                    decimal.TryParse(paidAmountTextBox.Text, NumberStyles.Any, culture, out paidAmount);
+
+                    if (dueDateDatePicker.SelectedDate != null)
+                    {
+                        selectedPayment.DueDate = dueDateDatePicker.SelectedDate.Value;
+                    }
+                    selectedPayment.DueAmount = dueAmount;
+                    selectedPayment.Responsible = responsibleTextBox.Text;
+                    selectedPayment.Commissioner = commissionerTextBox.Text;
+                    selectedPayment.PaidAmount = paidAmount;
+                    selectedPayment.Paid = paidCheckBox.IsChecked.Value;
+                    if (paidDateDatePicker.SelectedDate != null)
+                    {
+                        selectedPayment.PaidDate = paidDateDatePicker.SelectedDate.Value;
+                    }
+                    selectedPayment.Note = noteTextBox.Text;
+                    selectedPayment.Type = (PaymentType)paymentTypeComboBox.SelectedItem;
+                    selectedPayment.Sale = saleTextBox.Text;
+                    int booking;
+                    int.TryParse(bookingTextBox.Text, out booking);
+                    selectedPayment.Booking = booking;
+                    selectedPayment.Invoice = invoiceTextBox.Text;
+
+                    paymentController.UpdatePayment(selectedPayment);
+                    SetSelectedPayment(null);
                 }
-                selectedPayment.DueAmount = dueAmount;
-                selectedPayment.Responsible = responsibleTextBox.Text;
-                selectedPayment.Commissioner = commissionerTextBox.Text;
-                selectedPayment.PaidAmount = paidAmount;
-                selectedPayment.Paid = paidCheckBox.IsChecked.Value;
-                if (paidDateDatePicker.SelectedDate != null)
+                catch (Exception ex)
                 {
-                    selectedPayment.PaidDate = paidDateDatePicker.SelectedDate.Value;
+                    MessageBox.Show(ex.Message);
                 }
-                selectedPayment.Note = noteTextBox.Text;
-                selectedPayment.Type = (PaymentType)paymentTypeComboBox.SelectedItem;
-                selectedPayment.Sale = saleTextBox.Text;
-                int booking;
-                int.TryParse(bookingTextBox.Text, out booking);
-                selectedPayment.Booking = booking;
-                selectedPayment.Invoice = invoiceTextBox.Text;
-                
-                paymentController.UpdatePayment(selectedPayment);
             }
         }
 
@@ -131,7 +140,7 @@ namespace LonelyTreeExam.UserControls
         #endregion
 
         #region Private Fields
-        private List<string> attachmentList;
+        public List<string> attachmentList;
         private PaymentController paymentController;
         private CultureInfo culture;
         private IPayment selectedPayment;
@@ -204,6 +213,11 @@ namespace LonelyTreeExam.UserControls
                     autoCompleteEntries.Add(customer.Name);
                 }
             }
+        }
+
+        internal void ClearAttachments()
+        {
+            attachmentList.Clear();
         }
 
         private void addAttachmentButton_Click(object sender, RoutedEventArgs e)

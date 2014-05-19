@@ -43,6 +43,7 @@ namespace LonelyTreeExam.UserControls
         {
             customersDataGrid.ItemsSource = null;
             customersDataGrid.ItemsSource = customerController.ReadAllCustomers();
+            setValuesInTextBoxes();
         }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -81,22 +82,25 @@ namespace LonelyTreeExam.UserControls
                     string note = noteTextBox.Text;
 
                     customerController.CreateCustomer(type, note, name);
+                    refreshDataGrid();
                 }
                 else
                 {
+                    int currentIndex = customersDataGrid.SelectedIndex;
+
                     selectedCustomer.Name = nameTextBox.Text;
                     selectedCustomer.Type = (CustomerType)customerTypeComboBox.SelectedItem;
                     selectedCustomer.Note = noteTextBox.Text;
 
                     customerController.UpdateCustomer(selectedCustomer);
+                    refreshDataGrid();
+                    customersDataGrid.SelectedIndex = currentIndex;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-            refreshDataGrid();
         }
 
         private void setValuesInTextBoxes()
@@ -131,7 +135,10 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedCustomer != null)
             {
-                customerController.DeleteCustomer(selectedCustomer);
+                foreach (ICustomer customer in customersDataGrid.SelectedItems)
+                {
+                    customerController.DeleteCustomer(customer);
+                }
                 customersDataGrid.SelectedItem = null;
                 refreshDataGrid();
             }

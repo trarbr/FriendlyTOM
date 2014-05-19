@@ -202,9 +202,6 @@
     <Resource Include="Images\book_add2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\cancel.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\user_suit.png" />
   </ItemGroup>
   <ItemGroup>

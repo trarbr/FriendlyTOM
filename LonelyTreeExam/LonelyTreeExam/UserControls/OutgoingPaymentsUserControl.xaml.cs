@@ -60,8 +60,10 @@ namespace LonelyTreeExam.UserControls
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
+            details.attachmentsListView.ItemsSource = null;
             paymentsDataGrid.SelectedItem = null;
             details.responsibleTextBox.Text = "Lonely Tree";
+            details.ClearAttachments();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
@@ -69,19 +71,15 @@ namespace LonelyTreeExam.UserControls
             if (selectedPayment == null)
             {
                 details.CreatePayment();
+                RefreshPaymentDataGrid();
             }
             else
             {
+                int currentIndex = paymentsDataGrid.SelectedIndex;
                 details.UpdatePayment();
+                RefreshPaymentDataGrid();
+                paymentsDataGrid.SelectedIndex = currentIndex;
             }
-
-            RefreshPaymentDataGrid();
-        }
-
-        private void clearButton_Click(object sender, RoutedEventArgs e)
-        {
-            paymentsDataGrid.SelectedItem = null;
-            details.responsibleTextBox.Text = "Lonely Tree";
         }
 
         private void paymentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -94,7 +92,10 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedPayment != null)
             {
-                paymentController.DeletePayment(selectedPayment);
+                foreach (IPayment payment in paymentsDataGrid.SelectedItems)
+                {
+                    paymentController.DeletePayment(payment);
+                }
                 paymentsDataGrid.SelectedItem = null;
                 details.responsibleTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
@@ -105,8 +106,11 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedPayment != null)
             {
-                selectedPayment.Archived = true;
-                paymentController.UpdatePayment(selectedPayment);
+                foreach (IPayment payment in paymentsDataGrid.SelectedItems)
+                {
+                    payment.Archived = true;
+                    paymentController.UpdatePayment(payment);
+                }
                 paymentsDataGrid.SelectedItem = null;
                 details.responsibleTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
