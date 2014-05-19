@@ -13,11 +13,12 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class IncomingPaymentsUserControl : UserControl
     {
-        public IncomingPaymentsUserControl(PaymentController paymentController)
+        public IncomingPaymentsUserControl(PaymentController paymentController, CustomerController customerController)
         {
             InitializeComponent();
 
             this.paymentController = paymentController;
+            this.customerController = customerController;
 
             details = new DetailsUserControl(paymentController);
             details.commissionerTextBox.Text = "Lonely Tree";
@@ -36,9 +37,12 @@ namespace LonelyTreeExam.UserControls
             incomingPayments = paymentController.ReadAllIncomingPayments();
             paymentsDataGrid.ItemsSource = incomingPayments;
             details.commissionerTextBox.Text = "Lonely Tree";
+
+            details.AddCustomersToAutoComplete(customerController.ReadAllCustomers());
         }
 
         private PaymentController paymentController;
+        private CustomerController customerController;
         private DetailsUserControl details;
         private IPayment selectedPayment;
         private BitmapImage collapsePlusImage;

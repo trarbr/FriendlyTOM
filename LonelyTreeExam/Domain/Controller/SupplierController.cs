@@ -14,7 +14,7 @@ namespace Domain.Controller
     public class SupplierController
     {
         #region Public Methods
-		public SupplierController()
+        public SupplierController()
         {
             dataAccessFacade = new DataAccessFacade();
             supplierCollection = new SupplierCollection(dataAccessFacade);
@@ -46,7 +46,7 @@ namespace Domain.Controller
         {
             supplierCollection.Delete((Supplier) supplier);
         }
-	   #endregion
+       #endregion
 
        #region Private Properties
         private IDataAccessFacade dataAccessFacade;

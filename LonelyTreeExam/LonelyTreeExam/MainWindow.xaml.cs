@@ -27,8 +27,10 @@ namespace LonelyTreeExam
             InitializeComponent();
             PaymentController paymentController = new PaymentController();
             SupplierController supplierController = new SupplierController();
+            CustomerController customerController = new CustomerController();
 
-            accountingUserControl.Content = new AccountingUserControl(paymentController, supplierController);
+            accountingUserControl.Content = new AccountingUserControl(paymentController, supplierController, 
+                customerController);
             suppliersUserControl.Content = new SuppliersUserControl(supplierController);
             customersUserControl.Content = new CustomersUserControl();
         }
