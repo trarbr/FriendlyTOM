@@ -60,8 +60,10 @@ namespace LonelyTreeExam.UserControls
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
+            details.attachmentsListView.ItemsSource = null;
             paymentsDataGrid.SelectedItem = null;
             details.responsibleTextBox.Text = "Lonely Tree";
+            details.ClearAttachments();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)

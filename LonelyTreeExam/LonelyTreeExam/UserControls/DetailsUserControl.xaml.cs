@@ -131,7 +131,7 @@ namespace LonelyTreeExam.UserControls
         #endregion
 
         #region Private Fields
-        private List<string> attachmentList;
+        public List<string> attachmentList;
         private PaymentController paymentController;
         private CultureInfo culture;
         private IPayment selectedPayment;
@@ -204,6 +204,11 @@ namespace LonelyTreeExam.UserControls
                     autoCompleteEntries.Add(customer.Name);
                 }
             }
+        }
+
+        internal void ClearAttachments()
+        {
+            attachmentList.Clear();
         }
 
         private void addAttachmentButton_Click(object sender, RoutedEventArgs e)

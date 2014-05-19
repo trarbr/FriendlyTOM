@@ -42,7 +42,7 @@ namespace DataAccess.Mappers
         internal void Delete(CustomerEntity customer)
         {
             customer.Deleted = true;
-            Delete(customer);
+            update(customer);
         }
         #endregion
 

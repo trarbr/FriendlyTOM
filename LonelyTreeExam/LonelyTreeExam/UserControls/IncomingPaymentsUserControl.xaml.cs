@@ -50,6 +50,7 @@ namespace LonelyTreeExam.UserControls
             details.attachmentsListView.ItemsSource = null;
             paymentsDataGrid.SelectedItem = null;
             details.commissionerTextBox.Text = "Lonely Tree";
+            details.ClearAttachments();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
