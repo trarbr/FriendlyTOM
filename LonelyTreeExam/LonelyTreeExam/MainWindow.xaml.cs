@@ -32,7 +32,7 @@ namespace LonelyTreeExam
             accountingUserControl.Content = new AccountingUserControl(paymentController, supplierController, 
                 customerController);
             suppliersUserControl.Content = new SuppliersUserControl(supplierController);
-            customersUserControl.Content = new CustomersUserControl();
+            customersUserControl.Content = new CustomersUserControl(customerController);
         }
     }
 }
