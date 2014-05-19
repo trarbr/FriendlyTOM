@@ -17,8 +17,5 @@ namespace DataAccess.Entities
         {
             Type = type;
         }
-
-        public string Responsible { get; set; }
-        public string Commissioner { get; set; }
     }
 }
