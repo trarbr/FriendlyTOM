@@ -29,6 +29,15 @@
                 </TabItem.Header>
                 <UserControl x:Name="suppliersUserControl"/>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/user_red.png" Height="16"/>
+                        <Label Content="Customers" />
+                    </StackPanel>
+                </TabItem.Header>
+                <UserControl x:Name="customersUserControl"/>
+            </TabItem>
         </TabControl>
 
     </Grid>

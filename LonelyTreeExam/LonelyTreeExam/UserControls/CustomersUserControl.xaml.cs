@@ -19,78 +19,76 @@ using System.Windows.Shapes;
 namespace LonelyTreeExam.UserControls
 {
     /// <summary>
-    /// Interaction logic for SuppliersUserControl.xaml
+    /// Interaction logic for CustomersUserControl.xaml
     /// </summary>
-    public partial class SuppliersUserControl : UserControl
+    public partial class CustomersUserControl : UserControl
     {
-        public SuppliersUserControl(SupplierController supplierController)
+        public CustomersUserControl()
         {
             InitializeComponent();
-            this.supplierController = supplierController;
-            suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
-            supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
-            supplierTypeComboBox.SelectedIndex = 0;
+            customerController = new CustomerController();
+            customersDataGrid.ItemsSource = customerController.ReadAllCustomers();
+            customerTypeComboBox.ItemsSource = Enum.GetValues(typeof(CustomerType));
+            customerTypeComboBox.SelectedIndex = 0;
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
         }
 
-        private SupplierController supplierController;
-        private ISupplier selectedSupplier;
+        private CustomerController customerController;
+        private ICustomer selectedCustomer;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
 
         private void refreshDataGrid()
         {
-            suppliersDataGrid.ItemsSource = null;
-            suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
+            customersDataGrid.ItemsSource = null;
+            customersDataGrid.ItemsSource = customerController.ReadAllCustomers();
         }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (searchTextBox.Text != "")
             {
-                List<ISupplier> searchedSuppliers = new List<ISupplier>();
-                suppliersDataGrid.ItemsSource = searchedSuppliers;
+                List<ICustomer> searchedCustomers = new List<ICustomer>();
+                customersDataGrid.ItemsSource = searchedCustomers;
 
-                foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
+                foreach (ICustomer customer in customerController.ReadAllCustomers())
                 {
-                    string searchData = string.Format("{0} {1} {2} {3}",
-                        supplier.Name, supplier.Note, supplier.PaymentInfo, supplier.Type.ToString());
+                    string searchData = string.Format("{0} {1} {2}",
+                        customer.Name, customer.Note, customer.Type.ToString());
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        searchedSuppliers.Add(supplier);
+                        searchedCustomers.Add(customer);
                     }
                 }
             }
             else
             {
-                suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
+                customersDataGrid.ItemsSource = customerController.ReadAllCustomers();
             }
 
-            suppliersDataGrid.Items.Refresh();
+            customersDataGrid.Items.Refresh();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (selectedSupplier == null)
+                if (selectedCustomer == null)
                 {
                     string name = nameTextBox.Text;
-                    SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    string paymentInfo = paymentInfoTextBox.Text;
+                    CustomerType type = (CustomerType)customerTypeComboBox.SelectedItem;
                     string note = noteTextBox.Text;
 
-                    supplierController.CreateSupplier(name, note, paymentInfo, type);
+                    customerController.CreateCustomer(type, note, name);
                 }
                 else
                 {
-                    selectedSupplier.Name = nameTextBox.Text;
-                    selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    selectedSupplier.PaymentInfo = paymentInfoTextBox.Text;
-                    selectedSupplier.Note = noteTextBox.Text;
+                    selectedCustomer.Name = nameTextBox.Text;
+                    selectedCustomer.Type = (CustomerType)customerTypeComboBox.SelectedItem;
+                    selectedCustomer.Note = noteTextBox.Text;
 
-                    supplierController.UpdateSupplier(selectedSupplier);
+                    customerController.UpdateCustomer(selectedCustomer);
                 }
             }
             catch (Exception ex)
@@ -103,40 +101,38 @@ namespace LonelyTreeExam.UserControls
 
         private void setValuesInTextBoxes()
         {
-            if (selectedSupplier != null)
+            if (selectedCustomer != null)
             {
-                nameTextBox.Text = selectedSupplier.Name;
-                supplierTypeComboBox.SelectedItem = selectedSupplier.Type;
-                paymentInfoTextBox.Text = selectedSupplier.PaymentInfo;
-                noteTextBox.Text = selectedSupplier.Note;
+                nameTextBox.Text = selectedCustomer.Name;
+                customerTypeComboBox.SelectedItem = selectedCustomer.Type;
+                noteTextBox.Text = selectedCustomer.Note;
             }
             else
             {
                 nameTextBox.Text = "";
-                supplierTypeComboBox.SelectedIndex = 0;
-                paymentInfoTextBox.Text = "";
+                customerTypeComboBox.SelectedIndex = 0;
                 noteTextBox.Text = "";
             }
         }
 
-        private void suppliersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void customersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedSupplier = (ISupplier)suppliersDataGrid.SelectedItem;
+            selectedCustomer = (ICustomer)customersDataGrid.SelectedItem;
             setValuesInTextBoxes();
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            suppliersDataGrid.SelectedItem = null;
+            customersDataGrid.SelectedItem = null;
             setValuesInTextBoxes();
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedSupplier != null)
+            if (selectedCustomer != null)
             {
-                supplierController.DeleteSupplier(selectedSupplier);
-                suppliersDataGrid.SelectedItem = null;
+                customerController.DeleteCustomer(selectedCustomer);
+                customersDataGrid.SelectedItem = null;
                 refreshDataGrid();
             }
         }

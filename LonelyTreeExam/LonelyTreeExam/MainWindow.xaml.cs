@@ -25,12 +25,12 @@ namespace LonelyTreeExam
         public MainWindow()
         {
             InitializeComponent();
-
             PaymentController paymentController = new PaymentController();
             SupplierController supplierController = new SupplierController();
 
             accountingUserControl.Content = new AccountingUserControl(paymentController, supplierController);
             suppliersUserControl.Content = new SuppliersUserControl(supplierController);
+            customersUserControl.Content = new CustomersUserControl();
         }
     }
 }

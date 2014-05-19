@@ -136,6 +136,9 @@ namespace Domain.Collections
          internal void Delete(Payment payment)
          {
              payment.Delete();
+             archivedPayments.Remove(payment);
+             incomingPayments.Remove(payment);
+             outgoingPayments.Remove(payment);
              payments.Remove(payment);
          }
         #endregion
