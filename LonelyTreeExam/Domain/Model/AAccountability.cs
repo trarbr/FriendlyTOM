@@ -7,7 +7,7 @@ using Common.Interfaces;
 
 namespace Domain.Model
 {
-    internal abstract class Accountability : IAccountability
+    internal abstract class AAccountability : IAccountability
     {
         #region public properties
         public string Note 
@@ -41,7 +41,7 @@ namespace Domain.Model
 
         #endregion
 
-        internal Accountability()
+        internal AAccountability()
         { }
 
         internal IAccountability _accountabilityEntity;
