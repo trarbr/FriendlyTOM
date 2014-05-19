@@ -82,23 +82,26 @@ namespace LonelyTreeExam.UserControls
                     string note = noteTextBox.Text;
 
                     supplierController.CreateSupplier(name, note, paymentInfo, type);
+                    refreshDataGrid();
                 }
                 else
                 {
+                    int currentIndex = suppliersDataGrid.SelectedIndex;
+
                     selectedSupplier.Name = nameTextBox.Text;
                     selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
                     selectedSupplier.PaymentInfo = paymentInfoTextBox.Text;
                     selectedSupplier.Note = noteTextBox.Text;
 
                     supplierController.UpdateSupplier(selectedSupplier);
+                    refreshDataGrid();
+                    suppliersDataGrid.SelectedIndex = currentIndex;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-            refreshDataGrid();
         }
 
         private void setValuesInTextBoxes()
