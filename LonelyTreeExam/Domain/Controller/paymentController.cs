@@ -16,7 +16,7 @@ namespace Domain.Controller
         #region Public Methods
         public PaymentController()
         {
-            dataAccessFacade = new DataAccessFacade();
+            dataAccessFacade = DataAccessFacade.GetInstance();
 
             paymentCollection = new PaymentCollection(dataAccessFacade);
 

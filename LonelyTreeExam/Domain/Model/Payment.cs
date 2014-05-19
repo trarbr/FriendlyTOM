@@ -7,7 +7,7 @@ using DataAccess;
 
 namespace Domain.Model
 {
-    internal class Payment : Accountability, IPayment
+    internal class Payment : AAccountability, IPayment
     {
         #region Public Properties/Methods
         public DateTime DueDate
