@@ -29,10 +29,21 @@ namespace LonelyTreeExam.UserControls
             supplierController = new SupplierController();
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
+            supplierTypeComboBox.SelectedIndex = 0;
+            collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
+            collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
         }
 
         private SupplierController supplierController;
         private ISupplier selectedSupplier;
+        private BitmapImage collapsePlusImage;
+        private BitmapImage collapseMinImage;
+
+        private void refreshDataGrid()
+        {
+            suppliersDataGrid.ItemsSource = null;
+            suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
+        }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -61,26 +72,33 @@ namespace LonelyTreeExam.UserControls
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedSupplier == null)
+            try
             {
-                string name = nameTextBox.Text;
-                SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                string paymentInfo = paymentInfoTextBox.Text;
-                string note = noteTextBox.Text;
+                if (selectedSupplier == null)
+                {
+                    string name = nameTextBox.Text;
+                    SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                    string paymentInfo = paymentInfoTextBox.Text;
+                    string note = noteTextBox.Text;
 
-                supplierController.CreateSupplier(name, note, paymentInfo, type);
+                    supplierController.CreateSupplier(name, note, paymentInfo, type);
+                }
+                else
+                {
+                    selectedSupplier.Name = nameTextBox.Text;
+                    selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                    selectedSupplier.PaymentInfo = paymentInfoTextBox.Text;
+                    selectedSupplier.Note = noteTextBox.Text;
+
+                    supplierController.UpdateSupplier(selectedSupplier);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                selectedSupplier.Name = nameTextBox.Text;
-                selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                selectedSupplier.PaymentInfo = paymentInfoTextBox.Text;
-                selectedSupplier.Note = noteTextBox.Text;
-
-                supplierController.UpdateSupplier(selectedSupplier);
+                MessageBox.Show(ex.Message);
             }
-            suppliersDataGrid.ItemsSource = null;
-            suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
+
+            refreshDataGrid();
         }
 
         private void setValuesInTextBoxes()
@@ -110,6 +128,35 @@ namespace LonelyTreeExam.UserControls
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
             suppliersDataGrid.SelectedItem = null;
+            setValuesInTextBoxes();
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedSupplier != null)
+            {
+                supplierController.DeleteSupplier(selectedSupplier);
+                suppliersDataGrid.SelectedItem = null;
+                refreshDataGrid();
+            }
+        }
+
+        private void collapseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (detailsGrid.Visibility != Visibility.Collapsed)
+            {
+                detailsGrid.Visibility = Visibility.Collapsed;
+                bottomButtonsGrid.Visibility = Visibility.Collapsed;
+                collapseImage.Source = collapsePlusImage;
+                collapseButton.ToolTip = "Show details";
+            }
+            else
+            {
+                detailsGrid.Visibility = Visibility.Visible;
+                bottomButtonsGrid.Visibility = Visibility.Visible;
+                collapseImage.Source = collapseMinImage;
+                collapseButton.ToolTip = "Hide details";
+            }
         }
     }
 }
