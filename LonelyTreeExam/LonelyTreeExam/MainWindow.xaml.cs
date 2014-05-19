@@ -29,10 +29,17 @@ namespace LonelyTreeExam
             SupplierController supplierController = new SupplierController();
             CustomerController customerController = new CustomerController();
 
-            accountingUserControl.Content = new AccountingUserControl(paymentController, supplierController, 
-                customerController);
+            accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
+            accountingUserControl.Content = accountingControl;
             suppliersUserControl.Content = new SuppliersUserControl(supplierController);
             customersUserControl.Content = new CustomersUserControl(customerController);
+        }
+
+        private AccountingUserControl accountingControl;
+
+        private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            accountingControl.RefreshAll();
         }
     }
 }

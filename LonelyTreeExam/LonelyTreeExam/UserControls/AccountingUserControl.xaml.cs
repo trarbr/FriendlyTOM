@@ -44,6 +44,13 @@ namespace LonelyTreeExam.UserControls
 
         }
 
+        internal void RefreshAll()
+        {
+            incomingPaymentsControl.RefreshPaymentDataGrid();
+            outgoingPaymentsControl.RefreshPaymentDataGrid();
+            archivedPaymentsControl.RefreshPaymentDataGrid();
+        }
+
         private PaymentController paymentController;
         private SupplierController supplierController;
         private CustomerController customerController;
@@ -57,9 +64,7 @@ namespace LonelyTreeExam.UserControls
         {
             if (mainTabNavigation.SelectedIndex != current_tab_index)
             {
-                incomingPaymentsControl.RefreshPaymentDataGrid();
-                outgoingPaymentsControl.RefreshPaymentDataGrid();
-                archivedPaymentsControl.RefreshPaymentDataGrid();
+                RefreshAll();
 
                 current_tab_index = mainTabNavigation.SelectedIndex;
             }
