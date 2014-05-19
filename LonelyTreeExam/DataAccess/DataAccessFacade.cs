@@ -38,6 +38,15 @@ namespace DataAccess
 
         }
 
+        public static IDataAccessFacade GetInstance()
+        {
+            if (instance == null)
+            {
+                return instance = new DataAccessFacade();   
+            }
+                return instance;
+        }
+
         #region Public Payment Methods
         /// <summary>
         /// Should initiate a connection and a readall procedure from the database.
@@ -138,6 +147,8 @@ namespace DataAccess
         private PaymentMapper paymentMapper;
         private CustomerMapper customerMapper;
         private SupplierMapper supplierMapper;
+        private static DataAccessFacade instance;
+
         #endregion
     }
 }

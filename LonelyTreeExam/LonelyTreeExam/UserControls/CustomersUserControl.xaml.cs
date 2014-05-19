@@ -23,10 +23,10 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class CustomersUserControl : UserControl
     {
-        public CustomersUserControl()
+        public CustomersUserControl(CustomerController customerController)
         {
             InitializeComponent();
-            customerController = new CustomerController();
+            this.customerController = customerController;
             customersDataGrid.ItemsSource = customerController.ReadAllCustomers();
             customerTypeComboBox.ItemsSource = Enum.GetValues(typeof(CustomerType));
             customerTypeComboBox.SelectedIndex = 0;
