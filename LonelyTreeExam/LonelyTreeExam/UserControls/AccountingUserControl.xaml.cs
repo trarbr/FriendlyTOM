@@ -21,7 +21,7 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class AccountingUserControl : UserControl
     {
-        int current_tab_index;
+        int currentTabIndex;
 
         public AccountingUserControl(PaymentController paymentController, SupplierController supplierController,
             CustomerController customerController)
@@ -39,7 +39,7 @@ namespace LonelyTreeExam.UserControls
             outgoingPaymentsUserControl.Content = outgoingPaymentsControl;
             archiveUserControl.Content = archivedPaymentsControl;
 
-            current_tab_index = mainTabNavigation.SelectedIndex;
+            currentTabIndex = mainTabNavigation.SelectedIndex;
 
 
         }
@@ -62,11 +62,11 @@ namespace LonelyTreeExam.UserControls
         // current_tab_index is implemented to avoid xaml error before build is complete
         private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mainTabNavigation.SelectedIndex != current_tab_index)
+            if (mainTabNavigation.SelectedIndex != currentTabIndex)
             {
                 RefreshAll();
 
-                current_tab_index = mainTabNavigation.SelectedIndex;
+                currentTabIndex = mainTabNavigation.SelectedIndex;
             }
         }
     }

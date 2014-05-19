@@ -33,13 +33,19 @@ namespace LonelyTreeExam
             accountingUserControl.Content = accountingControl;
             suppliersUserControl.Content = new SuppliersUserControl(supplierController);
             customersUserControl.Content = new CustomersUserControl(customerController);
+
+            currentTabIndex = 0; // 
         }
 
         private AccountingUserControl accountingControl;
+        private int currentTabIndex;
 
         private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            accountingControl.RefreshAll();
+            if (mainTabNavigation.SelectedIndex != currentTabIndex)
+            {
+                accountingControl.RefreshAll();
+            }
         }
     }
 }
