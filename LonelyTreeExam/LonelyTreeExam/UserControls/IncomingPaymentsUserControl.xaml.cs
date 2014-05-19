@@ -62,13 +62,16 @@ namespace LonelyTreeExam.UserControls
             if (selectedPayment == null)
             {
                 details.CreatePayment();
+                RefreshPaymentDataGrid();
             }
             else
             {
+                int currentIndex = paymentsDataGrid.SelectedIndex;
                 details.UpdatePayment();
+                RefreshPaymentDataGrid();
+                paymentsDataGrid.SelectedIndex = currentIndex;
             }
 
-            RefreshPaymentDataGrid();
         }
 
         private void paymentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
