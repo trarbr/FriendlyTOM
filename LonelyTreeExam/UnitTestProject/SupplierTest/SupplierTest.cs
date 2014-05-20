@@ -19,20 +19,17 @@ namespace UnitTestProject
         {
             string name = "gert";
             string note = "total fed note";
-            string paymentinfo = "dankort super vigtig data";
             SupplierType type = SupplierType.Cruise;
 
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
-            SupplierEntity entity = new SupplierEntity(paymentinfo, type, note, name);
+            SupplierEntity entity = new SupplierEntity(type, note, name);
 
             Supplier supplier = new Supplier(stub, entity);
 
             string expectedName = "gert";
             string expectedNote = "total fed note";
-            string expectedPaymentInfo = "dankort super vigtig data";
             SupplierType expectedType = SupplierType.Cruise;
 
-            Assert.AreEqual(expectedPaymentInfo, supplier.PaymentInfo);
             Assert.AreEqual(expectedNote, supplier.Note);
             Assert.AreEqual(expectedName, supplier.Name);
             Assert.AreEqual(expectedType, supplier.Type);
@@ -43,7 +40,6 @@ namespace UnitTestProject
         {
             string name = "";
             string note = "total fed note";
-            string paymentinfo = "dankort super vigtig data";
             SupplierType type = SupplierType.Cruise;
 
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
@@ -52,7 +48,7 @@ namespace UnitTestProject
 
             try
             {
-                Supplier supplier = new Supplier(name, note, paymentinfo, type, stub);
+                Supplier supplier = new Supplier(name, note, type, stub);
 
             }
             catch (ArgumentOutOfRangeException)

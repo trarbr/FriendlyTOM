@@ -12,26 +12,52 @@ namespace Domain.Model
     internal class Supplier : AParty, ISupplier
     {
         #region Public Properties/Methods
-        public string PaymentInfo
-        {
-            get { return _supplierEntity.PaymentInfo; }
-            set { _supplierEntity.PaymentInfo = value; }
-        }
         public SupplierType Type
         {
             get { return _supplierEntity.Type; }
             set { _supplierEntity.Type = value; }
         }
+
+        public string AccountNo
+        {
+            get { return _supplierEntity.AccountNo; }
+            set { _supplierEntity.AccountNo = value; }
+        }
+
+        public AccountType AccountType
+        {
+            get { return _supplierEntity.AccountType; }
+            set { _supplierEntity.AccountType = value; }
+        }
+
+        public string AccountName
+        {
+            get { return _supplierEntity.AccountName; }
+            set { _supplierEntity.AccountName = value; }
+        }
+
+        public string OwnerId
+        {
+            get { return _supplierEntity.OwnerId; }
+            set { _supplierEntity.OwnerId = value; }
+        }
+
+        public string Bank
+        {
+            get { return _supplierEntity.Bank; }
+            set { _supplierEntity.Bank = value; }
+        }
+
         #endregion
 
         #region Internal Methods
-        internal Supplier(string name, string note, string paymentInfo, SupplierType type, IDataAccessFacade dataAccessFacade)
+        internal Supplier(string name, string note, SupplierType type, IDataAccessFacade dataAccessFacade)
         {
             validateName(name);
 
             this.dataAccessFacade = dataAccessFacade;
 
-            _supplierEntity = dataAccessFacade.CreateSupplier(name, note, paymentInfo, type);
+            _supplierEntity = dataAccessFacade.CreateSupplier(name, note, type);
             this._partyEntity = _supplierEntity;
         }
 

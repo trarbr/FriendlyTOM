@@ -31,10 +31,10 @@ namespace Domain.Controller
             return suppliers;
         }
 
-        public ISupplier CreateSupplier(string name, string note, string paymentInfo, 
+        public ISupplier CreateSupplier(string name, string note, 
             SupplierType type)
         {
-            return supplierCollection.Create(name, note, paymentInfo, type);
+            return supplierCollection.Create(name, note, type);
         }
 
         public void UpdateSupplier(ISupplier supplier)

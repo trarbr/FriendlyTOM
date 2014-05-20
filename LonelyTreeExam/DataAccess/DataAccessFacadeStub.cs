@@ -47,14 +47,15 @@ namespace DataAccess
 
             entity.Deleted = true;
         }
+
         #endregion
 
         #region Supplier Stuff
         List<ISupplier> supplierList = new List<ISupplier>();
 
-        public ISupplier CreateSupplier(string paymentinfo, string name, string note, SupplierType type)
+        public ISupplier CreateSupplier(string name, string note, SupplierType type)
         {
-            SupplierEntity entity = new SupplierEntity(paymentinfo, type, note, name);
+            SupplierEntity entity = new SupplierEntity(type, note, name);
             supplierList.Add(entity);
 
             return entity;

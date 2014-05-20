@@ -19,9 +19,9 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, SupplierEntity>();
         }
 
-        internal SupplierEntity Create(string name, string note, string paymentInfo, SupplierType type)
+        internal SupplierEntity Create(string name, string note, SupplierType type)
         {
-            SupplierEntity supplierEntity = new SupplierEntity(paymentInfo, type, note, name);
+            SupplierEntity supplierEntity = new SupplierEntity(type, note, name);
 
             insert(supplierEntity);
 
@@ -65,17 +65,26 @@ namespace DataAccess.Mappers
         {
             string name = (string) reader["Name"];
             string note = (string) reader["Note"];
-            string paymentInfo = (string) reader["PaymentInfo"];
             SupplierType type = (SupplierType) Enum.Parse(typeof (SupplierType), reader["Type"].ToString());
+            string accountNo = (string) reader["AccountNo"];
+            string accountName = (string) reader["AccountName"];
+            string ownerId = (string) reader["OwnerId"];
+            string bank = (string) reader["Bank"];
+            AccountType accountType = (AccountType) Enum.Parse(typeof (AccountType), reader["AccountType"].ToString());
 
             int id = (int)reader["PartyId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
-            SupplierEntity supplierEntity = new SupplierEntity(paymentInfo, type, note, name);
+            SupplierEntity supplierEntity = new SupplierEntity(type, note, name);
             supplierEntity.Id = id;
             supplierEntity.LastModified = lastModified;
             supplierEntity.Deleted = deleted;
+            supplierEntity.AccountNo = accountNo;
+            supplierEntity.AccountName = accountName;
+            supplierEntity.OwnerId = ownerId;
+            supplierEntity.AccountType = accountType;
+            supplierEntity.Bank = bank;
 
             return supplierEntity;
         }
@@ -99,9 +108,17 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@PaymentInfo", entity.PaymentInfo);
-            parameters.Add(parameter);
             parameter = new SqlParameter("@Type", entity.Type.ToString());
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@AccountNo", entity.AccountNo);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@AccountName", entity.AccountName);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@OwnerId", entity.OwnerId);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Bank", entity.Bank);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@AccountType", entity.AccountType.ToString());
             parameters.Add(parameter);
         }
     }
