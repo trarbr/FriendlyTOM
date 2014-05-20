@@ -241,31 +241,31 @@ namespace LonelyTreeExam.UserControls
                     selectedPayment.AddAttachment(pathName);
                     attachmentsListView.ItemsSource = null;
                     attachmentsListView.ItemsSource = selectedPayment.Attachments;
-                    UpdatePayment();
                 }
             }
         }
 
         private void deleteAttachmentButton_Click(object sender, RoutedEventArgs e)
         {
-            string selectedAttachment = "";
-            selectedAttachment = attachmentsListView.SelectedItem.ToString();
-            if(selectedAttachment != "")
+            if (attachmentsListView.SelectedItem != null)
             {
-                if (selectedPayment == null)
+                string selectedAttachment = "";
+                selectedAttachment = attachmentsListView.SelectedItem.ToString();
+                if(selectedAttachment != "")
                 {
-                    attachmentList.Remove(selectedAttachment);
-                    attachmentsListView.ItemsSource = null;
-                    attachmentsListView.ItemsSource = attachmentList;
+                    if (selectedPayment == null)
+                    {
+                        attachmentList.Remove(selectedAttachment);
+                        attachmentsListView.ItemsSource = null;
+                        attachmentsListView.ItemsSource = attachmentList;
+                    }
+                    else
+                    {
+                        selectedPayment.DeleteAttachment(selectedAttachment);
+                        attachmentsListView.ItemsSource = null;
+                        attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                    }
                 }
-                else
-                {
-                    selectedPayment.DeleteAttachment(selectedAttachment);
-                    attachmentsListView.ItemsSource = null;
-                    attachmentsListView.ItemsSource = selectedPayment.Attachments;
-                }
-
-                
             }
         }
 
