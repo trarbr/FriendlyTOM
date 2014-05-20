@@ -92,6 +92,8 @@ namespace LonelyTreeExam.UserControls
 
                     supplierController.UpdateSupplier(supplier);
                     refreshDataGrid();
+                    suppliersDataGrid.SelectedItem = null;
+                    setValuesInTextBoxes();
                 }
                 else
                 {
