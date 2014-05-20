@@ -51,10 +51,20 @@
             <StackPanel Grid.Column="0" Margin="0">
                 <Label Content="Name:"/>
                 <Label Content="CustomerType:"/>
+                <Label Content="ContactPerson:"/>
+                <Label Content="Email:"/>
+                <Label Content="Address:"/>
+                <Label Content="PhoneNo:"/>
+                <Label Content="FaxNo:"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="5,0,0,0">
                 <TextBox x:Name="nameTextBox" Height="26" TextWrapping="Wrap"/>
                 <ComboBox x:Name="customerTypeComboBox" Margin="0,2"/>
+                <TextBox x:Name="contactPersonTextBox" Height="26" TextWrapping="Wrap"/>
+                <TextBox x:Name="emailTextBox" Height="26" TextWrapping="Wrap"/>
+                <TextBox x:Name="addressTextBox" Height="26" TextWrapping="Wrap"/>
+                <TextBox x:Name="phoneNoTextBox" Height="26" TextWrapping="Wrap"/>
+                <TextBox x:Name="faxNoTextBox" Height="26" TextWrapping="Wrap"/>
             </StackPanel>
             <StackPanel Grid.Column="2" Margin="20,0,0,0">
                 <Label Content="Note:"/>
