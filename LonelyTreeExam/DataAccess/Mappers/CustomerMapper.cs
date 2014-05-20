@@ -67,6 +67,12 @@ namespace DataAccess.Mappers
             string note = (string) reader["Note"];
             string name = (string) reader["Name"];
             CustomerType type = (CustomerType) Enum.Parse(typeof(CustomerType), reader["Type"].ToString());
+            string contactPerson = (string)reader["ContactPerson"];
+            string email = (string)reader["Email"];
+            string address = (string)reader["Address"];
+            string phoneNo = (string)reader["PhoneNo"];
+            string faxNo = (string)reader["FaxNo"];
+
             int id = (int) reader["PartyId"];
             bool deleted = (bool) reader["Deleted"];
             DateTime lastmodified = (DateTime) reader["LastModified"];
@@ -75,6 +81,12 @@ namespace DataAccess.Mappers
             customerEntity.Name = name;
             customerEntity.Note = note;
             customerEntity.Type = type;
+            customerEntity.ContactPerson = contactPerson;
+            customerEntity.Email = email;
+            customerEntity.Address = address;
+            customerEntity.PhoneNo = phoneNo;
+            customerEntity.FaxNo = faxNo;
+
             customerEntity.Id = id;
             customerEntity.Deleted = deleted;
             customerEntity.LastModified = lastmodified;
@@ -100,6 +112,16 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Type", entity.Type.ToString());
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@ContactPerson", entity.ContactPerson);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Email", entity.Email);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Address", entity.Address);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@PhoneNo", entity.PhoneNo);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@FaxNo", entity.FaxNo);
             parameters.Add(parameter);
         }
     }

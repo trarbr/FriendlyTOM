@@ -17,6 +17,31 @@ namespace Domain.Model
             get { return _customerEntity.Type; }
             set { _customerEntity.Type = value; }
         }
+        public string ContactPerson
+        {
+            get { return _customerEntity.ContactPerson; }
+            set { _customerEntity.ContactPerson = value; }
+        }
+        public string Email
+        {
+            get { return _customerEntity.Email; }
+            set { _customerEntity.Email = value; }
+        }
+        public string Address
+        {
+            get { return _customerEntity.Address; }
+            set { _customerEntity.Address = value; }
+        }
+        public string PhoneNo
+        {
+            get { return _customerEntity.PhoneNo; }
+            set { _customerEntity.PhoneNo = value; }
+        }
+        public string FaxNo
+        {
+            get { return _customerEntity.FaxNo; }
+            set { _customerEntity.FaxNo = value; }
+        }
         #endregion
 
         #region Internal Methods

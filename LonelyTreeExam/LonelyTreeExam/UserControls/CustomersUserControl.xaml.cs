@@ -55,8 +55,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (ICustomer customer in customerController.ReadAllCustomers())
                 {
-                    string searchData = string.Format("{0} {1} {2}",
-                        customer.Name, customer.Note, customer.Type.ToString());
+                    string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
+                        customer.Name, customer.Note, customer.Type.ToString(), customer.ContactPerson,
+                        customer.Email, customer.Address, customer.PhoneNo, customer.FaxNo);
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         searchedCustomers.Add(customer);
@@ -80,8 +81,15 @@ namespace LonelyTreeExam.UserControls
                     string name = nameTextBox.Text;
                     CustomerType type = (CustomerType)customerTypeComboBox.SelectedItem;
                     string note = noteTextBox.Text;
+                    ICustomer customer = customerController.CreateCustomer(type, note, name);
 
-                    customerController.CreateCustomer(type, note, name);
+                    customer.ContactPerson = contactPersonTextBox.Text;
+                    customer.Email = emailTextBox.Text;
+                    customer.Address = addressTextBox.Text;
+                    customer.PhoneNo = phoneNoTextBox.Text;
+                    customer.FaxNo = faxNoTextBox.Text;
+                    customerController.UpdateCustomer(customer);
+
                     refreshDataGrid();
                 }
                 else
@@ -91,6 +99,11 @@ namespace LonelyTreeExam.UserControls
                     selectedCustomer.Name = nameTextBox.Text;
                     selectedCustomer.Type = (CustomerType)customerTypeComboBox.SelectedItem;
                     selectedCustomer.Note = noteTextBox.Text;
+                    selectedCustomer.ContactPerson = contactPersonTextBox.Text;
+                    selectedCustomer.Email = emailTextBox.Text;
+                    selectedCustomer.Address = addressTextBox.Text;
+                    selectedCustomer.PhoneNo = phoneNoTextBox.Text;
+                    selectedCustomer.FaxNo = faxNoTextBox.Text;
 
                     customerController.UpdateCustomer(selectedCustomer);
                     refreshDataGrid();
@@ -110,12 +123,22 @@ namespace LonelyTreeExam.UserControls
                 nameTextBox.Text = selectedCustomer.Name;
                 customerTypeComboBox.SelectedItem = selectedCustomer.Type;
                 noteTextBox.Text = selectedCustomer.Note;
+                contactPersonTextBox.Text = selectedCustomer.ContactPerson;
+                emailTextBox.Text = selectedCustomer.Email;
+                addressTextBox.Text = selectedCustomer.Address;
+                phoneNoTextBox.Text = selectedCustomer.PhoneNo;
+                faxNoTextBox.Text = selectedCustomer.FaxNo;
             }
             else
             {
                 nameTextBox.Text = "";
                 customerTypeComboBox.SelectedIndex = 0;
                 noteTextBox.Text = "";
+                contactPersonTextBox.Text = "";
+                emailTextBox.Text = "";
+                addressTextBox.Text = "";
+                phoneNoTextBox.Text = "";
+                faxNoTextBox.Text = "";
             }
         }
 
