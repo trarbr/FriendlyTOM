@@ -55,8 +55,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (ICustomer customer in customerController.ReadAllCustomers())
                 {
-                    string searchData = string.Format("{0} {1} {2}",
-                        customer.Name, customer.Note, customer.Type.ToString());
+                    string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
+                        customer.Name, customer.Note, customer.Type.ToString(), customer.ContactPerson,
+                        customer.Email, customer.Address, customer.PhoneNo, customer.FaxNo);
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         searchedCustomers.Add(customer);
