@@ -239,9 +239,9 @@ namespace LonelyTreeExam.UserControls
                 else if (selectedPayment != null)
                 {
                     selectedPayment.AddAttachment(pathName);
-                    UpdatePayment();
                     attachmentsListView.ItemsSource = null;
                     attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                    UpdatePayment();
                 }
             }
         }
