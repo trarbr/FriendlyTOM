@@ -83,9 +83,9 @@ namespace DataAccess
 
         
         #region Public Supplier Methods
-        public ISupplier CreateSupplier(string name, string note, string paymentInfo, SupplierType type)
+        public ISupplier CreateSupplier(string name, string note, SupplierType type)
         {
-            return supplierMapper.Create(name, note, paymentInfo, type);
+            return supplierMapper.Create(name, note, type);
         }
 
         public List<ISupplier> ReadAllSuppliers()

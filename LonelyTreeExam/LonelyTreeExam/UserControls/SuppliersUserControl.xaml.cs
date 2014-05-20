@@ -30,6 +30,8 @@ namespace LonelyTreeExam.UserControls
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
             supplierTypeComboBox.SelectedIndex = 0;
+            accountTypeComboBox.ItemsSource = Enum.GetValues(typeof(AccountType));
+            accountTypeComboBox.SelectedIndex = 0;
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
         }
@@ -54,8 +56,9 @@ namespace LonelyTreeExam.UserControls
 
                 foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
                 {
-                    string searchData = string.Format("{0} {1} {2} {3}",
-                        supplier.Name, supplier.Note, supplier.PaymentInfo, supplier.Type.ToString());
+                    string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
+                        supplier.Name, supplier.Note, supplier.Type.ToString(), supplier.AccountName, 
+                        supplier.AccountNo, supplier.AccountType, supplier.Bank, supplier.OwnerId);
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         searchedSuppliers.Add(supplier);
@@ -78,10 +81,16 @@ namespace LonelyTreeExam.UserControls
                 {
                     string name = nameTextBox.Text;
                     SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    string paymentInfo = paymentInfoTextBox.Text;
                     string note = noteTextBox.Text;
 
-                    supplierController.CreateSupplier(name, note, paymentInfo, type);
+                    ISupplier supplier = supplierController.CreateSupplier(name, note, type);
+                    supplier.AccountName = accountNameTextBox.Text;
+                    supplier.AccountNo = accountNoTextBox.Text;
+                    supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+                    supplier.Bank = bankTextBox.Text;
+                    supplier.OwnerId = ownerIdTextBox.Text;
+
+                    supplierController.UpdateSupplier(supplier);
                     refreshDataGrid();
                 }
                 else
@@ -90,8 +99,12 @@ namespace LonelyTreeExam.UserControls
 
                     selectedSupplier.Name = nameTextBox.Text;
                     selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    selectedSupplier.PaymentInfo = paymentInfoTextBox.Text;
                     selectedSupplier.Note = noteTextBox.Text;
+                    selectedSupplier.AccountName = accountNameTextBox.Text;
+                    selectedSupplier.AccountNo = accountNoTextBox.Text;
+                    selectedSupplier.AccountType = (AccountType) accountTypeComboBox.SelectedItem;
+                    selectedSupplier.Bank = bankTextBox.Text;
+                    selectedSupplier.OwnerId = ownerIdTextBox.Text;
 
                     supplierController.UpdateSupplier(selectedSupplier);
                     refreshDataGrid();
@@ -110,15 +123,24 @@ namespace LonelyTreeExam.UserControls
             {
                 nameTextBox.Text = selectedSupplier.Name;
                 supplierTypeComboBox.SelectedItem = selectedSupplier.Type;
-                paymentInfoTextBox.Text = selectedSupplier.PaymentInfo;
                 noteTextBox.Text = selectedSupplier.Note;
+
+                accountNoTextBox.Text = selectedSupplier.AccountNo;
+                accountTypeComboBox.SelectedItem = selectedSupplier.AccountType;
+                accountNameTextBox.Text = selectedSupplier.AccountName;
+                ownerIdTextBox.Text = selectedSupplier.OwnerId;
+                bankTextBox.Text = selectedSupplier.Bank;
             }
             else
             {
                 nameTextBox.Text = "";
                 supplierTypeComboBox.SelectedIndex = 0;
-                paymentInfoTextBox.Text = "";
                 noteTextBox.Text = "";
+                accountNoTextBox.Text = "";
+                accountTypeComboBox.SelectedIndex = 0;
+                accountNameTextBox.Text = "";
+                ownerIdTextBox.Text = "";
+                bankTextBox.Text = "";
             }
         }
 

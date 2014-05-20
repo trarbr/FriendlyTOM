@@ -8,7 +8,11 @@ namespace Common.Interfaces
 {
     public interface ISupplier : IParty
     {
-        string PaymentInfo { get; set; }
         SupplierType Type { get; set; }
+        string AccountNo { get; set; }
+        AccountType AccountType { get; set; }
+        string AccountName { get; set; }
+        string OwnerId { get; set; }
+        string Bank { get; set; }
     }
 }

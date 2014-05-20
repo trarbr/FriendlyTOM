@@ -21,7 +21,12 @@
                   BorderBrush="#FFC6C6C9" SelectionChanged="suppliersDataGrid_SelectionChanged" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header = "PaymentInfo" Width="*" Binding="{Binding PaymentInfo}"/>
+                <DataGridTextColumn Header = "SupplierType" Width="*" Binding="{Binding  Type}"/>
+                <DataGridTextColumn Header = "AccountNo" Width="*" Binding="{Binding AccountNo}"/>
+                <DataGridTextColumn Header = "AccountType" Width="*" Binding="{Binding AccountType}"/>
+                <DataGridTextColumn Header = "AccountName" Width="*" Binding="{Binding AccountName}"/>
+                <DataGridTextColumn Header = "OwnerId" Width="*" Binding="{Binding OwnerId}"/>
+                <DataGridTextColumn Header = "Bank" Width="*" Binding="{Binding Bank}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">
@@ -52,13 +57,21 @@
         <StackPanel Grid.Column="0" Margin="0">
             <Label Content="Name:"/>
             <Label Content="SupplierType:"/>
-            <Label Content="PaymentInfo:"/>
-        </StackPanel>
+            <Label Content="AccountNo:"/>
+            <Label Content="AccountType:"/>
+            <Label Content="AccountName:"/>
+            <Label Content="OwnerId:"/>
+            <Label Content="Bank:"/>
+            </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
             <TextBox x:Name="nameTextBox" Height="26" TextWrapping="Wrap"/>
             <ComboBox x:Name="supplierTypeComboBox" Margin="0,2"/>
-            <TextBox x:Name="paymentInfoTextBox" Height="26" TextWrapping="Wrap"/>
-        </StackPanel>
+            <TextBox x:Name="accountNoTextBox" Height="26" TextWrapping="Wrap"/>
+            <ComboBox x:Name="accountTypeComboBox" Margin="0,2"/>
+            <TextBox x:Name="accountNameTextBox" Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="ownerIdTextBox" Height="26" TextWrapping="Wrap"/>
+            <TextBox x:Name="bankTextBox" Height="26" TextWrapping="Wrap"/>
+            </StackPanel>
         <StackPanel Grid.Column="2" Margin="20,0,0,0">
             <Label Content="Note:"/>
             <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"

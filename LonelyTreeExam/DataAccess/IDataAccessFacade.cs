@@ -16,7 +16,7 @@ namespace DataAccess
         void UpdatePayment(IPayment payment);
         void DeletePayment(IPayment payment);
 
-       ISupplier CreateSupplier(string name, string note, string paymentInfo, SupplierType type);
+       ISupplier CreateSupplier(string name, string note, SupplierType type);
        List<ISupplier> ReadAllSuppliers();
        void UpdateSupplier(ISupplier supplier);
        void DeleteSupplier(ISupplier supplier);
