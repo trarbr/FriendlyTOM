@@ -21,6 +21,12 @@
                   BorderBrush="#FFC6C6C9" SelectionChanged="customersDataGrid_SelectionChanged" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header = "Type" Width="*" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header = "ContactPerson" Width="*" Binding="{Binding ContactPerson}"/>
+                <DataGridTextColumn Header = "Email" Width="*" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header = "Address" Width="*" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header = "PhoneNo" Width="*" Binding="{Binding PhoneNo}"/>
+                <DataGridTextColumn Header = "FaxNo" Width="*" Binding="{Binding FaxNo}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">

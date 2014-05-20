@@ -25,13 +25,13 @@ namespace LonelyTreeExam
         public MainWindow()
         {
             InitializeComponent();
-            PaymentController paymentController = new PaymentController();
-            SupplierController supplierController = new SupplierController();
+            //PaymentController paymentController = new PaymentController();
+            //SupplierController supplierController = new SupplierController();
             CustomerController customerController = new CustomerController();
 
-            accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
-            accountingUserControl.Content = accountingControl;
-            suppliersUserControl.Content = new SuppliersUserControl(supplierController);
+            //accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
+            //accountingUserControl.Content = accountingControl;
+            //suppliersUserControl.Content = new SuppliersUserControl(supplierController);
             customersUserControl.Content = new CustomersUserControl(customerController);
 
             currentTabIndex = 0; // 
@@ -44,7 +44,7 @@ namespace LonelyTreeExam
         {
             if (mainTabNavigation.SelectedIndex != currentTabIndex)
             {
-                accountingControl.RefreshAll();
+                //accountingControl.RefreshAll();
             }
         }
     }
