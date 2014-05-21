@@ -11,22 +11,6 @@ namespace Domain.Model
 {
     internal class Booking : AAccountability, IBooking
     {
-
-        public string Note
-        {
-            get { return _bookingEntity.Note; }
-            set { _bookingEntity.Note = value; }
-        }
-        public IParty Responsible
-        {
-            get { return _bookingEntity.Responsible; }
-            set { _bookingEntity.Responsible = value; }
-        }
-        public IParty Commissioner
-        {
-            get { return _bookingEntity.Commissioner; }
-            set { _bookingEntity.Commissioner = value; }
-        }
         public string Sale
         {
             get { return _bookingEntity.Sale; }
@@ -101,7 +85,8 @@ namespace Domain.Model
 
         }
 
-        internal Booking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, DateTime endDate, IDataAccessFacade dataAccessFacade)
+        internal Booking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, 
+            DateTime endDate, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
 
