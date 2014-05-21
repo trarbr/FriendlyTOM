@@ -101,19 +101,15 @@ namespace Domain.Model
 
             this.dataAccessFacade = dataAccessFacade;
 
-            // This makes sense
-            AParty aResponsible = (AParty)responsible;
-            IParty responsibleEntity = aResponsible._partyEntity;
-            AParty aCommissioner = (AParty)commissioner;
-            IParty commissionerEntity = aCommissioner._partyEntity;
+            // Get entities for DataAccess
+            IParty responsibleEntity = ((AParty)responsible)._partyEntity;
+            IParty commissionerEntity = ((AParty)commissioner)._partyEntity;
 
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
                 commissionerEntity, type, sale, booking);
 
-            // This makes less sense - can't accountability set its own Responsibilty and Commissioner?
-            this._accountabilityEntity = _paymentEntity;
-            this.Responsible = responsible;
-            this.Commissioner = commissioner;
+            // Set fields on Accountability
+            initializeAccountability(_paymentEntity, responsible, commissioner);
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
