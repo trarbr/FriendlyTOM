@@ -45,11 +45,11 @@ namespace Domain.Collections
                     {
                         archivedPayments.Add(payment);
                     }
-                    else if (payment.Commissioner == "Lonely Tree")
+                    else if (payment.Commissioner.Name == "Lonely Tree")
                     {
                         incomingPayments.Add(payment);
                     }
-                    else if (payment.Responsible == "Lonely Tree")
+                    else if (payment.Responsible.Name == "Lonely Tree")
                     {
                         outgoingPayments.Add(payment);
                     }
@@ -114,7 +114,7 @@ namespace Domain.Collections
              {
                  archivedPayments.Remove(payment);
 
-                 if (payment.Commissioner == "Lonely Tree")
+                 if (payment.Commissioner.Name == "Lonely Tree")
                  {
                      if (!incomingPayments.Contains(payment))
                      {
@@ -122,7 +122,7 @@ namespace Domain.Collections
                          outgoingPayments.Remove(payment);
                      }
                  }
-                 if (payment.Responsible == "Lonely Tree")
+                 if (payment.Responsible.Name == "Lonely Tree")
                  {
                      if (!outgoingPayments.Contains(payment))
                      {

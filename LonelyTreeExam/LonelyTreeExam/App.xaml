@@ -5,8 +5,8 @@
     <Application.Resources>
         <DataGridTextColumn x:Key="Sale" x:Shared="False"  Header = "Sale" Width="*" Binding="{Binding Sale}"/>
         <DataGridTextColumn x:Key="Booking" x:Shared="False"  Header = "Booking" Width="*" Binding="{Binding Booking}"/>
-        <DataGridTextColumn x:Key="Commissioner" x:Shared="False"  Header = "Payee" Width="*" Binding="{Binding Commissioner}"/>
-        <DataGridTextColumn x:Key="Responsible" x:Shared="False" Header = "Payer" Width="*" Binding="{Binding Responsible}"/>
+        <DataGridTextColumn x:Key="Commissioner" x:Shared="False"  Header = "Payee" Width="*" Binding="{Binding Commissioner.Name}"/>
+        <DataGridTextColumn x:Key="Responsible" x:Shared="False" Header = "Payer" Width="*" Binding="{Binding Responsible.Name}"/>
         <DataGridTextColumn x:Key="DueDate" x:Shared="False"  Header = "Due Date" Width="*" Binding="{Binding DueDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
         <DataGridTextColumn x:Key="DueAmount" x:Shared="False"  Header = "Due Amount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
         <DataGridTextColumn x:Key="PaidDate" x:Shared="False" Header = "Paid Date" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>

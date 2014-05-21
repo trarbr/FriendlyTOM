@@ -20,7 +20,7 @@ namespace DataAccess
             customers = new List<ICustomer>();
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, string commissioner, 
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty responsible, IParty commissioner, 
             PaymentType type, string sale, int booking)
         {
             PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
