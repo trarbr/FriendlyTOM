@@ -56,16 +56,15 @@ namespace Domain.Model
             validateName(name);
 
             this.dataAccessFacade = dataAccessFacade;
-
             _supplierEntity = dataAccessFacade.CreateSupplier(name, note, type);
-            this._partyEntity = _supplierEntity;
+            initializeParty(_supplierEntity);
         }
 
         internal Supplier(IDataAccessFacade dataAccessFacade, ISupplier supplierEntity)
         {
-            _supplierEntity = supplierEntity;
             this.dataAccessFacade = dataAccessFacade;
-            this._partyEntity = _supplierEntity;
+            _supplierEntity = supplierEntity;
+            initializeParty(_supplierEntity);
         }
 
         internal void Update()

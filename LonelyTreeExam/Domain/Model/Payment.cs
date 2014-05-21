@@ -99,15 +99,13 @@ namespace Domain.Model
             validateCommissioner(commissioner);
             validateSale(sale);
 
-            this.dataAccessFacade = dataAccessFacade;
-
             // Get entities for DataAccess
             IParty responsibleEntity = ((Party)responsible)._partyEntity;
             IParty commissionerEntity = ((Party)commissioner)._partyEntity;
 
+            this.dataAccessFacade = dataAccessFacade;
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
                 commissionerEntity, type, sale, booking);
-
             initializeAccountability(_paymentEntity, responsible, commissioner);
         }
 
