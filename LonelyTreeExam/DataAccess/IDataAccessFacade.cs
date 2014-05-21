@@ -26,13 +26,11 @@ namespace DataAccess
        void UpdateCustomers(ICustomer customer);
        void DeleteCustomer(ICustomer customer);
 
-       void UpdateBookings(IBooking _bookingEntity);
-
-       void DeleteBooking(IBooking _bookingEntity);
-
+       IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
+           DateTime startDate, DateTime endDate);
        List<IBooking> ReadAllBookings();
-
-       IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, DateTime endDate);
+       void UpdateBookings(IBooking booking);
+       void DeleteBooking(IBooking booking);
    }
 }
 

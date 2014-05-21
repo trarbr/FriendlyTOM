@@ -19,8 +19,8 @@
                   AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
                   BorderBrush="#FFC6C6C9" SelectionChanged="bookingsDataGrid_SelectionChanged" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header = "Responsible" Width="*" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header = "Commissioner" Width="*" Binding="{Binding  Type}"/>
+                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding  Type}"/>
                 <DataGridTextColumn Header = "Sale" Width="*" Binding="{Binding AccountNo}"/>
                 <DataGridTextColumn Header = "Booking Number" Width="*" Binding="{Binding AccountType}"/>
                 <DataGridTextColumn Header = "Start Date" Width="*" Binding="{Binding AccountName}"/>
@@ -59,15 +59,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="0">
-                <Label Content="Responsible:"/>
-                <Label Content="Commissioner:"/>
+                <Label Content="Supplier:"/>
+                <Label Content="Customer:"/>
                 <Label Content="Sale:"/>
                 <Label Content="Booking Number:"/>
                 <Label Content="Start Date:"/>
                 <Label Content="End Date:"/>
                 <Label Content="Type:"/>
                 <Label Content="IVA Exempt:"/>
-                <Label Content="IVa Subject:"/>
+                <Label Content="IVA Subject:"/>
                 <Label Content="Service:"/>
                 <Label Content="Product Retention:"/>
                 <Label Content="Supplier Retention:"/>

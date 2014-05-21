@@ -36,6 +36,7 @@ namespace DataAccess
 
             supplierMapper = new SupplierMapper(connectionString);
 
+            bookingMapper = new BookingMapper(connectionString);
         }
 
         public static IDataAccessFacade GetInstance()
@@ -142,11 +143,42 @@ namespace DataAccess
         }
         #endregion
 
+        #region Booking Methods
+        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
+        {
+            return bookingMapper.Create(responsible, commissioner, sale, bookingNumber, startDate, endDate);
+        }
+
+        public List<IBooking> ReadAllBookings()
+        {
+            List<IBooking> bookings = new List<IBooking>();
+            List<BookingEntity> bookingEntities = bookingMapper.ReadAll();
+
+            foreach (BookingEntity bookingEntity in bookingEntities)
+            {
+                bookings.Add(bookingEntity);
+            }
+
+            return bookings;
+        }
+
+        public void UpdateBookings(IBooking booking)
+        {
+            bookingMapper.Update((BookingEntity)booking);
+        }
+
+        public void DeleteBooking(IBooking booking)
+        {
+            bookingMapper.Delete((BookingEntity)booking);
+        }
+        #endregion
+
         #region Private Properties
         private string connectionString;
         private PaymentMapper paymentMapper;
         private CustomerMapper customerMapper;
         private SupplierMapper supplierMapper;
+        private BookingMapper bookingMapper;
         private static DataAccessFacade instance;
 
         #endregion

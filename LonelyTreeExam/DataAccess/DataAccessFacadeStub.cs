@@ -29,6 +29,11 @@ namespace DataAccess
             return entity;
         }
 
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty responsible, IParty commissioner, PaymentType type, string sale, int booking)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<IPayment> ReadAllPayments()
         {
             return payments;
@@ -107,6 +112,27 @@ namespace DataAccess
             entity.Deleted = true;
         }
         #endregion
-        
+
+        #region Booking Stuff
+        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IBooking> ReadAllBookings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateBookings(IBooking booking)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteBooking(IBooking booking)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
