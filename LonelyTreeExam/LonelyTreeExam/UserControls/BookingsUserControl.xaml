@@ -77,8 +77,8 @@
                 <TextBox x:Name="commissionerTextBox" Height="26" TextWrapping="Wrap"/>
                 <TextBox x:Name="saleTextBox" Height="26" TextWrapping="Wrap"/>
                 <TextBox x:Name="bookingNumberTextBox" Height="26" TextWrapping="Wrap"/>
-                <TextBox x:Name="startDateTextBox" Height="26" TextWrapping="Wrap"/>
-                <TextBox x:Name="endDateTextBox" Height="26" TextWrapping="Wrap"/>
+                <DatePicker x:Name="startDateDatePicker" Height="26"/>
+                <DatePicker x:Name="endDateDatePicker" Height="26"/>
                 <ComboBox x:Name="bookingTypeComboBox" Margin="0,2"/>
                 <TextBox x:Name="IVAExemptTextBox" Height="26" TextWrapping="Wrap"/>
                 <TextBox x:Name="IVASubjectTextBox" Height="26" TextWrapping="Wrap"/>
