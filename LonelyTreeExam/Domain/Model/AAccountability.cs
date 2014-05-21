@@ -24,7 +24,7 @@ namespace Domain.Model
             get { return _responsible; }
             set
             {
-                //validateResponsible(value);
+                validateResponsible(value);
                 //_accountabilityEntity.Responsible = value;
                 _responsible = (AParty)value;
                 _accountabilityEntity.Responsible = _responsible._partyEntity;
@@ -36,7 +36,7 @@ namespace Domain.Model
             get { return _commissioner; }
             set
             {
-                //validateCommissioner(value);
+                validateCommissioner(value);
                 _commissioner = (AParty)value;
                 _accountabilityEntity.Commissioner = _commissioner._partyEntity;
             }
@@ -51,14 +51,20 @@ namespace Domain.Model
 
         #region ValidateAllProperties
 
-        protected void validateResponsible(string value)
+        protected void validateResponsible(IParty value)
         {
-            validateNullOrWhiteSpace(value, "Responsible");
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Payer was not found");
+            }
         }
 
-        protected void validateCommissioner(string value)
+        protected void validateCommissioner(IParty value)
         {
-            validateNullOrWhiteSpace(value, "Commissioner");
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Payee was not found");
+            }
         }
 
         protected void validateNullOrWhiteSpace(string text, string paramName)
