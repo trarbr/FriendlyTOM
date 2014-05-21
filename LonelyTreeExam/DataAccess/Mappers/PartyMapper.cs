@@ -10,6 +10,9 @@ namespace DataAccess.Mappers
 {
     internal class PartyMapper
     {
+        internal SupplierMapper SupplierMapper { get; set; }
+        internal CustomerMapper CustomerMapper { get; set; }
+
         internal PartyMapper()
         {
 
@@ -17,16 +20,13 @@ namespace DataAccess.Mappers
         internal APartyEntity Read(int id)
         {
             // check if supplier, if not get customer and return
-            APartyEntity party = supplierMapper.Read(id);
+            APartyEntity party = SupplierMapper.Read(id);
             if (party == null)
             {
-                party = customerMapper.Read(id);
+                party = CustomerMapper.Read(id);
             }
 
             return party;
         }
-
-        internal SupplierMapper supplierMapper { get; set; }
-        internal CustomerMapper customerMapper { get; set; }
     }
 }

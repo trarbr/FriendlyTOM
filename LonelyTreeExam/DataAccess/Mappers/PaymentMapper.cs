@@ -13,6 +13,8 @@ namespace DataAccess.Mappers
 {
     internal class PaymentMapper : ASQLMapper<PaymentEntity>
     {
+        internal PartyMapper PartyMapper { get; set; }
+
         #region Internal Methods
         /// <summary>
         /// PaymentMapper should....
@@ -115,6 +117,9 @@ namespace DataAccess.Mappers
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
+            APartyEntity responsible = PartyMapper.Read(responsibleId);
+            APartyEntity commissioner = PartyMapper.Read(commissionerId);
+
             // TODO: Fix mapping!
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
                 commissioner, type, sale, booking);
@@ -162,7 +167,6 @@ namespace DataAccess.Mappers
             addPaymentParameters(entity, parameters);
         }
         #endregion
-
 
         #region Private Methods
         /// <summary>

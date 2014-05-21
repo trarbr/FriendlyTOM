@@ -31,7 +31,7 @@ namespace DataAccess.Mappers
         internal CustomerEntity Read(int id)
         {
             CustomerEntity customer;
-            entityMap.TryGetValue(id, customer);
+            entityMap.TryGetValue(id, out customer);
 
             return customer;
         }
