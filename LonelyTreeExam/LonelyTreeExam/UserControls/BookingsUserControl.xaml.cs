@@ -23,10 +23,13 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class BookingsUserControl : UserControl
     {
-        public BookingsUserControl(BookingController bookingController)
+        public BookingsUserControl(BookingController bookingController, SupplierController supplierController,
+            CustomerController customerController)
         {
             InitializeComponent();
             this.bookingController = bookingController;
+            this.supplierController = supplierController;
+            this.customerController = customerController;
             bookingsDataGrid.ItemsSource = bookingController.ReadAllBookings();
             bookingTypeComboBox.ItemsSource = Enum.GetValues(typeof(BookingType));
             bookingTypeComboBox.SelectedIndex = 0;
@@ -35,6 +38,8 @@ namespace LonelyTreeExam.UserControls
         }
 
         private BookingController bookingController;
+        private SupplierController supplierController;
+        private CustomerController customerController;
         private IBooking selectedBooking;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
@@ -70,14 +75,32 @@ namespace LonelyTreeExam.UserControls
             {
                 if (selectedBooking == null)
                 {
-                    //TODO: FIX RESPONSIBLE OG COMMISSIONER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    IParty responsible;
-                    IParty commissioner;
                     string sale = saleTextBox.Text;
                     int bookingNumber;
                     int.TryParse(saleTextBox.Text, out bookingNumber);
                     DateTime startDate = startDateDatePicker.SelectedDate.Value;
                     DateTime endDate = endDateDatePicker.SelectedDate.Value;
+
+                    //TODO: FIX RESPONSIBLE OG COMMISSIONER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    IParty responsible = null;
+                    foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
+                    {
+                        if (supplier.Name == responsibleTextBox.Text)
+                        {
+                            responsible = supplier;
+                            break;
+                        }
+                    }
+
+                    IParty commissioner = null;
+                    foreach (ICustomer customer in customerController.ReadAllCustomers())
+                    {
+                        if (customer.Name == commissionerTextBox.Text)
+                        {
+                            commissioner = customer;
+                            break;
+                        }
+                    }
 
                     IBooking booking = bookingController.CreateBooking(responsible, commissioner, sale, bookingNumber,
                                                                        startDate, endDate);
@@ -111,8 +134,8 @@ namespace LonelyTreeExam.UserControls
                 {
                     int currentIndex = bookingsDataGrid.SelectedIndex;
 
-                    IParty responsible;
-                    IParty commissioner;
+                    IParty responsible = null;
+                    IParty commissioner = null;
 
                     decimal iVAExempt;
                     decimal iVASubject;
