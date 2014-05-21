@@ -29,11 +29,6 @@ namespace DataAccess
             return entity;
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty responsible, IParty commissioner, PaymentType type, string sale, int booking)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<IPayment> ReadAllPayments()
         {
             return payments;
