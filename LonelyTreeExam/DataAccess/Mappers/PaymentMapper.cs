@@ -188,9 +188,9 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Archived", entity.Archived);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Responsible", entity.Responsible);
+            parameter = new SqlParameter("@Responsible", entity.Responsible.Name);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Commissioner", entity.Commissioner);
+            parameter = new SqlParameter("@Commissioner", entity.Commissioner.Name);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
