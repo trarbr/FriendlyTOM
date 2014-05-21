@@ -66,8 +66,8 @@ namespace Domain.Controller
             return payments;
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible, 
-            string commissioner, PaymentType type, string sale, int booking)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty responsible, 
+            IParty commissioner, PaymentType type, string sale, int booking)
         {
             return paymentCollection.Create(dueDate, dueAmount, responsible, commissioner, type,
                 sale, booking);
