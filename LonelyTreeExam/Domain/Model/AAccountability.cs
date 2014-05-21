@@ -21,21 +21,24 @@ namespace Domain.Model
         }
         public IParty Responsible 
         {
-            get { return _accountabilityEntity.Responsible; }
+            get { return _responsible; }
             set
             {
                 //validateResponsible(value);
-                _accountabilityEntity.Responsible = value;
+                //_accountabilityEntity.Responsible = value;
+                _responsible = (AParty)value;
+                _accountabilityEntity.Responsible = _responsible._partyEntity;
             }
         }
 
         public IParty Commissioner 
         {
-            get { return _accountabilityEntity.Commissioner; }
+            get { return _commissioner; }
             set
             {
                 //validateCommissioner(value);
-                _accountabilityEntity.Commissioner = value;
+                _commissioner = (AParty)value;
+                _accountabilityEntity.Commissioner = _commissioner._partyEntity;
             }
         }
 
@@ -84,5 +87,8 @@ namespace Domain.Model
             }
         }
         #endregion
+
+        internal AParty _responsible;
+        internal AParty _commissioner;
     }
 }

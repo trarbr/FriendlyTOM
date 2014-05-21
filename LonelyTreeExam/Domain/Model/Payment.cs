@@ -101,15 +101,30 @@ namespace Domain.Model
 
             this.dataAccessFacade = dataAccessFacade;
 
-            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible,
-                commissioner, type, sale, booking);
+            AParty aResponsible = (AParty)responsible;
+            IParty responsibleEntity = aResponsible._partyEntity;
+
+            AParty aCommissioner = (AParty)commissioner;
+            IParty commissionerEntity = aCommissioner._partyEntity;
+
+            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
+                commissionerEntity, type, sale, booking);
             this._accountabilityEntity = _paymentEntity;
+            this.Responsible = responsible;
+            this.Commissioner = commissioner;
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
         {
             _paymentEntity = paymentEntity;
             this._accountabilityEntity = _paymentEntity;
+            // Need to know if it is supplier or customer...
+            AParty responsible = new AParty();
+            responsible._partyEntity = _paymentEntity.Responsible;
+            Responsible = responsible;
+            AParty commissioner = new AParty();
+            commissioner._partyEntity = _paymentEntity.Commissioner;
+            Commissioner = commissioner;
             this.dataAccessFacade = dataAccessFacade;
         }
 
