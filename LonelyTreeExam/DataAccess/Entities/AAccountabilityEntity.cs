@@ -13,10 +13,7 @@ namespace DataAccess.Entities
         public IParty Responsible 
         {
             get { return _responsible; }
-            set
-            {
-                _responsible = (APartyEntity)value;
-            }
+            set { _responsible = (APartyEntity)value; }
         }
         public IParty Commissioner
         {
@@ -28,7 +25,6 @@ namespace DataAccess.Entities
         }
         internal AAccountabilityEntity(IParty responsible, IParty commissioner) 
         {
-            // TODO: Explosion is here! Needs entity and not model
             Responsible = responsible;
             Commissioner = commissioner;
             Note = "";
