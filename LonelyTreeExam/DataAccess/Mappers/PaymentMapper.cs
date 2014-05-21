@@ -120,7 +120,6 @@ namespace DataAccess.Mappers
             APartyEntity responsible = PartyMapper.Read(responsibleId);
             APartyEntity commissioner = PartyMapper.Read(commissionerId);
 
-            // TODO: Fix mapping!
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
                 commissioner, type, sale, booking);
             paymentEntity.PaidDate = paidDate;

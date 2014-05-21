@@ -36,6 +36,16 @@ namespace DataAccess
 
             supplierMapper = new SupplierMapper(connectionString);
 
+            PartyMapper partyMapper = new PartyMapper();
+
+            partyMapper.CustomerMapper = customerMapper;
+            partyMapper.SupplierMapper = supplierMapper;
+
+            paymentMapper.PartyMapper = partyMapper;
+
+            customerMapper.ReadAll();
+            supplierMapper.ReadAll();
+
         }
 
         public static IDataAccessFacade GetInstance()
