@@ -10,10 +10,10 @@ namespace DataAccess.Entities
     internal abstract class AAccountabilityEntity : Entity, IAccountability 
     {
         public string Note { get; set; }
-        public string Responsible { get; set; }
-        public string Commissioner { get; set; }
+        public IParty Responsible { get; set; }
+        public IParty Commissioner { get; set; }
 
-        internal AAccountabilityEntity(string responsible, string commissioner) 
+        internal AAccountabilityEntity(IParty responsible, IParty commissioner) 
         {
             Responsible = responsible;
             Commissioner = commissioner;

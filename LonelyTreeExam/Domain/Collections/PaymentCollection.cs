@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccess;
 using Domain.Model;
 using Common.Enums;
+using Common.Interfaces;
 
 namespace Domain.Collections
 {
@@ -88,8 +89,8 @@ namespace Domain.Collections
             return outgoingPayments;
         }
 
-        internal Payment Create(DateTime dueDate, decimal dueAmount, string responsible,
-             string commissioner, PaymentType type, string sale, int booking)
+        internal Payment Create(DateTime dueDate, decimal dueAmount, IParty responsible,
+             IParty commissioner, PaymentType type, string sale, int booking)
         {
             Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type,
                 sale, booking, dataAccessFacade);

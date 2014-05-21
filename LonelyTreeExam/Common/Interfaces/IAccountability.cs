@@ -9,7 +9,7 @@ namespace Common.Interfaces
     public interface IAccountability
     {
         string Note { get; set; }
-        string Responsible { get; set; }
-        string Commissioner { get; set; }
+        IParty Responsible { get; set; }
+        IParty Commissioner { get; set; }
     }
 }

@@ -90,13 +90,13 @@ namespace Domain.Model
         #endregion
 
         #region Internal Methods
-        internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type, string sale, int booking,
+        internal Payment(DateTime dueDate, decimal dueAmount, IParty responsible,
+            IParty commissioner, PaymentType type, string sale, int booking,
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
-            validateResponsible(responsible);
-            validateCommissioner(commissioner);
+            //validateResponsible(responsible);
+            //validateCommissioner(commissioner);
             validateSale(sale);
 
             this.dataAccessFacade = dataAccessFacade;
