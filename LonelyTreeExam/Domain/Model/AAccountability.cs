@@ -25,7 +25,6 @@ namespace Domain.Model
             set
             {
                 validateResponsible(value);
-                //_accountabilityEntity.Responsible = value;
                 _responsible = (AParty)value;
                 _accountabilityEntity.Responsible = _responsible._partyEntity;
             }
@@ -48,6 +47,14 @@ namespace Domain.Model
         { }
 
         internal IAccountability _accountabilityEntity;
+
+        protected void initializeAccountability(IAccountability accountabilityEntity, IParty responsible, 
+            IParty commissioner)
+        {
+            _accountabilityEntity = accountabilityEntity;
+            Responsible = responsible;
+            Commissioner = commissioner;
+        }
 
         #region ValidateAllProperties
 
@@ -94,7 +101,7 @@ namespace Domain.Model
         }
         #endregion
 
-        internal AParty _responsible;
-        internal AParty _commissioner;
+        private AParty _responsible;
+        private AParty _commissioner;
     }
 }
