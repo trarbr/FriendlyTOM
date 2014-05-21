@@ -108,23 +108,19 @@ namespace Domain.Model
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
                 commissionerEntity, type, sale, booking);
 
-            // Set fields on Accountability
             initializeAccountability(_paymentEntity, responsible, commissioner);
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
         {
-            _paymentEntity = paymentEntity;
-            this._accountabilityEntity = _paymentEntity;
-
-            // Need to know if it is supplier or customer if AParty really is to be abstract
-            Party responsible = new Party();
-            responsible._partyEntity = _paymentEntity.Responsible;
-            Responsible = responsible;
-            Party commissioner = new Party();
-            commissioner._partyEntity = _paymentEntity.Commissioner;
-            Commissioner = commissioner;
             this.dataAccessFacade = dataAccessFacade;
+            this._paymentEntity = paymentEntity;
+
+            // Create Models of responsible and commissioner
+            Party responsible = new Party(_paymentEntity.Responsible);
+            Party commissioner = new Party(_paymentEntity.Commissioner);
+
+            initializeAccountability(_paymentEntity, responsible, commissioner);
         }
 
         internal void Update()
