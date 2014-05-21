@@ -19,22 +19,22 @@ namespace Domain.Model
                 _accountabilityEntity.Note = value;
             }
         }
-        public string Responsible 
+        public IParty Responsible 
         {
             get { return _accountabilityEntity.Responsible; }
             set
             {
-                validateResponsible(value);
+                //validateResponsible(value);
                 _accountabilityEntity.Responsible = value;
             }
         }
 
-        public string Commissioner 
+        public IParty Commissioner 
         {
             get { return _accountabilityEntity.Commissioner; }
             set
             {
-                validateCommissioner(value);
+                //validateCommissioner(value);
                 _accountabilityEntity.Commissioner = value;
             }
         }
