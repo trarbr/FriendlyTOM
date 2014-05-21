@@ -42,21 +42,36 @@ namespace LonelyTreeExam.UserControls
         #region Internal Methods
 
         
-        internal void CreatePayment()
-        {
+        internal void CreatePayment(List<ISupplier> suppliers, List<ICustomer> customers)
+        {            
             if (dueDateDatePicker.SelectedDate != null)
             {
-                try
-                {
+                /*try
+                {*/
                     decimal dueAmount;
                     decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
                     DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
                     int booking;
                     int.TryParse(bookingTextBox.Text, out booking);
                     // TODO: Fix AutoComplete
-                    /*
-                    IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, 
-                        responsibleTextBox.Text, commissionerTextBox.Text,
+                    IParty supplier = null;
+                    foreach (IParty supp in suppliers)
+                    {
+                        if (supp.Name == commissionerTextBox.Text)
+                        {
+                            supplier = supp;
+                        }
+                    }
+                    IParty customer = null;
+                    foreach (IParty cust in customers)
+                    {
+                        if (cust.Name == responsibleTextBox.Text)
+                        {
+                            customer = cust;
+                        }
+                    }
+                    
+                    IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, customer, supplier,
                         (PaymentType)paymentTypeComboBox.SelectedItem, saleTextBox.Text, booking);
 
                     decimal paidAmount;
@@ -77,13 +92,13 @@ namespace LonelyTreeExam.UserControls
                     payment.Invoice = invoiceTextBox.Text;
                     
                     paymentController.UpdatePayment(payment);
-                    */
+                    
                     SetSelectedPayment(null);
-                }
-                catch (Exception ex)
+                //}
+                /*catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                }
+                }*/
             }
             else
             {

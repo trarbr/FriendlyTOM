@@ -192,6 +192,7 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Commissioner).Id);
             parameters.Add(parameter);
+            parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Attachments", string.Join(";", entity.Attachments));
