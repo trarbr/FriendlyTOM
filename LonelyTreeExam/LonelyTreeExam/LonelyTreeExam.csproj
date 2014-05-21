@@ -72,6 +72,9 @@
     <Compile Include="UserControls\ArchivedPaymentsUserControl.xaml.cs">
       <DependentUpon>ArchivedPaymentsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\BookingsUserControl.xaml.cs">
+      <DependentUpon>BookingsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CustomersUserControl.xaml.cs">
       <DependentUpon>CustomersUserControl.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ArchivedPaymentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BookingsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
