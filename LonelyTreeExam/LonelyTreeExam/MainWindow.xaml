@@ -39,6 +39,12 @@
                 </TabItem.Header>
                 <UserControl x:Name="customersUserControl"/>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Label Content="Bookings"/>
+                </TabItem.Header>
+                <UserControl x:Name="bookingsUserControl"/>
+            </TabItem>
         </TabControl>
 
     </Grid>

@@ -28,13 +28,16 @@ namespace LonelyTreeExam
             PaymentController paymentController = new PaymentController();
             SupplierController supplierController = new SupplierController();
             CustomerController customerController = new CustomerController();
+            BookingController bookingController = new BookingController();
 
             accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
             accountingUserControl.Content = accountingControl;
             suppliersUserControl.Content = new SuppliersUserControl(supplierController);
             customersUserControl.Content = new CustomersUserControl(customerController);
+            bookingsUserControl.Content = new BookingsUserControl(bookingController, supplierController,
+                customerController);
 
-            currentTabIndex = 0; // 
+            currentTabIndex = 0;  
         }
 
         private AccountingUserControl accountingControl;
