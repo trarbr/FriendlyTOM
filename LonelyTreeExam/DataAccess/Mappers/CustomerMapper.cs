@@ -28,6 +28,14 @@ namespace DataAccess.Mappers
             return customerEntity;
         }
 
+        internal CustomerEntity Read(int id)
+        {
+            CustomerEntity customer;
+            entityMap.TryGetValue(id, customer);
+
+            return customer;
+        }
+
         internal List<CustomerEntity> ReadAll()
         {
             List<CustomerEntity> customers = selectAll();

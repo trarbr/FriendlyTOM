@@ -53,6 +53,8 @@ namespace LonelyTreeExam.UserControls
                     DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
                     int booking;
                     int.TryParse(bookingTextBox.Text, out booking);
+                    // TODO: Fix AutoComplete
+                    /*
                     IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, 
                         responsibleTextBox.Text, commissionerTextBox.Text,
                         (PaymentType)paymentTypeComboBox.SelectedItem, saleTextBox.Text, booking);
@@ -75,6 +77,7 @@ namespace LonelyTreeExam.UserControls
                     payment.Invoice = invoiceTextBox.Text;
                     
                     paymentController.UpdatePayment(payment);
+                    */
                     SetSelectedPayment(null);
                 }
                 catch (Exception ex)
@@ -105,8 +108,9 @@ namespace LonelyTreeExam.UserControls
                         selectedPayment.DueDate = dueDateDatePicker.SelectedDate.Value;
                     }
                     selectedPayment.DueAmount = dueAmount;
-                    selectedPayment.Responsible = responsibleTextBox.Text;
-                    selectedPayment.Commissioner = commissionerTextBox.Text;
+                    // TODO: Should not be text!
+                    //selectedPayment.Responsible = responsibleTextBox;
+                    //selectedPayment.Commissioner = commissionerTextBox.Text;
                     selectedPayment.PaidAmount = paidAmount;
                     selectedPayment.Paid = paidCheckBox.IsChecked.Value;
                     if (paidDateDatePicker.SelectedDate != null)
@@ -154,8 +158,9 @@ namespace LonelyTreeExam.UserControls
             {
                 dueDateDatePicker.SelectedDate = selectedPayment.DueDate;
                 dueAmountTextBox.Text = selectedPayment.DueAmount.ToString("N2", culture.NumberFormat);
-                responsibleTextBox.Text = selectedPayment.Responsible;
-                commissionerTextBox.Text = selectedPayment.Commissioner;
+                // TODO: Fix AutoComplete
+                //responsibleTextBox.Text = selectedPayment.Responsible;
+                //commissionerTextBox.Text = selectedPayment.Commissioner;
                 paymentTypeComboBox.SelectedItem = selectedPayment.Type;
                 if (selectedPayment.PaidDate == new DateTime(1900, 1, 1))
                 {

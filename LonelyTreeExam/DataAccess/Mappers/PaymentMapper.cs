@@ -103,8 +103,8 @@ namespace DataAccess.Mappers
             bool archived = (bool)reader["Archived"];
             string attachments = (string)reader["Attachments"];
 
-            string responsible = (string)reader["Responsible"];
-            string commissioner = (string)reader["Commissioner"];
+            int responsibleId = (int)reader["Responsible"];
+            int commissionerId = (int)reader["Commissioner"];
             string note = (string)reader["Note"];
             PaymentType type = (PaymentType)Enum.Parse(typeof(PaymentType), reader["Type"].ToString());
             string sale = (string)reader["Sale"];
@@ -115,6 +115,7 @@ namespace DataAccess.Mappers
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
+            // TODO: Fix mapping!
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
                 commissioner, type, sale, booking);
             paymentEntity.PaidDate = paidDate;
