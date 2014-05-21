@@ -79,19 +79,26 @@ namespace Domain.Model
 
         internal Booking(IBooking bookingEntity, IDataAccessFacade dataAccessFacade)
         {
-            _bookingEntity = bookingEntity;
-            this._accountabilityEntity = _bookingEntity;
             this.dataAccessFacade = dataAccessFacade;
+            _bookingEntity = bookingEntity;
 
+            // Create Models of responsible and commissioner
+            Party responsible = new Party(_bookingEntity.Responsible);
+            Party commissioner = new Party(_bookingEntity.Commissioner);
+
+            initializeAccountability(_bookingEntity, responsible, commissioner);
         }
 
         internal Booking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, 
             DateTime endDate, IDataAccessFacade dataAccessFacade)
         {
-            this.dataAccessFacade = dataAccessFacade;
+            // Get entities for DataAccess
+            IParty responsibleEntity = ((Party)responsible)._partyEntity;
+            IParty commissionerEntity = ((Party)commissioner)._partyEntity;
 
-            _bookingEntity = dataAccessFacade.CreateBooking(responsible, commissioner, sale, bookingNumber, startDate, endDate);
-            this._accountabilityEntity = _bookingEntity;
+            this.dataAccessFacade = dataAccessFacade;
+            _bookingEntity = dataAccessFacade.CreateBooking(responsibleEntity, commissionerEntity, sale, bookingNumber, startDate, endDate);
+            initializeAccountability(_bookingEntity, responsible, commissioner);
         }
 
         internal static List<Booking> ReadAll(IDataAccessFacade dataAccessFacade)
