@@ -16,8 +16,8 @@ namespace UnitTestProject
         IDataAccessFacade dataAccessFacadeStub;
         DateTime validDueDate;
         decimal validDueAmount;
-        string validResponsible;
-        string validCommissioner;
+        IParty validResponsible;
+        IParty validCommissioner;
         PaymentType validType;
         string validSale;
         int validBooking;
@@ -28,8 +28,8 @@ namespace UnitTestProject
             dataAccessFacadeStub = new DataAccessFacadeStub();
             validDueDate = new DateTime(2010, 10, 10);
             validDueAmount = 1m;
-            validResponsible = "Lonely Tree";
-            validCommissioner = "Galasam";
+            validResponsible = new Customer(CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
+            validCommissioner = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
             validType = PaymentType.Balance;
             validSale = "VF Jan";
             validBooking = 2;
@@ -88,6 +88,8 @@ namespace UnitTestProject
         [TestMethod]
         public void TestConstructorValidatesResponsible()
         {
+            // TODO: no validation to test here anymore
+            /*
             string invalidResponsible = "";
             bool caughtException = false;
 
@@ -102,11 +104,14 @@ namespace UnitTestProject
             }
 
             Assert.AreEqual(true, caughtException);
+            */
         }
 
         [TestMethod]
         public void TestConstructorValidatesCommissioner()
         {
+            // TODO: no validation to test here anymore
+            /*
             string invalidCommissioner = "";
             bool caughtException = false;
 
@@ -121,6 +126,7 @@ namespace UnitTestProject
             }
 
             Assert.AreEqual(true, caughtException);
+            */
         }
 
         [TestMethod]
@@ -287,14 +293,18 @@ namespace UnitTestProject
         [TestMethod]
         public void TestReadAllPayments()
         {
+            ISupplier commissioner1 = new Supplier("", "Galasam", SupplierType.Cruise, dataAccessFacadeStub);
+            ISupplier commissioner2 = new Supplier("", "Hansen Is", SupplierType.Cruise, dataAccessFacadeStub);
+            ISupplier commissioner3 = new Supplier("", "Bondegaarden", SupplierType.Cruise, dataAccessFacadeStub);
+            ISupplier commissioner4 = new Supplier("", "Timoto", SupplierType.Cruise, dataAccessFacadeStub);
             Payment payment1 = createValidPayment();
-            payment1.Commissioner = "jørgen";
+            payment1.Commissioner = commissioner1;
             Payment payment2 = createValidPayment();
-            payment2.Commissioner = "kurt";
+            payment2.Commissioner = commissioner2;
             Payment payment3 = createValidPayment();
-            payment3.Commissioner = "peter";
+            payment3.Commissioner = commissioner3;
             Payment payment4 = createValidPayment();
-            payment4.Commissioner = "søren";
+            payment4.Commissioner = commissioner4;
 
             List<Payment> actualPayments = Payment.ReadAll(dataAccessFacadeStub);
 
