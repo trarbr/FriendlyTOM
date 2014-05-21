@@ -79,7 +79,7 @@ namespace LonelyTreeExam.UserControls
             else
             {
                 int currentIndex = paymentsDataGrid.SelectedIndex;
-                details.UpdatePayment();
+                details.UpdatePayment(supplierController.ReadAllSuppliers(), customerController.ReadAllCustomers());
                 RefreshPaymentDataGrid();
                 paymentsDataGrid.SelectedIndex = currentIndex;
             }

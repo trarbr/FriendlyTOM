@@ -95,8 +95,8 @@ namespace Domain.Model
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
-            //validateResponsible(responsible);
-            //validateCommissioner(commissioner);
+            validateResponsible(responsible);
+            validateCommissioner(commissioner);
             validateSale(sale);
 
             this.dataAccessFacade = dataAccessFacade;

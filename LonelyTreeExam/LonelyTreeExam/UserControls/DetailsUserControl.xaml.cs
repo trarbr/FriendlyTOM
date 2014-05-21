@@ -33,7 +33,6 @@ namespace LonelyTreeExam.UserControls
             paymentController = controller;
             attachmentList =  new List<string>();
             culture = new CultureInfo("en-US");
-            //AddAutoCompleteEntries();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
             paymentTypeComboBox.SelectedIndex = 0;
             autoCompleteEntries = new HashSet<string>();
@@ -46,28 +45,31 @@ namespace LonelyTreeExam.UserControls
         {            
             if (dueDateDatePicker.SelectedDate != null)
             {
-                /*try
-                {*/
+                try
+                {
                     decimal dueAmount;
                     decimal.TryParse(dueAmountTextBox.Text, NumberStyles.Any, culture, out dueAmount);
                     DateTime dueDate = dueDateDatePicker.SelectedDate.Value;
                     int booking;
                     int.TryParse(bookingTextBox.Text, out booking);
-                    // TODO: Fix AutoComplete
+
                     IParty supplier = null;
-                    foreach (IParty supp in suppliers)
+                    for (int i = 0; i < suppliers.Count; i++)
                     {
-                        if (supp.Name == commissionerTextBox.Text)
+                        if (suppliers[i].Name == commissionerTextBox.Text)
                         {
-                            supplier = supp;
+                            supplier = suppliers[i];
+                            break;
                         }
                     }
+
                     IParty customer = null;
-                    foreach (IParty cust in customers)
+                    for (int i = 0; i < customers.Count; i++)
                     {
-                        if (cust.Name == responsibleTextBox.Text)
+                        if (customers[i].Name == responsibleTextBox.Text)
                         {
-                            customer = cust;
+                            customer = customers[i];
+                            break;
                         }
                     }
                     
@@ -94,11 +96,11 @@ namespace LonelyTreeExam.UserControls
                     paymentController.UpdatePayment(payment);
                     
                     SetSelectedPayment(null);
-                //}
-                /*catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                }*/
+                }
             }
             else
             {
@@ -106,7 +108,7 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
-        internal void UpdatePayment()
+        internal void UpdatePayment(List<ISupplier> suppliers, List<ICustomer> customers)
         {
             if (selectedPayment != null)
             {
@@ -123,9 +125,29 @@ namespace LonelyTreeExam.UserControls
                         selectedPayment.DueDate = dueDateDatePicker.SelectedDate.Value;
                     }
                     selectedPayment.DueAmount = dueAmount;
-                    // TODO: Should not be text!
-                    //selectedPayment.Responsible = responsibleTextBox;
-                    //selectedPayment.Commissioner = commissionerTextBox.Text;
+
+                    IParty supplier = null;
+                    for (int i = 0; i < suppliers.Count; i++)
+                    {
+                        if (suppliers[i].Name == commissionerTextBox.Text)
+                        {
+                            supplier = suppliers[i];
+                            break;
+                        }
+                    }
+                    selectedPayment.Commissioner = supplier;
+
+                    IParty customer = null;
+                    for (int i = 0; i < customers.Count; i++)
+                    {
+                        if (customers[i].Name == responsibleTextBox.Text)
+                        {
+                            customer = customers[i];
+                            break;
+                        }
+                    }
+                    selectedPayment.Responsible = customer;
+
                     selectedPayment.PaidAmount = paidAmount;
                     selectedPayment.Paid = paidCheckBox.IsChecked.Value;
                     if (paidDateDatePicker.SelectedDate != null)
@@ -173,9 +195,9 @@ namespace LonelyTreeExam.UserControls
             {
                 dueDateDatePicker.SelectedDate = selectedPayment.DueDate;
                 dueAmountTextBox.Text = selectedPayment.DueAmount.ToString("N2", culture.NumberFormat);
-                // TODO: Fix AutoComplete
-                //responsibleTextBox.Text = selectedPayment.Responsible;
-                //commissionerTextBox.Text = selectedPayment.Commissioner;
+
+                responsibleTextBox.Text = selectedPayment.Responsible.Name;
+                commissionerTextBox.Text = selectedPayment.Commissioner.Name;
                 paymentTypeComboBox.SelectedItem = selectedPayment.Type;
                 if (selectedPayment.PaidDate == new DateTime(1900, 1, 1))
                 {
