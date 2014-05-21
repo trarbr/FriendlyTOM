@@ -102,8 +102,8 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
 
             // Get entities for DataAccess
-            IParty responsibleEntity = ((AParty)responsible)._partyEntity;
-            IParty commissionerEntity = ((AParty)commissioner)._partyEntity;
+            IParty responsibleEntity = ((Party)responsible)._partyEntity;
+            IParty commissionerEntity = ((Party)commissioner)._partyEntity;
 
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
                 commissionerEntity, type, sale, booking);
@@ -116,11 +116,12 @@ namespace Domain.Model
         {
             _paymentEntity = paymentEntity;
             this._accountabilityEntity = _paymentEntity;
+
             // Need to know if it is supplier or customer if AParty really is to be abstract
-            AParty responsible = new AParty();
+            Party responsible = new Party();
             responsible._partyEntity = _paymentEntity.Responsible;
             Responsible = responsible;
-            AParty commissioner = new AParty();
+            Party commissioner = new Party();
             commissioner._partyEntity = _paymentEntity.Commissioner;
             Commissioner = commissioner;
             this.dataAccessFacade = dataAccessFacade;

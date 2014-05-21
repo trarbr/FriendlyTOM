@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Model
 {
-    internal class AParty : IParty
+    internal class Party : IParty
     {
         #region Public Properties
         public string Name

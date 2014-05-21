@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    internal class Supplier : AParty, ISupplier
+    internal class Supplier : Party, ISupplier
     {
         #region Public Properties/Methods
         public SupplierType Type
