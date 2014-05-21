@@ -5,6 +5,10 @@ namespace Domain.Model
 {
     internal class Party : IParty
     {
+        internal Party(IParty partyEntity)
+        {
+            _partyEntity = partyEntity;
+        }
         #region Public Properties
         public string Name
         {
@@ -54,6 +58,6 @@ namespace Domain.Model
         }
         #endregion
 
-        internal IParty _partyEntity { get; set; }
+        internal IParty _partyEntity;
     }
 }
