@@ -147,6 +147,10 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@TransferAmount", entity.TransferAmount);
             parameters.Add(parameter);
+            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Responsible).Id);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Commissioner).Id);
+            parameters.Add(parameter);
         }
     }
 }
