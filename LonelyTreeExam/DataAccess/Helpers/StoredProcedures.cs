@@ -24,5 +24,9 @@ namespace DataAccess.Helpers
         internal const string READ_ALL_BOOKINGS = "ReadAllBookings";
         internal const string CREATE_BOOKING = "InsertBooking";
         internal const string UPDATE_BOOKING = "UpdateBooking";
+
+        internal const string READ_ALL_PAYMENT_RULES = "ReadAllPaymentRules";
+        internal const string CREATE_PAYMENT_RULE = "InsertPaymentRule";
+        internal const string UPDATE_PAYMENT_RULE = "UpdatePaymentRule";
     }
 }

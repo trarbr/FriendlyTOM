@@ -31,12 +31,10 @@ namespace DataAccess
             }
 
             paymentMapper = new PaymentMapper(connectionString);
-
             customerMapper = new CustomerMapper(connectionString);
-
             supplierMapper = new SupplierMapper(connectionString);
-
             bookingMapper = new BookingMapper(connectionString);
+            paymentRuleMapper = new PaymentRuleMapper(connectionString);
 
             PartyMapper partyMapper = new PartyMapper();
 
@@ -46,6 +44,8 @@ namespace DataAccess
             paymentMapper.PartyMapper = partyMapper;
             bookingMapper.CustomerMapper = customerMapper;
             bookingMapper.SupplierMapper = supplierMapper;
+            paymentRuleMapper.CustomerMapper = customerMapper;
+            paymentRuleMapper.SupplierMapper = supplierMapper;
 
             customerMapper.ReadAll();
             supplierMapper.ReadAll();
@@ -191,8 +191,31 @@ namespace DataAccess
         private CustomerMapper customerMapper;
         private SupplierMapper supplierMapper;
         private BookingMapper bookingMapper;
+        private PaymentRuleMapper paymentRuleMapper;
         private static DataAccessFacade instance;
 
         #endregion
+
+
+        public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, 
+            BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IPaymentRule> ReadAllPaymentRules()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePaymentRule(IPaymentRule paymentRuleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePaymentRule(IPaymentRule paymentRuleEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

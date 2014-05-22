@@ -31,6 +31,12 @@ namespace DataAccess
        List<IBooking> ReadAllBookings();
        void UpdateBookings(IBooking booking);
        void DeleteBooking(IBooking booking);
+
+       IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, BookingType bookingType,
+            decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType);
+       List<IPaymentRule> ReadAllPaymentRules();
+       void UpdatePaymentRule(IPaymentRule paymentRuleEntity);
+       void DeletePaymentRule(IPaymentRule paymentRuleEntity);
    }
 }
 

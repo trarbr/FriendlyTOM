@@ -129,5 +129,28 @@ namespace DataAccess
             throw new NotImplementedException();
         }
         #endregion
+
+
+        #region PaymentRule Stuff
+        public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IPaymentRule> ReadAllPaymentRules()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePaymentRule(IPaymentRule paymentRuleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePaymentRule(IPaymentRule paymentRuleEntity)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
