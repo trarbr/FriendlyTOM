@@ -132,7 +132,8 @@ namespace DataAccess
 
 
         #region PaymentRule Stuff
-        public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
+        public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, 
+            BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
         {
             throw new NotImplementedException();
         }
