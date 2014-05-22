@@ -141,7 +141,7 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@IVA", entity.IVA);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Type", entity.Type);
+            parameter = new SqlParameter("@Type", entity.Type.ToString());
             parameters.Add(parameter);
             parameter = new SqlParameter("@ProductRetention", entity.ProductRetention);
             parameters.Add(parameter);
