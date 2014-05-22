@@ -54,6 +54,7 @@
     <Compile Include="Model\Party.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Payment.cs" />
+    <Compile Include="Model\PaymentRule.cs" />
     <Compile Include="Model\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

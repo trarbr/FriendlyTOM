@@ -92,6 +92,6 @@ namespace Domain.Model
         #endregion
 
         private IDataAccessFacade dataAccessFacade;
-        private ISupplier _supplierEntity;
+        internal ISupplier _supplierEntity;
     }
 }

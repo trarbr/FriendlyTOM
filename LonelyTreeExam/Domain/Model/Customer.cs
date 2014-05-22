@@ -91,7 +91,7 @@ namespace Domain.Model
         #endregion
 
         #region Private fields
-        private ICustomer _customerEntity;
+        internal ICustomer _customerEntity;
         private IDataAccessFacade dataAccessFacade;
         #endregion
 
