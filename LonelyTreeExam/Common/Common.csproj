@@ -40,10 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\AccountType.cs" />
+    <Compile Include="Enums\BookingType.cs" />
     <Compile Include="Enums\CustomerType.cs" />
     <Compile Include="Enums\PaymentType.cs" />
     <Compile Include="Enums\SupplierType.cs" />
     <Compile Include="Interfaces\IAccountability.cs" />
+    <Compile Include="Interfaces\IBooking.cs" />
     <Compile Include="Interfaces\ICustomer.cs" />
     <Compile Include="Interfaces\IParty.cs" />
     <Compile Include="Interfaces\IPayment.cs" />

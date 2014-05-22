@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Model
 {
-    internal abstract class AParty : IParty
+    internal class Party : IParty
     {
         #region Public Properties
         public string Name
@@ -25,6 +25,19 @@ namespace Domain.Model
             }
         }
         #endregion
+
+        internal Party(IParty partyEntity)
+        {
+            _partyEntity = partyEntity;
+        }
+
+        internal Party()
+        {}
+
+        protected void initializeParty(IParty partyEntity)
+        {
+            _partyEntity = partyEntity;
+        }
 
         #region Validation
         //Validates the name is not empty.

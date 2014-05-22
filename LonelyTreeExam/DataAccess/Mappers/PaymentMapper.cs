@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using DataAccess.Entities;
 using DataAccess.Helpers;
 using Common.Enums;
+using Common.Interfaces;
 
 namespace DataAccess.Mappers
 {
     internal class PaymentMapper : ASQLMapper<PaymentEntity>
     {
+        internal PartyMapper PartyMapper { get; set; }
+
         #region Internal Methods
         /// <summary>
         /// PaymentMapper should....
@@ -23,8 +26,8 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentEntity>();
         }
 
-        internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type, string sale, int booking)
+        internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, IParty responsible,
+            IParty commissioner, PaymentType type, string sale, int booking)
         {
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner,
                 type, sale, booking);
@@ -102,8 +105,8 @@ namespace DataAccess.Mappers
             bool archived = (bool)reader["Archived"];
             string attachments = (string)reader["Attachments"];
 
-            string responsible = (string)reader["Responsible"];
-            string commissioner = (string)reader["Commissioner"];
+            int responsibleId = (int)reader["Responsible"];
+            int commissionerId = (int)reader["Commissioner"];
             string note = (string)reader["Note"];
             PaymentType type = (PaymentType)Enum.Parse(typeof(PaymentType), reader["Type"].ToString());
             string sale = (string)reader["Sale"];
@@ -113,6 +116,9 @@ namespace DataAccess.Mappers
             int id = (int)reader["PaymentId"];
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
+
+            APartyEntity responsible = PartyMapper.Read(responsibleId);
+            APartyEntity commissioner = PartyMapper.Read(commissionerId);
 
             PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
                 commissioner, type, sale, booking);
@@ -161,7 +167,6 @@ namespace DataAccess.Mappers
         }
         #endregion
 
-
         #region Private Methods
         /// <summary>
         /// Adds the most common parameters shared in Insert and Update
@@ -183,9 +188,9 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Archived", entity.Archived);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Responsible", entity.Responsible);
+            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Responsible).Id);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Commissioner", entity.Commissioner);
+            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Commissioner).Id);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
@@ -201,6 +206,5 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
         }
         #endregion
-
     }
 }

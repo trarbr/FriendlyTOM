@@ -43,7 +43,6 @@ namespace LonelyTreeExam.UserControls
         {
             customersDataGrid.ItemsSource = null;
             customersDataGrid.ItemsSource = customerController.ReadAllCustomers();
-            setValuesInTextBoxes();
         }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)

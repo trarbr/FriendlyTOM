@@ -9,7 +9,7 @@ using DataAccess;
 
 namespace Domain.Model
 {
-    internal class Customer : AParty, ICustomer
+    internal class Customer : Party, ICustomer
     {
         #region Public Properties
         public CustomerType Type
@@ -50,16 +50,15 @@ namespace Domain.Model
             validateName(name);
 
             this.dataAccessFacade = dataAccessFacade;
-
             _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
-            this._partyEntity = _customerEntity;
+            initializeParty(_customerEntity);
         }
 
         internal Customer(ICustomer customerEntity, IDataAccessFacade dataAccessFacade)
         {
-            _customerEntity = customerEntity;
-            this._partyEntity = _customerEntity;
             this.dataAccessFacade = dataAccessFacade;
+            _customerEntity = customerEntity;
+            initializeParty(_customerEntity);
         }
 
         //Calls for updating an object of a customer. 

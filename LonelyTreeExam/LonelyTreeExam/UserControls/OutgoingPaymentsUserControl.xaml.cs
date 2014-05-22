@@ -22,12 +22,14 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class OutgoingPaymentsUserControl : UserControl
     {
-        public OutgoingPaymentsUserControl(PaymentController paymentController, SupplierController supplierController)
+        public OutgoingPaymentsUserControl(PaymentController paymentController,
+            CustomerController customerController, SupplierController supplierController)
         {
             InitializeComponent();
 
             this.paymentController = paymentController;
             this.supplierController = supplierController;
+            this.customerController = customerController;
 
             details = new DetailsUserControl(paymentController);
             details.responsibleTextBox.Text = "Lonely Tree";
@@ -52,6 +54,7 @@ namespace LonelyTreeExam.UserControls
 
         private PaymentController paymentController;
         private SupplierController supplierController;
+        private CustomerController customerController;
         private DetailsUserControl details;
         private IPayment selectedPayment;
         private BitmapImage collapsePlusImage;
@@ -70,13 +73,13 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedPayment == null)
             {
-                details.CreatePayment();
+                details.CreatePayment(supplierController.ReadAllSuppliers(), customerController.ReadAllCustomers());
                 RefreshPaymentDataGrid();
             }
             else
             {
                 int currentIndex = paymentsDataGrid.SelectedIndex;
-                details.UpdatePayment();
+                details.UpdatePayment(supplierController.ReadAllSuppliers(), customerController.ReadAllCustomers());
                 RefreshPaymentDataGrid();
                 paymentsDataGrid.SelectedIndex = currentIndex;
             }

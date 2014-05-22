@@ -25,8 +25,8 @@ namespace DataAccess.Entities
             get { return _attachments; }
         }
 
-        public PaymentEntity(DateTime dueDate, decimal dueAmount, string responsible, 
-            string commissioner, PaymentType type, string sale, int booking) 
+        public PaymentEntity(DateTime dueDate, decimal dueAmount, IParty responsible, 
+            IParty commissioner, PaymentType type, string sale, int booking) 
             : base(responsible, commissioner)
         {
             _attachments = new List<string>();

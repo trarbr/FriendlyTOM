@@ -42,6 +42,7 @@
     <Compile Include="DataAccessFacade.cs" />
     <Compile Include="DataAccessFacadeStub.cs" />
     <Compile Include="Entities\AAccountabilityEntity.cs" />
+    <Compile Include="Entities\BookingEntity.cs" />
     <Compile Include="Entities\CustomerEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\APartyEntity.cs" />
@@ -50,7 +51,9 @@
     <Compile Include="Helpers\StoredProcedures.cs" />
     <Compile Include="IDataAccessFacade.cs" />
     <Compile Include="Mappers\ASQLMapper.cs" />
+    <Compile Include="Mappers\BookingMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
+    <Compile Include="Mappers\PartyMapper.cs" />
     <Compile Include="Mappers\PaymentMapper.cs" />
     <Compile Include="Mappers\SupplierMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

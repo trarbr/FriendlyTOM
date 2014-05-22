@@ -31,8 +31,10 @@ namespace LonelyTreeExam.UserControls
             this.supplierController = supplierController;
             this.customerController = customerController;
 
-            incomingPaymentsControl = new IncomingPaymentsUserControl(paymentController, customerController);
-            outgoingPaymentsControl = new OutgoingPaymentsUserControl(paymentController, supplierController);
+            incomingPaymentsControl = new IncomingPaymentsUserControl(paymentController,
+                customerController, supplierController);
+            outgoingPaymentsControl = new OutgoingPaymentsUserControl(paymentController,
+                customerController, supplierController);
             archivedPaymentsControl = new ArchivedPaymentsUserControl(paymentController);
 
             incomingPaymentsUserControl.Content = incomingPaymentsControl;

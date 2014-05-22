@@ -10,8 +10,8 @@ namespace DataAccess
 {
    public interface IDataAccessFacade
    {
-        IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type, string sale, int booking);
+        IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty responsible,
+            IParty commissioner, PaymentType type, string sale, int booking);
         List<IPayment> ReadAllPayments();
         void UpdatePayment(IPayment payment);
         void DeletePayment(IPayment payment);
@@ -25,6 +25,12 @@ namespace DataAccess
        List<ICustomer> ReadAllCustomers();
        void UpdateCustomers(ICustomer customer);
        void DeleteCustomer(ICustomer customer);
+
+       IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
+           DateTime startDate, DateTime endDate);
+       List<IBooking> ReadAllBookings();
+       void UpdateBooking(IBooking booking);
+       void DeleteBooking(IBooking booking);
    }
 }
 

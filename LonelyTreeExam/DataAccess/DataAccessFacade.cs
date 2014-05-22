@@ -36,6 +36,19 @@ namespace DataAccess
 
             supplierMapper = new SupplierMapper(connectionString);
 
+            bookingMapper = new BookingMapper(connectionString);
+
+            PartyMapper partyMapper = new PartyMapper();
+
+            partyMapper.CustomerMapper = customerMapper;
+            partyMapper.SupplierMapper = supplierMapper;
+
+            paymentMapper.PartyMapper = partyMapper;
+            bookingMapper.CustomerMapper = customerMapper;
+            bookingMapper.SupplierMapper = supplierMapper;
+
+            customerMapper.ReadAll();
+            supplierMapper.ReadAll();
         }
 
         public static IDataAccessFacade GetInstance()
@@ -64,8 +77,8 @@ namespace DataAccess
             return payments;
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type, string sale, int booking)
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty responsible,
+            IParty commissioner, PaymentType type, string sale, int booking)
         {
             return paymentMapper.Create(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
         }
@@ -142,11 +155,43 @@ namespace DataAccess
         }
         #endregion
 
+        #region Booking Methods
+        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
+            DateTime startDate, DateTime endDate)
+        {
+            return bookingMapper.Create(responsible, commissioner, sale, bookingNumber, startDate, endDate);
+        }
+
+        public List<IBooking> ReadAllBookings()
+        {
+            List<IBooking> bookings = new List<IBooking>();
+            List<BookingEntity> bookingEntities = bookingMapper.ReadAll();
+
+            foreach (BookingEntity bookingEntity in bookingEntities)
+            {
+                bookings.Add(bookingEntity);
+            }
+
+            return bookings;
+        }
+
+        public void UpdateBooking(IBooking booking)
+        {
+            bookingMapper.Update((BookingEntity)booking);
+        }
+
+        public void DeleteBooking(IBooking booking)
+        {
+            bookingMapper.Delete((BookingEntity)booking);
+        }
+        #endregion
+
         #region Private Properties
         private string connectionString;
         private PaymentMapper paymentMapper;
         private CustomerMapper customerMapper;
         private SupplierMapper supplierMapper;
+        private BookingMapper bookingMapper;
         private static DataAccessFacade instance;
 
         #endregion

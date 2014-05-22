@@ -19,23 +19,25 @@ namespace Domain.Model
                 _accountabilityEntity.Note = value;
             }
         }
-        public string Responsible 
+        public IParty Responsible 
         {
-            get { return _accountabilityEntity.Responsible; }
+            get { return _responsible; }
             set
             {
                 validateResponsible(value);
-                _accountabilityEntity.Responsible = value;
+                _responsible = (Party)value;
+                _accountabilityEntity.Responsible = _responsible._partyEntity;
             }
         }
 
-        public string Commissioner 
+        public IParty Commissioner 
         {
-            get { return _accountabilityEntity.Commissioner; }
+            get { return _commissioner; }
             set
             {
                 validateCommissioner(value);
-                _accountabilityEntity.Commissioner = value;
+                _commissioner = (Party)value;
+                _accountabilityEntity.Commissioner = _commissioner._partyEntity;
             }
         }
 
@@ -46,16 +48,30 @@ namespace Domain.Model
 
         internal IAccountability _accountabilityEntity;
 
-        #region ValidateAllProperties
-
-        protected void validateResponsible(string value)
+        protected void initializeAccountability(IAccountability accountabilityEntity, IParty responsible, 
+            IParty commissioner)
         {
-            validateNullOrWhiteSpace(value, "Responsible");
+            _accountabilityEntity = accountabilityEntity;
+            Responsible = responsible;
+            Commissioner = commissioner;
         }
 
-        protected void validateCommissioner(string value)
+        #region ValidateAllProperties
+
+        protected void validateResponsible(IParty value)
         {
-            validateNullOrWhiteSpace(value, "Commissioner");
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Payer was not found");
+            }
+        }
+
+        protected void validateCommissioner(IParty value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Payee was not found");
+            }
         }
 
         protected void validateNullOrWhiteSpace(string text, string paramName)
@@ -84,5 +100,8 @@ namespace Domain.Model
             }
         }
         #endregion
+
+        private Party _responsible;
+        private Party _commissioner;
     }
 }

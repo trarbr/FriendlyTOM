@@ -39,6 +39,15 @@
                 </TabItem.Header>
                 <UserControl x:Name="customersUserControl"/>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/calendar.png" Height="16"/>
+                        <Label Content="Bookings"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <UserControl x:Name="bookingsUserControl"/>
+            </TabItem>
         </TabControl>
 
     </Grid>

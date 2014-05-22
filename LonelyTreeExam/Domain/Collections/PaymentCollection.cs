@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccess;
 using Domain.Model;
 using Common.Enums;
+using Common.Interfaces;
 
 namespace Domain.Collections
 {
@@ -44,11 +45,11 @@ namespace Domain.Collections
                     {
                         archivedPayments.Add(payment);
                     }
-                    else if (payment.Commissioner == "Lonely Tree")
+                    else if (payment.Commissioner.Name == "Lonely Tree")
                     {
                         incomingPayments.Add(payment);
                     }
-                    else if (payment.Responsible == "Lonely Tree")
+                    else if (payment.Responsible.Name == "Lonely Tree")
                     {
                         outgoingPayments.Add(payment);
                     }
@@ -88,8 +89,8 @@ namespace Domain.Collections
             return outgoingPayments;
         }
 
-        internal Payment Create(DateTime dueDate, decimal dueAmount, string responsible,
-             string commissioner, PaymentType type, string sale, int booking)
+        internal Payment Create(DateTime dueDate, decimal dueAmount, IParty responsible,
+             IParty commissioner, PaymentType type, string sale, int booking)
         {
             Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type,
                 sale, booking, dataAccessFacade);
@@ -113,7 +114,7 @@ namespace Domain.Collections
              {
                  archivedPayments.Remove(payment);
 
-                 if (payment.Commissioner == "Lonely Tree")
+                 if (payment.Commissioner.Name == "Lonely Tree")
                  {
                      if (!incomingPayments.Contains(payment))
                      {
@@ -121,7 +122,7 @@ namespace Domain.Collections
                          outgoingPayments.Remove(payment);
                      }
                  }
-                 if (payment.Responsible == "Lonely Tree")
+                 if (payment.Responsible.Name == "Lonely Tree")
                  {
                      if (!outgoingPayments.Contains(payment))
                      {

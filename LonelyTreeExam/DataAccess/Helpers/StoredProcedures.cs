@@ -20,5 +20,9 @@ namespace DataAccess.Helpers
         internal const string READ_ALL_SUPPLIERS = "ReadAllSuppliers";
         internal const string CREATE_SUPPLIER = "InsertSupplier";
         internal const string UPDATE_SUPPLIER = "UpdateSupplier";
+
+        internal const string READ_ALL_BOOKINGS = "ReadAllBookings";
+        internal const string CREATE_BOOKING = "InsertBooking";
+        internal const string UPDATE_BOOKING = "UpdateBooking";
     }
 }

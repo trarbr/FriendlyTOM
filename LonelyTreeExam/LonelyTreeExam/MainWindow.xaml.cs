@@ -2,6 +2,7 @@
 using LonelyTreeExam.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,13 +29,21 @@ namespace LonelyTreeExam
             PaymentController paymentController = new PaymentController();
             SupplierController supplierController = new SupplierController();
             CustomerController customerController = new CustomerController();
+            BookingController bookingController = new BookingController();
 
             accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
             accountingUserControl.Content = accountingControl;
             suppliersUserControl.Content = new SuppliersUserControl(supplierController);
             customersUserControl.Content = new CustomersUserControl(customerController);
+            bookingsUserControl.Content = new BookingsUserControl(bookingController, supplierController,
+                customerController);
 
-            currentTabIndex = 0; // 
+            currentTabIndex = 0;  
+        }
+
+        public static CultureInfo GetCulture()
+        {
+            return new CultureInfo("en-US");
         }
 
         private AccountingUserControl accountingControl;

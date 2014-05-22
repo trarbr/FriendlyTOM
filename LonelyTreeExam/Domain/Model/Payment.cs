@@ -90,8 +90,8 @@ namespace Domain.Model
         #endregion
 
         #region Internal Methods
-        internal Payment(DateTime dueDate, decimal dueAmount, string responsible,
-            string commissioner, PaymentType type, string sale, int booking,
+        internal Payment(DateTime dueDate, decimal dueAmount, IParty responsible,
+            IParty commissioner, PaymentType type, string sale, int booking,
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
@@ -99,18 +99,26 @@ namespace Domain.Model
             validateCommissioner(commissioner);
             validateSale(sale);
 
-            this.dataAccessFacade = dataAccessFacade;
+            // Get entities for DataAccess
+            IParty responsibleEntity = ((Party)responsible)._partyEntity;
+            IParty commissionerEntity = ((Party)commissioner)._partyEntity;
 
-            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsible,
-                commissioner, type, sale, booking);
-            this._accountabilityEntity = _paymentEntity;
+            this.dataAccessFacade = dataAccessFacade;
+            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
+                commissionerEntity, type, sale, booking);
+            initializeAccountability(_paymentEntity, responsible, commissioner);
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
         {
-            _paymentEntity = paymentEntity;
-            this._accountabilityEntity = _paymentEntity;
             this.dataAccessFacade = dataAccessFacade;
+            this._paymentEntity = paymentEntity;
+
+            // Create Models of responsible and commissioner
+            Party responsible = new Party(_paymentEntity.Responsible);
+            Party commissioner = new Party(_paymentEntity.Commissioner);
+
+            initializeAccountability(_paymentEntity, responsible, commissioner);
         }
 
         internal void Update()
