@@ -254,8 +254,9 @@ namespace LonelyTreeExam.UserControls
                 {
                     string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}",
                         booking.Service, booking.Sale, booking.Type.ToString(), booking.StartDate,
-                        booking.SupplierRetention, booking.Responsible, booking.ProductRetention, 
-                        booking.Note, booking.IVASubject, booking.IVAExempt, booking.EndDate, booking.Commissioner, booking.BookingNumber);
+                        booking.SupplierRetention, booking.Responsible.Name, booking.ProductRetention, 
+                        booking.Note, booking.IVASubject, booking.IVAExempt, booking.EndDate,
+                        booking.Commissioner.Name, booking.BookingNumber);
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         searchedBookings.Add(booking);
