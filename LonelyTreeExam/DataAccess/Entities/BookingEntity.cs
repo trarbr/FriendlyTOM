@@ -26,9 +26,23 @@ namespace DataAccess.Entities
         public decimal TransferAmount { get; set; }
 
         internal BookingEntity(IParty responsible, IParty commissioner, string sale, int bookingNumber, 
-            DateTime StartDate, DateTime EndDate) : base(responsible, commissioner)
+            DateTime startDate, DateTime endDate) : base(responsible, commissioner)
         {
+            Responsible = responsible;
+            Commissioner = commissioner;
+            Sale = sale;
+            BookingNumber = bookingNumber;
+            StartDate = startDate;
+            EndDate = endDate;
 
+            IVAExempt = 0;
+            IVASubject = 0;
+            SubTotal = 0;
+            Service = 0;
+            IVA = 0;
+            ProductRetention = 0;
+            SupplierRetention = 0;
+            TransferAmount = 0;
         }
     }
 }
