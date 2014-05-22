@@ -32,15 +32,13 @@ namespace LonelyTreeExam.UserControls
             InitializeComponent();
             paymentController = controller;
             attachmentList =  new List<string>();
-            culture = new CultureInfo("en-US");
+            culture = MainWindow.GetCulture();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
             paymentTypeComboBox.SelectedIndex = 0;
             autoCompleteEntries = new HashSet<string>();
         }
 
         #region Internal Methods
-
-        
         internal void CreatePayment(List<ISupplier> suppliers, List<ICustomer> customers)
         {            
             if (dueDateDatePicker.SelectedDate != null)
@@ -181,14 +179,14 @@ namespace LonelyTreeExam.UserControls
         #endregion
 
         #region Private Fields
-        public List<string> attachmentList;
-        private PaymentController paymentController;
+        private List<string> attachmentList;
         private CultureInfo culture;
+        private PaymentController paymentController;
         private IPayment selectedPayment;
         private HashSet<string> autoCompleteEntries;
         #endregion
         
-        #region Private Method
+        #region Private Methods
         private void setValuesInTextBoxes()
         {
             if (selectedPayment != null)
