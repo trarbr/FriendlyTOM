@@ -41,7 +41,10 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <Label Content="Bookings"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/calendar.png" Height="16"/>
+                        <Label Content="Bookings"/>
+                    </StackPanel>
                 </TabItem.Header>
                 <UserControl x:Name="bookingsUserControl"/>
             </TabItem>
