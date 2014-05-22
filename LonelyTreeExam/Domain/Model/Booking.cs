@@ -97,7 +97,8 @@ namespace Domain.Model
             IParty commissionerEntity = ((Party)commissioner)._partyEntity;
 
             this.dataAccessFacade = dataAccessFacade;
-            _bookingEntity = dataAccessFacade.CreateBooking(responsibleEntity, commissionerEntity, sale, bookingNumber, startDate, endDate);
+            _bookingEntity = dataAccessFacade.CreateBooking(responsibleEntity, commissionerEntity, sale,
+                bookingNumber,startDate, endDate);
             initializeAccountability(_bookingEntity, responsible, commissioner);
         }
 
@@ -116,7 +117,7 @@ namespace Domain.Model
 
         internal void Update()
         {
-            dataAccessFacade.UpdateBookings(_bookingEntity);
+            dataAccessFacade.UpdateBooking(_bookingEntity);
         }
 
         internal void Delete()

@@ -29,7 +29,7 @@ namespace DataAccess
        IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
            DateTime startDate, DateTime endDate);
        List<IBooking> ReadAllBookings();
-       void UpdateBookings(IBooking booking);
+       void UpdateBooking(IBooking booking);
        void DeleteBooking(IBooking booking);
    }
 }

@@ -15,23 +15,24 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap"
                  HorizontalAlignment="Left" Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
-        <DataGrid x:Name="bookingsDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
-                  VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
-                  AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
-                  BorderBrush="#FFC6C6C9" SelectionChanged="bookingsDataGrid_SelectionChanged" >
+        <DataGrid x:Name="bookingsDataGrid" Grid.Row="1" Width="auto" Height="auto"
+                  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                  ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False"
+                  IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9"
+                  SelectionChanged="bookingsDataGrid_SelectionChanged" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Responsible.Name}"/>
                 <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding Commissioner.Name}"/>
                 <DataGridTextColumn Header = "Sale" Width="*" Binding="{Binding Sale}"/>
                 <DataGridTextColumn Header = "Booking Number" Width="*" Binding="{Binding BookingNumber}"/>
-                <DataGridTextColumn Header = "Start Date" Width="*" Binding="{Binding StartDate}"/>
-                <DataGridTextColumn Header = "End Date" Width="*" Binding="{Binding EndDate}"/>
+                <DataGridTextColumn Header = "Start Date" Width="*" Binding="{Binding StartDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
+                <DataGridTextColumn Header = "End Date" Width="*" Binding="{Binding EndDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
                 <DataGridTextColumn Header = "Type" Width="*" Binding="{Binding Type}"/>
-                <DataGridTextColumn Header = "IVA Exempt" Width="*" Binding="{Binding IVAExempt}"/>
-                <DataGridTextColumn Header = "IVA Subject" Width="*" Binding="{Binding IVASubject}"/>
-                <DataGridTextColumn Header = "Service" Width="*" Binding="{Binding Service}"/>
-                <DataGridTextColumn Header = "Product Retention" Width="*" Binding="{Binding ProductRetention}"/>
-                <DataGridTextColumn Header = "Supplier Retention" Width="*" Binding="{Binding SupplierRetention}"/>
+                <DataGridTextColumn Header = "IVA Exempt" Width="*" Binding="{Binding IVAExempt, StringFormat=N2}"/>
+                <DataGridTextColumn Header = "IVA Subject" Width="*" Binding="{Binding IVASubject, StringFormat=N2}"/>
+                <DataGridTextColumn Header = "Service" Width="*" Binding="{Binding Service, StringFormat=N2}"/>
+                <DataGridTextColumn Header = "Product Retention" Width="*" Binding="{Binding ProductRetention, StringFormat=N2}"/>
+                <DataGridTextColumn Header = "Supplier Retention" Width="*" Binding="{Binding SupplierRetention, StringFormat=N2}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">
@@ -40,10 +41,11 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,10,0,0">
-                <Button x:Name="newButton" Width="75" Margin="5,0,0,5" ToolTip="Add supplier" Click="newButton_Click" 
+                <Button x:Name="newButton" Width="75" Margin="5,0,0,5" ToolTip="Add booking" Click="newButton_Click" 
                         ContentTemplate="{StaticResource NewButton}"/>
-                <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                        ToolTip="Delete selected supplier" ContentTemplate="{StaticResource DeleteButton}"
+                <Button x:Name="deleteButton" Width="75" Margin="10,0,0,0" HorizontalAlignment="Left"
+                        VerticalAlignment="Top" ToolTip="Delete selected booking"
+                        ContentTemplate="{StaticResource DeleteButton}"
                         Click="deleteButton_Click"/>
             </StackPanel>
             <Button x:Name="collapseButton" Grid.Column="1" VerticalAlignment="Top" Margin="0,10,0,0"
@@ -89,7 +91,7 @@
             </StackPanel>
             <StackPanel Grid.Column="2" Margin="20,0,0,0">
                 <Label Content="Note:"/>
-                <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                <TextBox x:Name="noteTextBox" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                     HorizontalScrollBarVisibility="Auto"/>
             </StackPanel>
         </Grid>

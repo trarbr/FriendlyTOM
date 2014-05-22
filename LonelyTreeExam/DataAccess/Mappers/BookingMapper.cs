@@ -25,7 +25,8 @@ namespace DataAccess.Mappers
         internal BookingEntity Create(IParty responsible, IParty commissioner, string sale, int bookingNumber,
             DateTime StartDate, DateTime EndDate)
         {
-            BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber, StartDate, EndDate);
+            BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber,
+                StartDate, EndDate);
 
             insert(bookingEntity);
 

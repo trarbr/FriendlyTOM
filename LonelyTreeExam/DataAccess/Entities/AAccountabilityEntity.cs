@@ -18,10 +18,7 @@ namespace DataAccess.Entities
         public IParty Commissioner
         {
             get { return _commissioner; }
-            set
-            {
-                _commissioner = (APartyEntity)value;
-            }
+            set { _commissioner = (APartyEntity)value; }
         }
         internal AAccountabilityEntity(IParty responsible, IParty commissioner) 
         {

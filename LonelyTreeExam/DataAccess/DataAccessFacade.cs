@@ -156,7 +156,8 @@ namespace DataAccess
         #endregion
 
         #region Booking Methods
-        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
+        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
+            DateTime startDate, DateTime endDate)
         {
             return bookingMapper.Create(responsible, commissioner, sale, bookingNumber, startDate, endDate);
         }
@@ -174,7 +175,7 @@ namespace DataAccess
             return bookings;
         }
 
-        public void UpdateBookings(IBooking booking)
+        public void UpdateBooking(IBooking booking)
         {
             bookingMapper.Update((BookingEntity)booking);
         }
