@@ -20,18 +20,18 @@
                   AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
                   BorderBrush="#FFC6C6C9" SelectionChanged="bookingsDataGrid_SelectionChanged" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding  Type}"/>
-                <DataGridTextColumn Header = "Sale" Width="*" Binding="{Binding AccountNo}"/>
-                <DataGridTextColumn Header = "Booking Number" Width="*" Binding="{Binding AccountType}"/>
-                <DataGridTextColumn Header = "Start Date" Width="*" Binding="{Binding AccountName}"/>
-                <DataGridTextColumn Header = "End Date" Width="*" Binding="{Binding OwnerId}"/>
-                <DataGridTextColumn Header = "Type" Width="*" Binding="{Binding Bank}"/>
-                <DataGridTextColumn Header = "IVA Exempt" Width="*" Binding="{Binding Bank}"/>
-                <DataGridTextColumn Header = "IVA Subject" Width="*" Binding="{Binding Bank}"/>
-                <DataGridTextColumn Header = "Service" Width="*" Binding="{Binding Bank}"/>
-                <DataGridTextColumn Header = "Product Retention" Width="*" Binding="{Binding Bank}"/>
-                <DataGridTextColumn Header = "Supplier Retention" Width="*" Binding="{Binding Bank}"/>
+                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Responsible.Name}"/>
+                <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding Commissioner.Name}"/>
+                <DataGridTextColumn Header = "Sale" Width="*" Binding="{Binding Sale}"/>
+                <DataGridTextColumn Header = "Booking Number" Width="*" Binding="{Binding BookingNumber}"/>
+                <DataGridTextColumn Header = "Start Date" Width="*" Binding="{Binding StartDate}"/>
+                <DataGridTextColumn Header = "End Date" Width="*" Binding="{Binding EndDate}"/>
+                <DataGridTextColumn Header = "Type" Width="*" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header = "IVA Exempt" Width="*" Binding="{Binding IVAExempt}"/>
+                <DataGridTextColumn Header = "IVA Subject" Width="*" Binding="{Binding IVASubject}"/>
+                <DataGridTextColumn Header = "Service" Width="*" Binding="{Binding Service}"/>
+                <DataGridTextColumn Header = "Product Retention" Width="*" Binding="{Binding ProductRetention}"/>
+                <DataGridTextColumn Header = "Supplier Retention" Width="*" Binding="{Binding SupplierRetention}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">
