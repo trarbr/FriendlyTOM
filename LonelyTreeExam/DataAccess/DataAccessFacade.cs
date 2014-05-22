@@ -44,6 +44,8 @@ namespace DataAccess
             partyMapper.SupplierMapper = supplierMapper;
 
             paymentMapper.PartyMapper = partyMapper;
+            bookingMapper.CustomerMapper = customerMapper;
+            bookingMapper.SupplierMapper = supplierMapper;
 
             customerMapper.ReadAll();
             supplierMapper.ReadAll();

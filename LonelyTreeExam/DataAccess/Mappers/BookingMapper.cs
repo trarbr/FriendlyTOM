@@ -13,6 +13,9 @@ namespace DataAccess.Mappers
 {
     internal class BookingMapper : ASQLMapper<BookingEntity>
     {
+        internal CustomerMapper CustomerMapper;
+        internal SupplierMapper SupplierMapper;
+
         internal BookingMapper(string connectionString)
         {
             this.connectionString = connectionString;
@@ -64,13 +67,14 @@ namespace DataAccess.Mappers
 
         protected override BookingEntity entityFromReader(SqlDataReader reader)
         {
-            IParty responsible = (IParty) reader["responsible"];
-            IParty commissioner = (IParty) reader["Commissioner"];
+            int responsibleId = (int) reader["Responsible"];
+            int commissionerId = (int) reader["Commissioner"];
+            string note = (string)reader["Note"];
             string sale = (string) reader["Sale"];
             int bookingNumber = (int) reader["BookingNumber"];
             DateTime startDate = (DateTime) reader["StartDate"];
             DateTime endDate = (DateTime) reader["EndDate"];
-            BookingType type = (BookingType) Enum.Parse(typeof (BookingType), reader["BookingType"].ToString());
+            BookingType type = (BookingType) Enum.Parse(typeof (BookingType), reader["Type"].ToString());
             decimal iVAExempt = (decimal) reader["IVAExempt"];
             decimal iVASubject = (decimal) reader["IVASubject"];
             decimal service = (decimal) reader["Service"];
@@ -79,13 +83,17 @@ namespace DataAccess.Mappers
             decimal supplierRetention = (decimal) reader["supplierRetention"];
             decimal transferAmount = (decimal) reader["TransferAmount"];
 
-            int id = (int) reader["PartyId"];
+            int id = (int) reader["BookingId"];
             DateTime lastModified = (DateTime) reader["LastModified"];
             bool deleted = (bool) reader["Deleted"];
+
+            IParty responsible = SupplierMapper.Read(responsibleId);
+            IParty commissioner = CustomerMapper.Read(commissionerId);
 
             BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber,
                 startDate, endDate);
 
+            bookingEntity.Note = note;
             bookingEntity.Id = id;
             bookingEntity.LastModified = lastModified;
             bookingEntity.Deleted = deleted;
