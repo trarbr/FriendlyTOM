@@ -160,7 +160,24 @@ namespace LonelyTreeExam.UserControls
                     int currentIndex = bookingsDataGrid.SelectedIndex;
 
                     IParty responsible = null;
+                    foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
+                    {
+                        if (supplier.Name == responsibleTextBox.Text)
+                        {
+                            responsible = supplier;
+                            break;
+                        }
+                    }
+
                     IParty commissioner = null;
+                    foreach (ICustomer customer in customerController.ReadAllCustomers())
+                    {
+                        if (customer.Name == commissionerTextBox.Text)
+                        {
+                            commissioner = customer;
+                            break;
+                        }
+                    }
 
                     decimal iVAExempt;
                     decimal iVASubject;
