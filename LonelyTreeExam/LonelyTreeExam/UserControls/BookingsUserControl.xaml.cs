@@ -149,6 +149,7 @@ namespace LonelyTreeExam.UserControls
                     booking.Service = service;
                     booking.ProductRetention = productRetention;
                     booking.SupplierRetention = supplierRetention;
+                    booking.Note = noteTextBox.Text;
                     bookingController.UpdateBooking(booking);
 
                     refreshDataGrid();
@@ -285,6 +286,7 @@ namespace LonelyTreeExam.UserControls
                 supplierRetentionTextBox.Text = selectedBooking.SupplierRetention.ToString();
                 responsibleTextBox.Text = selectedBooking.Responsible.Name;
                 commissionerTextBox.Text = selectedBooking.Commissioner.Name;
+                noteTextBox.Text = selectedBooking.Note;
             }
             else
             {
@@ -300,6 +302,7 @@ namespace LonelyTreeExam.UserControls
                 supplierRetentionTextBox.Text = "";
                 responsibleTextBox.Text = "";
                 commissionerTextBox.Text = "";
+                noteTextBox.Text = "";
             }
         }
     }
