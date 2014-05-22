@@ -153,6 +153,12 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
+            parameter = new SqlParameter("@Id", entity.Id);
+            parameters.Add(parameter);
+            parameter=new SqlParameter("@LastModified", entity.LastModified);
+            parameters.Add(parameter);
+            parameter = new SqlParameter("@Deleted", entity.Deleted);
+            parameters.Add(parameter);
         }
     }
 }
