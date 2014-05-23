@@ -16,6 +16,10 @@ namespace DataAccess.Entities
         public string AccountName { get; set; }
         public string OwnerId { get; set; }
         public string Bank { get; set; }
+        public IReadOnlyList<IPaymentRule> PaymentRules
+        {
+            get { return _paymentRules; }
+        }
 
         public SupplierEntity(SupplierType type, string note, string name) 
             :base(note, name)
@@ -27,6 +31,19 @@ namespace DataAccess.Entities
             OwnerId = "";
             Bank = "";
 
+            _paymentRules = new List<PaymentRuleEntity>();
         }
+
+        internal void AddPaymentRule(PaymentRuleEntity paymentRule)
+        {
+            _paymentRules.Add(paymentRule);
+        }
+
+        internal void RemovePaymentRule(PaymentRuleEntity paymentRule)
+        {
+            _paymentRules.Remove(paymentRule);
+        }
+
+        private List<PaymentRuleEntity> _paymentRules;
     }
 }

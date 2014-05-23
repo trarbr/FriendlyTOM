@@ -46,7 +46,24 @@ namespace Domain.Controller
         {
             supplierCollection.Delete((Supplier) supplier);
         }
-       #endregion
+
+        public void AddPaymentRule(ISupplier supplier, ICustomer customer, BookingType bookingType, decimal percentage,
+            int daysOffset, BaseDate baseDate, PaymentType paymentType)
+        {
+            Supplier s = (Supplier)supplier;
+            Customer c = (Customer)customer;
+
+            s.AddPaymentRule(c, bookingType, percentage, daysOffset, baseDate, paymentType);
+        }
+
+        public void DeletePaymentRule(IPaymentRule paymentRule)
+        {
+            PaymentRule p = (PaymentRule)paymentRule;
+            Supplier s = (Supplier)p.Supplier;
+
+            s.DeletePaymentRule(p);
+        }
+        #endregion
 
        #region Private Properties
         private IDataAccessFacade dataAccessFacade;

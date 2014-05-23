@@ -48,7 +48,14 @@ namespace Domain.Model
             set { _supplierEntity.Bank = value; }
         }
 
+        public IReadOnlyList<IPaymentRule> PaymentRules
+        {
+            get { return _paymentRules; }
+        }
+
         #endregion
+
+        internal ISupplier _supplierEntity;
 
         #region Internal Methods
         internal Supplier(string name, string note, SupplierType type, IDataAccessFacade dataAccessFacade)
@@ -58,6 +65,8 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _supplierEntity = dataAccessFacade.CreateSupplier(name, note, type);
             initializeParty(_supplierEntity);
+
+            _paymentRules = new List<PaymentRule>();
         }
 
         internal Supplier(IDataAccessFacade dataAccessFacade, ISupplier supplierEntity)
@@ -65,6 +74,14 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _supplierEntity = supplierEntity;
             initializeParty(_supplierEntity);
+
+            _paymentRules = new List<PaymentRule>();
+
+            foreach (IPaymentRule paymentRuleEntity in _supplierEntity.PaymentRules)
+            {
+                PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, dataAccessFacade);
+                _paymentRules.Add(paymentRule);
+            }
         }
 
         internal void Update()
@@ -89,9 +106,26 @@ namespace Domain.Model
             }
             return suppliers;
         }
+
+        internal void AddPaymentRule(Customer customer, BookingType bookingType, decimal percentage, int daysOffset, 
+            BaseDate baseDate, PaymentType paymentType)
+        {
+            PaymentRule paymentRule = new PaymentRule(this, customer, bookingType, percentage, daysOffset, baseDate,
+                paymentType, dataAccessFacade);
+
+            _paymentRules.Add(paymentRule);
+        }
+
+        internal void DeletePaymentRule(PaymentRule paymentRule)
+        {
+            paymentRule.Delete();
+
+            _paymentRules.Remove(paymentRule);
+        }
         #endregion
 
         private IDataAccessFacade dataAccessFacade;
-        internal ISupplier _supplierEntity;
+
+        private List<PaymentRule> _paymentRules;
     }
 }

@@ -67,15 +67,14 @@ namespace Domain.Model
 
         internal IPaymentRule _paymentRuleEntity;
 
-        internal PaymentRule(ISupplier supplier, ICustomer customer, BookingType bookingType,
-            decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType, 
-            IDataAccessFacade dataAccessFacade)
+        internal PaymentRule(Supplier supplier, Customer customer, BookingType bookingType, decimal percentage, 
+            int daysOffset, BaseDate baseDate, PaymentType paymentType, IDataAccessFacade dataAccessFacade)
         {
             // validate
 
             // Get entities for DataAccess
-            ISupplier supplierEntity = ((Supplier)supplier)._supplierEntity;
-            ICustomer customerEntity = ((Customer)customer)._customerEntity;
+            ISupplier supplierEntity = supplier._supplierEntity;
+            ICustomer customerEntity = customer._customerEntity;
 
             this.dataAccessFacade = dataAccessFacade;
             _paymentRuleEntity = dataAccessFacade.CreatePaymentRule(supplierEntity, customerEntity, bookingType, 
@@ -92,29 +91,29 @@ namespace Domain.Model
             Customer = new Customer(_paymentRuleEntity.Customer, dataAccessFacade);
         } 
 
-        internal void Update()
-        {
-            dataAccessFacade.UpdatePaymentRule(_paymentRuleEntity);
-        }
+        //internal void Update()
+        //{
+        //    dataAccessFacade.UpdatePaymentRule(_paymentRuleEntity);
+        //}
 
         internal void Delete()
         {
             dataAccessFacade.DeletePaymentRule(_paymentRuleEntity);
         }
 
-        internal static List<PaymentRule> ReadAll(IDataAccessFacade dataAccessFacade)
-        {
-            List<IPaymentRule> paymentRuleEntities = dataAccessFacade.ReadAllPaymentRules();
-            List<PaymentRule> paymentRules = new List<PaymentRule>();
+        //internal static List<PaymentRule> ReadAll(IDataAccessFacade dataAccessFacade)
+        //{
+        //    List<IPaymentRule> paymentRuleEntities = dataAccessFacade.ReadAllPaymentRules();
+        //    List<PaymentRule> paymentRules = new List<PaymentRule>();
 
-            foreach (IPaymentRule paymentRuleEntity in paymentRuleEntities)
-            {
-                PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, dataAccessFacade);
-                paymentRules.Add(paymentRule);
-            }
+        //    foreach (IPaymentRule paymentRuleEntity in paymentRuleEntities)
+        //    {
+        //        PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, dataAccessFacade);
+        //        paymentRules.Add(paymentRule);
+        //    }
 
-            return paymentRules;
-        }
+        //    return paymentRules;
+        //}
 
         private IDataAccessFacade dataAccessFacade;
         private Supplier _supplier;

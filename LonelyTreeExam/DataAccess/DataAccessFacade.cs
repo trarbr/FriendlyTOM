@@ -49,6 +49,8 @@ namespace DataAccess
 
             customerMapper.ReadAll();
             supplierMapper.ReadAll();
+
+            paymentRuleMapper.ReadAll();
         }
 
         public static IDataAccessFacade GetInstance()
@@ -105,6 +107,7 @@ namespace DataAccess
         {
             List<ISupplier> suppliers = new List<ISupplier>();
             List<SupplierEntity> supplierEntities = supplierMapper.ReadAll();
+            paymentRuleMapper.ReadAll(); // populate SupplierEntities with PaymentRuleEntities
             foreach (SupplierEntity supplierEntity in supplierEntities)
             {
                 suppliers.Add(supplierEntity);
@@ -116,6 +119,10 @@ namespace DataAccess
         public void UpdateSupplier(ISupplier supplier)
         {
             supplierMapper.Update((SupplierEntity)supplier);
+            foreach (IPaymentRule paymentRule in supplier.PaymentRules)
+            {
+                paymentRuleMapper.Update((PaymentRuleEntity)paymentRule);
+            }
         }
 
         public void DeleteSupplier(ISupplier supplier)
@@ -200,7 +207,10 @@ namespace DataAccess
         public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, 
             BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
         {
-            throw new NotImplementedException();
+            SupplierEntity s = (SupplierEntity)supplierEntity;
+            CustomerEntity c = (CustomerEntity)customerEntity;
+
+            return paymentRuleMapper.Create(s, c, bookingType, percentage, daysOffset, baseDate, paymentType);
         }
 
         public List<IPaymentRule> ReadAllPaymentRules()
@@ -210,12 +220,12 @@ namespace DataAccess
 
         public void UpdatePaymentRule(IPaymentRule paymentRuleEntity)
         {
-            throw new NotImplementedException();
+            paymentRuleMapper.Update((PaymentRuleEntity)paymentRuleEntity);
         }
 
         public void DeletePaymentRule(IPaymentRule paymentRuleEntity)
         {
-            throw new NotImplementedException();
+            paymentRuleMapper.Delete((PaymentRuleEntity)paymentRuleEntity);
         }
     }
 }

@@ -23,14 +23,16 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentRuleEntity>();
         }
 
-        // WHOOPS! Conversion from interface to entity should be happening in Facade!
-        internal PaymentRuleEntity Create(ISupplier supplierEntity, ICustomer customerEntity, BookingType bookingType,
-            decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
+        internal PaymentRuleEntity Create(SupplierEntity supplierEntity, CustomerEntity customerEntity, 
+            BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
         {
             PaymentRuleEntity paymentRuleEntity = new PaymentRuleEntity(supplierEntity, customerEntity, bookingType,
             percentage, daysOffset, baseDate, paymentType);
 
             insert(paymentRuleEntity);
+
+            // could be done in PaymentRuleEntity constructor? Almost Inversion Of Control!
+            supplierEntity.AddPaymentRule(paymentRuleEntity);
 
             return paymentRuleEntity;
         }
@@ -38,8 +40,6 @@ namespace DataAccess.Mappers
         internal List<PaymentRuleEntity> ReadAll()
         {
             List<PaymentRuleEntity> paymentRules = selectAll();
-
-            // Finalize!!
 
             return paymentRules;
         }
@@ -52,6 +52,8 @@ namespace DataAccess.Mappers
         internal void Delete(PaymentRuleEntity paymentRule)
         {
             paymentRule.Deleted = true;
+            SupplierEntity s = (SupplierEntity)paymentRule.Supplier;
+            s.RemovePaymentRule(paymentRule);
             Update(paymentRule);
         }
 
@@ -84,6 +86,8 @@ namespace DataAccess.Mappers
 
             PaymentRuleEntity paymentRuleEntity = new PaymentRuleEntity(supplier, customer, bookingType, percentage,
                 daysOffset, baseDate, paymentType);
+
+            supplier.AddPaymentRule(paymentRuleEntity);
 
             return paymentRuleEntity;
         }
