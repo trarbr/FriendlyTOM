@@ -148,6 +148,13 @@ namespace Domain.Model
             dataAccessFacade.DeleteBooking(_bookingEntity);
         }
 
+        internal void CalculateTransferAmount()
+        {
+            SubTotal = IVAExempt + IVASubject;
+            IVA = IVASubject * 0.12m;
+            TransferAmount = SubTotal - (SubTotal * ProductRetention) + Service + IVA - (IVA * SupplierRetention);
+        }
+
         #region Private fields
         private IBooking _bookingEntity;
         private IDataAccessFacade dataAccessFacade;

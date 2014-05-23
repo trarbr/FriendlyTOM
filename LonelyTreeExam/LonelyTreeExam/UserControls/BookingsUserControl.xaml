@@ -20,8 +20,8 @@
                   AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
                   BorderBrush="#FFC6C6C9" SelectionChanged="bookingsDataGrid_SelectionChanged" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Responsible.Name}"/>
-                <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding Commissioner.Name}"/>
+                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Supplier.Name}"/>
+                <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding Customer.Name}"/>
                 <DataGridTextColumn Header = "Sale" Width="*" Binding="{Binding Sale}"/>
                 <DataGridTextColumn Header = "Booking Number" Width="*" Binding="{Binding BookingNumber}"/>
                 <DataGridTextColumn Header = "Start Date" Width="*" Binding="{Binding StartDate}"/>

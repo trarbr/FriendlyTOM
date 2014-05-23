@@ -45,12 +45,12 @@ namespace Domain.Model
                     dueDate = booking.EndDate.AddDays(paymentRule.DaysOffset);
                 }
 
+                booking.CalculateTransferAmount();
                 decimal dueAmount = booking.TransferAmount * paymentRule.Percentage / 100;
 
                 Customer payingCustomer = paymentController.CustomerLonelyTree;
 
-                // wrong customer
-                paymentController.CreatePayment(dueDate, dueAmount, booking.Supplier, payingCustomer, 
+                paymentController.CreatePayment(dueDate, dueAmount, payingCustomer, booking.Supplier, 
                     paymentRule.PaymentType, booking.Sale, booking.BookingNumber);
             }
         }
