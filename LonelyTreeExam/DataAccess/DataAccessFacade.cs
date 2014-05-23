@@ -50,7 +50,7 @@ namespace DataAccess
             customerMapper.ReadAll();
             supplierMapper.ReadAll();
 
-            paymentRuleMapper.ReadAll();
+            //paymentRuleMapper.ReadAll();
         }
 
         public static IDataAccessFacade GetInstance()
@@ -112,6 +112,7 @@ namespace DataAccess
             {
                 suppliers.Add(supplierEntity);
             }
+
 
             return suppliers;
         }

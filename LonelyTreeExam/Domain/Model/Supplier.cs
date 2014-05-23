@@ -79,7 +79,7 @@ namespace Domain.Model
 
             foreach (IPaymentRule paymentRuleEntity in _supplierEntity.PaymentRules)
             {
-                PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, dataAccessFacade);
+                PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, this, dataAccessFacade);
                 _paymentRules.Add(paymentRule);
             }
         }

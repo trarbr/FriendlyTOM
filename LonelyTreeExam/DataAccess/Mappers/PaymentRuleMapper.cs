@@ -117,6 +117,7 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@BaseDate", entity.BaseDate.ToString());
             parameters.Add(parameter);
             parameter = new SqlParameter("@PaymentType", entity.PaymentType.ToString());
+            parameters.Add(parameter);
         }
 
     }
