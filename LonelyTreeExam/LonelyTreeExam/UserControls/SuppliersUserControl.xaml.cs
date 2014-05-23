@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LonelyTreeExam.AutoComplete;
 
 namespace LonelyTreeExam.UserControls
 {
@@ -23,9 +24,10 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class SuppliersUserControl : UserControl
     {
-        public SuppliersUserControl(SupplierController supplierController)
+        public SuppliersUserControl(SupplierController supplierController, CustomerController customerController)
         {
             InitializeComponent();
+            this.customerController = customerController;
             this.supplierController = supplierController;
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
@@ -40,13 +42,17 @@ namespace LonelyTreeExam.UserControls
             paymentTypeComboBox.SelectedIndex = 0;
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
+            autoCompleteEntries = new HashSet<string>();
+            AddCustomersToAutoComplete(customerController.ReadAllCustomers());
         }
 
+        private CustomerController customerController;
         private SupplierController supplierController;
         private ISupplier selectedSupplier;
         private IPaymentRule selectedPaymentRule;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
+        private HashSet<string> autoCompleteEntries;
 
         private void refreshDataGrid()
         {
@@ -90,41 +96,72 @@ namespace LonelyTreeExam.UserControls
         {
             try
             {
-                if (selectedSupplier == null)
+                if (supplierTabControl.IsSelected)
                 {
-                    string name = nameTextBox.Text;
-                    SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    string note = noteTextBox.Text;
+                    if (selectedSupplier == null)
+                    {
+                        string name = nameTextBox.Text;
+                        SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                        string note = noteTextBox.Text;
 
-                    ISupplier supplier = supplierController.CreateSupplier(name, note, type);
-                    supplier.AccountName = accountNameTextBox.Text;
-                    supplier.AccountNo = accountNoTextBox.Text;
-                    supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
-                    supplier.Bank = bankTextBox.Text;
-                    supplier.OwnerId = ownerIdTextBox.Text;
+                        ISupplier supplier = supplierController.CreateSupplier(name, note, type);
+                        supplier.AccountName = accountNameTextBox.Text;
+                        supplier.AccountNo = accountNoTextBox.Text;
+                        supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+                        supplier.Bank = bankTextBox.Text;
+                        supplier.OwnerId = ownerIdTextBox.Text;
 
-                    supplierController.UpdateSupplier(supplier);
-                    refreshDataGrid();
-                    suppliersDataGrid.SelectedItem = null;
-                    setValuesInTextBoxes();
+                        supplierController.UpdateSupplier(supplier);
+                        refreshDataGrid();
+                        suppliersDataGrid.SelectedItem = null;
+                        setValuesInTextBoxes();
+                    }
+                    else
+                    {
+                        int currentIndex = suppliersDataGrid.SelectedIndex;
+
+                        selectedSupplier.Name = nameTextBox.Text;
+                        selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                        selectedSupplier.Note = noteTextBox.Text;
+                        selectedSupplier.AccountName = accountNameTextBox.Text;
+                        selectedSupplier.AccountNo = accountNoTextBox.Text;
+                        selectedSupplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+                        selectedSupplier.Bank = bankTextBox.Text;
+                        selectedSupplier.OwnerId = ownerIdTextBox.Text;
+
+                        supplierController.UpdateSupplier(selectedSupplier);
+                        refreshDataGrid();
+                        suppliersDataGrid.SelectedIndex = currentIndex;
+                    }
                 }
-                else
+                else if (paymentRuleTabControl.IsSelected)
                 {
-                    int currentIndex = suppliersDataGrid.SelectedIndex;
+                    ICustomer customer = null;
 
-                    selectedSupplier.Name = nameTextBox.Text;
-                    selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    selectedSupplier.Note = noteTextBox.Text;
-                    selectedSupplier.AccountName = accountNameTextBox.Text;
-                    selectedSupplier.AccountNo = accountNoTextBox.Text;
-                    selectedSupplier.AccountType = (AccountType) accountTypeComboBox.SelectedItem;
-                    selectedSupplier.Bank = bankTextBox.Text;
-                    selectedSupplier.OwnerId = ownerIdTextBox.Text;
+                    foreach (ICustomer theCustomer in customerController.ReadAllCustomers())
+                    {
+                        if (theCustomer.Name == customerTextBox.Text)
+                        {
+                            customer = theCustomer;
+                        }
+                    }
 
-                    supplierController.UpdateSupplier(selectedSupplier);
-                    refreshDataGrid();
-                    suppliersDataGrid.SelectedIndex = currentIndex;
+                    ISupplier supplier = selectedSupplier;
+                    BookingType bookingType = (BookingType) bookingTypeComboBox.SelectedItem;
+                    decimal percentage;
+                    decimal.TryParse(percentageTextBox.Text, out percentage);
+                    int daysOffSet;
+                    int.TryParse(daysOffsetTextBox.Text, out daysOffSet);
+                    BaseDate baseDate = (BaseDate) baseDateComboBox.SelectedItem;
+                    PaymentType paymentType = (PaymentType) paymentTypeComboBox.SelectedItem;
+
+
+                    supplierController.AddPaymentRule(supplier, customer, bookingType, percentage, daysOffSet, baseDate,
+                                                      paymentType);
+                    refreshPaymentRuleDataGrid();
+                    setPaymentRuleValuesInTextBoxes();
                 }
+
             }
             catch (Exception ex)
             {
@@ -163,7 +200,6 @@ namespace LonelyTreeExam.UserControls
         {
             if (selectedPaymentRule != null)
             {
-                supplierTextBox.Text = selectedPaymentRule.Supplier.Name;
                 customerTextBox.Text = selectedPaymentRule.Customer.Name;
                 bookingTypeComboBox.SelectedItem = selectedPaymentRule.BookingType;
                 percentageTextBox.Text = selectedPaymentRule.Percentage.ToString();
@@ -183,11 +219,26 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
+        internal void AddCustomersToAutoComplete(List<ICustomer> customers)
+        {
+            foreach (ICustomer customer in customers)
+            {
+                if (!autoCompleteEntries.Contains(customer.Name))
+                {
+                    customerTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
+                    autoCompleteEntries.Add(customer.Name);
+                }
+            }
+        }
+
         private void suppliersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedSupplier = (ISupplier)suppliersDataGrid.SelectedItem;
             setValuesInTextBoxes();
             paymentRuleDataGrid.ItemsSource = selectedSupplier.PaymentRules;
+
+            ISupplier supplier = (ISupplier)suppliersDataGrid.SelectedItem;
+            supplierTextBox.Text = supplier.Name;
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
