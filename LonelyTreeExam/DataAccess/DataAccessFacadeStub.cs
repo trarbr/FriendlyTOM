@@ -109,7 +109,7 @@ namespace DataAccess
         #endregion
 
         #region Booking Stuff
-        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
+        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();
         }

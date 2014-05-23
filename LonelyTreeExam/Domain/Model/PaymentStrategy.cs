@@ -25,8 +25,8 @@ namespace Domain.Model
 
         internal void CreatePayments()
         {
-            Supplier supplier = (Supplier)booking.Responsible;
-            Customer customer = (Customer)booking.Commissioner;
+            Supplier supplier = (Supplier)booking.Supplier;
+            Customer customer = (Customer)booking.Customer;
 
             // finding has to do more, but this will work in some cases
             List<IPaymentRule> paymentRulesForCustomer = findPaymentRulesForCustomer(supplier, customer);
@@ -47,7 +47,10 @@ namespace Domain.Model
 
                 decimal dueAmount = booking.TransferAmount * paymentRule.Percentage / 100;
 
-                paymentController.CreatePayment(dueDate, dueAmount, booking.Commissioner, booking.Responsible, 
+                Customer payingCustomer = paymentController.CustomerLonelyTree;
+
+                // wrong customer
+                paymentController.CreatePayment(dueDate, dueAmount, booking.Supplier, payingCustomer, 
                     paymentRule.PaymentType, booking.Sale, booking.BookingNumber);
             }
         }

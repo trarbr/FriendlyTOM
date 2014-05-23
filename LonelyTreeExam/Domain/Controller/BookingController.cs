@@ -29,10 +29,11 @@ namespace Domain.Controller
             return bookings;
         }
 
-        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
+        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber,
             DateTime StartDate, DateTime EndDate)
         {
-            return bookingCollection.Create(responsible, commissioner, sale, bookingNumber, StartDate, EndDate);
+            return bookingCollection.Create((Supplier)supplier, (Customer)customer, sale, bookingNumber, StartDate, 
+                EndDate);
         }
 
         public void UpdateBooking(IBooking booking)

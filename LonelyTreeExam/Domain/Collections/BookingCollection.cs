@@ -37,10 +37,10 @@ namespace Domain.Collections
             bookings.Remove(booking);
         }
 
-        internal IBooking Create(IParty responsible, IParty commissioner, string sale, int bookingNumber, 
+        internal IBooking Create(Supplier supplier, Customer customer, string sale, int bookingNumber, 
             DateTime startDate, DateTime endDate)
         {
-            Booking booking = new Booking(responsible, commissioner, sale, bookingNumber, startDate, endDate, 
+            Booking booking = new Booking(supplier, customer, sale, bookingNumber, startDate, endDate, 
                 dataAccessFacade);
             bookings.Add(booking);
             return booking;

@@ -22,10 +22,10 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, BookingEntity>();
         }
 
-        internal BookingEntity Create(IParty responsible, IParty commissioner, string sale, int bookingNumber,
+        internal BookingEntity Create(ISupplier supplier, ICustomer customer, string sale, int bookingNumber,
             DateTime StartDate, DateTime EndDate)
         {
-            BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber, StartDate, EndDate);
+            BookingEntity bookingEntity = new BookingEntity(supplier, customer, sale, bookingNumber, StartDate, EndDate);
 
             insert(bookingEntity);
 
@@ -87,8 +87,8 @@ namespace DataAccess.Mappers
             DateTime lastModified = (DateTime) reader["LastModified"];
             bool deleted = (bool) reader["Deleted"];
 
-            IParty responsible = SupplierMapper.Read(responsibleId);
-            IParty commissioner = CustomerMapper.Read(commissionerId);
+            SupplierEntity responsible = SupplierMapper.Read(responsibleId);
+            CustomerEntity commissioner = CustomerMapper.Read(commissionerId);
 
             BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber,
                 startDate, endDate);
@@ -149,9 +149,9 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@TransferAmount", entity.TransferAmount);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Responsible).Id);
+            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Supplier).Id);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Commissioner).Id);
+            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Customer).Id);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);

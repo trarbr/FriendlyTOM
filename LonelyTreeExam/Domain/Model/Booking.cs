@@ -9,8 +9,31 @@ using DataAccess;
 
 namespace Domain.Model
 {
-    internal class Booking : AAccountability, IBooking
+    internal class Booking : IBooking
     {
+        public ISupplier Supplier
+        {
+            get { return _supplier; }
+            set 
+            { 
+                _supplier = (Supplier)value;
+                _bookingEntity.Supplier = _supplier._supplierEntity;
+            }
+        }
+        public ICustomer Customer
+        {
+            get { return _customer; }
+            set 
+            { 
+                _customer = (Customer)value;
+                _bookingEntity.Customer = _customer._customerEntity;
+            }
+        }
+        public string Note
+        {
+            get { return _bookingEntity.Note; }
+            set { _bookingEntity.Note = value; }
+        }
         public string Sale
         {
             get { return _bookingEntity.Sale; }
@@ -83,22 +106,23 @@ namespace Domain.Model
             _bookingEntity = bookingEntity;
 
             // Create Models of responsible and commissioner
-            Party responsible = new Party(_bookingEntity.Responsible);
-            Party commissioner = new Party(_bookingEntity.Commissioner);
-
-            initializeAccountability(_bookingEntity, responsible, commissioner);
+            _supplier = new Supplier(dataAccessFacade, _bookingEntity.Supplier);
+            _customer = new Customer(_bookingEntity.Customer, dataAccessFacade);
         }
 
-        internal Booking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, 
+        internal Booking(Supplier supplier, Customer customer, string sale, int bookingNumber, DateTime startDate, 
             DateTime endDate, IDataAccessFacade dataAccessFacade)
         {
             // Get entities for DataAccess
-            IParty responsibleEntity = ((Party)responsible)._partyEntity;
-            IParty commissionerEntity = ((Party)commissioner)._partyEntity;
+            ISupplier responsibleEntity = supplier._supplierEntity;
+            ICustomer commissionerEntity = customer._customerEntity;
 
             this.dataAccessFacade = dataAccessFacade;
-            _bookingEntity = dataAccessFacade.CreateBooking(responsibleEntity, commissionerEntity, sale, bookingNumber, startDate, endDate);
-            initializeAccountability(_bookingEntity, responsible, commissioner);
+            _bookingEntity = dataAccessFacade.CreateBooking(responsibleEntity, commissionerEntity, sale, bookingNumber, 
+                startDate, endDate);
+
+            _supplier = supplier;
+            _customer = customer;
         }
 
         internal static List<Booking> ReadAll(IDataAccessFacade dataAccessFacade)
@@ -127,6 +151,8 @@ namespace Domain.Model
         #region Private fields
         private IBooking _bookingEntity;
         private IDataAccessFacade dataAccessFacade;
+        private Customer _customer;
+        private Supplier _supplier;
         #endregion
     }
 }

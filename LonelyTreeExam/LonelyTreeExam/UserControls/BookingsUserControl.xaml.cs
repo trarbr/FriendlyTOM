@@ -107,7 +107,7 @@ namespace LonelyTreeExam.UserControls
                     DateTime endDate = endDateDatePicker.SelectedDate.Value;
 
                     //TODO: FIX RESPONSIBLE OG COMMISSIONER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    IParty responsible = null;
+                    ISupplier responsible = null;
                     foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
                     {
                         if (supplier.Name == responsibleTextBox.Text)
@@ -117,7 +117,7 @@ namespace LonelyTreeExam.UserControls
                         }
                     }
 
-                    IParty commissioner = null;
+                    ICustomer commissioner = null;
                     foreach (ICustomer customer in customerController.ReadAllCustomers())
                     {
                         if (customer.Name == commissionerTextBox.Text)
@@ -160,7 +160,7 @@ namespace LonelyTreeExam.UserControls
                 {
                     int currentIndex = bookingsDataGrid.SelectedIndex;
 
-                    IParty responsible = null;
+                    ISupplier responsible = null;
                     foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
                     {
                         if (supplier.Name == responsibleTextBox.Text)
@@ -170,7 +170,7 @@ namespace LonelyTreeExam.UserControls
                         }
                     }
 
-                    IParty commissioner = null;
+                    ICustomer commissioner = null;
                     foreach (ICustomer customer in customerController.ReadAllCustomers())
                     {
                         if (customer.Name == commissionerTextBox.Text)
@@ -200,8 +200,8 @@ namespace LonelyTreeExam.UserControls
                     selectedBooking.ProductRetention = productRetention;
                     selectedBooking.SupplierRetention = supplierRetention;
                     selectedBooking.BookingNumber = bookingNumber;
-                    selectedBooking.Commissioner = commissioner;
-                    selectedBooking.Responsible = responsible;
+                    selectedBooking.Customer = commissioner;
+                    selectedBooking.Supplier = responsible;
                     selectedBooking.EndDate = endDateDatePicker.SelectedDate.Value;
                     selectedBooking.StartDate = startDateDatePicker.SelectedDate.Value;
                     selectedBooking.Note = noteTextBox.Text;
@@ -254,8 +254,8 @@ namespace LonelyTreeExam.UserControls
                 {
                     string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}",
                         booking.Service, booking.Sale, booking.Type.ToString(), booking.StartDate,
-                        booking.SupplierRetention, booking.Responsible, booking.ProductRetention, 
-                        booking.Note, booking.IVASubject, booking.IVAExempt, booking.EndDate, booking.Commissioner, booking.BookingNumber);
+                        booking.SupplierRetention, booking.Supplier, booking.ProductRetention, 
+                        booking.Note, booking.IVASubject, booking.IVAExempt, booking.EndDate, booking.Customer, booking.BookingNumber);
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         searchedBookings.Add(booking);
@@ -284,8 +284,8 @@ namespace LonelyTreeExam.UserControls
                 serviceTextBox.Text = selectedBooking.Service.ToString();
                 productRetentionTextBox.Text = selectedBooking.ProductRetention.ToString();
                 supplierRetentionTextBox.Text = selectedBooking.SupplierRetention.ToString();
-                responsibleTextBox.Text = selectedBooking.Responsible.Name;
-                commissionerTextBox.Text = selectedBooking.Commissioner.Name;
+                responsibleTextBox.Text = selectedBooking.Supplier.Name;
+                commissionerTextBox.Text = selectedBooking.Customer.Name;
                 noteTextBox.Text = selectedBooking.Note;
             }
             else

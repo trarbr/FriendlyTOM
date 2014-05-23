@@ -9,8 +9,19 @@ using Common.Enums;
 
 namespace DataAccess.Entities
 {
-    internal class BookingEntity : AAccountabilityEntity, IBooking
+    internal class BookingEntity : Entity, IBooking
     {
+        public ISupplier Supplier 
+        {
+            get { return _supplier; }
+            set { _supplier = (SupplierEntity)value; }
+        }
+        public ICustomer Customer 
+        {
+            get { return _customer; }
+            set { _customer = (CustomerEntity)value; }
+        }
+        public string Note { get; set; }
         public string Sale { get; set; }
         public int BookingNumber { get; set; }
         public DateTime StartDate { get; set; }
@@ -25,16 +36,17 @@ namespace DataAccess.Entities
         public decimal SupplierRetention { get; set; }
         public decimal TransferAmount { get; set; }
 
-        internal BookingEntity(IParty responsible, IParty commissioner, string sale, int bookingNumber, 
-            DateTime startDate, DateTime endDate) : base(responsible, commissioner)
+        internal BookingEntity(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, 
+            DateTime startDate, DateTime endDate) 
         {
-            Responsible = responsible;
-            Commissioner = commissioner;
+            Supplier = supplier;
+            Customer = customer;
             Sale = sale;
             BookingNumber = bookingNumber;
             StartDate = startDate;
             EndDate = endDate;
 
+            Note = "";
             IVAExempt = 0;
             IVASubject = 0;
             SubTotal = 0;
@@ -44,5 +56,8 @@ namespace DataAccess.Entities
             SupplierRetention = 0;
             TransferAmount = 0;
         }
+
+        private SupplierEntity _supplier;
+        private CustomerEntity _customer;
     }
 }

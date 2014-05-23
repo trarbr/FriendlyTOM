@@ -164,9 +164,9 @@ namespace DataAccess
         #endregion
 
         #region Booking Methods
-        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
+        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
         {
-            return bookingMapper.Create(responsible, commissioner, sale, bookingNumber, startDate, endDate);
+            return bookingMapper.Create(supplier, customer, sale, bookingNumber, startDate, endDate);
         }
 
         public List<IBooking> ReadAllBookings()

@@ -25,9 +25,9 @@ namespace LonelyTreeExam
         public MainWindow()
         {
             InitializeComponent();
-            PaymentController paymentController = new PaymentController();
             SupplierController supplierController = new SupplierController();
             CustomerController customerController = new CustomerController();
+            PaymentController paymentController = new PaymentController(supplierController, customerController);
             BookingController bookingController = new BookingController(paymentController);
 
             accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);

@@ -14,13 +14,33 @@ namespace Domain.Controller
     public class PaymentController
     {
         #region Public Methods
-        public PaymentController()
+        public PaymentController(SupplierController supplierController, CustomerController customerController)
         {
             dataAccessFacade = DataAccessFacade.GetInstance();
 
             paymentCollection = new PaymentCollection(dataAccessFacade);
 
+            foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
+            {
+                if (supplier.Name == "Lonely Tree")
+                {
+                    SupplierLonelyTree = (Supplier)supplier;
+                    break;
+                }
+            }
+
+            foreach (ICustomer customer in customerController.ReadAllCustomers())
+            {
+                if (customer.Name == "Lonely Tree")
+                {
+                    CustomerLonelyTree = (Customer)customer;
+                    break;
+                }
+            }
         }
+
+        internal Supplier SupplierLonelyTree;
+        internal Customer CustomerLonelyTree;
 
         public List<IPayment> ReadAllPayments()
         {
