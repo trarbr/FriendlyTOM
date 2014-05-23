@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Common.Enums;
-using Common.Interfaces;
 using DataAccess;
 using Domain.Model;
 
@@ -12,12 +7,15 @@ namespace Domain.Collections
 {
     internal class CustomerCollection
     {
+        #region Internal Constructor
         internal CustomerCollection(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
             ReadAll();
         }
+        #endregion
 
+        #region Internal CRUD
         internal List<Customer> ReadAll()
         {
             if (customers == null)
@@ -44,6 +42,7 @@ namespace Domain.Collections
             customer.Delete();
             customers.Remove(customer);
         }
+        #endregion
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;

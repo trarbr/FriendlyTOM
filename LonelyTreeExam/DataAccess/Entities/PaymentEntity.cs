@@ -10,6 +10,7 @@ namespace DataAccess.Entities
 {
     internal class PaymentEntity : AAccountabilityEntity, IPayment
     {
+        #region Public Properties
         public DateTime DueDate { get; set; }
         public decimal DueAmount { get; set; }
         public DateTime PaidDate { get; set; }
@@ -24,7 +25,9 @@ namespace DataAccess.Entities
         {
             get { return _attachments; }
         }
+        #endregion
 
+        #region Public Methods
         public PaymentEntity(DateTime dueDate, decimal dueAmount, IParty responsible, 
             IParty commissioner, PaymentType type, string sale, int booking) 
             : base(responsible, commissioner)
@@ -52,6 +55,7 @@ namespace DataAccess.Entities
         {
             _attachments.Add(attachment);
         }
+        #endregion
 
         private List<string> _attachments;
     }

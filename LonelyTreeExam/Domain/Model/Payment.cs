@@ -89,7 +89,7 @@ namespace Domain.Model
         }
         #endregion
 
-        #region Internal Methods
+        #region Internal Constructor
         internal Payment(DateTime dueDate, decimal dueAmount, IParty responsible,
             IParty commissioner, PaymentType type, string sale, int booking,
             IDataAccessFacade dataAccessFacade) 
@@ -120,7 +120,9 @@ namespace Domain.Model
 
             initializeAccountability(_paymentEntity, responsible, commissioner);
         }
+#endregion
 
+        #region Internal CRUD
         internal void Update()
         {
             dataAccessFacade.UpdatePayment(_paymentEntity);

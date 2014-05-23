@@ -26,18 +26,24 @@ namespace Domain.Model
         }
         #endregion
 
+        #region Internal Constructor
         internal Party(IParty partyEntity)
         {
             _partyEntity = partyEntity;
         }
 
         internal Party()
-        {}
+        {
+        }
 
+        #endregion
+
+        #region Protected Methods
         protected void initializeParty(IParty partyEntity)
         {
             _partyEntity = partyEntity;
         }
+        #endregion
 
         #region Validation
         //Validates the name is not empty.
@@ -67,6 +73,8 @@ namespace Domain.Model
         }
         #endregion
 
+        #region Internal Fields
         internal IParty _partyEntity;
+        #endregion
     }
 }

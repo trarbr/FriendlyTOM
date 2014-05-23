@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Common.Interfaces;
 using Common.Enums;
 
@@ -11,6 +6,7 @@ namespace DataAccess.Entities
 {
     internal class BookingEntity : AAccountabilityEntity, IBooking
     {
+        #region Public Properties
         public string Sale { get; set; }
         public int BookingNumber { get; set; }
         public DateTime StartDate { get; set; }
@@ -24,7 +20,9 @@ namespace DataAccess.Entities
         public decimal ProductRetention { get; set; }
         public decimal SupplierRetention { get; set; }
         public decimal TransferAmount { get; set; }
+        #endregion
 
+        #region Constructor
         internal BookingEntity(IParty responsible, IParty commissioner, string sale, int bookingNumber, 
             DateTime startDate, DateTime endDate) : base(responsible, commissioner)
         {
@@ -44,5 +42,6 @@ namespace DataAccess.Entities
             SupplierRetention = 0;
             TransferAmount = 0;
         }
+        #endregion
     }
 }

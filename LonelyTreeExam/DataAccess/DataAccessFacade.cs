@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Interfaces;
 using DataAccess.Entities;
 using DataAccess.Mappers;
@@ -14,6 +10,7 @@ namespace DataAccess
 {
     public class DataAccessFacade : IDataAccessFacade
     {
+        #region Public Constructor
         /// <summary>
         /// Initializes a DataAccessFacade for accessing a MS SQL database
         /// </summary>
@@ -59,6 +56,7 @@ namespace DataAccess
             }
                 return instance;
         }
+        #endregion
 
         #region Public Payment Methods
         /// <summary>
@@ -93,7 +91,6 @@ namespace DataAccess
             paymentMapper.Delete((PaymentEntity) payment);
         }
         #endregion
-
         
         #region Public Supplier Methods
         public ISupplier CreateSupplier(string name, string note, SupplierType type)
@@ -155,7 +152,7 @@ namespace DataAccess
         }
         #endregion
 
-        #region Booking Methods
+        #region Public Booking Methods
         public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
             DateTime startDate, DateTime endDate)
         {

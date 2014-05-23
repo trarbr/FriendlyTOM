@@ -1,11 +1,7 @@
 ﻿using Common.Enums;
 using Common.Interfaces;
 using DataAccess;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Model
 {
@@ -91,7 +87,9 @@ namespace Domain.Model
         }
         #endregion
 
+        #region Private Fields
         private IDataAccessFacade dataAccessFacade;
         private ISupplier _supplierEntity;
+        #endregion
     }
 }

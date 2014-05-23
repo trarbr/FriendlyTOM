@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Enums;
 using DataAccess.Entities;
 using DataAccess.Helpers;
@@ -113,6 +110,7 @@ namespace DataAccess.Mappers
         }
         #endregion
 
+        #region Private Methods
         private void addCustomerParameters(CustomerEntity entity, SqlParameterCollection parameters)
         {
             SqlParameter parameter = new SqlParameter("@Name", entity.Name);
@@ -132,5 +130,6 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@FaxNo", entity.FaxNo);
             parameters.Add(parameter);
         }
+        #endregion
     }
 }

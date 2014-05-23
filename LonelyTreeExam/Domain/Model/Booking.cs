@@ -2,15 +2,13 @@
 using Common.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess;
 
 namespace Domain.Model
 {
     internal class Booking : AAccountability, IBooking
     {
+        #region Public Properties
         public string Sale
         {
             get { return _bookingEntity.Sale; }
@@ -76,7 +74,9 @@ namespace Domain.Model
             get { return _bookingEntity.TransferAmount; }
             set { _bookingEntity.TransferAmount = value; }
         }
+#endregion
 
+        #region Internal Constructor
         internal Booking(IBooking bookingEntity, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
@@ -101,7 +101,9 @@ namespace Domain.Model
                 bookingNumber,startDate, endDate);
             initializeAccountability(_bookingEntity, responsible, commissioner);
         }
+        #endregion
 
+        #region Internal Methods
         internal static List<Booking> ReadAll(IDataAccessFacade dataAccessFacade)
         {
             List<IBooking> bookingEntities = dataAccessFacade.ReadAllBookings();
@@ -124,6 +126,7 @@ namespace Domain.Model
         {
             dataAccessFacade.DeleteBooking(_bookingEntity);
         }
+        #endregion
 
         #region Private fields
         private IBooking _bookingEntity;

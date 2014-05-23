@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Entities;
 
 namespace DataAccess.Mappers
 {
-    internal abstract class ASQLMapper<TEntity> where TEntity : Entity 
+    internal abstract class ASQLMapper<TEntity> where TEntity : Entity
     {
+        #region Protected Fields
         protected Dictionary<int, TEntity> entityMap;
         protected string connectionString;
+        #endregion
 
+        #region Protected Properties
         protected abstract string insertProcedureName { get; }
         protected abstract string selectAllProcedureName { get; }
         protected abstract string updateProcedureName { get; }
+        #endregion
 
+        #region Protected Methods
         protected abstract TEntity entityFromReader(SqlDataReader reader);
 
         protected abstract void addInsertParameters(TEntity entity,
@@ -134,5 +136,6 @@ namespace DataAccess.Mappers
 
             return entity;
         }
+        #endregion
     }
 }

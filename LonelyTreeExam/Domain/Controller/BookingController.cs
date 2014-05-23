@@ -4,20 +4,20 @@ using Domain.Collections;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controller
 {
     public class BookingController
     {
+        #region Public Constructor
         public BookingController()
         {
             dataAccessFacade = DataAccessFacade.GetInstance();
             bookingCollection = new BookingCollection(dataAccessFacade);
         }
+        #endregion
 
+        #region Public CRUD
         public List<IBooking> ReadAllBookings()
         {
             List<IBooking> bookings = new List<IBooking>();
@@ -43,6 +43,7 @@ namespace Domain.Controller
         {
             bookingCollection.Delete((Booking) booking);
         }
+        #endregion
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;

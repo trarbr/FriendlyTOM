@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Entities;
 using DataAccess.Helpers;
 using Common.Enums;
@@ -61,7 +58,6 @@ namespace DataAccess.Mappers
             Update(payment);
         }
         #endregion
-
 
         #region Protected Methods
 

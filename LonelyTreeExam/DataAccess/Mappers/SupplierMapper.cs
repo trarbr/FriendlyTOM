@@ -2,23 +2,21 @@
 using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Helpers;
 using Common.Enums;
-
 namespace DataAccess.Mappers
 {
     internal class SupplierMapper : ASQLMapper<SupplierEntity>
     {
-
+        #region Internal Constructor
         internal SupplierMapper(string connectionString)
         {
             this.connectionString = connectionString;
             this.entityMap = new Dictionary<int, SupplierEntity>();
         }
+        #endregion
 
+        #region Internal Methods
         internal SupplierEntity Create(string name, string note, SupplierType type)
         {
             SupplierEntity supplierEntity = new SupplierEntity(type, note, name);
@@ -53,7 +51,9 @@ namespace DataAccess.Mappers
             supplier.Deleted = true;
             update(supplier);
         }
+        #endregion
 
+        #region Protected Methods
         protected override string insertProcedureName
         {
             get { return StoredProcedures.CREATE_SUPPLIER; }
@@ -108,7 +108,9 @@ namespace DataAccess.Mappers
         {
             addSupplierParameters(entity, parameters);
         }
+        #endregion
 
+        #region Private Methods
         private void addSupplierParameters(SupplierEntity entity,
            SqlParameterCollection parameters)
         {
@@ -129,5 +131,6 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@AccountType", entity.AccountType.ToString());
             parameters.Add(parameter);
         }
+        #endregion
     }
 }

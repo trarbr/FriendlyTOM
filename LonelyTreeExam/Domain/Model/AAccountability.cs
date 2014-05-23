@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Interfaces;
 
 namespace Domain.Model
@@ -43,9 +39,7 @@ namespace Domain.Model
 
         #endregion
 
-        internal AAccountability()
-        { }
-
+        #region Internal Constructor
         internal IAccountability _accountabilityEntity;
 
         protected void initializeAccountability(IAccountability accountabilityEntity, IParty responsible, 
@@ -55,6 +49,7 @@ namespace Domain.Model
             Responsible = responsible;
             Commissioner = commissioner;
         }
+        #endregion
 
         #region ValidateAllProperties
 
@@ -101,7 +96,9 @@ namespace Domain.Model
         }
         #endregion
 
+        #region Private Fields
         private Party _responsible;
         private Party _commissioner;
+        #endregion
     }
 }

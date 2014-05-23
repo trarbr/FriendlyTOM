@@ -3,17 +3,13 @@ using Common.Interfaces;
 using DataAccess;
 using Domain.Collections;
 using Domain.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controller
 {
     public class SupplierController
     {
-        #region Public Methods
+       #region Public Methods
         public SupplierController()
         {
             dataAccessFacade = DataAccessFacade.GetInstance();

@@ -2,9 +2,6 @@
 using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Helpers;
 using Common.Interfaces;
 using Common.Enums;
@@ -16,6 +13,7 @@ namespace DataAccess.Mappers
         internal CustomerMapper CustomerMapper;
         internal SupplierMapper SupplierMapper;
 
+        #region Internal Methods
         internal BookingMapper(string connectionString)
         {
             this.connectionString = connectionString;
@@ -50,7 +48,9 @@ namespace DataAccess.Mappers
             booking.Deleted = true;
             update(booking);
         }
+        #endregion
 
+        #region Protected Methods
         protected override string insertProcedureName
         {
             get { return StoredProcedures.CREATE_BOOKING; }
@@ -157,5 +157,6 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
         }
+        #endregion
     }
 }

@@ -3,20 +3,20 @@ using DataAccess;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Collections
 {
     internal class BookingCollection
     {
+        #region Internal Constructor
         public BookingCollection(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
             ReadAll();
         }
+        #endregion
 
+        #region Internal CRUD
         internal List<Booking> ReadAll()
         {
             if (bookings == null)
@@ -45,6 +45,7 @@ namespace Domain.Collections
             bookings.Add(booking);
             return booking;
         }
+        #endregion
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;
