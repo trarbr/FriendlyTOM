@@ -78,6 +78,7 @@ namespace Domain.Model
 
         internal void Update()
         {
+
             dataAccessFacade.UpdateSupplier(_supplierEntity);
         }
 
