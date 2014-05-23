@@ -28,7 +28,7 @@ namespace LonelyTreeExam
             PaymentController paymentController = new PaymentController();
             SupplierController supplierController = new SupplierController();
             CustomerController customerController = new CustomerController();
-            BookingController bookingController = new BookingController();
+            BookingController bookingController = new BookingController(paymentController);
 
             accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
             accountingUserControl.Content = accountingControl;
