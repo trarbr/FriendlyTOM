@@ -305,5 +305,10 @@ namespace LonelyTreeExam.UserControls
                 noteTextBox.Text = "";
             }
         }
+
+        private void calculatePayments_Click(object sender, RoutedEventArgs e)
+        {
+            bookingController.CalculatePaymentsForBooking(selectedBooking);
+        }
     }
 }

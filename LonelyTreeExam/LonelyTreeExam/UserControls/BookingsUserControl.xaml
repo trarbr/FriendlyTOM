@@ -96,6 +96,7 @@
         <StackPanel x:Name="bottomButtonsGrid" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
             <Button x:Name="saveButton" Width="75" Margin="5,0,0,5" ToolTip="Save changes" Click="saveButton_Click" 
                     ContentTemplate="{StaticResource SaveButton}"/>
+            <Button x:Name="calculatePayments" Margin="5,0,0,5" Content="Calculate payments" Click="calculatePayments_Click" />
         </StackPanel>
     </Grid>
 </UserControl>
