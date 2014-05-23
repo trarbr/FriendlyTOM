@@ -49,38 +49,105 @@
             </Button>
         </Grid>
         <Grid x:Name="detailsGrid" Grid.Row="3" Margin="0,5,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="130"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Margin="0">
-            <Label Content="Name:"/>
-            <Label Content="SupplierType:"/>
-            <Label Content="AccountNo:"/>
-            <Label Content="AccountType:"/>
-            <Label Content="AccountName:"/>
-            <Label Content="OwnerId:"/>
-            <Label Content="Bank:"/>
-            </StackPanel>
-        <StackPanel Grid.Column="1" Margin="5,0,0,0">
-            <TextBox x:Name="nameTextBox" Height="26" TextWrapping="Wrap"/>
-            <ComboBox x:Name="supplierTypeComboBox" Margin="0,2"/>
-            <TextBox x:Name="accountNoTextBox" Height="26" TextWrapping="Wrap"/>
-            <ComboBox x:Name="accountTypeComboBox" Margin="0,2"/>
-            <TextBox x:Name="accountNameTextBox" Height="26" TextWrapping="Wrap"/>
-            <TextBox x:Name="ownerIdTextBox" Height="26" TextWrapping="Wrap"/>
-            <TextBox x:Name="bankTextBox" Height="26" TextWrapping="Wrap"/>
-            </StackPanel>
-        <StackPanel Grid.Column="2" Margin="20,0,0,0">
-            <Label Content="Note:"/>
-            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+            <TabControl>
+                <TabItem x:Name="supplierTabControl" Header="Supplier">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition>
+                                
+                            </RowDefinition>
+                            <RowDefinition>
+                                
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0">
+                        <Label Content="Name:"/>
+                        <Label Content="SupplierType:"/>
+                        <Label Content="AccountNo:"/>
+                        <Label Content="AccountType:"/>
+                        <Label Content="AccountName:"/>
+                        <Label Content="OwnerId:"/>
+                        <Label Content="Bank:"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                        <TextBox x:Name="nameTextBox" Height="26" TextWrapping="Wrap"/>
+                        <ComboBox x:Name="supplierTypeComboBox" Margin="0,2"/>
+                        <TextBox x:Name="accountNoTextBox" Height="26" TextWrapping="Wrap"/>
+                        <ComboBox x:Name="accountTypeComboBox" Margin="0,2"/>
+                        <TextBox x:Name="accountNameTextBox" Height="26" TextWrapping="Wrap"/>
+                        <TextBox x:Name="ownerIdTextBox" Height="26" TextWrapping="Wrap"/>
+                        <TextBox x:Name="bankTextBox" Height="26" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="20,0,0,0">
+                        <Label Content="Note:"/>
+                        <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                     HorizontalScrollBarVisibility="Auto"/>
-        </StackPanel>
+                    </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="paymentRuleTabControl" Header="PaymentRule">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition>
+                            </RowDefinition>
+                            <RowDefinition>
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0">
+                                <Label Content="Supplier:"/>
+                                <Label Content="Customer:"/>
+                                <Label Content="BookingType:"/>
+                                <Label Content="Percentage:"/>
+                                <Label Content="DaysOffset:"/>
+                                <Label Content="BaseDate:"/>
+                                <Label Content="PaymentType:"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                                <TextBox x:Name="supplierTextBox" Height="26" TextWrapping="Wrap"/>
+                                <TextBox x:Name="customerTextBox" Height="26" TextWrapping="Wrap"/>
+                                <ComboBox x:Name="bookingTypeComboBox" Margin="0,2"/>
+                                <TextBox x:Name="percentageTextBox" Height="26" TextWrapping="Wrap"/>
+                                <TextBox x:Name="daysOffsetTextBox" Height="26" TextWrapping="Wrap"/>
+                                <ComboBox x:Name="baseDateComboBox" Margin="0,2"/>
+                                <ComboBox x:Name="paymentTypeComboBox" Margin="0,2"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Margin="20,0,0,0">
+                                <DataGrid x:Name="paymentRuleDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
+                                      VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
+                                      AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
+                                      BorderBrush="#FFC6C6C9" SelectionChanged="paymentRuleDataGrid_SelectionChanged" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Supplier}"/>
+                                        <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding  Customer}"/>
+                                        <DataGridTextColumn Header = "BookingType" Width="*" Binding="{Binding BookingType}"/>
+                                        <DataGridTextColumn Header = "Percentage" Width="*" Binding="{Binding Percentage}"/>
+                                        <DataGridTextColumn Header = "DaysOffSet" Width="*" Binding="{Binding DaysOffSet}"/>
+                                        <DataGridTextColumn Header = "BaseDate" Width="*" Binding="{Binding BaseDate}"/>
+                                        <DataGridTextColumn Header = "PaymentType" Width="*" Binding="{Binding PaymentType}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Grid>
-    <StackPanel x:Name="bottomButtonsGrid" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
-            <Button x:Name="saveButton" Width="75" Margin="5,0,0,5" ToolTip="Save changes" Click="saveButton_Click" 
-                    ContentTemplate="{StaticResource SaveButton}"/>
+        <StackPanel x:Name="bottomButtonsGrid" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
+            <Button x:Name="saveButton" Width="75" Margin="5,0,0,5" ToolTip="Save changes" 
+                    ContentTemplate="{StaticResource SaveButton}" Click="saveButton_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
