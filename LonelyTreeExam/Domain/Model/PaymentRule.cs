@@ -81,13 +81,13 @@ namespace Domain.Model
                 percentage, daysOffset, baseDate, paymentType);
         }
         
-        internal PaymentRule(IPaymentRule paymentRuleEntity, IDataAccessFacade dataAccessFacade)
+        internal PaymentRule(IPaymentRule paymentRuleEntity, Supplier supplier, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
             this._paymentRuleEntity = paymentRuleEntity;
 
             // Create Models of supplier and customer
-            Supplier = new Supplier(dataAccessFacade, _paymentRuleEntity.Supplier);
+            Supplier = supplier;
             Customer = new Customer(_paymentRuleEntity.Customer, dataAccessFacade);
         } 
 
