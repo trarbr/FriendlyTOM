@@ -12,10 +12,11 @@ namespace Domain.Controller
 {
     public class BookingController
     {
-        public BookingController()
+        public BookingController(PaymentController paymentController)
         {
             dataAccessFacade = DataAccessFacade.GetInstance();
             bookingCollection = new BookingCollection(dataAccessFacade);
+            this.paymentController = paymentController;
         }
 
         public List<IBooking> ReadAllBookings()
@@ -44,9 +45,16 @@ namespace Domain.Controller
             bookingCollection.Delete((Booking) booking);
         }
 
+        public void CalculatePaymentsForBooking(IBooking booking)
+        {
+            PaymentStrategy paymentStrategy = new PaymentStrategy((Booking)booking, paymentController);
+            paymentStrategy.CreatePayments();
+        }
+
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private BookingCollection bookingCollection;
+        private PaymentController paymentController;
         #endregion
     }
 }

@@ -65,8 +65,6 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _supplierEntity = dataAccessFacade.CreateSupplier(name, note, type);
             initializeParty(_supplierEntity);
-
-            _paymentRules = new List<PaymentRule>();
         }
 
         internal Supplier(IDataAccessFacade dataAccessFacade, ISupplier supplierEntity)
@@ -75,13 +73,7 @@ namespace Domain.Model
             _supplierEntity = supplierEntity;
             initializeParty(_supplierEntity);
 
-            _paymentRules = new List<PaymentRule>();
-
-            foreach (IPaymentRule paymentRuleEntity in _supplierEntity.PaymentRules)
-            {
-                PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, this, dataAccessFacade);
-                _paymentRules.Add(paymentRule);
-            }
+            readPaymentRules();
         }
 
         internal void Update()
@@ -113,19 +105,30 @@ namespace Domain.Model
             PaymentRule paymentRule = new PaymentRule(this, customer, bookingType, percentage, daysOffset, baseDate,
                 paymentType, dataAccessFacade);
 
-            _paymentRules.Add(paymentRule);
+            readPaymentRules();
         }
 
         internal void DeletePaymentRule(PaymentRule paymentRule)
         {
             paymentRule.Delete();
 
-            _paymentRules.Remove(paymentRule);
+            readPaymentRules();
         }
         #endregion
 
         private IDataAccessFacade dataAccessFacade;
 
         private List<PaymentRule> _paymentRules;
+
+        private void readPaymentRules()
+        {
+            _paymentRules = new List<PaymentRule>();
+
+            foreach (IPaymentRule paymentRuleEntity in _supplierEntity.PaymentRules)
+            {
+                PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, this, dataAccessFacade);
+                _paymentRules.Add(paymentRule);
+            }
+        }
     }
 }

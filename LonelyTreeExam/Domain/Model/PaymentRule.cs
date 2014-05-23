@@ -86,34 +86,15 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             this._paymentRuleEntity = paymentRuleEntity;
 
-            // Create Models of supplier and customer
+            // Get/Create Models of supplier and customer
             Supplier = supplier;
             Customer = new Customer(_paymentRuleEntity.Customer, dataAccessFacade);
         } 
-
-        //internal void Update()
-        //{
-        //    dataAccessFacade.UpdatePaymentRule(_paymentRuleEntity);
-        //}
 
         internal void Delete()
         {
             dataAccessFacade.DeletePaymentRule(_paymentRuleEntity);
         }
-
-        //internal static List<PaymentRule> ReadAll(IDataAccessFacade dataAccessFacade)
-        //{
-        //    List<IPaymentRule> paymentRuleEntities = dataAccessFacade.ReadAllPaymentRules();
-        //    List<PaymentRule> paymentRules = new List<PaymentRule>();
-
-        //    foreach (IPaymentRule paymentRuleEntity in paymentRuleEntities)
-        //    {
-        //        PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, dataAccessFacade);
-        //        paymentRules.Add(paymentRule);
-        //    }
-
-        //    return paymentRules;
-        //}
 
         private IDataAccessFacade dataAccessFacade;
         private Supplier _supplier;
