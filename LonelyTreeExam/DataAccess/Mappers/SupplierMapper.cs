@@ -12,6 +12,7 @@ namespace DataAccess.Mappers
         internal SupplierMapper(string connectionString)
         {
             this.connectionString = connectionString;
+            //Creates new instance of the entity dictionary with suppliers.
             this.entityMap = new Dictionary<int, SupplierEntity>();
         }
         #endregion
@@ -19,35 +20,36 @@ namespace DataAccess.Mappers
         #region Internal Methods
         internal SupplierEntity Create(string name, string note, SupplierType type)
         {
+            //Creates a new supplier with type name and note, and inserts to database.
             SupplierEntity supplierEntity = new SupplierEntity(type, note, name);
-
             insert(supplierEntity);
-
             return supplierEntity;
         }
 
         internal SupplierEntity Read(int id)
         {
+            //Read a supplier from the database.
             SupplierEntity supplier;
             entityMap.TryGetValue(id, out supplier);
-
             return supplier;
         }
 
         internal List<SupplierEntity> ReadAll()
         {
+            //Reads all suppliers from the database
             List<SupplierEntity> suppliers = selectAll();
-
             return suppliers;
         }
         
         internal void Update(SupplierEntity supplier)
         {
+            //Calls the update method to add new info to a row in the database
             update(supplier);
         }
 
         internal void Delete(SupplierEntity supplier)
         {
+            //Deletes the object, and updates it in the database.
             supplier.Deleted = true;
             update(supplier);
         }
@@ -71,6 +73,7 @@ namespace DataAccess.Mappers
 
         protected override SupplierEntity entityFromReader(SqlDataReader reader)
         {
+            //inputs the data from the database into useable data in the program. 
             string name = (string) reader["Name"];
             string note = (string) reader["Note"];
             SupplierType type = (SupplierType) Enum.Parse(typeof (SupplierType), reader["Type"].ToString());
@@ -100,12 +103,14 @@ namespace DataAccess.Mappers
         protected override void addInsertParameters(SupplierEntity entity,
            SqlParameterCollection parameters)
         {
+            //Calls method to add the data into respective parameter
             addSupplierParameters(entity, parameters);
         }
 
         protected override void addUpdateParameters(SupplierEntity entity,
            SqlParameterCollection parameters)
         {
+            //Calls method to update the data in respective parameter
             addSupplierParameters(entity, parameters);
         }
         #endregion
@@ -114,6 +119,7 @@ namespace DataAccess.Mappers
         private void addSupplierParameters(SupplierEntity entity,
            SqlParameterCollection parameters)
         {
+            //Creates different parameters corresponding to data in the database
             SqlParameter parameter = new SqlParameter("@Name", entity.Name);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
