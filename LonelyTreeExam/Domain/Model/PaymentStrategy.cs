@@ -50,8 +50,10 @@ namespace Domain.Model
 
                 Customer payingCustomer = paymentController.CustomerLonelyTree;
 
-                paymentController.CreatePayment(dueDate, dueAmount, payingCustomer, booking.Supplier, 
+                IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, payingCustomer, booking.Supplier, 
                     paymentRule.PaymentType, booking.Sale, booking.BookingNumber);
+
+                paymentController.UpdatePayment(payment);
             }
         }
 
