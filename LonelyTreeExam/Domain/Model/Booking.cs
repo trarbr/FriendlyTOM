@@ -152,7 +152,7 @@ namespace Domain.Model
         {
             SubTotal = IVAExempt + IVASubject;
             IVA = IVASubject * 0.12m;
-            TransferAmount = SubTotal - (SubTotal * ProductRetention) + Service + IVA - (IVA * SupplierRetention);
+            TransferAmount = SubTotal - (SubTotal * ProductRetention/100) + Service + IVA - (IVA * SupplierRetention/100);
         }
 
         #region Private fields
