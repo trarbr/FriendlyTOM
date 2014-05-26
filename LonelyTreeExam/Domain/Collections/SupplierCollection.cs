@@ -35,15 +35,19 @@ namespace Domain.Collections
             return supplier;
         }
 
-        internal void Update(Model.Supplier supplier)
+        internal void Update(Supplier supplier)
         {
             supplier.Update();
         }
 
-        internal void Delete(Model.Supplier supplier)
+        internal void Delete(Supplier supplier)
         {
-            supplier.Delete();
-            suppliers.Remove(supplier);
+            //Do not delete if supplier is Lonely Tree
+            if (supplier.Name != "Lonely Tree")
+            {
+                supplier.Delete();
+                suppliers.Remove(supplier);
+            }
         }
         #endregion
 

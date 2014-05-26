@@ -44,8 +44,12 @@ namespace Domain.Collections
         internal void Delete(Customer customer)
         {
             //Calls delete and removes it from the list.
-            customer.Delete();
-            customers.Remove(customer);
+            //Do not remove if customer is Lonely Tree or Any
+            if (!(customer.Name == "Lonely Tree" || customer.Name == "Any"))
+            {
+                customer.Delete();
+                customers.Remove(customer);
+            }
         }
         #endregion
 
