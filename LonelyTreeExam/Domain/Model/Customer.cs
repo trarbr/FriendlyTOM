@@ -9,7 +9,7 @@ using DataAccess;
 
 namespace Domain.Model
 {
-    internal class Customer : Party, ICustomer
+    internal class Customer : AParty, ICustomer
     {
         #region Public Properties
         public CustomerType Type

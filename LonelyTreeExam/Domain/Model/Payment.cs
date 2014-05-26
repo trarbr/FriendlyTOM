@@ -100,8 +100,8 @@ namespace Domain.Model
             validateSale(sale);
 
             // Get entities for DataAccess
-            IParty responsibleEntity = ((Party)responsible)._partyEntity;
-            IParty commissionerEntity = ((Party)commissioner)._partyEntity;
+            IParty responsibleEntity = ((AParty)responsible)._partyEntity;
+            IParty commissionerEntity = ((AParty)commissioner)._partyEntity;
 
             this.dataAccessFacade = dataAccessFacade;
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
@@ -115,8 +115,18 @@ namespace Domain.Model
             this._paymentEntity = paymentEntity;
 
             // Create Models of responsible and commissioner
-            Party responsible = new Party(_paymentEntity.Responsible);
-            Party commissioner = new Party(_paymentEntity.Commissioner);
+            AParty responsible = null;
+            AParty commissioner = null;
+            if (_paymentEntity.Responsible is ISupplier)
+            {
+                responsible = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Responsible);
+                commissioner = new Customer((ICustomer)_paymentEntity.Commissioner, dataAccessFacade);
+            }
+            else if (_paymentEntity.Responsible is ICustomer)
+            {
+                responsible = new Customer((ICustomer)_paymentEntity.Responsible, dataAccessFacade);
+                commissioner = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Commissioner);
+            }
 
             initializeAccountability(_paymentEntity, responsible, commissioner);
         }

@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Model
 {
-    internal class Party : IParty
+    internal abstract class AParty : IParty
     {
         #region Public Properties
         public string Name
@@ -26,12 +26,12 @@ namespace Domain.Model
         }
         #endregion
 
-        internal Party(IParty partyEntity)
+        internal AParty(IParty partyEntity)
         {
             _partyEntity = partyEntity;
         }
 
-        internal Party()
+        internal AParty()
         {}
 
         protected void initializeParty(IParty partyEntity)

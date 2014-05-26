@@ -25,7 +25,7 @@ namespace Domain.Model
             set
             {
                 validateResponsible(value);
-                _responsible = (Party)value;
+                _responsible = (AParty)value;
                 _accountabilityEntity.Responsible = _responsible._partyEntity;
             }
         }
@@ -36,7 +36,7 @@ namespace Domain.Model
             set
             {
                 validateCommissioner(value);
-                _commissioner = (Party)value;
+                _commissioner = (AParty)value;
                 _accountabilityEntity.Commissioner = _commissioner._partyEntity;
             }
         }
@@ -101,7 +101,7 @@ namespace Domain.Model
         }
         #endregion
 
-        private Party _responsible;
-        private Party _commissioner;
+        private AParty _responsible;
+        private AParty _commissioner;
     }
 }
