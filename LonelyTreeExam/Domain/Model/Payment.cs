@@ -15,7 +15,7 @@ namespace Domain.Model
             get { return _payee; }
             set
             {
-                // validate
+                validateParty(value);
                 _payee = (AParty)value;
                 _paymentEntity.Payee = _payee._partyEntity;
             }
@@ -25,7 +25,7 @@ namespace Domain.Model
             get { return _payer; }
             set
             {
-                // validate
+                validateParty(value);
                 _payer = (AParty)value;
                 _paymentEntity.Payer = _payer._partyEntity; 
             }
@@ -120,8 +120,8 @@ namespace Domain.Model
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
-            validatePayer(payer);
-            validatePayee(payee);
+            validateParty(payer);
+            validateParty(payee);
             validateSale(sale);
 
             // Get entities for DataAccess
@@ -179,8 +179,7 @@ namespace Domain.Model
         }
         #endregion
 
-        #region ValidationDecimalsAndDueDate
-
+        #region Validation
         private void validateDueAmount(decimal value)
         {
             validateDecimal(value, "DueAmount");
@@ -212,22 +211,12 @@ namespace Domain.Model
         {
             validateNullOrWhiteSpace(value, "Sale");
         }
-        #endregion
-        #region ValidateAllProperties
 
-        protected void validatePayer(IParty value)
+        protected void validateParty(IParty value)
         {
             if (value == null)
             {
                 throw new ArgumentOutOfRangeException("Payer was not found");
-            }
-        }
-
-        protected void validatePayee(IParty value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentOutOfRangeException("Payee was not found");
             }
         }
 
@@ -236,24 +225,6 @@ namespace Domain.Model
             if (string.IsNullOrWhiteSpace(text))
             {
                 throw new ArgumentOutOfRangeException(paramName, "may not be empty");
-            }
-            validateTextLength(text, paramName);
-        }
-
-        protected void validateNoteLength(string value)
-        {
-            string paramName = "Note";
-            if (value.Length > 2000)
-            {
-                throw new ArgumentOutOfRangeException(paramName, "text may not be over 2000 caracters");
-            }
-        }
-
-        private void validateTextLength(string text, string paramName)
-        {
-            if (text.Length > 100)
-            {
-                throw new ArgumentOutOfRangeException(paramName, "text may not be over 100 caracters");
             }
         }
         #endregion
