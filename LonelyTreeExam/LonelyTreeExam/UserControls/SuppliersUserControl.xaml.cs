@@ -182,6 +182,9 @@ namespace LonelyTreeExam.UserControls
                 accountNameTextBox.Text = selectedSupplier.AccountName;
                 ownerIdTextBox.Text = selectedSupplier.OwnerId;
                 bankTextBox.Text = selectedSupplier.Bank;
+
+                paymentRuleDataGrid.ItemsSource = selectedSupplier.PaymentRules;
+                supplierTextBox.Text = selectedSupplier.Name;
             }
             else
             {
@@ -193,6 +196,9 @@ namespace LonelyTreeExam.UserControls
                 accountNameTextBox.Text = "";
                 ownerIdTextBox.Text = "";
                 bankTextBox.Text = "";
+
+                paymentRuleDataGrid.ItemsSource = null;
+                supplierTextBox.Text = "";
             }
         }
 
@@ -235,10 +241,6 @@ namespace LonelyTreeExam.UserControls
         {
             selectedSupplier = (ISupplier)suppliersDataGrid.SelectedItem;
             setValuesInTextBoxes();
-            paymentRuleDataGrid.ItemsSource = selectedSupplier.PaymentRules;
-
-            ISupplier supplier = (ISupplier)suppliersDataGrid.SelectedItem;
-            supplierTextBox.Text = supplier.Name;
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
