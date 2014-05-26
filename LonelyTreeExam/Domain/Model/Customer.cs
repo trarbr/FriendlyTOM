@@ -94,15 +94,5 @@ namespace Domain.Model
         internal ICustomer _customerEntity;
         private IDataAccessFacade dataAccessFacade;
         #endregion
-
-        #region Validation
-        //Checks if the value of the "name" is not null or whitespace
-        /*
-        private void validateName(string value)
-        {
-            validateNullOrWhiteSpace(value, "Name");
-        }
-        */
-        #endregion
     }
 }

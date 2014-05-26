@@ -206,10 +206,13 @@ namespace Domain.Model
             }
         }
 
-        //Checks if the value of the "name" is not null or whitespace
+        //Checks if the value of the Sale is not null or whitespace
         private void validateSale(string value)
         {
-            validateNullOrWhiteSpace(value, "Sale");
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentOutOfRangeException("Sale", "may not be empty");
+            }
         }
 
         protected void validateParty(IParty value)
@@ -217,14 +220,6 @@ namespace Domain.Model
             if (value == null)
             {
                 throw new ArgumentOutOfRangeException("Payer was not found");
-            }
-        }
-
-        protected void validateNullOrWhiteSpace(string text, string paramName)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                throw new ArgumentOutOfRangeException(paramName, "may not be empty");
             }
         }
         #endregion

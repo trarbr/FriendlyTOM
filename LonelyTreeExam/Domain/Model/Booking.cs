@@ -15,20 +15,24 @@ namespace Domain.Model
         {
             get { return _supplier; }
             set 
-            { 
+            {
+                validateSupplier(value);
                 _supplier = (Supplier)value;
                 _bookingEntity.Supplier = _supplier._supplierEntity;
             }
         }
+
         public ICustomer Customer
         {
             get { return _customer; }
             set 
-            { 
+            {
+                validateCustomer(value);
                 _customer = (Customer)value;
                 _bookingEntity.Customer = _customer._customerEntity;
             }
         }
+
         public string Note
         {
             get { return _bookingEntity.Note; }
@@ -37,7 +41,11 @@ namespace Domain.Model
         public string Sale
         {
             get { return _bookingEntity.Sale; }
-            set { _bookingEntity.Sale = value; }
+            set 
+            {
+                validateSale(value);
+                _bookingEntity.Sale = value; 
+            }
         }
         public int BookingNumber
         {
@@ -51,6 +59,7 @@ namespace Domain.Model
         }
         public DateTime EndDate
         {
+            // validate not less than startdate
             get { return _bookingEntity.EndDate; }
             set { _bookingEntity.EndDate = value; }
         }
@@ -61,41 +70,49 @@ namespace Domain.Model
         }
         public decimal IVAExempt
         {
+            // validate not less than zero
             get { return _bookingEntity.IVAExempt; }
             set { _bookingEntity.IVAExempt = value; }
         }
         public decimal IVASubject
         {
+            // validate not less than zero
             get { return _bookingEntity.IVASubject; }
             set { _bookingEntity.IVASubject = value; }
         }
         public decimal SubTotal
         {
+            // validate not less than zero
             get { return _bookingEntity.SubTotal; }
             set { _bookingEntity.SubTotal = value; }
         }
         public decimal Service
         {
+            // validate not less than zero
             get { return _bookingEntity.Service; }
             set { _bookingEntity.Service = value; }
         }
         public decimal IVA
         {
+            // validate not less than zero
             get { return _bookingEntity.IVA; }
             set { _bookingEntity.IVA = value; }
         }
         public decimal ProductRetention
         {
+            // validate between 0 and 100
             get { return _bookingEntity.ProductRetention; }
             set { _bookingEntity.ProductRetention = value; }
         }
         public decimal SupplierRetention
         {
+            // validate between 0 and 100
             get { return _bookingEntity.SupplierRetention; }
             set { _bookingEntity.SupplierRetention = value; }
         }
         public decimal TransferAmount
         {
+            // validate not less than zero
             get { return _bookingEntity.TransferAmount; }
             set { _bookingEntity.TransferAmount = value; }
         }
@@ -160,6 +177,31 @@ namespace Domain.Model
         private IDataAccessFacade dataAccessFacade;
         private Customer _customer;
         private Supplier _supplier;
+        #endregion
+
+        #region Validation
+        private void validateSupplier(ISupplier value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Supplier", "Supplier was not found");
+            }
+        }
+
+        private void validateCustomer(ICustomer value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Customer", "Customer was not found");
+            }
+        }
+        private void validateSale(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentOutOfRangeException("Sale", "may not be empty");
+            }
+        }
         #endregion
     }
 }
