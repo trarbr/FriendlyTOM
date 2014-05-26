@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Enums;
 using DataAccess.Entities;
 using DataAccess.Helpers;
@@ -13,7 +10,6 @@ namespace DataAccess.Mappers
     internal class CustomerMapper : ASQLMapper<CustomerEntity>
     {
         #region Internal Methods
-
         internal CustomerMapper(string connectionString)
         {
             this.connectionString = connectionString;
@@ -22,22 +18,23 @@ namespace DataAccess.Mappers
 
         internal CustomerEntity Create(CustomerType type, string note, string name)
         {
+            //creates a new Customer and calls insert to add it to the database
             CustomerEntity customerEntity = new CustomerEntity(type, note, name);
             insert(customerEntity);
-
             return customerEntity;
         }
 
         internal CustomerEntity Read(int id)
         {
+            //Reads a specific customer from the database
             CustomerEntity customer;
             entityMap.TryGetValue(id, out customer);
-
             return customer;
         }
 
         internal List<CustomerEntity> ReadAll()
         {
+            //Reads all customers from the database. 
             List<CustomerEntity> customers = selectAll();
             return customers;
         }
@@ -49,6 +46,7 @@ namespace DataAccess.Mappers
 
         internal void Delete(CustomerEntity customer)
         {
+            //Sets a customer to deletede and calls update. 
             customer.Deleted = true;
             update(customer);
         }
@@ -72,6 +70,7 @@ namespace DataAccess.Mappers
 
         protected override CustomerEntity entityFromReader(SqlDataReader reader)
         {
+            //Sets data from database to corresponding data type for usage in the program. 
             string note = (string) reader["Note"];
             string name = (string) reader["Name"];
             CustomerType type = (CustomerType) Enum.Parse(typeof(CustomerType), reader["Type"].ToString());
@@ -85,6 +84,7 @@ namespace DataAccess.Mappers
             bool deleted = (bool) reader["Deleted"];
             DateTime lastmodified = (DateTime) reader["LastModified"];
 
+            //Uses the data is sets to create an object of a customer.
             CustomerEntity customerEntity = new CustomerEntity(type, name, note);
             customerEntity.Name = name;
             customerEntity.Note = note;
@@ -99,6 +99,7 @@ namespace DataAccess.Mappers
             customerEntity.Deleted = deleted;
             customerEntity.LastModified = lastmodified;
 
+            //returns the customer.
             return customerEntity;
         }
 
@@ -113,8 +114,10 @@ namespace DataAccess.Mappers
         }
         #endregion
 
+        #region Private Methods
         private void addCustomerParameters(CustomerEntity entity, SqlParameterCollection parameters)
         {
+            //defines what parameters a customer shall have. 
             SqlParameter parameter = new SqlParameter("@Name", entity.Name);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
@@ -132,5 +135,6 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@FaxNo", entity.FaxNo);
             parameters.Add(parameter);
         }
+        #endregion
     }
 }

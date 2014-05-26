@@ -2,9 +2,6 @@
 using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Helpers;
 using Common.Interfaces;
 using Common.Enums;
@@ -16,6 +13,7 @@ namespace DataAccess.Mappers
         internal CustomerMapper CustomerMapper;
         internal SupplierMapper SupplierMapper;
 
+        #region Internal Methods
         internal BookingMapper(string connectionString)
         {
             this.connectionString = connectionString;
@@ -25,6 +23,7 @@ namespace DataAccess.Mappers
         internal BookingEntity Create(ISupplier supplier, ICustomer customer, string sale, int bookingNumber,
             DateTime StartDate, DateTime EndDate)
         {
+            //Uses the information set in the GUI to push the objet to the database by calling the insert method.
             BookingEntity bookingEntity = new BookingEntity(supplier, customer, sale, bookingNumber, StartDate, EndDate);
 
             insert(bookingEntity);
@@ -34,22 +33,26 @@ namespace DataAccess.Mappers
 
         internal List<BookingEntity> ReadAll()
         {
+            //Reads all bookings from the database. 
             List<BookingEntity> bookings = selectAll();
-
             return bookings;
         } 
 
         internal void Update(BookingEntity booking)
         {
+            //Calls the update method
             update(booking);
         }
 
         internal void Delete(BookingEntity booking)
         {
+            //Sets the row to deletede and calls update. 
             booking.Deleted = true;
             update(booking);
         }
+        #endregion
 
+        #region Protected Methods
         protected override string insertProcedureName
         {
             get { return StoredProcedures.CREATE_BOOKING; }
@@ -67,6 +70,7 @@ namespace DataAccess.Mappers
 
         protected override BookingEntity entityFromReader(SqlDataReader reader)
         {
+            //Sets data from the database to corresponding data type for usage in the program.
             int supplierId = (int) reader["Supplier"];
             int customerId = (int) reader["Customer"];
             string note = (string)reader["Note"];
@@ -92,7 +96,7 @@ namespace DataAccess.Mappers
 
             BookingEntity bookingEntity = new BookingEntity(supplier, customer, sale, bookingNumber,
                 startDate, endDate);
-
+            //Uses the data to make it into an booking object.
             bookingEntity.Note = note;
             bookingEntity.Id = id;
             bookingEntity.LastModified = lastModified;
@@ -123,6 +127,7 @@ namespace DataAccess.Mappers
 
         private void addBookingParameters(BookingEntity entity, SqlParameterCollection parameters)
         {
+            //Sets the parameters that a used by booking.
             SqlParameter parameter = new SqlParameter("@Sale", entity.Sale);
             parameters.Add(parameter);
             parameter = new SqlParameter("@BookingNumber", entity.BookingNumber);
@@ -156,5 +161,6 @@ namespace DataAccess.Mappers
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
         }
+        #endregion
     }
 }

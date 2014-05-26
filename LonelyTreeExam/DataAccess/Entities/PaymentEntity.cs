@@ -10,6 +10,7 @@ namespace DataAccess.Entities
 {
     internal class PaymentEntity : Entity, IPayment
     {
+        #region Public Properties
         public IParty Payee 
         {
             get { return _payee; }
@@ -35,7 +36,9 @@ namespace DataAccess.Entities
         {
             get { return _attachments; }
         }
+        #endregion
 
+        #region Public Methods
         public PaymentEntity(DateTime dueDate, decimal dueAmount, IParty payer, 
             IParty payee, PaymentType type, string sale, int booking) 
         {
@@ -65,6 +68,7 @@ namespace DataAccess.Entities
         {
             _attachments.Add(attachment);
         }
+        #endregion
 
         private APartyEntity _payer;
         private APartyEntity _payee;

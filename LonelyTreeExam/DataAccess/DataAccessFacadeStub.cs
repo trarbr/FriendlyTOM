@@ -1,9 +1,6 @@
 ﻿using Common.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Entities;
 using Common.Enums;
 
@@ -11,6 +8,7 @@ namespace DataAccess
 {
     public class DataAccessFacadeStub : IDataAccessFacade
     {
+        //Class is for test purpose.
         List<IPayment> payments;
         #region Payment Stuff
 

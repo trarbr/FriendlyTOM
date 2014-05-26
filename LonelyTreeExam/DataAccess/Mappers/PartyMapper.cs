@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 
 namespace DataAccess.Mappers
 {
     internal class PartyMapper
     {
+        #region Internal Properties
         internal SupplierMapper SupplierMapper { get; set; }
         internal CustomerMapper CustomerMapper { get; set; }
+        #endregion
 
-        internal PartyMapper()
-        {
-
-        }
+        #region internal Methods
         internal APartyEntity Read(int id)
         {
             // check if supplier, if not get customer and return
@@ -28,5 +21,6 @@ namespace DataAccess.Mappers
 
             return party;
         }
+        #endregion
     }
 }

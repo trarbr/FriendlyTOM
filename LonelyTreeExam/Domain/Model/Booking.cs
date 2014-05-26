@@ -2,15 +2,13 @@
 using Common.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess;
 
 namespace Domain.Model
 {
     internal class Booking : IBooking
     {
+        #region Public Properties
         public ISupplier Supplier
         {
             get { return _supplier; }
@@ -21,7 +19,6 @@ namespace Domain.Model
                 _bookingEntity.Supplier = _supplier._supplierEntity;
             }
         }
-
         public ICustomer Customer
         {
             get { return _customer; }
@@ -32,7 +29,6 @@ namespace Domain.Model
                 _bookingEntity.Customer = _customer._customerEntity;
             }
         }
-
         public string Note
         {
             get { return _bookingEntity.Note; }
@@ -66,7 +62,6 @@ namespace Domain.Model
                 _bookingEntity.EndDate = value; 
             }
         }
-
         public BookingType Type
         {
             get { return _bookingEntity.Type; }
@@ -145,7 +140,9 @@ namespace Domain.Model
                 _bookingEntity.TransferAmount = value; 
             }
         }
+        #endregion
 
+        #region Internal Constructor
         internal Booking(IBooking bookingEntity, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
@@ -173,9 +170,12 @@ namespace Domain.Model
             _supplier = supplier;
             _customer = customer;
         }
+        #endregion
 
+        #region Internal CRUD
         internal static List<Booking> ReadAll(IDataAccessFacade dataAccessFacade)
         {
+            //Calls readall bookings and adds them to a list
             List<IBooking> bookingEntities = dataAccessFacade.ReadAllBookings();
             List<Booking> bookings = new List<Booking>();
 
@@ -189,13 +189,16 @@ namespace Domain.Model
 
         internal void Update()
         {
+            //Calls dataAccessFacade update method for updating a booking
             dataAccessFacade.UpdateBooking(_bookingEntity);
         }
 
         internal void Delete()
         {
+            //Calls dataAccessFacade delete method for removing a booking from the list
             dataAccessFacade.DeleteBooking(_bookingEntity);
         }
+        #endregion
 
         internal void CalculateAmounts()
         {

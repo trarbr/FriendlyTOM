@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Common.Interfaces;
 using Common.Enums;
 
@@ -11,6 +6,7 @@ namespace DataAccess.Entities
 {
     internal class BookingEntity : Entity, IBooking
     {
+        #region Public Properties
         public ISupplier Supplier 
         {
             get { return _supplier; }
@@ -35,6 +31,7 @@ namespace DataAccess.Entities
         public decimal ProductRetention { get; set; }
         public decimal SupplierRetention { get; set; }
         public decimal TransferAmount { get; set; }
+        #endregion
 
         internal BookingEntity(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, 
             DateTime startDate, DateTime endDate) 

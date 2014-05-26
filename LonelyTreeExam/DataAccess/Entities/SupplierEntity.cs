@@ -1,15 +1,12 @@
 ﻿using Common.Enums;
 using Common.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Entities
 {
     internal class SupplierEntity : APartyEntity, ISupplier
     {
+        #region Public Properties
         public SupplierType Type { get; set; }
         public string AccountNo { get; set; }
         public AccountType AccountType { get; set; }
@@ -20,7 +17,9 @@ namespace DataAccess.Entities
         {
             get { return _paymentRules; }
         }
+        #endregion
 
+        #region Constructor
         public SupplierEntity(SupplierType type, string note, string name) 
             :base(note, name)
         {
@@ -33,6 +32,7 @@ namespace DataAccess.Entities
 
             _paymentRules = new List<PaymentRuleEntity>();
         }
+        #endregion
 
         internal void AddPaymentRule(PaymentRuleEntity paymentRule)
         {
