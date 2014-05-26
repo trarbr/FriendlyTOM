@@ -8,6 +8,6 @@ namespace Common.Enums
 {
     public enum SupplierType
     {
-        Hotel, Cruise
+        Hotel, Cruise, Restaurant, Guide, Driver, Lodge
     }
 }
