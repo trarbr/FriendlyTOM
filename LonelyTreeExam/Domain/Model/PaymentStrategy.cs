@@ -29,7 +29,8 @@ namespace Domain.Model
             Customer customer = (Customer)booking.Customer;
 
             // finding has to do more, but this will work in some cases
-            List<IPaymentRule> paymentRulesForCustomer = findPaymentRulesForCustomer(supplier, customer);
+            IReadOnlyList<IPaymentRule> suppliersPaymentRules = supplier.PaymentRules;
+            List<IPaymentRule> paymentRulesForCustomer = findPaymentRulesForCustomer(suppliersPaymentRules, customer);
             List<IPaymentRule> paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, booking.Type);
 
             foreach (IPaymentRule paymentRule in paymentRulesForBookingType)
@@ -57,6 +58,20 @@ namespace Domain.Model
             }
         }
 
+        private List<IPaymentRule> findPaymentRulesForCustomer(IReadOnlyList<IPaymentRule> suppliersPaymentRules, Customer customer)
+        {
+            List<IPaymentRule> paymentRules = new List<IPaymentRule>();
+            foreach (IPaymentRule paymentRule in suppliersPaymentRules)
+            {
+                if (((Customer)paymentRule.Customer)._customerEntity == customer._customerEntity)
+                {
+                    paymentRules.Add(paymentRule);
+                }
+            }
+
+            return paymentRules;
+        }
+
         private List<IPaymentRule> findPaymentRulesForBookingType(List<IPaymentRule> paymentRules, BookingType bookingType)
         {
             List<IPaymentRule> filteredPaymentRules = new List<IPaymentRule>();
@@ -69,20 +84,6 @@ namespace Domain.Model
             }
 
             return filteredPaymentRules;
-        }
-
-        private List<IPaymentRule> findPaymentRulesForCustomer(Supplier supplier, Customer customer)
-        {
-            List<IPaymentRule> paymentRules = new List<IPaymentRule>();
-            foreach (IPaymentRule paymentRule in supplier.PaymentRules)
-            {
-                if (((Customer)paymentRule.Customer)._customerEntity == customer._customerEntity)
-                {
-                    paymentRules.Add(paymentRule);
-                }
-            }
-
-            return paymentRules;
         }
     }
 }
