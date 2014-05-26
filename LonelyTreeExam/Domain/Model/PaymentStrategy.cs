@@ -13,17 +13,7 @@ namespace Domain.Model
     // creates payments by applying a set of PaymentRules to a booking!
     internal class PaymentStrategy
     {
-        private Booking booking;
-        private PaymentController paymentController;
-
-        public PaymentStrategy(Booking booking, PaymentController paymentController)
-        {
-            this.booking = booking;
-            this.paymentController = paymentController;
-        }
-
-
-        internal void CreatePayments()
+        internal void CreatePayments(Booking booking, PaymentController paymentController)
         {
             Supplier supplier = (Supplier)booking.Supplier;
             Customer customer = (Customer)booking.Customer;
@@ -46,7 +36,7 @@ namespace Domain.Model
                     dueDate = booking.EndDate.AddDays(paymentRule.DaysOffset);
                 }
 
-                booking.CalculateTransferAmount();
+                booking.CalculateAmounts();
                 decimal dueAmount = booking.TransferAmount * paymentRule.Percentage / 100;
 
                 Customer payingCustomer = paymentController.CustomerLonelyTree;
