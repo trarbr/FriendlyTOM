@@ -315,6 +315,7 @@ namespace LonelyTreeExam.UserControls
         private void calculatePayments_Click(object sender, RoutedEventArgs e)
         {
             bookingController.CalculatePaymentsForBooking(selectedBooking);
+            refreshDataGrid();
         }
         #endregion
     }

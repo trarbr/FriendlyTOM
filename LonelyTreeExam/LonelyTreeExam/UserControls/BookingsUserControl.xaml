@@ -33,6 +33,7 @@
                 <DataGridTextColumn Header = "Service" Width="*" Binding="{Binding Service, StringFormat=N2}"/>
                 <DataGridTextColumn Header = "Product Retention" Width="*" Binding="{Binding ProductRetention, StringFormat=N2}"/>
                 <DataGridTextColumn Header = "Supplier Retention" Width="*" Binding="{Binding SupplierRetention, StringFormat=N2}"/>
+                <DataGridTextColumn Header = "Transfer" Width="*" Binding="{Binding TransferAmount, StringFormat=N2}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">

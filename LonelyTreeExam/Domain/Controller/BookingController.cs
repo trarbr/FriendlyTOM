@@ -48,8 +48,10 @@ namespace Domain.Controller
 
         public void CalculatePaymentsForBooking(IBooking booking)
         {
+            Booking bookingModel = (Booking)booking;
+            bookingModel.CalculateAmounts();
             PaymentStrategy paymentStrategy = new PaymentStrategy();
-            paymentStrategy.CreatePayments((Booking)booking, paymentController);
+            paymentStrategy.CreatePayments(bookingModel, paymentController);
         }
 
         #region Private Properties
