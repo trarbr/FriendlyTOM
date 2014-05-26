@@ -105,7 +105,7 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _bookingEntity = bookingEntity;
 
-            // Create Models of responsible and commissioner
+            // Create Models of supplier and customer
             _supplier = new Supplier(dataAccessFacade, _bookingEntity.Supplier);
             _customer = new Customer(_bookingEntity.Customer, dataAccessFacade);
         }
@@ -114,11 +114,11 @@ namespace Domain.Model
             DateTime endDate, IDataAccessFacade dataAccessFacade)
         {
             // Get entities for DataAccess
-            ISupplier responsibleEntity = supplier._supplierEntity;
-            ICustomer commissionerEntity = customer._customerEntity;
+            ISupplier supplierEntity = supplier._supplierEntity;
+            ICustomer customerEntity = customer._customerEntity;
 
             this.dataAccessFacade = dataAccessFacade;
-            _bookingEntity = dataAccessFacade.CreateBooking(responsibleEntity, commissionerEntity, sale, bookingNumber, 
+            _bookingEntity = dataAccessFacade.CreateBooking(supplierEntity, customerEntity, sale, bookingNumber, 
                 startDate, endDate);
 
             _supplier = supplier;

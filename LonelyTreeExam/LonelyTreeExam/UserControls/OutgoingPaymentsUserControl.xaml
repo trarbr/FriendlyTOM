@@ -23,7 +23,7 @@
             <DataGrid.Columns>
                 <StaticResource ResourceKey="Sale"/>
                 <StaticResource ResourceKey="Booking"/>
-                <StaticResource ResourceKey="Commissioner"/>
+                <StaticResource ResourceKey="Payee"/>
                 <StaticResource ResourceKey="DueDate"/>
                 <StaticResource ResourceKey="DueAmount"/>
                 <StaticResource ResourceKey="Type"/>

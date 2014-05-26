@@ -46,7 +46,7 @@ namespace LonelyTreeExam.UserControls
             {
                 if (!autoCompleteEntries.Contains(supplier.Name))
                 {
-                    responsibleTextBox.AddItem(new AutoCompleteEntry(supplier.Name, null));
+                    supplierTextBox.AddItem(new AutoCompleteEntry(supplier.Name, null));
                     autoCompleteEntries.Add(supplier.Name);
                 }
             }
@@ -55,7 +55,7 @@ namespace LonelyTreeExam.UserControls
             {
                 if (!autoCompleteEntries.Contains(customer.Name))
                 {
-                    commissionerTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
+                    customerTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
                     autoCompleteEntries.Add(customer.Name);
                 }
             }
@@ -106,28 +106,27 @@ namespace LonelyTreeExam.UserControls
                     DateTime startDate = startDateDatePicker.SelectedDate.Value;
                     DateTime endDate = endDateDatePicker.SelectedDate.Value;
 
-                    //TODO: FIX RESPONSIBLE OG COMMISSIONER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    ISupplier responsible = null;
+                    ISupplier selectedSupplier = null;
                     foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
                     {
-                        if (supplier.Name == responsibleTextBox.Text)
+                        if (supplier.Name == supplierTextBox.Text)
                         {
-                            responsible = supplier;
+                            selectedSupplier = supplier;
                             break;
                         }
                     }
 
-                    ICustomer commissioner = null;
+                    ICustomer selectedCustomer = null;
                     foreach (ICustomer customer in customerController.ReadAllCustomers())
                     {
-                        if (customer.Name == commissionerTextBox.Text)
+                        if (customer.Name == customerTextBox.Text)
                         {
-                            commissioner = customer;
+                            selectedCustomer = customer;
                             break;
                         }
                     }
 
-                    IBooking booking = bookingController.CreateBooking(responsible, commissioner, sale, bookingNumber,
+                    IBooking booking = bookingController.CreateBooking(selectedSupplier, selectedCustomer, sale, bookingNumber,
                                                                        startDate, endDate);
 
                     booking.Type = (BookingType)bookingTypeComboBox.SelectedItem;
@@ -160,22 +159,22 @@ namespace LonelyTreeExam.UserControls
                 {
                     int currentIndex = bookingsDataGrid.SelectedIndex;
 
-                    ISupplier responsible = null;
+                    ISupplier selectedSupplier = null;
                     foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
                     {
-                        if (supplier.Name == responsibleTextBox.Text)
+                        if (supplier.Name == supplierTextBox.Text)
                         {
-                            responsible = supplier;
+                            selectedSupplier = supplier;
                             break;
                         }
                     }
 
-                    ICustomer commissioner = null;
+                    ICustomer selectedCustomer = null;
                     foreach (ICustomer customer in customerController.ReadAllCustomers())
                     {
-                        if (customer.Name == commissionerTextBox.Text)
+                        if (customer.Name == customerTextBox.Text)
                         {
-                            commissioner = customer;
+                            selectedCustomer = customer;
                             break;
                         }
                     }
@@ -200,8 +199,8 @@ namespace LonelyTreeExam.UserControls
                     selectedBooking.ProductRetention = productRetention;
                     selectedBooking.SupplierRetention = supplierRetention;
                     selectedBooking.BookingNumber = bookingNumber;
-                    selectedBooking.Customer = commissioner;
-                    selectedBooking.Supplier = responsible;
+                    selectedBooking.Customer = selectedCustomer;
+                    selectedBooking.Supplier = selectedSupplier;
                     selectedBooking.EndDate = endDateDatePicker.SelectedDate.Value;
                     selectedBooking.StartDate = startDateDatePicker.SelectedDate.Value;
                     selectedBooking.Note = noteTextBox.Text;
@@ -284,8 +283,8 @@ namespace LonelyTreeExam.UserControls
                 serviceTextBox.Text = selectedBooking.Service.ToString();
                 productRetentionTextBox.Text = selectedBooking.ProductRetention.ToString();
                 supplierRetentionTextBox.Text = selectedBooking.SupplierRetention.ToString();
-                responsibleTextBox.Text = selectedBooking.Supplier.Name;
-                commissionerTextBox.Text = selectedBooking.Customer.Name;
+                supplierTextBox.Text = selectedBooking.Supplier.Name;
+                customerTextBox.Text = selectedBooking.Customer.Name;
                 noteTextBox.Text = selectedBooking.Note;
             }
             else
@@ -300,8 +299,8 @@ namespace LonelyTreeExam.UserControls
                 serviceTextBox.Text = "";
                 productRetentionTextBox.Text = "";
                 supplierRetentionTextBox.Text = "";
-                responsibleTextBox.Text = "";
-                commissionerTextBox.Text = "";
+                supplierTextBox.Text = "";
+                customerTextBox.Text = "";
                 noteTextBox.Text = "";
             }
         }

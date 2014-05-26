@@ -30,8 +30,8 @@
             <Label Content="Paid Date:"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,0,0">
-            <local:AutoCompleteTextBox Height="26" x:Name="commissionerTextBox" Threshold="1" DelayTime="150"/>
-            <local:AutoCompleteTextBox Height="26" x:Name="responsibleTextBox" Threshold="1" DelayTime="150"/>
+            <local:AutoCompleteTextBox Height="26" x:Name="payeeTextBox" Threshold="1" DelayTime="150"/>
+            <local:AutoCompleteTextBox Height="26" x:Name="payerTextBox" Threshold="1" DelayTime="150"/>
             <DatePicker x:Name="dueDateDatePicker" Height="26"/>
             <TextBox x:Name="dueAmountTextBox" Height="26" TextWrapping="Wrap"/>
             <ComboBox x:Name="paymentTypeComboBox" Margin="0,2"/>

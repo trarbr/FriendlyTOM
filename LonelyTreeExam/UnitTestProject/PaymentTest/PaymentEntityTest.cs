@@ -31,8 +31,8 @@ namespace UnitTestProject
 
             Assert.AreEqual(dueDate, paymentEntity.DueDate);
             Assert.AreEqual(dueAmount, paymentEntity.DueAmount);
-            Assert.AreEqual(commissioner, paymentEntity.Commissioner);
-            Assert.AreEqual(responsible, paymentEntity.Responsible);
+            Assert.AreEqual(commissioner, paymentEntity.Payee);
+            Assert.AreEqual(responsible, paymentEntity.Payer);
             Assert.AreEqual(expectedPaidDate, paymentEntity.PaidDate);
             Assert.AreEqual(expectedPaidAmount, paymentEntity.PaidAmount);
             Assert.AreEqual(expectedPaid, paymentEntity.Paid);

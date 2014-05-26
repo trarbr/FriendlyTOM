@@ -7,9 +7,34 @@ using DataAccess;
 
 namespace Domain.Model
 {
-    internal class Payment : AAccountability, IPayment
+    internal class Payment : IPayment
     {
         #region Public Properties/Methods
+        public IParty Payee
+        {
+            get { return _payee; }
+            set
+            {
+                // validate
+                _payee = (AParty)value;
+                _paymentEntity.Payee = _payee._partyEntity;
+            }
+        }
+        public IParty Payer
+        {
+            get { return _payer; }
+            set
+            {
+                // validate
+                _payer = (AParty)value;
+                _paymentEntity.Payer = _payer._partyEntity; 
+            }
+        }
+        public string Note
+        {
+            get { return _paymentEntity.Note; }
+            set { _paymentEntity.Note = value; }
+        }
         public DateTime DueDate
         {
             get { return _paymentEntity.DueDate; }
@@ -90,23 +115,25 @@ namespace Domain.Model
         #endregion
 
         #region Internal Methods
-        internal Payment(DateTime dueDate, decimal dueAmount, IParty responsible,
-            IParty commissioner, PaymentType type, string sale, int booking,
+        internal Payment(DateTime dueDate, decimal dueAmount, IParty payer,
+            IParty payee, PaymentType type, string sale, int booking,
             IDataAccessFacade dataAccessFacade) 
         {
             validateDueAmount(dueAmount);
-            validateResponsible(responsible);
-            validateCommissioner(commissioner);
+            validatePayer(payer);
+            validatePayee(payee);
             validateSale(sale);
 
             // Get entities for DataAccess
-            IParty responsibleEntity = ((AParty)responsible)._partyEntity;
-            IParty commissionerEntity = ((AParty)commissioner)._partyEntity;
+            IParty payerEntity = ((AParty)payer)._partyEntity;
+            IParty payeeEntity = ((AParty)payee)._partyEntity;
 
             this.dataAccessFacade = dataAccessFacade;
-            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, responsibleEntity,
-                commissionerEntity, type, sale, booking);
-            initializeAccountability(_paymentEntity, responsible, commissioner);
+            _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, payerEntity,
+                payeeEntity, type, sale, booking);
+
+            Payer = payer;
+            Payee = payee;
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade) 
@@ -114,21 +141,18 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             this._paymentEntity = paymentEntity;
 
-            // Create Models of responsible and commissioner
-            AParty responsible = null;
-            AParty commissioner = null;
-            if (_paymentEntity.Responsible is ISupplier)
+            // Create Models of payer and payee
+            if (_paymentEntity.Payer is ISupplier)
             {
-                responsible = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Responsible);
-                commissioner = new Customer((ICustomer)_paymentEntity.Commissioner, dataAccessFacade);
+                _payer = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Payer);
+                _payee = new Customer((ICustomer)_paymentEntity.Payee, dataAccessFacade);
             }
-            else if (_paymentEntity.Responsible is ICustomer)
+            else if (_paymentEntity.Payer is ICustomer)
             {
-                responsible = new Customer((ICustomer)_paymentEntity.Responsible, dataAccessFacade);
-                commissioner = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Commissioner);
+                _payer = new Customer((ICustomer)_paymentEntity.Payer, dataAccessFacade);
+                _payee = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Payee);
             }
 
-            initializeAccountability(_paymentEntity, responsible, commissioner);
         }
 
         internal void Update()
@@ -189,10 +213,56 @@ namespace Domain.Model
             validateNullOrWhiteSpace(value, "Sale");
         }
         #endregion
+        #region ValidateAllProperties
+
+        protected void validatePayer(IParty value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Payer was not found");
+            }
+        }
+
+        protected void validatePayee(IParty value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Payee was not found");
+            }
+        }
+
+        protected void validateNullOrWhiteSpace(string text, string paramName)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentOutOfRangeException(paramName, "may not be empty");
+            }
+            validateTextLength(text, paramName);
+        }
+
+        protected void validateNoteLength(string value)
+        {
+            string paramName = "Note";
+            if (value.Length > 2000)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "text may not be over 2000 caracters");
+            }
+        }
+
+        private void validateTextLength(string text, string paramName)
+        {
+            if (text.Length > 100)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "text may not be over 100 caracters");
+            }
+        }
+        #endregion
 
         #region Private Properties
         private IPayment _paymentEntity;
         private IDataAccessFacade dataAccessFacade;
+        private AParty _payee;
+        private AParty _payer;
         #endregion
     }
 }

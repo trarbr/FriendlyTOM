@@ -67,8 +67,8 @@ namespace DataAccess.Mappers
 
         protected override BookingEntity entityFromReader(SqlDataReader reader)
         {
-            int responsibleId = (int) reader["Responsible"];
-            int commissionerId = (int) reader["Commissioner"];
+            int supplierId = (int) reader["Responsible"];
+            int customerId = (int) reader["Commissioner"];
             string note = (string)reader["Note"];
             string sale = (string) reader["Sale"];
             int bookingNumber = (int) reader["BookingNumber"];
@@ -87,10 +87,10 @@ namespace DataAccess.Mappers
             DateTime lastModified = (DateTime) reader["LastModified"];
             bool deleted = (bool) reader["Deleted"];
 
-            SupplierEntity responsible = SupplierMapper.Read(responsibleId);
-            CustomerEntity commissioner = CustomerMapper.Read(commissionerId);
+            SupplierEntity supplier = SupplierMapper.Read(supplierId);
+            CustomerEntity customer = CustomerMapper.Read(customerId);
 
-            BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber,
+            BookingEntity bookingEntity = new BookingEntity(supplier, customer, sale, bookingNumber,
                 startDate, endDate);
 
             bookingEntity.Note = note;

@@ -32,8 +32,8 @@ namespace LonelyTreeExam.UserControls
             this.customerController = customerController;
 
             details = new DetailsUserControl(paymentController);
-            details.responsibleTextBox.Text = "Lonely Tree";
-            details.responsibleTextBox.IsEnabled = false;
+            details.payerTextBox.Text = "Lonely Tree";
+            details.payerTextBox.IsEnabled = false;
             detailsUserControl.Content = details;
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
@@ -47,7 +47,7 @@ namespace LonelyTreeExam.UserControls
 
             outgoingPayments = paymentController.ReadAllOutgoingPayments();
             paymentsDataGrid.ItemsSource = outgoingPayments;
-            details.responsibleTextBox.Text = "Lonely Tree";
+            details.payerTextBox.Text = "Lonely Tree";
 
             details.AddSuppliersToAutoComplete(supplierController.ReadAllSuppliers());
         }
@@ -65,7 +65,7 @@ namespace LonelyTreeExam.UserControls
         {
             details.attachmentsListView.ItemsSource = null;
             paymentsDataGrid.SelectedItem = null;
-            details.responsibleTextBox.Text = "Lonely Tree";
+            details.payerTextBox.Text = "Lonely Tree";
             details.ClearAttachments();
         }
 
@@ -100,7 +100,7 @@ namespace LonelyTreeExam.UserControls
                     paymentController.DeletePayment(payment);
                 }
                 paymentsDataGrid.SelectedItem = null;
-                details.responsibleTextBox.Text = "Lonely Tree";
+                details.payerTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
             }
         }
@@ -115,7 +115,7 @@ namespace LonelyTreeExam.UserControls
                     paymentController.UpdatePayment(payment);
                 }
                 paymentsDataGrid.SelectedItem = null;
-                details.responsibleTextBox.Text = "Lonely Tree";
+                details.payerTextBox.Text = "Lonely Tree";
                 RefreshPaymentDataGrid();
             }
         }
@@ -148,7 +148,7 @@ namespace LonelyTreeExam.UserControls
                 foreach (IPayment payment in outgoingPayments)
                 {
                     string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9}",
-                        payment.Commissioner, payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
+                        payment.Payee, payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
                         payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note, payment.Sale,
                         payment.Booking, payment.Invoice, payment.Type);
 

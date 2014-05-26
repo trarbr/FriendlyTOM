@@ -26,10 +26,10 @@ namespace DataAccess.Mappers
             this.entityMap = new Dictionary<int, PaymentEntity>();
         }
 
-        internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, IParty responsible,
-            IParty commissioner, PaymentType type, string sale, int booking)
+        internal PaymentEntity Create(DateTime dueDate, decimal dueAmount, IParty payer,
+            IParty payee, PaymentType type, string sale, int booking)
         {
-            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner,
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, payer, payee,
                 type, sale, booking);
 
             insert(paymentEntity);
@@ -105,8 +105,8 @@ namespace DataAccess.Mappers
             bool archived = (bool)reader["Archived"];
             string attachments = (string)reader["Attachments"];
 
-            int responsibleId = (int)reader["Responsible"];
-            int commissionerId = (int)reader["Commissioner"];
+            int payerId = (int)reader["Responsible"];
+            int payeeId = (int)reader["Commissioner"];
             string note = (string)reader["Note"];
             PaymentType type = (PaymentType)Enum.Parse(typeof(PaymentType), reader["Type"].ToString());
             string sale = (string)reader["Sale"];
@@ -117,11 +117,11 @@ namespace DataAccess.Mappers
             DateTime lastModified = (DateTime)reader["LastModified"];
             bool deleted = (bool)reader["Deleted"];
 
-            APartyEntity responsible = PartyMapper.Read(responsibleId);
-            APartyEntity commissioner = PartyMapper.Read(commissionerId);
+            APartyEntity payer = PartyMapper.Read(payerId);
+            APartyEntity payee = PartyMapper.Read(payeeId);
 
-            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible,
-                commissioner, type, sale, booking);
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, payer,
+                payee, type, sale, booking);
             paymentEntity.PaidDate = paidDate;
             paymentEntity.PaidAmount = paidAmount;
             paymentEntity.Paid = paid;
@@ -188,9 +188,9 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Archived", entity.Archived);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Responsible).Id);
+            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Payer).Id);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Commissioner).Id);
+            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Payee).Id);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);

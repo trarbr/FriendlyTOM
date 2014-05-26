@@ -45,11 +45,11 @@ namespace Domain.Collections
                     {
                         archivedPayments.Add(payment);
                     }
-                    else if (payment.Commissioner.Name == "Lonely Tree")
+                    else if (payment.Payee.Name == "Lonely Tree")
                     {
                         incomingPayments.Add(payment);
                     }
-                    else if (payment.Responsible.Name == "Lonely Tree")
+                    else if (payment.Payer.Name == "Lonely Tree")
                     {
                         outgoingPayments.Add(payment);
                     }
@@ -89,10 +89,10 @@ namespace Domain.Collections
             return outgoingPayments;
         }
 
-        internal Payment Create(DateTime dueDate, decimal dueAmount, IParty responsible,
-             IParty commissioner, PaymentType type, string sale, int booking)
+        internal Payment Create(DateTime dueDate, decimal dueAmount, IParty payer,
+             IParty payee, PaymentType type, string sale, int booking)
         {
-            Payment payment = new Payment(dueDate, dueAmount, responsible, commissioner, type,
+            Payment payment = new Payment(dueDate, dueAmount, payer, payee, type,
                 sale, booking, dataAccessFacade);
             payments.Add(payment);
 
@@ -114,7 +114,7 @@ namespace Domain.Collections
              {
                  archivedPayments.Remove(payment);
 
-                 if (payment.Commissioner.Name == "Lonely Tree")
+                 if (payment.Payee.Name == "Lonely Tree")
                  {
                      if (!incomingPayments.Contains(payment))
                      {
@@ -122,7 +122,7 @@ namespace Domain.Collections
                          outgoingPayments.Remove(payment);
                      }
                  }
-                 if (payment.Responsible.Name == "Lonely Tree")
+                 if (payment.Payer.Name == "Lonely Tree")
                  {
                      if (!outgoingPayments.Contains(payment))
                      {

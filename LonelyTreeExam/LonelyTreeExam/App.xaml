@@ -5,15 +5,14 @@
     <Application.Resources>
         <DataGridTextColumn x:Key="Sale" x:Shared="False"  Header = "Sale" Width="*" Binding="{Binding Sale}"/>
         <DataGridTextColumn x:Key="Booking" x:Shared="False"  Header = "Booking" Width="*" Binding="{Binding Booking}"/>
-        <DataGridTextColumn x:Key="Commissioner" x:Shared="False"  Header = "Payee" Width="*" Binding="{Binding Commissioner.Name}"/>
-        <DataGridTextColumn x:Key="Responsible" x:Shared="False" Header = "Payer" Width="*" Binding="{Binding Responsible.Name}"/>
+        <DataGridTextColumn x:Key="Payee" x:Shared="False"  Header = "Payee" Width="*" Binding="{Binding Payee.Name}"/>
+        <DataGridTextColumn x:Key="Payer" x:Shared="False" Header = "Payer" Width="*" Binding="{Binding Payer.Name}"/>
         <DataGridTextColumn x:Key="DueDate" x:Shared="False"  Header = "Due Date" Width="*" Binding="{Binding DueDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
         <DataGridTextColumn x:Key="DueAmount" x:Shared="False"  Header = "Due Amount" Width="*" Binding="{Binding DueAmount, StringFormat=N2}"/>
         <DataGridTextColumn x:Key="PaidDate" x:Shared="False" Header = "Paid Date" Width="*" Binding="{Binding PaidDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
         <DataGridTextColumn x:Key="PaidAmount" x:Shared="False" Header = "Paid Amount" Width="*" Binding="{Binding PaidAmount, StringFormat=N2}"/>
         <DataGridTextColumn x:Key="Type" x:Shared="False"  Header = "Type" Width="*" Binding="{Binding Type}"/>
         <DataGridCheckBoxColumn x:Key="Paid" x:Shared="False"  Header = "Paid" Width="Auto" Binding="{Binding Paid}"/>
-        <DataGridTextColumn x:Key="Supplier" x:Shared="False"  Header = "Supplier" Width="*" Binding="{Binding Responsible}"/>
 
         <DataTemplate x:Key="RestoreButton">
             <StackPanel Orientation="Horizontal">
