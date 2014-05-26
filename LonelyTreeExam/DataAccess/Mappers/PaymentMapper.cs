@@ -105,8 +105,8 @@ namespace DataAccess.Mappers
             bool archived = (bool)reader["Archived"];
             string attachments = (string)reader["Attachments"];
 
-            int payerId = (int)reader["Responsible"];
-            int payeeId = (int)reader["Commissioner"];
+            int payerId = (int)reader["Payer"];
+            int payeeId = (int)reader["Payee"];
             string note = (string)reader["Note"];
             PaymentType type = (PaymentType)Enum.Parse(typeof(PaymentType), reader["Type"].ToString());
             string sale = (string)reader["Sale"];
@@ -188,9 +188,9 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@Archived", entity.Archived);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Payer).Id);
+            parameter = new SqlParameter("@Payer", ((APartyEntity)entity.Payer).Id);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Payee).Id);
+            parameter = new SqlParameter("@Payee", ((APartyEntity)entity.Payee).Id);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);

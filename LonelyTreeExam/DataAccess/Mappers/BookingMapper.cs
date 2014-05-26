@@ -67,8 +67,8 @@ namespace DataAccess.Mappers
 
         protected override BookingEntity entityFromReader(SqlDataReader reader)
         {
-            int supplierId = (int) reader["Responsible"];
-            int customerId = (int) reader["Commissioner"];
+            int supplierId = (int) reader["Supplier"];
+            int customerId = (int) reader["Customer"];
             string note = (string)reader["Note"];
             string sale = (string) reader["Sale"];
             int bookingNumber = (int) reader["BookingNumber"];
@@ -149,9 +149,9 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@TransferAmount", entity.TransferAmount);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Responsible", ((APartyEntity)entity.Supplier).Id);
+            parameter = new SqlParameter("@Supplier", ((APartyEntity)entity.Supplier).Id);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@Commissioner", ((APartyEntity)entity.Customer).Id);
+            parameter = new SqlParameter("@Customer", ((APartyEntity)entity.Customer).Id);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Note", entity.Note);
             parameters.Add(parameter);
