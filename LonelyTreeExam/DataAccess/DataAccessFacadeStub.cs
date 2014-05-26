@@ -8,6 +8,7 @@ namespace DataAccess
 {
     public class DataAccessFacadeStub : IDataAccessFacade
     {
+        //Class is for test purpose.
         List<IPayment> payments;
         #region Payment Stuff
 

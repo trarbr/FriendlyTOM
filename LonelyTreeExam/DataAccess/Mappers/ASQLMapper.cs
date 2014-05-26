@@ -18,7 +18,6 @@ namespace DataAccess.Mappers
         protected abstract string updateProcedureName { get; }
         #endregion
 
-        #region Protected Methods
         protected abstract TEntity entityFromReader(SqlDataReader reader);
 
         protected abstract void addInsertParameters(TEntity entity,
@@ -26,14 +25,17 @@ namespace DataAccess.Mappers
         protected abstract void addUpdateParameters(TEntity entity,
             SqlParameterCollection parameters);
 
+        #region SelectAll
         protected List<TEntity> selectAll()
         {
             List<TEntity> entities = new List<TEntity>();
 
+            //Opens Data Connection
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
+                    //Finds the selectAllProcedure and executes it.
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = selectAllProcedureName;
 
@@ -42,12 +44,14 @@ namespace DataAccess.Mappers
                     {
                         while (reader.Read())
                         {
+                            //Then reads from the database if the List is empty.
                             TEntity entity = entityFromReader(reader);
 
                             if (!entityMap.ContainsKey(entity.Id))
                             {
                                 entityMap.Add(entity.Id, entity);
                             }
+                                //If not empty, reads from the cache. 
                             else
                             {
                                 // NOTE: This means data in cache is not overwritten!
@@ -70,13 +74,17 @@ namespace DataAccess.Mappers
 
             return entities;
         }
+        #endregion
 
+        #region Insert
         protected TEntity insert(TEntity entity)
         {
+            //Opens connection
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
+                    //Finds insertprocedure and executes it.
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = insertProcedureName;
 
@@ -100,18 +108,23 @@ namespace DataAccess.Mappers
                     entity.LastModified = (DateTime)cmd.Parameters["@LastModified"].Value;
 
                     entityMap.Add(entity.Id, entity);
+                    //Closes the database when leaving the using statement
                 }
             }
 
             return entity;
         }
+        #endregion
 
+        #region Update
         protected TEntity update(TEntity entity)
         {
+            //Opens the connection
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
+                    //Executes storedprocedure.
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = updateProcedureName;
 
@@ -131,6 +144,7 @@ namespace DataAccess.Mappers
                     cmd.ExecuteNonQuery();
 
                     entity.LastModified = (DateTime)cmd.Parameters["@LastModified"].Value;
+                    //Closes database.
                 }
             }
 

@@ -23,6 +23,7 @@ namespace DataAccess.Mappers
         internal BookingEntity Create(IParty responsible, IParty commissioner, string sale, int bookingNumber,
             DateTime StartDate, DateTime EndDate)
         {
+            //Uses the information set in the GUI to push the objet to the database by calling the insert method.
             BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber,
                 StartDate, EndDate);
 
@@ -33,18 +34,20 @@ namespace DataAccess.Mappers
 
         internal List<BookingEntity> ReadAll()
         {
+            //Reads all bookings from the database. 
             List<BookingEntity> bookings = selectAll();
-
             return bookings;
         } 
 
         internal void Update(BookingEntity booking)
         {
+            //Calls the update method
             update(booking);
         }
 
         internal void Delete(BookingEntity booking)
         {
+            //Sets the row to deletede and calls update. 
             booking.Deleted = true;
             update(booking);
         }
@@ -68,6 +71,7 @@ namespace DataAccess.Mappers
 
         protected override BookingEntity entityFromReader(SqlDataReader reader)
         {
+            //Sets data from the database to corresponding data type for usage in the program.
             int responsibleId = (int) reader["Responsible"];
             int commissionerId = (int) reader["Commissioner"];
             string note = (string)reader["Note"];
@@ -93,7 +97,7 @@ namespace DataAccess.Mappers
 
             BookingEntity bookingEntity = new BookingEntity(responsible, commissioner, sale, bookingNumber,
                 startDate, endDate);
-
+            //Uses the data to make it into an booking object.
             bookingEntity.Note = note;
             bookingEntity.Id = id;
             bookingEntity.LastModified = lastModified;
@@ -124,6 +128,7 @@ namespace DataAccess.Mappers
 
         private void addBookingParameters(BookingEntity entity, SqlParameterCollection parameters)
         {
+            //Sets the parameters that a used by booking.
             SqlParameter parameter = new SqlParameter("@Sale", entity.Sale);
             parameters.Add(parameter);
             parameter = new SqlParameter("@BookingNumber", entity.BookingNumber);
