@@ -2,6 +2,7 @@
 using LonelyTreeExam.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,11 @@ namespace LonelyTreeExam
                 customerController);
 
             currentTabIndex = 0;  
+        }
+
+        public static CultureInfo GetCulture()
+        {
+            return new CultureInfo("en-US");
         }
 
         private AccountingUserControl accountingControl;

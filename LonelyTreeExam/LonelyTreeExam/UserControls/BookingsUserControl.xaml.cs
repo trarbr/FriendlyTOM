@@ -4,6 +4,7 @@ using Domain.Controller;
 using LonelyTreeExam.AutoComplete;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,8 +39,21 @@ namespace LonelyTreeExam.UserControls
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             autoCompleteEntries = new HashSet<string>();
             addAutoCompleteEntries();
+            culture = MainWindow.GetCulture();
         }
 
+        #region Private Fields
+        private BookingController bookingController;
+        private SupplierController supplierController;
+        private CustomerController customerController;
+        private IBooking selectedBooking;
+        private BitmapImage collapsePlusImage;
+        private BitmapImage collapseMinImage;
+        private HashSet<string> autoCompleteEntries;
+        private CultureInfo culture;
+        #endregion
+
+        #region Private Methods
         private void addAutoCompleteEntries()
         {
             foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
@@ -60,14 +74,6 @@ namespace LonelyTreeExam.UserControls
                 }
             }
         }
-
-        private BookingController bookingController;
-        private SupplierController supplierController;
-        private CustomerController customerController;
-        private IBooking selectedBooking;
-        private BitmapImage collapsePlusImage;
-        private BitmapImage collapseMinImage;
-        private HashSet<string> autoCompleteEntries;
 
         private void refreshDataGrid()
         {
@@ -137,11 +143,11 @@ namespace LonelyTreeExam.UserControls
                     decimal productRetention;
                     decimal supplierRetention;
 
-                    decimal.TryParse(IVAExemptTextBox.Text, out iVAExempt);
-                    decimal.TryParse(IVASubjectTextBox.Text, out iVASubject);
-                    decimal.TryParse(serviceTextBox.Text, out service);
-                    decimal.TryParse(productRetentionTextBox.Text, out productRetention);
-                    decimal.TryParse(supplierRetentionTextBox.Text, out supplierRetention);
+                    decimal.TryParse(IVAExemptTextBox.Text, NumberStyles.Any, culture, out iVAExempt);
+                    decimal.TryParse(IVASubjectTextBox.Text, NumberStyles.Any, culture, out iVASubject);
+                    decimal.TryParse(serviceTextBox.Text, NumberStyles.Any, culture, out service);
+                    decimal.TryParse(productRetentionTextBox.Text, NumberStyles.Any, culture, out productRetention);
+                    decimal.TryParse(supplierRetentionTextBox.Text, NumberStyles.Any, culture, out supplierRetention);
 
                     booking.IVAExempt = iVAExempt;
                     booking.IVASubject = iVASubject;
@@ -186,11 +192,11 @@ namespace LonelyTreeExam.UserControls
                     decimal supplierRetention;
                     int bookingNumber;
 
-                    decimal.TryParse(IVAExemptTextBox.Text, out iVAExempt);
-                    decimal.TryParse(IVASubjectTextBox.Text, out iVASubject);
-                    decimal.TryParse(serviceTextBox.Text, out service);
-                    decimal.TryParse(productRetentionTextBox.Text, out productRetention);
-                    decimal.TryParse(supplierRetentionTextBox.Text, out supplierRetention);
+                    decimal.TryParse(IVAExemptTextBox.Text, NumberStyles.Any, culture, out iVAExempt);
+                    decimal.TryParse(IVASubjectTextBox.Text, NumberStyles.Any, culture, out iVASubject);
+                    decimal.TryParse(serviceTextBox.Text, NumberStyles.Any, culture, out service);
+                    decimal.TryParse(productRetentionTextBox.Text, NumberStyles.Any, culture, out productRetention);
+                    decimal.TryParse(supplierRetentionTextBox.Text, NumberStyles.Any, culture, out supplierRetention);
                     int.TryParse(bookingNumberTextBox.Text, out bookingNumber);
 
                     selectedBooking.IVAExempt = iVAExempt;
@@ -253,8 +259,9 @@ namespace LonelyTreeExam.UserControls
                 {
                     string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}",
                         booking.Service, booking.Sale, booking.Type.ToString(), booking.StartDate,
-                        booking.SupplierRetention, booking.Supplier, booking.ProductRetention, 
-                        booking.Note, booking.IVASubject, booking.IVAExempt, booking.EndDate, booking.Customer, booking.BookingNumber);
+                        booking.SupplierRetention, booking.Supplier.Name, booking.ProductRetention, 
+                        booking.Note, booking.IVASubject, booking.IVAExempt, booking.EndDate, booking.Customer.Name, 
+                        booking.BookingNumber);
                     if (searchData.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         searchedBookings.Add(booking);
@@ -278,11 +285,11 @@ namespace LonelyTreeExam.UserControls
                 startDateDatePicker.SelectedDate = selectedBooking.StartDate;
                 endDateDatePicker.SelectedDate = selectedBooking.EndDate;
                 bookingTypeComboBox.SelectedItem = selectedBooking.Type;
-                IVAExemptTextBox.Text = selectedBooking.IVAExempt.ToString();
-                IVASubjectTextBox.Text = selectedBooking.IVASubject.ToString();
-                serviceTextBox.Text = selectedBooking.Service.ToString();
-                productRetentionTextBox.Text = selectedBooking.ProductRetention.ToString();
-                supplierRetentionTextBox.Text = selectedBooking.SupplierRetention.ToString();
+                IVAExemptTextBox.Text = selectedBooking.IVAExempt.ToString("N2", culture.NumberFormat);
+                IVASubjectTextBox.Text = selectedBooking.IVASubject.ToString("N2", culture.NumberFormat);
+                serviceTextBox.Text = selectedBooking.Service.ToString("N2", culture.NumberFormat);
+                productRetentionTextBox.Text = selectedBooking.ProductRetention.ToString("N2", culture.NumberFormat);
+                supplierRetentionTextBox.Text = selectedBooking.SupplierRetention.ToString("N2", culture.NumberFormat);
                 supplierTextBox.Text = selectedBooking.Supplier.Name;
                 customerTextBox.Text = selectedBooking.Customer.Name;
                 noteTextBox.Text = selectedBooking.Note;
@@ -309,5 +316,6 @@ namespace LonelyTreeExam.UserControls
         {
             bookingController.CalculatePaymentsForBooking(selectedBooking);
         }
+        #endregion
     }
 }

@@ -140,7 +140,7 @@ namespace Domain.Model
 
         internal void Update()
         {
-            dataAccessFacade.UpdateBookings(_bookingEntity);
+            dataAccessFacade.UpdateBooking(_bookingEntity);
         }
 
         internal void Delete()

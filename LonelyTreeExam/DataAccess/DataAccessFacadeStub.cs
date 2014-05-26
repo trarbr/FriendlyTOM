@@ -109,7 +109,8 @@ namespace DataAccess
         #endregion
 
         #region Booking Stuff
-        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
+        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, 
+            DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();
         }
@@ -119,7 +120,7 @@ namespace DataAccess
             throw new NotImplementedException();
         }
 
-        public void UpdateBookings(IBooking booking)
+        public void UpdateBooking(IBooking booking)
         {
             throw new NotImplementedException();
         }

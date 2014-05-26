@@ -22,8 +22,8 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class OutgoingPaymentsUserControl : UserControl
     {
-        public OutgoingPaymentsUserControl(PaymentController paymentController, SupplierController supplierController,
-            CustomerController customerController)
+        public OutgoingPaymentsUserControl(PaymentController paymentController,
+            CustomerController customerController, SupplierController supplierController)
         {
             InitializeComponent();
 

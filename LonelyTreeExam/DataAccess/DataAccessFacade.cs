@@ -164,7 +164,8 @@ namespace DataAccess
         #endregion
 
         #region Booking Methods
-        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, DateTime startDate, DateTime endDate)
+        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, 
+            DateTime startDate, DateTime endDate)
         {
             return bookingMapper.Create(supplier, customer, sale, bookingNumber, startDate, endDate);
         }
@@ -182,7 +183,7 @@ namespace DataAccess
             return bookings;
         }
 
-        public void UpdateBookings(IBooking booking)
+        public void UpdateBooking(IBooking booking)
         {
             bookingMapper.Update((BookingEntity)booking);
         }
