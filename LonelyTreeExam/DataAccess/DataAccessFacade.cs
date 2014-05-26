@@ -48,8 +48,6 @@ namespace DataAccess
 
             customerMapper.ReadAll();
             supplierMapper.ReadAll();
-
-            //paymentRuleMapper.ReadAll();
         }
 
         public static IDataAccessFacade GetInstance()
