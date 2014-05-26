@@ -18,6 +18,8 @@ namespace Domain.Collections
         #region Internal CRUD
         internal List<Customer> ReadAll()
         {
+            //if customers are empty do a readall from the database. 
+            //and returns them all to the customer list.
             if (customers == null)
             {
                 customers = Customer.ReadAll(dataAccessFacade);
@@ -27,6 +29,7 @@ namespace Domain.Collections
 
         internal Customer Create(CustomerType type, string note, string name)
         {
+            //Adds a new customer object and adds it to the list. 
             Customer customer = new Customer(type, note, name, dataAccessFacade);
             customers.Add(customer);
             return customer;
@@ -34,11 +37,13 @@ namespace Domain.Collections
 
         internal void Update(Customer customer)
         {
+            //Calls for an update on this specific customer.
             customer.Update();
         }
 
         internal void Delete(Customer customer)
         {
+            //Calls delete and removes it from the list.
             customer.Delete();
             customers.Remove(customer);
         }

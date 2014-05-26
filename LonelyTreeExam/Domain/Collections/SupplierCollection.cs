@@ -10,8 +10,8 @@ namespace Domain.Collections
         #region Internal Constructor
         internal SupplierCollection(IDataAccessFacade dataAccessFacade)
         {
+            //uses a new instance of dataAccessFacade and calls readAll.
             this.dataAccessFacade = dataAccessFacade;
-
             ReadAll();
         }
         #endregion

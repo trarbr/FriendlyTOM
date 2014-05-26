@@ -41,15 +41,6 @@ namespace Domain.Model
         #endregion
 
         #region Internal Methods
-        internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
-        {
-            validateName(name);
-
-            this.dataAccessFacade = dataAccessFacade;
-            _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
-            initializeParty(_customerEntity);
-        }
-
         internal Customer(ICustomer customerEntity, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
@@ -57,17 +48,12 @@ namespace Domain.Model
             initializeParty(_customerEntity);
         }
 
-        //Calls for updating an object of a customer. 
-        //Gets a new LastModified date to now. 
-        internal void Update()
+        internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
         {
-            dataAccessFacade.UpdateCustomers(_customerEntity);
-        }
-
-        //Calls for removing an object in a list of customers.
-        internal void Delete()
-        {
-            dataAccessFacade.DeleteCustomer(_customerEntity);
+            validateName(name);
+            this.dataAccessFacade = dataAccessFacade;
+            _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
+            initializeParty(_customerEntity);
         }
 
         //Reads all entities of customer there is in the DataAccessFacade.
@@ -84,6 +70,19 @@ namespace Domain.Model
             }
             return customers;
         }
+
+        //Calls for updating an object of a customer. 
+        //Gets a new LastModified date to now. 
+        internal void Update()
+        {
+            dataAccessFacade.UpdateCustomers(_customerEntity);
+        }
+
+        //Calls for removing an object in a list of customers.
+        internal void Delete()
+        {
+            dataAccessFacade.DeleteCustomer(_customerEntity);
+        }
         #endregion
 
         #region Private fields
@@ -93,12 +92,11 @@ namespace Domain.Model
 
         #region Validation
         //Checks if the value of the "name" is not null or whitespace
-        /*
-        private void validateName(string value)
-        {
-            validateNullOrWhiteSpace(value, "Name");
-        }
-        */
+        //private void validateName(string value)
+        //{
+        //    validateNullOrWhiteSpace(value, "Name");
+        //}
+        
         #endregion
     }
 }

@@ -39,8 +39,10 @@ namespace Domain.Model
 
         #endregion
 
-        #region Internal Constructor
+        #region Internal Constructors/Fields
+       
         internal IAccountability _accountabilityEntity;
+        #endregion
 
         protected void initializeAccountability(IAccountability accountabilityEntity, IParty responsible, 
             IParty commissioner)
@@ -49,8 +51,7 @@ namespace Domain.Model
             Responsible = responsible;
             Commissioner = commissioner;
         }
-        #endregion
-
+        
         #region ValidateAllProperties
 
         protected void validateResponsible(IParty value)

@@ -26,18 +26,6 @@ namespace Domain.Model
         }
         #endregion
 
-        #region Internal Constructor
-        internal Party(IParty partyEntity)
-        {
-            _partyEntity = partyEntity;
-        }
-
-        internal Party()
-        {
-        }
-
-        #endregion
-
         #region Protected Methods
         protected void initializeParty(IParty partyEntity)
         {
