@@ -83,7 +83,6 @@ namespace Domain.Model
         }
         public decimal IVASubject
         {
-            // validate not less than zero
             get { return _bookingEntity.IVASubject; }
             set 
             { 
@@ -93,7 +92,6 @@ namespace Domain.Model
         }
         public decimal SubTotal
         {
-            // validate not less than zero
             get { return _bookingEntity.SubTotal; }
             set 
             { 
@@ -103,7 +101,6 @@ namespace Domain.Model
         }
         public decimal Service
         {
-            // validate not less than zero
             get { return _bookingEntity.Service; }
             set 
             { 
@@ -113,7 +110,6 @@ namespace Domain.Model
         }
         public decimal IVA
         {
-            // validate not less than zero
             get { return _bookingEntity.IVA; }
             set 
             { 
@@ -123,7 +119,6 @@ namespace Domain.Model
         }
         public decimal ProductRetention
         {
-            // validate between 0 and 100
             get { return _bookingEntity.ProductRetention; }
             set 
             {
@@ -134,7 +129,6 @@ namespace Domain.Model
 
         public decimal SupplierRetention
         {
-            // validate between 0 and 100
             get { return _bookingEntity.SupplierRetention; }
             set
             {
@@ -144,7 +138,6 @@ namespace Domain.Model
         }
         public decimal TransferAmount
         {
-            // validate not less than zero
             get { return _bookingEntity.TransferAmount; }
             set 
             { 
