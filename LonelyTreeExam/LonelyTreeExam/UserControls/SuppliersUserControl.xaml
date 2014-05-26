@@ -130,11 +130,10 @@
                                       AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
                                       BorderBrush="#FFC6C6C9" SelectionChanged="paymentRuleDataGrid_SelectionChanged" >
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Supplier.Name}"/>
                                         <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding  Customer.Name}"/>
                                         <DataGridTextColumn Header = "BookingType" Width="*" Binding="{Binding BookingType}"/>
-                                        <DataGridTextColumn Header = "Percentage" Width="*" Binding="{Binding Percentage}"/>
-                                        <DataGridTextColumn Header = "DaysOffSet" Width="*" Binding="{Binding DaysOffSet}"/>
+                                        <DataGridTextColumn Header = "Percentage" Width="*" Binding="{Binding Percentage, StringFormat=N2}"/>
+                                        <DataGridTextColumn Header = "DaysOffSet" Width="*" Binding="{Binding DaysOffset}"/>
                                         <DataGridTextColumn Header = "BaseDate" Width="*" Binding="{Binding BaseDate}"/>
                                         <DataGridTextColumn Header = "PaymentType" Width="*" Binding="{Binding PaymentType}"/>
                                     </DataGrid.Columns>
