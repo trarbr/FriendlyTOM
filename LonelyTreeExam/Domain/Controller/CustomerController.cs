@@ -46,6 +46,36 @@ namespace Domain.Controller
         }
         #endregion
 
+        internal Customer findLonelyTree()
+        {
+            Customer lonelyTree = null;
+            foreach (Customer customer in customerCollection.ReadAll())
+            {
+                if (customer.Name == "Lonely Tree")
+                {
+                    lonelyTree = customer;
+                    break;
+                }
+            }
+
+            return lonelyTree;
+        }
+
+        internal Customer findAnyCustomer()
+        {
+            Customer anyCustomer = null;
+            foreach (Customer customer in customerCollection.ReadAll())
+            {
+                if (customer.Name == "Any")
+                {
+                    anyCustomer = customer;
+                    break;
+                }
+            }
+
+            return anyCustomer;
+        }
+
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private CustomerCollection customerCollection;

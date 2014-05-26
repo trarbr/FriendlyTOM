@@ -10,11 +10,12 @@ namespace Domain.Controller
     public class BookingController
     {
         #region Public Constructor
-        public BookingController(PaymentController paymentController)
+        public BookingController(PaymentController paymentController, CustomerController customerController)
         {
             dataAccessFacade = DataAccessFacade.GetInstance();
             bookingCollection = new BookingCollection(dataAccessFacade);
             this.paymentController = paymentController;
+            this.customerController = customerController;
         }
         #endregion
 
@@ -55,7 +56,7 @@ namespace Domain.Controller
         {
             Booking bookingModel = (Booking)booking;
             bookingModel.CalculateAmounts();
-            PaymentStrategy paymentStrategy = new PaymentStrategy();
+            PaymentStrategy paymentStrategy = new PaymentStrategy(customerController);
             paymentStrategy.CreatePayments(bookingModel, paymentController);
         }
 
@@ -63,6 +64,7 @@ namespace Domain.Controller
         private IDataAccessFacade dataAccessFacade;
         private BookingCollection bookingCollection;
         private PaymentController paymentController;
+        private CustomerController customerController;
         #endregion
     }
 }

@@ -11,29 +11,11 @@ namespace Domain.Controller
     public class PaymentController
     {
         #region Public Methods
-        public PaymentController(SupplierController supplierController, CustomerController customerController)
+        public PaymentController()
         {
             dataAccessFacade = DataAccessFacade.GetInstance();
 
             paymentCollection = new PaymentCollection(dataAccessFacade);
-
-            foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
-            {
-                if (supplier.Name == "Lonely Tree")
-                {
-                    SupplierLonelyTree = (Supplier)supplier;
-                    break;
-                }
-            }
-
-            foreach (ICustomer customer in customerController.ReadAllCustomers())
-            {
-                if (customer.Name == "Lonely Tree")
-                {
-                    CustomerLonelyTree = (Customer)customer;
-                    break;
-                }
-            }
         }
 
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer, 
@@ -100,9 +82,6 @@ namespace Domain.Controller
             paymentCollection.Delete((Payment)payment);
         }
         #endregion
-
-        internal Supplier SupplierLonelyTree;
-        internal Customer CustomerLonelyTree;
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;

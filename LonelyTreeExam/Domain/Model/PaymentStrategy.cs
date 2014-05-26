@@ -13,17 +13,20 @@ namespace Domain.Model
     // creates payments by applying a set of PaymentRules to a booking!
     internal class PaymentStrategy
     {
+        internal PaymentStrategy(CustomerController customerController)
+        {
+            this.customerController = customerController;
+        }
+
         internal void CreatePayments(Booking booking, PaymentController paymentController)
         {
             Supplier supplier = (Supplier)booking.Supplier;
             Customer customer = (Customer)booking.Customer;
+            BookingType bookingType = booking.Type;
 
-            // finding has to do more, but this will work in some cases
-            IReadOnlyList<IPaymentRule> suppliersPaymentRules = supplier.PaymentRules;
-            List<IPaymentRule> paymentRulesForCustomer = findPaymentRulesForCustomer(suppliersPaymentRules, customer);
-            List<IPaymentRule> paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, booking.Type);
+            List<IPaymentRule> paymentRules = findMatchingPaymentRules(supplier, customer, bookingType);
 
-            foreach (IPaymentRule paymentRule in paymentRulesForBookingType)
+            foreach (IPaymentRule paymentRule in paymentRules)
             {
                 DateTime dueDate;
 
@@ -39,41 +42,57 @@ namespace Domain.Model
                 booking.CalculateAmounts();
                 decimal dueAmount = booking.TransferAmount * paymentRule.Percentage / 100;
 
-                Customer payingCustomer = paymentController.CustomerLonelyTree;
+                Customer lonelyTree = customerController.findLonelyTree();
 
-                IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, payingCustomer, booking.Supplier, 
+                IPayment payment = paymentController.CreatePayment(dueDate, dueAmount, lonelyTree, booking.Supplier, 
                     paymentRule.PaymentType, booking.Sale, booking.BookingNumber);
 
                 paymentController.UpdatePayment(payment);
             }
         }
 
+        private CustomerController customerController;
+
+        private List<IPaymentRule> findMatchingPaymentRules(Supplier supplier, Customer customer, BookingType bookingType)
+        {
+            IReadOnlyList<IPaymentRule> suppliersPaymentRules = supplier.PaymentRules;
+            List<IPaymentRule> paymentRulesForCustomer = findPaymentRulesForCustomer(suppliersPaymentRules, customer);
+            if (paymentRulesForCustomer.Count == 0)
+            {
+                Customer anyCustomer = customerController.findAnyCustomer();
+                paymentRulesForCustomer = findPaymentRulesForCustomer(suppliersPaymentRules, anyCustomer);
+            }
+            List<IPaymentRule> paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, bookingType);
+
+            return paymentRulesForBookingType;
+        }
+
         private List<IPaymentRule> findPaymentRulesForCustomer(IReadOnlyList<IPaymentRule> suppliersPaymentRules, Customer customer)
         {
-            List<IPaymentRule> paymentRules = new List<IPaymentRule>();
+            List<IPaymentRule> paymentRulesForCustomer = new List<IPaymentRule>();
             foreach (IPaymentRule paymentRule in suppliersPaymentRules)
             {
                 if (((Customer)paymentRule.Customer)._customerEntity == customer._customerEntity)
                 {
-                    paymentRules.Add(paymentRule);
+                    paymentRulesForCustomer.Add(paymentRule);
                 }
             }
 
-            return paymentRules;
+            return paymentRulesForCustomer;
         }
 
-        private List<IPaymentRule> findPaymentRulesForBookingType(List<IPaymentRule> paymentRules, BookingType bookingType)
+        private List<IPaymentRule> findPaymentRulesForBookingType(List<IPaymentRule> paymentRulesForCustomer, BookingType bookingType)
         {
-            List<IPaymentRule> filteredPaymentRules = new List<IPaymentRule>();
-            foreach (IPaymentRule paymentRule in paymentRules)
+            List<IPaymentRule> paymentRulesForBookingType = new List<IPaymentRule>();
+            foreach (IPaymentRule paymentRule in paymentRulesForCustomer)
             {
                 if (paymentRule.BookingType == bookingType)
                 {
-                    filteredPaymentRules.Add(paymentRule);
+                    paymentRulesForBookingType.Add(paymentRule);
                 }
             }
 
-            return filteredPaymentRules;
+            return paymentRulesForBookingType;
         }
     }
 }
