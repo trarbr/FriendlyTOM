@@ -40,13 +40,13 @@ namespace Domain.Collections
                     }
                         //if its a payment that is being paid to Lonely Tree, 
                         //set the Commissioner name to Lonely Tree
-                    else if (payment.Payee.Name == "Lonely Tree")
+                    else if (payment.Payer.Name == "Lonely Tree")
                     {
                         outgoingPayments.Add(payment);
                     }
                         //if its a payment that is being paid by Lonely Tree,
                         //set the Responsible name to Lonely Tree.
-                    else if (payment.Payer.Name == "Lonely Tree")
+                    else if (payment.Payee.Name == "Lonely Tree")
                     {
                         incomingPayments.Add(payment);
                     }
