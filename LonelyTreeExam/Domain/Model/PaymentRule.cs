@@ -17,7 +17,7 @@ namespace Domain.Model
             get { return _supplier; }
             set
             {
-                // validate not null
+                validateSupplier(value);
                 _supplier = (Supplier)value;
                 _paymentRuleEntity.Supplier = _supplier._supplierEntity;
             }
@@ -28,7 +28,7 @@ namespace Domain.Model
             get { return _customer; }
             set
             {
-                //validate not null
+                validateCustomer(value);
                 _customer = (Customer)value;
                 _paymentRuleEntity.Customer = _customer._customerEntity;
             }
@@ -99,5 +99,21 @@ namespace Domain.Model
         private IDataAccessFacade dataAccessFacade;
         private Supplier _supplier;
         private Customer _customer;
+
+        private void validateCustomer(ICustomer value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Supplier", "Supplier was not found");
+            }
+        }
+
+        private void validateSupplier(ISupplier value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentOutOfRangeException("Supplier", "Supplier was not found");
+            }
+        }
     }
 }

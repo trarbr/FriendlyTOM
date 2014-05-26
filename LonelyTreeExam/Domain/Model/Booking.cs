@@ -59,10 +59,14 @@ namespace Domain.Model
         }
         public DateTime EndDate
         {
-            // validate not less than startdate
             get { return _bookingEntity.EndDate; }
-            set { _bookingEntity.EndDate = value; }
+            set 
+            {
+                validateEndDate(StartDate, value);
+                _bookingEntity.EndDate = value; 
+            }
         }
+
         public BookingType Type
         {
             get { return _bookingEntity.Type; }
@@ -70,51 +74,83 @@ namespace Domain.Model
         }
         public decimal IVAExempt
         {
-            // validate not less than zero
             get { return _bookingEntity.IVAExempt; }
-            set { _bookingEntity.IVAExempt = value; }
+            set 
+            {
+                validateNotNegative("IVAExempt", value);
+                _bookingEntity.IVAExempt = value; 
+            }
         }
         public decimal IVASubject
         {
             // validate not less than zero
             get { return _bookingEntity.IVASubject; }
-            set { _bookingEntity.IVASubject = value; }
+            set 
+            { 
+                validateNotNegative("IVASubject", value);
+                _bookingEntity.IVASubject = value; 
+            }
         }
         public decimal SubTotal
         {
             // validate not less than zero
             get { return _bookingEntity.SubTotal; }
-            set { _bookingEntity.SubTotal = value; }
+            set 
+            { 
+                validateNotNegative("SubTotal", value);
+                _bookingEntity.SubTotal = value; 
+            }
         }
         public decimal Service
         {
             // validate not less than zero
             get { return _bookingEntity.Service; }
-            set { _bookingEntity.Service = value; }
+            set 
+            { 
+                validateNotNegative("Service", value);
+                _bookingEntity.Service = value; 
+            }
         }
         public decimal IVA
         {
             // validate not less than zero
             get { return _bookingEntity.IVA; }
-            set { _bookingEntity.IVA = value; }
+            set 
+            { 
+                validateNotNegative("IVA", value);
+                _bookingEntity.IVA = value; 
+            }
         }
         public decimal ProductRetention
         {
             // validate between 0 and 100
             get { return _bookingEntity.ProductRetention; }
-            set { _bookingEntity.ProductRetention = value; }
+            set 
+            {
+                validatePercentage("ProductRetention", value);
+                _bookingEntity.ProductRetention = value; 
+            }
         }
+
         public decimal SupplierRetention
         {
             // validate between 0 and 100
             get { return _bookingEntity.SupplierRetention; }
-            set { _bookingEntity.SupplierRetention = value; }
+            set
+            {
+                validatePercentage("SupplierRetention", value);
+                _bookingEntity.SupplierRetention = value;
+            }
         }
         public decimal TransferAmount
         {
             // validate not less than zero
             get { return _bookingEntity.TransferAmount; }
-            set { _bookingEntity.TransferAmount = value; }
+            set 
+            { 
+                validateNotNegative("TransferAmount", value);
+                _bookingEntity.TransferAmount = value; 
+            }
         }
 
         internal Booking(IBooking bookingEntity, IDataAccessFacade dataAccessFacade)
@@ -130,6 +166,9 @@ namespace Domain.Model
         internal Booking(Supplier supplier, Customer customer, string sale, int bookingNumber, DateTime startDate, 
             DateTime endDate, IDataAccessFacade dataAccessFacade)
         {
+            validateSale(sale);
+            validateEndDate(startDate, endDate);
+
             // Get entities for DataAccess
             ISupplier supplierEntity = supplier._supplierEntity;
             ICustomer customerEntity = customer._customerEntity;
@@ -165,7 +204,7 @@ namespace Domain.Model
             dataAccessFacade.DeleteBooking(_bookingEntity);
         }
 
-        internal void CalculateTransferAmount()
+        internal void CalculateAmounts()
         {
             SubTotal = IVAExempt + IVASubject;
             IVA = IVASubject * 0.12m;
@@ -200,6 +239,27 @@ namespace Domain.Model
             if (string.IsNullOrWhiteSpace(value))
             {
                 throw new ArgumentOutOfRangeException("Sale", "may not be empty");
+            }
+        }
+        private void validateEndDate(DateTime startDate, DateTime endDate)
+        {
+            if (endDate < startDate)
+            {
+                throw new ArgumentOutOfRangeException("EndDate", "must be later than StartDate");
+            }
+        }
+        private void validatePercentage(string paramName, decimal value)
+        {
+            if (value < 0 || value > 100)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "must be between 0 and 100");
+            }
+        }
+        private void validateNotNegative(string paramName, decimal value)
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException(paramName, "must be greater than 0");
             }
         }
         #endregion
