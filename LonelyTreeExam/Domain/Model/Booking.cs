@@ -85,13 +85,13 @@ namespace Domain.Model
                 _bookingEntity.IVASubject = value; 
             }
         }
-        public decimal SubTotal
+        public decimal Subtotal
         {
-            get { return _bookingEntity.SubTotal; }
+            get { return _bookingEntity.Subtotal; }
             set 
             { 
-                validateNotNegative("SubTotal", value);
-                _bookingEntity.SubTotal = value; 
+                validateNotNegative("Subtotal", value);
+                _bookingEntity.Subtotal = value; 
             }
         }
         public decimal Service
@@ -202,9 +202,9 @@ namespace Domain.Model
 
         internal void CalculateAmounts()
         {
-            SubTotal = IVAExempt + IVASubject;
+            Subtotal = IVAExempt + IVASubject;
             IVA = IVASubject * 0.12m;
-            TransferAmount = SubTotal - (SubTotal * ProductRetention/100) + Service + IVA - (IVA * SupplierRetention/100);
+            TransferAmount = Subtotal - (Subtotal * ProductRetention/100) + Service + IVA - (IVA * SupplierRetention/100);
 
             Update();
         }

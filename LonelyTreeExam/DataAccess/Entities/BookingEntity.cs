@@ -25,7 +25,7 @@ namespace DataAccess.Entities
         public BookingType Type { get; set; }
         public decimal IVAExempt { get; set; }
         public decimal IVASubject { get; set; }
-        public decimal SubTotal { get; set; }
+        public decimal Subtotal { get; set; }
         public decimal Service { get; set; }
         public decimal IVA { get; set; }
         public decimal ProductRetention { get; set; }
@@ -46,7 +46,7 @@ namespace DataAccess.Entities
             Note = "";
             IVAExempt = 0;
             IVASubject = 0;
-            SubTotal = 0;
+            Subtotal = 0;
             Service = 0;
             IVA = 0;
             ProductRetention = 0;

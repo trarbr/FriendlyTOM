@@ -140,7 +140,7 @@ namespace DataAccess.Mappers
             parameters.Add(parameter);
             parameter = new SqlParameter("@IVASubject", entity.IVASubject);
             parameters.Add(parameter);
-            parameter = new SqlParameter("@SubTotal", entity.SubTotal);
+            parameter = new SqlParameter("@Subtotal", entity.Subtotal);
             parameters.Add(parameter);
             parameter = new SqlParameter("@Service", entity.Service);
             parameters.Add(parameter);

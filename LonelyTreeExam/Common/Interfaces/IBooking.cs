@@ -20,7 +20,7 @@ namespace Common.Interfaces
         BookingType Type { get; set; }
         decimal IVAExempt { get; set; }
         decimal IVASubject { get; set; }
-        decimal SubTotal { get; set; }
+        decimal Subtotal { get; set; }
         decimal Service { get; set; }
         decimal IVA { get; set; }
         decimal ProductRetention { get; set; }
