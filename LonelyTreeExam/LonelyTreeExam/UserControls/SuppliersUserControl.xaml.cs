@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LonelyTreeExam.AutoComplete;
+using System.Globalization;
 
 namespace LonelyTreeExam.UserControls
 {
@@ -29,6 +30,7 @@ namespace LonelyTreeExam.UserControls
             InitializeComponent();
             this.customerController = customerController;
             this.supplierController = supplierController;
+            culture = MainWindow.GetCulture();
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
             supplierTypeComboBox.SelectedIndex = 0;
@@ -53,6 +55,7 @@ namespace LonelyTreeExam.UserControls
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
         private HashSet<string> autoCompleteEntries;
+        private CultureInfo culture;
 
         private void refreshDataGrid()
         {
@@ -149,7 +152,7 @@ namespace LonelyTreeExam.UserControls
                     ISupplier supplier = selectedSupplier;
                     BookingType bookingType = (BookingType) bookingTypeComboBox.SelectedItem;
                     decimal percentage;
-                    decimal.TryParse(percentageTextBox.Text, out percentage);
+                    decimal.TryParse(percentageTextBox.Text, NumberStyles.Any, culture, out percentage);
                     int daysOffSet;
                     int.TryParse(daysOffsetTextBox.Text, out daysOffSet);
                     BaseDate baseDate = (BaseDate) baseDateComboBox.SelectedItem;
@@ -208,14 +211,13 @@ namespace LonelyTreeExam.UserControls
             {
                 customerTextBox.Text = selectedPaymentRule.Customer.Name;
                 bookingTypeComboBox.SelectedItem = selectedPaymentRule.BookingType;
-                percentageTextBox.Text = selectedPaymentRule.Percentage.ToString();
+                percentageTextBox.Text = selectedPaymentRule.Percentage.ToString("N2", culture.NumberFormat);
                 daysOffsetTextBox.Text = selectedPaymentRule.DaysOffset.ToString();
                 baseDateComboBox.Text = selectedPaymentRule.BaseDate.ToString();
                 paymentTypeComboBox.SelectedItem = selectedPaymentRule.PaymentType;
             }
             else
             {
-                supplierTextBox.Text = "";
                 customerTextBox.Text = "";
                 bookingTypeComboBox.SelectedIndex = 0;
                 percentageTextBox.Text = "";

@@ -245,7 +245,7 @@ namespace Domain.Model
         {
             if (value == null)
             {
-                throw new ArgumentOutOfRangeException("Payer was not found");
+                throw new ArgumentOutOfRangeException("Party was not found");
             }
         }
         #endregion

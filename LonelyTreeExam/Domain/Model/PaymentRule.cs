@@ -71,6 +71,8 @@ namespace Domain.Model
             int daysOffset, BaseDate baseDate, PaymentType paymentType, IDataAccessFacade dataAccessFacade)
         {
             // validate
+            validateCustomer(customer);
+            validateSupplier(supplier);
 
             // Get entities for DataAccess
             ISupplier supplierEntity = supplier._supplierEntity;

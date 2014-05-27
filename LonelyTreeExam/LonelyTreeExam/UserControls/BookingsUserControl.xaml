@@ -99,7 +99,12 @@
         <StackPanel x:Name="bottomButtonsGrid" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
             <Button x:Name="saveButton" Width="75" Margin="5,0,0,5" ToolTip="Save changes" Click="saveButton_Click" 
                     ContentTemplate="{StaticResource SaveButton}"/>
-            <Button x:Name="calculatePayments" Margin="5,0,0,5" Content="Calculate payments" Click="calculatePayments_Click" />
+            <Button x:Name="calculatePayments" Margin="5,0,0,5" Click="calculatePayments_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/calculator.png" Width="16"/>
+                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Create payments</TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
