@@ -31,7 +31,7 @@ namespace LonelyTreeExam.UserControls
         {
             InitializeComponent();
             paymentController = controller;
-            attachmentList =  new List<string>();
+            attachments =  new List<string>();
             culture = MainWindow.GetCulture();
             paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof(PaymentType));
             paymentTypeComboBox.SelectedIndex = 0;
@@ -85,9 +85,9 @@ namespace LonelyTreeExam.UserControls
                     }
                     payment.Note = noteTextBox.Text;
 
-                    foreach (string attachments in attachmentList)
+                    foreach (string attachment in attachments)
                     {
-                        payment.AddAttachment(attachments);
+                        payment.AddAttachment(attachment);
                     }
                     payment.Invoice = invoiceTextBox.Text;
                     
@@ -179,7 +179,7 @@ namespace LonelyTreeExam.UserControls
         #endregion
 
         #region Private Fields
-        private List<string> attachmentList;
+        private List<string> attachments;
         private CultureInfo culture;
         private PaymentController paymentController;
         private IPayment selectedPayment;
@@ -257,7 +257,7 @@ namespace LonelyTreeExam.UserControls
 
         internal void ClearAttachments()
         {
-            attachmentList.Clear();
+            attachments.Clear();
         }
 
         private void addAttachmentButton_Click(object sender, RoutedEventArgs e)
@@ -271,10 +271,10 @@ namespace LonelyTreeExam.UserControls
             {
                 if (selectedPayment == null)
                 {
-                    attachmentList = new List<string>();
-                    attachmentList.Add(pathName);
+                    attachments = new List<string>();
+                    attachments.Add(pathName);
                     attachmentsListView.ItemsSource = null;
-                    attachmentsListView.ItemsSource = attachmentList;
+                    attachmentsListView.ItemsSource = attachments;
                 }
                 else if (selectedPayment != null)
                 {
@@ -295,9 +295,9 @@ namespace LonelyTreeExam.UserControls
                 {
                     if (selectedPayment == null)
                     {
-                        attachmentList.Remove(selectedAttachment);
+                        attachments.Remove(selectedAttachment);
                         attachmentsListView.ItemsSource = null;
-                        attachmentsListView.ItemsSource = attachmentList;
+                        attachmentsListView.ItemsSource = attachments;
                     }
                     else
                     {
