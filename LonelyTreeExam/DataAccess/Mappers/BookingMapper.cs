@@ -21,10 +21,10 @@ namespace DataAccess.Mappers
         }
 
         internal BookingEntity Create(ISupplier supplier, ICustomer customer, string sale, int bookingNumber,
-            DateTime StartDate, DateTime EndDate)
+            DateTime startDate, DateTime endDate)
         {
             //Uses the information set in the GUI to push the objet to the database by calling the insert method.
-            BookingEntity bookingEntity = new BookingEntity(supplier, customer, sale, bookingNumber, StartDate, EndDate);
+            BookingEntity bookingEntity = new BookingEntity(supplier, customer, sale, bookingNumber, startDate, endDate);
 
             insert(bookingEntity);
 
