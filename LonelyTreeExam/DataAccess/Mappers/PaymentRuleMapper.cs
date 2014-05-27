@@ -87,6 +87,14 @@ namespace DataAccess.Mappers
             PaymentRuleEntity paymentRuleEntity = new PaymentRuleEntity(supplier, customer, bookingType, percentage,
                 daysOffset, baseDate, paymentType);
 
+            int paymentRuleId = (int)reader["PaymentRuleId"];
+            DateTime lastModified = (DateTime)reader["LastModified"];
+            bool deleted = (bool)reader["Deleted"];
+
+            paymentRuleEntity.Id = paymentRuleId;
+            paymentRuleEntity.LastModified = lastModified;
+            paymentRuleEntity.Deleted = deleted;
+
             supplier.AddPaymentRule(paymentRuleEntity);
 
             return paymentRuleEntity;
