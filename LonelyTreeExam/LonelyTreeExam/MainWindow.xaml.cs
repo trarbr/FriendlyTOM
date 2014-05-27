@@ -26,14 +26,14 @@ namespace LonelyTreeExam
         public MainWindow()
         {
             InitializeComponent();
-            PaymentController paymentController = new PaymentController();
             SupplierController supplierController = new SupplierController();
             CustomerController customerController = new CustomerController();
-            BookingController bookingController = new BookingController();
+            PaymentController paymentController = new PaymentController();
+            BookingController bookingController = new BookingController(paymentController, customerController);
 
             accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
             accountingUserControl.Content = accountingControl;
-            suppliersUserControl.Content = new SuppliersUserControl(supplierController);
+            suppliersUserControl.Content = new SuppliersUserControl(supplierController, customerController);
             customersUserControl.Content = new CustomersUserControl(customerController);
             bookingsUserControl.Content = new BookingsUserControl(bookingController, supplierController,
                 customerController);

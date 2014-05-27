@@ -1,9 +1,6 @@
 ﻿using Common.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Entities;
 using Common.Enums;
 
@@ -11,6 +8,7 @@ namespace DataAccess
 {
     public class DataAccessFacadeStub : IDataAccessFacade
     {
+        //Class is for test purpose.
         List<IPayment> payments;
         #region Payment Stuff
 
@@ -20,10 +18,10 @@ namespace DataAccess
             customers = new List<ICustomer>();
         }
 
-        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty responsible, IParty commissioner, 
+        public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer, IParty payee, 
             PaymentType type, string sale, int booking)
         {
-            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, responsible, commissioner, type, sale, booking);
+            PaymentEntity entity = new PaymentEntity(dueDate, dueAmount, payer, payee, type, sale, booking);
             payments.Add(entity);
 
             return entity;
@@ -109,7 +107,7 @@ namespace DataAccess
         #endregion
 
         #region Booking Stuff
-        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
+        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, 
             DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();
@@ -126,6 +124,30 @@ namespace DataAccess
         }
 
         public void DeleteBooking(IBooking booking)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+
+        #region PaymentRule Stuff
+        public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, 
+            BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IPaymentRule> ReadAllPaymentRules()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePaymentRule(IPaymentRule paymentRuleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePaymentRule(IPaymentRule paymentRuleEntity)
         {
             throw new NotImplementedException();
         }

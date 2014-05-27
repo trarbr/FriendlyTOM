@@ -1,24 +1,22 @@
 ﻿using Common.Enums;
 using DataAccess;
 using Domain.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Collections
 {
     internal class SupplierCollection
     {
-
+        #region Internal Constructor
         internal SupplierCollection(IDataAccessFacade dataAccessFacade)
         {
+            //uses a new instance of dataAccessFacade and calls readAll.
             this.dataAccessFacade = dataAccessFacade;
-
             ReadAll();
         }
+        #endregion
 
+        #region Internal CRUD
         internal List<Supplier> ReadAll()
         {
             if (suppliers == null)
@@ -37,16 +35,21 @@ namespace Domain.Collections
             return supplier;
         }
 
-        internal void Update(Model.Supplier supplier)
+        internal void Update(Supplier supplier)
         {
             supplier.Update();
         }
 
-        internal void Delete(Model.Supplier supplier)
+        internal void Delete(Supplier supplier)
         {
-            supplier.Delete();
-            suppliers.Remove(supplier);
+            //Do not delete if supplier is Lonely Tree
+            if (supplier.Name != "Lonely Tree")
+            {
+                supplier.Delete();
+                suppliers.Remove(supplier);
+            }
         }
+        #endregion
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;

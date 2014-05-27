@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Common.Enums
 {
-    public enum SupplierType
+    public enum BaseDate
     {
-        Hotel, Cruise, Restaurant, Guide, Driver, Lodge
+        StartDate, EndDate
     }
 }

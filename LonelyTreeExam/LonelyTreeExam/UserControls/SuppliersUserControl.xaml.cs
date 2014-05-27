@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LonelyTreeExam.AutoComplete;
+using System.Globalization;
 
 namespace LonelyTreeExam.UserControls
 {
@@ -23,28 +25,48 @@ namespace LonelyTreeExam.UserControls
     /// </summary>
     public partial class SuppliersUserControl : UserControl
     {
-        public SuppliersUserControl(SupplierController supplierController)
+        public SuppliersUserControl(SupplierController supplierController, CustomerController customerController)
         {
             InitializeComponent();
+            this.customerController = customerController;
             this.supplierController = supplierController;
+            culture = MainWindow.GetCulture();
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
             supplierTypeComboBox.ItemsSource = Enum.GetValues(typeof(SupplierType));
             supplierTypeComboBox.SelectedIndex = 0;
             accountTypeComboBox.ItemsSource = Enum.GetValues(typeof(AccountType));
             accountTypeComboBox.SelectedIndex = 0;
+            bookingTypeComboBox.ItemsSource = Enum.GetValues(typeof (BookingType));
+            bookingTypeComboBox.SelectedIndex = 0;
+            baseDateComboBox.ItemsSource = Enum.GetValues(typeof (BaseDate));
+            baseDateComboBox.SelectedIndex = 0;
+            paymentTypeComboBox.ItemsSource = Enum.GetValues(typeof (PaymentType));
+            paymentTypeComboBox.SelectedIndex = 0;
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
+            autoCompleteEntries = new HashSet<string>();
+            AddCustomersToAutoComplete(customerController.ReadAllCustomers());
         }
 
+        private CustomerController customerController;
         private SupplierController supplierController;
         private ISupplier selectedSupplier;
+        private IPaymentRule selectedPaymentRule;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
+        private HashSet<string> autoCompleteEntries;
+        private CultureInfo culture;
 
         private void refreshDataGrid()
         {
             suppliersDataGrid.ItemsSource = null;
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
+        }
+
+        private void refreshPaymentRuleDataGrid()
+        {
+            paymentRuleDataGrid.ItemsSource = null;
+            paymentRuleDataGrid.ItemsSource = selectedSupplier.PaymentRules;
         }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -77,41 +99,72 @@ namespace LonelyTreeExam.UserControls
         {
             try
             {
-                if (selectedSupplier == null)
+                if (supplierTabControl.IsSelected)
                 {
-                    string name = nameTextBox.Text;
-                    SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    string note = noteTextBox.Text;
+                    if (selectedSupplier == null)
+                    {
+                        string name = nameTextBox.Text;
+                        SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                        string note = noteTextBox.Text;
 
-                    ISupplier supplier = supplierController.CreateSupplier(name, note, type);
-                    supplier.AccountName = accountNameTextBox.Text;
-                    supplier.AccountNo = accountNoTextBox.Text;
-                    supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
-                    supplier.Bank = bankTextBox.Text;
-                    supplier.OwnerId = ownerIdTextBox.Text;
+                        ISupplier supplier = supplierController.CreateSupplier(name, note, type);
+                        supplier.AccountName = accountNameTextBox.Text;
+                        supplier.AccountNo = accountNoTextBox.Text;
+                        supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+                        supplier.Bank = bankTextBox.Text;
+                        supplier.OwnerId = ownerIdTextBox.Text;
 
-                    supplierController.UpdateSupplier(supplier);
-                    refreshDataGrid();
-                    suppliersDataGrid.SelectedItem = null;
-                    setValuesInTextBoxes();
+                        supplierController.UpdateSupplier(supplier);
+                        refreshDataGrid();
+                        suppliersDataGrid.SelectedItem = null;
+                        setValuesInTextBoxes();
+                    }
+                    else
+                    {
+                        int currentIndex = suppliersDataGrid.SelectedIndex;
+
+                        selectedSupplier.Name = nameTextBox.Text;
+                        selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
+                        selectedSupplier.Note = noteTextBox.Text;
+                        selectedSupplier.AccountName = accountNameTextBox.Text;
+                        selectedSupplier.AccountNo = accountNoTextBox.Text;
+                        selectedSupplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+                        selectedSupplier.Bank = bankTextBox.Text;
+                        selectedSupplier.OwnerId = ownerIdTextBox.Text;
+
+                        supplierController.UpdateSupplier(selectedSupplier);
+                        refreshDataGrid();
+                        suppliersDataGrid.SelectedIndex = currentIndex;
+                    }
                 }
-                else
+                else if (paymentRuleTabControl.IsSelected)
                 {
-                    int currentIndex = suppliersDataGrid.SelectedIndex;
+                    ICustomer customer = null;
 
-                    selectedSupplier.Name = nameTextBox.Text;
-                    selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                    selectedSupplier.Note = noteTextBox.Text;
-                    selectedSupplier.AccountName = accountNameTextBox.Text;
-                    selectedSupplier.AccountNo = accountNoTextBox.Text;
-                    selectedSupplier.AccountType = (AccountType) accountTypeComboBox.SelectedItem;
-                    selectedSupplier.Bank = bankTextBox.Text;
-                    selectedSupplier.OwnerId = ownerIdTextBox.Text;
+                    foreach (ICustomer theCustomer in customerController.ReadAllCustomers())
+                    {
+                        if (theCustomer.Name == customerTextBox.Text)
+                        {
+                            customer = theCustomer;
+                        }
+                    }
 
-                    supplierController.UpdateSupplier(selectedSupplier);
-                    refreshDataGrid();
-                    suppliersDataGrid.SelectedIndex = currentIndex;
+                    ISupplier supplier = selectedSupplier;
+                    BookingType bookingType = (BookingType) bookingTypeComboBox.SelectedItem;
+                    decimal percentage;
+                    decimal.TryParse(percentageTextBox.Text, NumberStyles.Any, culture, out percentage);
+                    int daysOffSet;
+                    int.TryParse(daysOffsetTextBox.Text, out daysOffSet);
+                    BaseDate baseDate = (BaseDate) baseDateComboBox.SelectedItem;
+                    PaymentType paymentType = (PaymentType) paymentTypeComboBox.SelectedItem;
+
+
+                    supplierController.AddPaymentRule(supplier, customer, bookingType, percentage, daysOffSet, baseDate,
+                                                      paymentType);
+                    refreshPaymentRuleDataGrid();
+                    setPaymentRuleValuesInTextBoxes();
                 }
+
             }
             catch (Exception ex)
             {
@@ -132,6 +185,9 @@ namespace LonelyTreeExam.UserControls
                 accountNameTextBox.Text = selectedSupplier.AccountName;
                 ownerIdTextBox.Text = selectedSupplier.OwnerId;
                 bankTextBox.Text = selectedSupplier.Bank;
+
+                paymentRuleDataGrid.ItemsSource = selectedSupplier.PaymentRules;
+                supplierTextBox.Text = selectedSupplier.Name;
             }
             else
             {
@@ -143,6 +199,43 @@ namespace LonelyTreeExam.UserControls
                 accountNameTextBox.Text = "";
                 ownerIdTextBox.Text = "";
                 bankTextBox.Text = "";
+
+                paymentRuleDataGrid.ItemsSource = null;
+                supplierTextBox.Text = "";
+            }
+        }
+
+        private void setPaymentRuleValuesInTextBoxes()
+        {
+            if (selectedPaymentRule != null)
+            {
+                customerTextBox.Text = selectedPaymentRule.Customer.Name;
+                bookingTypeComboBox.SelectedItem = selectedPaymentRule.BookingType;
+                percentageTextBox.Text = selectedPaymentRule.Percentage.ToString("N2", culture.NumberFormat);
+                daysOffsetTextBox.Text = selectedPaymentRule.DaysOffset.ToString();
+                baseDateComboBox.Text = selectedPaymentRule.BaseDate.ToString();
+                paymentTypeComboBox.SelectedItem = selectedPaymentRule.PaymentType;
+            }
+            else
+            {
+                customerTextBox.Text = "";
+                bookingTypeComboBox.SelectedIndex = 0;
+                percentageTextBox.Text = "";
+                daysOffsetTextBox.Text = "";
+                baseDateComboBox.SelectedIndex = 0;
+                paymentTypeComboBox.SelectedIndex = 0;
+            }
+        }
+
+        internal void AddCustomersToAutoComplete(List<ICustomer> customers)
+        {
+            foreach (ICustomer customer in customers)
+            {
+                if (!autoCompleteEntries.Contains(customer.Name))
+                {
+                    customerTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
+                    autoCompleteEntries.Add(customer.Name);
+                }
             }
         }
 
@@ -156,18 +249,35 @@ namespace LonelyTreeExam.UserControls
         {
             suppliersDataGrid.SelectedItem = null;
             setValuesInTextBoxes();
+            paymentRuleDataGrid.SelectedItem = null;
+            setPaymentRuleValuesInTextBoxes();
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedSupplier != null)
+            if (supplierTabControl.IsSelected)
             {
-                foreach (ISupplier supplier in suppliersDataGrid.SelectedItems)
+                if (selectedSupplier != null)
                 {
-                    supplierController.DeleteSupplier(supplier);
+                    foreach (ISupplier supplier in suppliersDataGrid.SelectedItems)
+                    {
+                        supplierController.DeleteSupplier(supplier);
+                    }
+                    suppliersDataGrid.SelectedItem = null;
+                    refreshDataGrid();
                 }
-                suppliersDataGrid.SelectedItem = null;
-                refreshDataGrid();
+            }
+            else if (paymentRuleTabControl.IsSelected)
+            {
+                if (selectedPaymentRule != null)
+                {
+                    foreach (IPaymentRule paymentRule in paymentRuleDataGrid.SelectedItems)
+                    {
+                        supplierController.DeletePaymentRule(paymentRule);
+                    }
+                    paymentRuleDataGrid.SelectedItem = null;
+                    refreshPaymentRuleDataGrid();
+                }
             }
         }
 
@@ -187,6 +297,12 @@ namespace LonelyTreeExam.UserControls
                 collapseImage.Source = collapseMinImage;
                 collapseButton.ToolTip = "Hide details";
             }
+        }
+
+        private void paymentRuleDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedPaymentRule = (IPaymentRule) paymentRuleDataGrid.SelectedItem;
+            setPaymentRuleValuesInTextBoxes();
         }
     }
 }

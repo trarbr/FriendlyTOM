@@ -8,8 +8,11 @@ using Common.Enums;
 
 namespace Common.Interfaces
 {
-    public interface IBooking : IAccountability
+    public interface IBooking 
     {
+        ISupplier Supplier { get; set; }
+        ICustomer Customer { get; set; }
+        string Note { get; set; }
         string Sale { get; set; }
         int BookingNumber { get; set; }
         DateTime StartDate { get; set; }
@@ -17,7 +20,7 @@ namespace Common.Interfaces
         BookingType Type { get; set; }
         decimal IVAExempt { get; set; }
         decimal IVASubject { get; set; }
-        decimal SubTotal { get; set; }
+        decimal Subtotal { get; set; }
         decimal Service { get; set; }
         decimal IVA { get; set; }
         decimal ProductRetention { get; set; }

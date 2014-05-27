@@ -14,5 +14,6 @@ namespace Common.Interfaces
         string AccountName { get; set; }
         string OwnerId { get; set; }
         string Bank { get; set; }
+        IReadOnlyList<IPaymentRule> PaymentRules { get; }
     }
 }

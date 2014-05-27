@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Entities
 {
-    internal abstract class AAccountabilityEntity : Entity, IAccountability 
+    
+    internal abstract class AAccountabilityEntity : Entity, IAccountability
     {
+        #region public Properties
         public string Note { get; set; }
         public IParty Responsible 
         {
@@ -26,8 +28,11 @@ namespace DataAccess.Entities
             Commissioner = commissioner;
             Note = "";
         }
+    #endregion
 
+        #region Private Fields
         private APartyEntity _responsible;
         private APartyEntity _commissioner;
+        #endregion
     }
 }

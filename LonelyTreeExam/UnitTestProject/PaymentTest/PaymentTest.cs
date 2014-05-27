@@ -16,8 +16,8 @@ namespace UnitTestProject
         IDataAccessFacade dataAccessFacadeStub;
         DateTime validDueDate;
         decimal validDueAmount;
-        IParty validResponsible;
-        IParty validCommissioner;
+        IParty validPayer;
+        IParty validPayee;
         PaymentType validType;
         string validSale;
         int validBooking;
@@ -28,8 +28,8 @@ namespace UnitTestProject
             dataAccessFacadeStub = new DataAccessFacadeStub();
             validDueDate = new DateTime(2010, 10, 10);
             validDueAmount = 1m;
-            validResponsible = new Customer(CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
-            validCommissioner = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
+            validPayer = new Customer(CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
+            validPayee = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
             validType = PaymentType.Balance;
             validSale = "VF Jan";
             validBooking = 2;
@@ -42,8 +42,8 @@ namespace UnitTestProject
 
             Assert.AreEqual(validDueDate, validPayment.DueDate);
             Assert.AreEqual(validDueAmount, validPayment.DueAmount);
-            Assert.AreEqual(validResponsible, validPayment.Responsible);
-            Assert.AreEqual(validCommissioner, validPayment.Commissioner);
+            Assert.AreEqual(validPayer, validPayment.Payer);
+            Assert.AreEqual(validPayee, validPayment.Payee);
             Assert.AreEqual(validType, validPayment.Type);
             Assert.AreEqual(validSale, validPayment.Sale);
             Assert.AreEqual(validBooking, validPayment.Booking);
@@ -75,8 +75,8 @@ namespace UnitTestProject
 
             try
             {
-                Payment payment = new Payment(validDueDate, invalidDueAmount, validResponsible, 
-                    validCommissioner, validType, validSale, validBooking, dataAccessFacadeStub);
+                Payment payment = new Payment(validDueDate, invalidDueAmount, validPayer, 
+                    validPayee, validType, validSale, validBooking, dataAccessFacadeStub);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -138,7 +138,7 @@ namespace UnitTestProject
 
             try
             {
-                Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, validCommissioner,
+                Payment payment = new Payment(validDueDate, validDueAmount, validPayer, validPayee,
                     validType, invalidSale, validBooking, dataAccessFacadeStub);
             }
             catch (ArgumentOutOfRangeException)
@@ -461,7 +461,7 @@ namespace UnitTestProject
 
         private Payment createValidPayment()
         {
-            Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, validCommissioner, validType, 
+            Payment payment = new Payment(validDueDate, validDueAmount, validPayer, validPayee, validType, 
                 validSale, validBooking, dataAccessFacadeStub);
 
             return payment;

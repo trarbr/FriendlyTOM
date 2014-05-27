@@ -54,7 +54,7 @@ namespace LonelyTreeExam.UserControls
                     IParty supplier = null;
                     for (int i = 0; i < suppliers.Count; i++)
                     {
-                        if (suppliers[i].Name == commissionerTextBox.Text)
+                        if (suppliers[i].Name == payeeTextBox.Text)
                         {
                             supplier = suppliers[i];
                             break;
@@ -64,7 +64,7 @@ namespace LonelyTreeExam.UserControls
                     IParty customer = null;
                     for (int i = 0; i < customers.Count; i++)
                     {
-                        if (customers[i].Name == responsibleTextBox.Text)
+                        if (customers[i].Name == payerTextBox.Text)
                         {
                             customer = customers[i];
                             break;
@@ -127,24 +127,24 @@ namespace LonelyTreeExam.UserControls
                     IParty supplier = null;
                     for (int i = 0; i < suppliers.Count; i++)
                     {
-                        if (suppliers[i].Name == commissionerTextBox.Text)
+                        if (suppliers[i].Name == payeeTextBox.Text)
                         {
                             supplier = suppliers[i];
                             break;
                         }
                     }
-                    selectedPayment.Commissioner = supplier;
+                    selectedPayment.Payee = supplier;
 
                     IParty customer = null;
                     for (int i = 0; i < customers.Count; i++)
                     {
-                        if (customers[i].Name == responsibleTextBox.Text)
+                        if (customers[i].Name == payerTextBox.Text)
                         {
                             customer = customers[i];
                             break;
                         }
                     }
-                    selectedPayment.Responsible = customer;
+                    selectedPayment.Payer = customer;
 
                     selectedPayment.PaidAmount = paidAmount;
                     selectedPayment.Paid = paidCheckBox.IsChecked.Value;
@@ -194,8 +194,8 @@ namespace LonelyTreeExam.UserControls
                 dueDateDatePicker.SelectedDate = selectedPayment.DueDate;
                 dueAmountTextBox.Text = selectedPayment.DueAmount.ToString("N2", culture.NumberFormat);
 
-                responsibleTextBox.Text = selectedPayment.Responsible.Name;
-                commissionerTextBox.Text = selectedPayment.Commissioner.Name;
+                payerTextBox.Text = selectedPayment.Payer.Name;
+                payeeTextBox.Text = selectedPayment.Payee.Name;
                 paymentTypeComboBox.SelectedItem = selectedPayment.Type;
                 if (selectedPayment.PaidDate == new DateTime(1900, 1, 1))
                 {
@@ -217,8 +217,8 @@ namespace LonelyTreeExam.UserControls
             {
                 dueDateDatePicker.SelectedDate = null;
                 dueAmountTextBox.Text = "";
-                responsibleTextBox.Text = "";
-                commissionerTextBox.Text = "";
+                payerTextBox.Text = "";
+                payeeTextBox.Text = "";
                 paidDateDatePicker.SelectedDate = null;
                 paidAmountTextBox.Text = "";
                 paidCheckBox.IsChecked = false;
@@ -237,7 +237,7 @@ namespace LonelyTreeExam.UserControls
             {
                 if (!autoCompleteEntries.Contains(supplier.Name))
                 {
-                    commissionerTextBox.AddItem(new AutoCompleteEntry(supplier.Name, null));
+                    payeeTextBox.AddItem(new AutoCompleteEntry(supplier.Name, null));
                     autoCompleteEntries.Add(supplier.Name);
                 }
             }
@@ -249,7 +249,7 @@ namespace LonelyTreeExam.UserControls
             {
                 if (!autoCompleteEntries.Contains(customer.Name))
                 {
-                    responsibleTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
+                    payerTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
                     autoCompleteEntries.Add(customer.Name);
                 }
             }

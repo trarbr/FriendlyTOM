@@ -49,11 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\SupplierController.cs" />
-    <Compile Include="Model\AAccountability.cs" />
     <Compile Include="Model\Booking.cs" />
-    <Compile Include="Model\Party.cs" />
+    <Compile Include="Model\AParty.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Payment.cs" />
+    <Compile Include="Model\PaymentRule.cs" />
+    <Compile Include="Model\PaymentStrategy.cs" />
     <Compile Include="Model\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

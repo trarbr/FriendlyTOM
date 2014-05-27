@@ -21,8 +21,8 @@
                   IsReadOnly="True" Background="White" Margin="0" BorderBrush="#FFC6C6C9"
                   SelectionChanged="bookingsDataGrid_SelectionChanged" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Responsible.Name}"/>
-                <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding Commissioner.Name}"/>
+                <DataGridTextColumn Header = "Supplier" Width="*" Binding="{Binding Supplier.Name}"/>
+                <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding Customer.Name}"/>
                 <DataGridTextColumn Header = "Sale" Width="*" Binding="{Binding Sale}"/>
                 <DataGridTextColumn Header = "Booking Number" Width="*" Binding="{Binding BookingNumber}"/>
                 <DataGridTextColumn Header = "Start Date" Width="*" Binding="{Binding StartDate, StringFormat=\{0:yyyy-MM-dd\}}"/>
@@ -33,6 +33,7 @@
                 <DataGridTextColumn Header = "Service" Width="*" Binding="{Binding Service, StringFormat=N2}"/>
                 <DataGridTextColumn Header = "Product Retention" Width="*" Binding="{Binding ProductRetention, StringFormat=N2}"/>
                 <DataGridTextColumn Header = "Supplier Retention" Width="*" Binding="{Binding SupplierRetention, StringFormat=N2}"/>
+                <DataGridTextColumn Header = "Transfer" Width="*" Binding="{Binding TransferAmount, StringFormat=N2}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">
@@ -76,8 +77,8 @@
                 <Label Content="Supplier Retention:"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="5,0,0,0">
-                <local:AutoCompleteTextBox x:Name="responsibleTextBox" Height="26" Threshold="1" DelayTime="150"/>
-                <local:AutoCompleteTextBox x:Name="commissionerTextBox" Height="26" Threshold="1" DelayTime="150"/>
+                <local:AutoCompleteTextBox x:Name="supplierTextBox" Height="26" Threshold="1" DelayTime="150"/>
+                <local:AutoCompleteTextBox x:Name="customerTextBox" Height="26" Threshold="1" DelayTime="150"/>
                 <TextBox x:Name="saleTextBox" Height="26" TextWrapping="Wrap"/>
                 <TextBox x:Name="bookingNumberTextBox" Height="26" TextWrapping="Wrap"/>
                 <DatePicker x:Name="startDateDatePicker" Height="26"/>
@@ -98,6 +99,12 @@
         <StackPanel x:Name="bottomButtonsGrid" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
             <Button x:Name="saveButton" Width="75" Margin="5,0,0,5" ToolTip="Save changes" Click="saveButton_Click" 
                     ContentTemplate="{StaticResource SaveButton}"/>
+            <Button x:Name="calculatePayments" Margin="5,0,0,5" Click="calculatePayments_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/calculator.png" Width="16"/>
+                    <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Create payments</TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

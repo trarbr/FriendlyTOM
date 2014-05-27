@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Enums
+namespace UnitTestProject.BookingTest
 {
-    public enum SupplierType
+    class BookingTest
     {
-        Hotel, Cruise, Restaurant, Guide, Driver, Lodge
     }
 }

@@ -4,22 +4,33 @@ using Domain.Collections;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controller
 {
     public class BookingController
     {
-        public BookingController()
+        #region Public Constructor
+        public BookingController(PaymentController paymentController, CustomerController customerController)
         {
             dataAccessFacade = DataAccessFacade.GetInstance();
             bookingCollection = new BookingCollection(dataAccessFacade);
+            this.paymentController = paymentController;
+            this.customerController = customerController;
+        }
+        #endregion
+
+        #region Public CRUD
+        public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber,
+            DateTime StartDate, DateTime EndDate)
+        {
+            //Calls Bookingcollection class for create
+            return bookingCollection.Create((Supplier)supplier, (Customer)customer, sale, bookingNumber, StartDate, 
+                EndDate);
         }
 
         public List<IBooking> ReadAllBookings()
         {
+            //Calls Bookingcollection class for readall
             List<IBooking> bookings = new List<IBooking>();
             foreach (Booking booking in bookingCollection.ReadAll())
             {
@@ -28,25 +39,32 @@ namespace Domain.Controller
             return bookings;
         }
 
-        public IBooking CreateBooking(IParty responsible, IParty commissioner, string sale, int bookingNumber,
-            DateTime StartDate, DateTime EndDate)
-        {
-            return bookingCollection.Create(responsible, commissioner, sale, bookingNumber, StartDate, EndDate);
-        }
-
         public void UpdateBooking(IBooking booking)
         {
+            //Calls Bookingcollection class for update
             bookingCollection.Update((Booking) booking);
         }
 
         public void DeleteBooking(IBooking booking)
         {
+            //Calls Bookingcollection class for delete
             bookingCollection.Delete((Booking) booking);
+        }
+        #endregion
+
+        public void CalculatePaymentsForBooking(IBooking booking)
+        {
+            Booking bookingModel = (Booking)booking;
+            bookingModel.CalculateAmounts();
+            PaymentStrategy paymentStrategy = new PaymentStrategy(customerController);
+            paymentStrategy.CreatePayments(bookingModel, paymentController);
         }
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private BookingCollection bookingCollection;
+        private PaymentController paymentController;
+        private CustomerController customerController;
         #endregion
     }
 }
