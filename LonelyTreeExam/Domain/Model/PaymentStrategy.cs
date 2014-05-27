@@ -63,6 +63,10 @@ namespace Domain.Model
                 paymentRulesForCustomer = findPaymentRulesForCustomer(suppliersPaymentRules, anyCustomer);
             }
             List<IPaymentRule> paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, bookingType);
+            if (paymentRulesForBookingType.Count == 0)
+            {
+                paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, BookingType.Undefined);
+            }
 
             return paymentRulesForBookingType;
         }
