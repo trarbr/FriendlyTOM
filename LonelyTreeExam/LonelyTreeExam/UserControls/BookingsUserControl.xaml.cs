@@ -108,7 +108,7 @@ namespace LonelyTreeExam.UserControls
                 {
                     string sale = saleTextBox.Text;
                     int bookingNumber;
-                    int.TryParse(saleTextBox.Text, out bookingNumber);
+                    int.TryParse(bookingNumberTextBox.Text, out bookingNumber);
                     DateTime startDate = startDateDatePicker.SelectedDate.Value;
                     DateTime endDate = endDateDatePicker.SelectedDate.Value;
 
