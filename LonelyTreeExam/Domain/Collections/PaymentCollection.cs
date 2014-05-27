@@ -45,7 +45,7 @@ namespace Domain.Collections
                         outgoingPayments.Add(payment);
                     }
                         //if its a payment that is being paid by Lonely Tree,
-                        //set the Responsible name to Lonely Tree.
+                        //set the Payee name to Lonely Tree.
                     else if (payment.Payee.Name == "Lonely Tree")
                     {
                         incomingPayments.Add(payment);
@@ -66,7 +66,8 @@ namespace Domain.Collections
             return archivedPayments;
         }
 
-        //does a ReadAll and if lonely tree is Commissioner they are being added to this list. 
+        //does a ReadAll. Doesn't execute ReadAll method if list exists already.
+        //this is done to prevent loading the list from database everytime this method is called.
         internal List<Payment> ReadAllIncoming()
         {
             if (payments == null)
@@ -77,7 +78,8 @@ namespace Domain.Collections
             return incomingPayments;
         }
 
-        //does a ReadAll and if lonely tree is Responsible they are being added to this list. 
+        //does a ReadAll. Doesn't execute ReadAll method if list exists already
+        //this is done to prevent loading the list from database everytime this method is called.
         internal List<Payment> ReadAllOutgoing()
         {
             if (payments == null)

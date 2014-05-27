@@ -50,18 +50,18 @@ namespace Domain.Controller
         public void AddPaymentRule(ISupplier supplier, ICustomer customer, BookingType bookingType, decimal percentage,
             int daysOffset, BaseDate baseDate, PaymentType paymentType)
         {
-            Supplier s = (Supplier)supplier;
-            Customer c = (Customer)customer;
+            Supplier supp = (Supplier)supplier;
+            Customer cust = (Customer)customer;
 
-            s.AddPaymentRule(c, bookingType, percentage, daysOffset, baseDate, paymentType);
+            supp.AddPaymentRule(cust, bookingType, percentage, daysOffset, baseDate, paymentType);
         }
 
         public void DeletePaymentRule(IPaymentRule paymentRule)
         {
-            PaymentRule p = (PaymentRule)paymentRule;
-            Supplier s = (Supplier)p.Supplier;
+            PaymentRule payRule = (PaymentRule)paymentRule;
+            Supplier supp = (Supplier)payRule.Supplier;
 
-            s.DeletePaymentRule(p);
+            supp.DeletePaymentRule(payRule);
         }
         #endregion
 
