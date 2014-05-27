@@ -142,13 +142,14 @@ namespace LonelyTreeExam.UserControls
         {
             if (searchTextBox.Text != "")
             {
+                // BindingList / ObservableCollection instead?
                 List<IPayment> searchedPayments = new List<IPayment>();
                 paymentsDataGrid.ItemsSource = searchedPayments;
 
                 foreach (IPayment payment in outgoingPayments)
                 {
                     string searchData = string.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9}",
-                        payment.Payee, payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
+                        payment.Payee.Name, payment.DueDate.ToString("yyyy-MM-dd"), payment.DueAmount,
                         payment.PaidDate.ToString("yyyy-MM-dd"), payment.PaidAmount, payment.Note, payment.Sale,
                         payment.Booking, payment.Invoice, payment.Type);
 
