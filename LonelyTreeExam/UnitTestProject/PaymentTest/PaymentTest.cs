@@ -49,22 +49,22 @@ namespace UnitTestProject
             Assert.AreEqual(validBooking, validPayment.Booking);
         }
 
-        // Should EntityConstructor test for invalid data?
         [TestMethod]
         public void TestEntityConstructorValidData()
         {
-            // Broken because it expects entities and not models for responsible and commissioner
-            //PaymentEntity entity = new PaymentEntity(validDueDate, validDueAmount, validResponsible, 
-            //    validCommissioner, validType, validSale, validBooking);
-            //Payment payment = new Payment(entity, dataAccessFacadeStub);
+            APartyEntity payee = new SupplierEntity(SupplierType.Cruise, "", "Galasam");
+            APartyEntity payer = new CustomerEntity(CustomerType.Bureau, "", "Lonely Tree");
+            PaymentEntity entity = new PaymentEntity(validDueDate, validDueAmount, payer,
+                payee, validType, validSale, validBooking);
+            Payment payment = new Payment(entity, dataAccessFacadeStub);
 
-            //Assert.AreEqual(validDueDate, payment.DueDate);
-            //Assert.AreEqual(validDueAmount, payment.DueAmount);
-            //Assert.AreEqual(validResponsible, payment.Responsible);
-            //Assert.AreEqual(validCommissioner, payment.Commissioner);
-            //Assert.AreEqual(validType, payment.Type);
-            //Assert.AreEqual(validSale, payment.Sale);
-            //Assert.AreEqual(validBooking, payment.Booking);
+            Assert.AreEqual(validDueDate, payment.DueDate);
+            Assert.AreEqual(validDueAmount, payment.DueAmount);
+            Assert.AreEqual(payee.Name, payment.Payee.Name);
+            Assert.AreEqual(payer.Name, payment.Payer.Name);
+            Assert.AreEqual(validType, payment.Type);
+            Assert.AreEqual(validSale, payment.Sale);
+            Assert.AreEqual(validBooking, payment.Booking);
         }
 
         [TestMethod]
@@ -89,14 +89,12 @@ namespace UnitTestProject
         [TestMethod]
         public void TestConstructorValidatesResponsible()
         {
-            // TODO: no validation to test here anymore
-            /*
-            string invalidResponsible = "";
+            Customer invalidPayer = null;
             bool caughtException = false;
 
             try
             {
-                Payment payment = new Payment(validDueDate, validDueAmount, invalidResponsible, validCommissioner,
+                Payment payment = new Payment(validDueDate, validDueAmount, invalidPayer, validPayee,
                     validType, validSale, validBooking, dataAccessFacadeStub);
             }
             catch (ArgumentOutOfRangeException)
@@ -105,20 +103,17 @@ namespace UnitTestProject
             }
 
             Assert.AreEqual(true, caughtException);
-            */
         }
 
         [TestMethod]
         public void TestConstructorValidatesCommissioner()
         {
-            // TODO: no validation to test here anymore
-            /*
-            string invalidCommissioner = "";
+            Supplier invalidPayee = null;
             bool caughtException = false;
 
             try
             {
-                Payment payment = new Payment(validDueDate, validDueAmount, validResponsible, invalidCommissioner,
+                Payment payment = new Payment(validDueDate, validDueAmount, validPayer, invalidPayee,
                     validType, validSale, validBooking, dataAccessFacadeStub);
             }
             catch (ArgumentOutOfRangeException)
@@ -127,7 +122,6 @@ namespace UnitTestProject
             }
 
             Assert.AreEqual(true, caughtException);
-            */
         }
 
         [TestMethod]
@@ -294,33 +288,32 @@ namespace UnitTestProject
         [TestMethod]
         public void TestReadAllPayments()
         {
-            // Broken for unknown reason - expectedPayments[i].Commissioner returns Supplier instead of Party?
-            //ISupplier commissioner1 = new Supplier("1", "Galasam", SupplierType.Cruise, dataAccessFacadeStub);
-            //ISupplier commissioner2 = new Supplier("2", "Hansen Is", SupplierType.Cruise, dataAccessFacadeStub);
-            //ISupplier commissioner3 = new Supplier("3", "Bondegaarden", SupplierType.Cruise, dataAccessFacadeStub);
-            //ISupplier commissioner4 = new Supplier("4", "Timoto", SupplierType.Cruise, dataAccessFacadeStub);
-            //Payment payment1 = createValidPayment();
-            //payment1.Commissioner = commissioner1;
-            //Payment payment2 = createValidPayment();
-            //payment2.Commissioner = commissioner2;
-            //Payment payment3 = createValidPayment();
-            //payment3.Commissioner = commissioner3;
-            //Payment payment4 = createValidPayment();
-            //payment4.Commissioner = commissioner4;
+            ISupplier commissioner1 = new Supplier("1", "Galasam", SupplierType.Cruise, dataAccessFacadeStub);
+            ISupplier commissioner2 = new Supplier("2", "Hansen Is", SupplierType.Cruise, dataAccessFacadeStub);
+            ISupplier commissioner3 = new Supplier("3", "Bondegaarden", SupplierType.Cruise, dataAccessFacadeStub);
+            ISupplier commissioner4 = new Supplier("4", "Timoto", SupplierType.Cruise, dataAccessFacadeStub);
+            Payment payment1 = createValidPayment();
+            payment1.Payee = commissioner1;
+            Payment payment2 = createValidPayment();
+            payment2.Payee = commissioner2;
+            Payment payment3 = createValidPayment();
+            payment3.Payee = commissioner3;
+            Payment payment4 = createValidPayment();
+            payment4.Payee = commissioner4;
 
-            //List<Payment> actualPayments = Payment.ReadAll(dataAccessFacadeStub);
+            List<Payment> actualPayments = Payment.ReadAll(dataAccessFacadeStub);
 
-            //List<Payment> expectedPayments = new List<Payment>();
+            List<Payment> expectedPayments = new List<Payment>();
 
-            //expectedPayments.Add(payment1);
-            //expectedPayments.Add(payment2);
-            //expectedPayments.Add(payment3);
-            //expectedPayments.Add(payment4);
+            expectedPayments.Add(payment1);
+            expectedPayments.Add(payment2);
+            expectedPayments.Add(payment3);
+            expectedPayments.Add(payment4);
 
-            //for (int i = 0; i < actualPayments.Count; i++)
-            //{
-            //    Assert.AreEqual(expectedPayments[i].Commissioner, actualPayments[i].Commissioner);
-            //}
+            for (int i = 0; i < actualPayments.Count; i++)
+            {
+                Assert.AreEqual(expectedPayments[i].Payee.Name, actualPayments[i].Payee.Name);
+            }
         }
 
         //test attachments exceptions
@@ -426,27 +419,6 @@ namespace UnitTestProject
             Assert.AreEqual(true, caughtException);
         }
 
-        //[TestMethod]
-        //public void TestInvoiceNull()
-        //{
-        //    // Since this is a test related to DB, maybe it should be in PaymentEntity?
-        //    // Wow, maybe we need validators in DataAccess as well! (mindblown)
-        //    //both Sale and Invoice.
-        //    Payment payment = createValidPayment();
-        //    bool caughtException = false;
-
-        //    try
-        //    {
-        //        payment.Invoice = null;
-        //    }
-        //    catch (ArgumentOutOfRangeException)
-        //    {
-        //        caughtException = true;
-        //    }
-
-        //    Assert.AreEqual(true, caughtException);
-        //}
-        
         [TestMethod]
         public void TestInvoiceValidData()
         {
