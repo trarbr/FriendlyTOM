@@ -16,8 +16,8 @@ namespace UnitTestProject
         PaymentCollection paymentCollection;
         DateTime validDueDate;
         decimal validDueAmount;
-        IParty validResponsible;
-        IParty validCommissioner;
+        IParty validPayer;
+        IParty validPayee;
         PaymentType validType;
         string validSale;
         int validBooking;
@@ -29,8 +29,8 @@ namespace UnitTestProject
             paymentCollection = new PaymentCollection(dataAccessFacadeStub);
             validDueDate = new DateTime(2010, 10, 10);
             validDueAmount = 1m;
-            validResponsible = new Customer(CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
-            validCommissioner = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
+            validPayer = new Customer(CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
+            validPayee = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
             validType = PaymentType.Balance;
             validSale = "VF Jan";
             validBooking = 2;
@@ -81,8 +81,6 @@ namespace UnitTestProject
         [TestMethod]
         public void TestReadAllIncoming()
         {
-            // TODO: FIX
-            /*
             createValidPayment();
             createValidPayment();
             createValidPayment();
@@ -91,13 +89,15 @@ namespace UnitTestProject
 
             Payment p1 = createValidPayment();
             p1.Note = "Moved to Lonely Tree1";
-            p1.Commissioner = "Lonely Tree";
+            p1.Payee = validPayer;
+            p1.Payer = validPayee;
 
             Payment p2 = createValidPayment();
             p2.Note = "Moved to Lonely Tree2";
-            p2.Commissioner = "Lonely Tree";
+            p2.Payee = validPayer;
+            p2.Payer = validPayee;
 
-            PaymentCollection paymentCollection = new PaymentCollection(dataAccessFacade);
+            PaymentCollection paymentCollection = new PaymentCollection(dataAccessFacadeStub);
 
             List<Payment> expectedPayments = new List<Payment>() { p1, p2 };
             List<Payment> actualPayments = paymentCollection.ReadAllIncoming();
@@ -105,14 +105,14 @@ namespace UnitTestProject
             for (int i = 0; i < expectedPayments.Count; i++)
             {
                 Assert.AreEqual(expectedPayments[i].Note, actualPayments[i].Note);
+                Assert.AreEqual(expectedPayments[i].Payee.Name, actualPayments[i].Payee.Name);
+                Assert.AreEqual(expectedPayments[i].Payer.Name, actualPayments[i].Payer.Name);
             }
-            */
         }
 
         [TestMethod]
         public void TestReadAllOutgoing()
         {
-            /*
             Payment p1 = createValidPayment();
             p1.Note = "Outgoing1";
             Payment p2 = createValidPayment();
@@ -128,8 +128,9 @@ namespace UnitTestProject
             for (int i = 0; i < expectedPayments.Count; i++)
             {
                 Assert.AreEqual(expectedPayments[i].Note, actualPayments[i].Note);
+                Assert.AreEqual(expectedPayments[i].Payee.Name, actualPayments[i].Payee.Name);
+                Assert.AreEqual(expectedPayments[i].Payer.Name, actualPayments[i].Payer.Name);
             }
-            */
         }
 
         [TestMethod]
@@ -186,12 +187,10 @@ namespace UnitTestProject
         [TestMethod]
         public void TestUpdateOutgoingToIncoming()
         {
-            // TODO: FIX
-            /*
             Payment p1 = createValidPayment();
 
-            p1.Commissioner = "Lonely Tree";
-            p1.Responsible = "Galasam";
+            p1.Payee = validPayer;
+            p1.Payer = validPayee;
             p1.Note = "Moved from outgoing to incoming";
             paymentCollection.Update(p1);
 
@@ -209,23 +208,22 @@ namespace UnitTestProject
             List<Payment> actualIncomingPayments = paymentCollection.ReadAllIncoming();
 
             CollectionAssert.AreEqual(expectedIncomingPayments, actualIncomingPayments);
-            */
         }
 
         [TestMethod]
         public void TestUpdateIncomingToOutgoing()
         {
-            // TODO: FIX
-            /*
             Payment p1 = createValidPayment();
 
-            p1.Commissioner = "Lonely Tree";
-            p1.Responsible = "Galasam";
+            // switch payer and payee to make incoming payment
+            p1.Payee = validPayer;
+            p1.Payer = validPayee; 
             p1.Note = "Moved from outgoing to incoming";
             paymentCollection.Update(p1);
 
-            p1.Commissioner = "Galasam";
-            p1.Responsible = "Lonely Tree";
+            // now make it an outgoing payment again
+            p1.Payee = validPayee;
+            p1.Payer = validPayer;
             p1.Note = "Moved from incoming to outgoing";
             paymentCollection.Update(p1);
 
@@ -243,13 +241,12 @@ namespace UnitTestProject
             List<Payment> actualIncomingPayments = paymentCollection.ReadAllIncoming();
 
             CollectionAssert.AreEqual(expectedIncomingPayments, actualIncomingPayments);
-            */
         }
 
         private Payment createValidPayment()
         {
 
-            return paymentCollection.Create(validDueDate, validDueAmount, validResponsible, validCommissioner, validType,
+            return paymentCollection.Create(validDueDate, validDueAmount, validPayer, validPayee, validType,
                 validSale, validBooking);
         }
     }
