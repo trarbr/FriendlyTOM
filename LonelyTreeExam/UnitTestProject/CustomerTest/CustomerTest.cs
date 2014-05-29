@@ -20,7 +20,7 @@ namespace UnitTestProject
         CustomerType validType;
 
         [TestInitialize]
-        public void SetValidDate()
+        public void SetValidData()
         {
             dataAccessFacadeStub = new DataAccessFacadeStub();
             validName = "VF Jan";
@@ -50,25 +50,6 @@ namespace UnitTestProject
             Assert.AreEqual(validType, customer.Type);
         }
 
-        //[TestMethod]
-        ////Should there be naming restrictions?
-        //public void TestConstructorValidatesName()
-        //{
-        //    string invalideName = "-,7";
-        //    bool callException = false;
-
-        //    try
-        //    {
-        //        Customer customer = new Customer(validType, validNote,
-        //            validName, dataAccessFacadeStub);
-        //    }
-        //    catch (ArgumentOutOfRangeException)
-        //    {
-        //        callException = true;
-        //    }
-        //    Assert.AreEqual(true, callException);
-        //}
-
         [TestMethod]
         public void TestNameValidString()
         {
@@ -82,32 +63,32 @@ namespace UnitTestProject
         public void TestNameEmptyString()
         {
             Customer customer = createValidCustomer();
-            bool caugthException = false;
+            bool caughtException = false;
             try
             {
                 customer.Name = "";
             }
             catch (ArgumentOutOfRangeException)
             {
-                caugthException = true;
+                caughtException = true;
             }
-            Assert.AreEqual(true, caugthException);
+            Assert.AreEqual(true, caughtException);
         }
 
         [TestMethod]
         public void TestNameWhitespace()
         {
             Customer customer = createValidCustomer();
-            bool caugthException = false;
+            bool caughtException = false;
             try
             {
                 customer.Name = " ";
             }
             catch (ArgumentOutOfRangeException)
             {
-                caugthException = true;
+                caughtException = true;
             }
-            Assert.AreEqual(true, caugthException);
+            Assert.AreEqual(true, caughtException);
         }
 
         [TestMethod]
