@@ -36,7 +36,7 @@ namespace UnitTestProject
         }
 
         [TestMethod]
-        public void TestNameAsNull()
+        public void TestNameEmptyString()
         {
             string name = "";
             string note = "total fed note";
@@ -44,7 +44,7 @@ namespace UnitTestProject
 
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
 
-            bool callException = false;
+            bool caughtException = false;
 
             try
             {
@@ -53,10 +53,10 @@ namespace UnitTestProject
             }
             catch (ArgumentOutOfRangeException)
             {
-                callException = true;
+                caughtException = true;
             }
 
-            Assert.AreEqual(true, callException);
+            Assert.AreEqual(true, caughtException);
         }
     }
 }
