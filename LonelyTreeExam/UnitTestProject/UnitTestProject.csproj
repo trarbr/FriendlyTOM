@@ -50,10 +50,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BookingTest\BookingCollectionTest.cs" />
-    <Compile Include="BookingTest\BookingControllerTest.cs" />
-    <Compile Include="BookingTest\BookingEntityTest.cs" />
-    <Compile Include="BookingTest\BookingTest.cs" />
     <Compile Include="CustomerTest\CustomerEntityTest.cs" />
     <Compile Include="CustomerTest\CustomerTest.cs" />
     <Compile Include="PaymentTest\PaymentCollectionTest.cs" />
