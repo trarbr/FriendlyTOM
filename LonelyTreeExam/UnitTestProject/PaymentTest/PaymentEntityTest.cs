@@ -14,14 +14,14 @@ namespace UnitTestProject
         {
             DateTime dueDate = new DateTime(2010, 10, 10);
             decimal dueAmount = 100m;
-            APartyEntity commissioner = new SupplierEntity(SupplierType.Cruise, "", "Galasam");
-            APartyEntity responsible = new CustomerEntity(CustomerType.Bureau, "", "Lonely Tree");
+            APartyEntity payee = new SupplierEntity(SupplierType.Cruise, "", "Galasam");
+            APartyEntity payer = new CustomerEntity(CustomerType.Bureau, "", "Lonely Tree");
             PaymentType type = PaymentType.Full;
             string sale = "VF March";
             int booking = 128;
 
-            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
-                commissioner, type, sale, booking);
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, payer, 
+                payee, type, sale, booking);
 
             DateTime expectedPaidDate = new DateTime(1900, 01, 01);
             decimal expectedPaidAmount = 0m;
@@ -31,8 +31,8 @@ namespace UnitTestProject
 
             Assert.AreEqual(dueDate, paymentEntity.DueDate);
             Assert.AreEqual(dueAmount, paymentEntity.DueAmount);
-            Assert.AreEqual(commissioner, paymentEntity.Payee);
-            Assert.AreEqual(responsible, paymentEntity.Payer);
+            Assert.AreEqual(payee, paymentEntity.Payee);
+            Assert.AreEqual(payer, paymentEntity.Payer);
             Assert.AreEqual(expectedPaidDate, paymentEntity.PaidDate);
             Assert.AreEqual(expectedPaidAmount, paymentEntity.PaidAmount);
             Assert.AreEqual(expectedPaid, paymentEntity.Paid);
@@ -45,18 +45,16 @@ namespace UnitTestProject
         [TestMethod]
         public void TestAddAttachment()
         {
-            // TODO: FIX
-            /*
             DateTime dueDate = new DateTime(2010, 10, 10);
             decimal dueAmount = 100m;
-            string commissioner = "Henry";
-            string responsible = "Peter";
+            APartyEntity payee = new SupplierEntity(SupplierType.Cruise, "", "Galasam");
+            APartyEntity payer = new CustomerEntity(CustomerType.Bureau, "", "Lonely Tree");
             PaymentType type = PaymentType.Full;
             string sale = "SR Josef";
             int booking = 59;
 
-            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, responsible, 
-                commissioner, type, sale, booking);
+            PaymentEntity paymentEntity = new PaymentEntity(dueDate, dueAmount, payer, 
+                payee, type, sale, booking);
 
             List<string> expectedAttachments = new List<string>();
             expectedAttachments.Add("attachment1");
@@ -75,7 +73,6 @@ namespace UnitTestProject
             }
 
             CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
-            */
         }
     }
 }
