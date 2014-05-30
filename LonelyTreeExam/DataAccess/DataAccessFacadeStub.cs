@@ -107,25 +107,33 @@ namespace DataAccess
         #endregion
 
         #region Booking Stuff
+        List<IBooking> bookings = new List<IBooking>();
         public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, 
             DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            BookingEntity booking = new BookingEntity(supplier, customer, sale, bookingNumber, startDate, endDate);
+            bookings.Add(booking);
+
+            return booking;
         }
 
         public List<IBooking> ReadAllBookings()
         {
-            throw new NotImplementedException();
+            return bookings;
         }
 
         public void UpdateBooking(IBooking booking)
         {
-            throw new NotImplementedException();
+            BookingEntity entity = (BookingEntity)booking;
+            entity.LastModified = DateTime.Now;
         }
 
         public void DeleteBooking(IBooking booking)
         {
-            throw new NotImplementedException();
+            BookingEntity entity = (BookingEntity)booking;
+            entity.Deleted = true;
+
+            bookings.Remove(booking);
         }
         #endregion
 
@@ -134,22 +142,28 @@ namespace DataAccess
         public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, 
             BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
         {
-            throw new NotImplementedException();
-        }
+            PaymentRuleEntity paymentRule = new PaymentRuleEntity(supplierEntity, customerEntity, bookingType,
+                percentage, daysOffset, baseDate, paymentType);
 
-        public List<IPaymentRule> ReadAllPaymentRules()
-        {
-            throw new NotImplementedException();
+            SupplierEntity supplier = (SupplierEntity)supplierEntity;
+            supplier.AddPaymentRule(paymentRule);
+
+            return paymentRule;
         }
 
         public void UpdatePaymentRule(IPaymentRule paymentRuleEntity)
         {
-            throw new NotImplementedException();
+            PaymentRuleEntity paymentRule = (PaymentRuleEntity)paymentRuleEntity;
+            paymentRule.LastModified = DateTime.Now;
         }
 
         public void DeletePaymentRule(IPaymentRule paymentRuleEntity)
         {
-            throw new NotImplementedException();
+            PaymentRuleEntity paymentRule = (PaymentRuleEntity)paymentRuleEntity;
+            paymentRule.Deleted = true;
+
+            SupplierEntity supplier = (SupplierEntity)(paymentRule.Supplier);
+            supplier.RemovePaymentRule(paymentRule);
         }
         #endregion
     }
