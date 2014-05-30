@@ -18,6 +18,16 @@ namespace Domain.Controller
             paymentCollection = new PaymentCollection(dataAccessFacade);
         }
 
+        /// <summary>
+        /// For testing against a specified DataAccessFacade
+        /// </summary>
+        /// <param name="dataAccessFacade"></param>
+        public PaymentController(IDataAccessFacade dataAccessFacade)
+        {
+            this.dataAccessFacade = dataAccessFacade;
+            paymentCollection = new PaymentCollection(dataAccessFacade);
+        }
+
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer, 
             IParty payee, PaymentType type, string sale, int booking)
         {

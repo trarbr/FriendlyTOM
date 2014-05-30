@@ -15,7 +15,17 @@ namespace Domain.Controller
             dataAccessFacade = DataAccessFacade.GetInstance();
             customerCollection = new CustomerCollection(dataAccessFacade);
         }
-        
+
+        /// <summary>
+        /// For testing against a specified DataAccessFacade
+        /// </summary>
+        /// <param name="dataAccessFacade"></param>
+        public CustomerController(IDataAccessFacade dataAccessFacade)
+        {
+            this.dataAccessFacade = dataAccessFacade;
+            customerCollection = new CustomerCollection(dataAccessFacade);
+        }
+
         public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
             //Calls custommercollection class for Create
