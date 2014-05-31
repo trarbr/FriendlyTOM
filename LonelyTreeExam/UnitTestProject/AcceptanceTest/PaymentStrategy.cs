@@ -23,7 +23,7 @@ namespace UnitTestProject.AcceptanceTest
         [TestInitialize]
         public void Initialize()
         {
-            culture = new CultureInfo("en-US");
+            culture = new CultureInfo("en-US"); // Used for comparing decimals with strings
 
             dataAccessFacade = new DataAccessFacadeStub();
             customerController = new CustomerController(dataAccessFacade);
@@ -35,15 +35,20 @@ namespace UnitTestProject.AcceptanceTest
         }
 
         [TestMethod]
-        public void TestOnePaymentRule()
+        public void TestVFJan13()
         {
-            // Test scenario: Viktors Farmor booking 13 for sale VF Jan at Estrella Chimborazo
+            // Test scenario: Viktors Farmor booking 13 for sale VF Jan with Estrella Chimborazo
             ICustomer viktorsFarmor = customerController.CreateCustomer(CustomerType.Bureau, "", "Viktors Farmor");
             ISupplier estrellaChimborazo = supplierController.CreateSupplier("Estrella Chimborazo", "",
                 SupplierType.Restaurant);
 
+            // PaymentRule to use for the booking
             supplierController.AddPaymentRule(estrellaChimborazo, viktorsFarmor, BookingType.Group, 100, -1,
-                BaseDate.StartDate, PaymentType.Full);
+                BaseDate.StartDate, PaymentType.Full); 
+
+            // Dummy PaymentRule (must not be applied)
+            supplierController.AddPaymentRule(estrellaChimborazo, viktorsFarmor, BookingType.FIT, 100, 14,
+                BaseDate.EndDate, PaymentType.Full);
 
             IBooking booking = bookingController.CreateBooking(estrellaChimborazo, viktorsFarmor, "VF Jan", 13,
                 new DateTime(2014, 01, 14), new DateTime(2014, 01, 14));
@@ -77,18 +82,23 @@ namespace UnitTestProject.AcceptanceTest
         }
 
         [TestMethod]
-        public void TestThreePaymentRules()
+        public void TestSvaneRejserJosefsen3()
         {
-            // Test scenario: Svane Rejser booking 3 for sale Svane Rejser Josefsen at NatureGalapagos
+            // Test scenario: Svane Rejser booking 3 for sale Svane Rejser Josefsen with NatureGalapagos
             ICustomer svaneRejser = customerController.CreateCustomer(CustomerType.Bureau, "", "Svane Rejser");
             ISupplier natureGalapagos = supplierController.CreateSupplier("NatureGalapagos", "", SupplierType.Cruise);
 
+            // PaymentRules to use for the booking
             supplierController.AddPaymentRule(natureGalapagos, svaneRejser, BookingType.Group, 30, -272,
                 BaseDate.StartDate, PaymentType.Deposit);
             supplierController.AddPaymentRule(natureGalapagos, svaneRejser, BookingType.Group, 30, -90,
                 BaseDate.StartDate, PaymentType.Deposit);
             supplierController.AddPaymentRule(natureGalapagos, svaneRejser, BookingType.Group, 40, -60,
                 BaseDate.StartDate, PaymentType.Balance);
+
+            // Dummy PaymentRule (must not be applied)
+            supplierController.AddPaymentRule(natureGalapagos, svaneRejser, BookingType.Undefined, 100, 0,
+                BaseDate.StartDate, PaymentType.Full);
 
             IBooking booking = bookingController.CreateBooking(natureGalapagos, svaneRejser, "Svane Rejser Josefsen",
                 3, new DateTime(2014, 6, 5), new DateTime(2014, 6, 12));
