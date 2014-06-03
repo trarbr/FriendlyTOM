@@ -17,6 +17,19 @@ namespace Domain.Controller
             this.paymentController = paymentController;
             this.customerController = customerController;
         }
+
+        /// <summary>
+        /// For testing against a specified DataAccessFacade
+        /// </summary>
+        /// <param name="dataAccessFacade"></param>
+        public BookingController(PaymentController paymentController, CustomerController customerController,
+            IDataAccessFacade dataAccessFacade)
+        {
+            this.dataAccessFacade = dataAccessFacade;
+            bookingCollection = new BookingCollection(dataAccessFacade);
+            this.paymentController = paymentController;
+            this.customerController = customerController;
+        }
         #endregion
 
         #region Public CRUD

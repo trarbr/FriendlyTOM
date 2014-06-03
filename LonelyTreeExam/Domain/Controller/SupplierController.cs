@@ -16,6 +16,16 @@ namespace Domain.Controller
             supplierCollection = new SupplierCollection(dataAccessFacade);
         }
 
+        /// <summary>
+        /// For testing against a specified DataAccessFacade
+        /// </summary>
+        /// <param name="dataAccessFacade"></param>
+        public SupplierController(IDataAccessFacade dataAccessFacade)
+        {
+            this.dataAccessFacade = dataAccessFacade;
+            supplierCollection = new SupplierCollection(dataAccessFacade);
+        }
+
         public ISupplier CreateSupplier(string name, string note,
             SupplierType type)
         {
