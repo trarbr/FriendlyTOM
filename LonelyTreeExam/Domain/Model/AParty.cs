@@ -1,4 +1,5 @@
-﻿using Common.Interfaces;
+﻿// LB
+using Common.Interfaces;
 using System;
 
 namespace Domain.Model
