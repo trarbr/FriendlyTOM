@@ -26,17 +26,26 @@ namespace LonelyTreeExam
         public MainWindow()
         {
             InitializeComponent();
-            SupplierController supplierController = new SupplierController();
-            CustomerController customerController = new CustomerController();
-            PaymentController paymentController = new PaymentController();
-            BookingController bookingController = new BookingController(paymentController, customerController);
 
-            accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
-            accountingUserControl.Content = accountingControl;
-            suppliersUserControl.Content = new SuppliersUserControl(supplierController, customerController);
-            customersUserControl.Content = new CustomersUserControl(customerController);
-            bookingsUserControl.Content = new BookingsUserControl(bookingController, supplierController,
-                customerController);
+            try
+            {
+                SupplierController supplierController = new SupplierController();
+                CustomerController customerController = new CustomerController();
+                PaymentController paymentController = new PaymentController();
+                BookingController bookingController = new BookingController(paymentController, customerController);
+
+
+                accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
+                accountingUserControl.Content = accountingControl;
+                suppliersUserControl.Content = new SuppliersUserControl(supplierController, customerController);
+                customersUserControl.Content = new CustomersUserControl(customerController);
+                bookingsUserControl.Content = new BookingsUserControl(bookingController, supplierController,
+                    customerController);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             currentTabIndex = 0;  
         }
