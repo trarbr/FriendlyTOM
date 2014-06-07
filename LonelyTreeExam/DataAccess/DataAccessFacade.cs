@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Interfaces;
 using DataAccess.Entities;
+using DataAccess.Helpers;
 using DataAccess.Mappers;
 using Common.Enums;
 
@@ -17,10 +18,17 @@ namespace DataAccess
         /// <param name="test">For integration tests, set test = true to use test database</param>
         public DataAccessFacade(bool test = false)
         {
+
             if (!test)
             {
-                //take the database information from a textfile.
-                connectionString = File.ReadAllText("C:\\ConnectString.txt");
+                string serverString = @"Data Source=localhost\SQLEXPRESS;Integrated Security=True";
+                string databaseName = @"FTOM";
+
+                connectionString = serverString + ";Initial Catalog=" + databaseName;
+
+                SqlSetup sqlSetup = new SqlSetup(serverString, databaseName);
+
+                sqlSetup.Execute();
             }
             else
             {
