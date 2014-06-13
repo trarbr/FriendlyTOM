@@ -104,68 +104,40 @@ namespace LonelyTreeExam.UserControls
                 {
                     if (selectedSupplier == null)
                     {
-                        string name = nameTextBox.Text;
-                        SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                        string note = noteTextBox.Text;
+                        createNewSupplier();
 
-                        ISupplier supplier = supplierController.CreateSupplier(name, note, type);
-                        supplier.AccountName = accountNameTextBox.Text;
-                        supplier.AccountNo = accountNoTextBox.Text;
-                        supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
-                        supplier.Bank = bankTextBox.Text;
-                        supplier.OwnerId = ownerIdTextBox.Text;
-
-                        supplierController.UpdateSupplier(supplier);
                         refreshDataGrid();
-                        suppliersDataGrid.SelectedItem = null;
-                        setValuesInTextBoxes();
+                        setSupplierValuesInTextBoxes();
                     }
                     else
                     {
                         int currentIndex = suppliersDataGrid.SelectedIndex;
 
-                        selectedSupplier.Name = nameTextBox.Text;
-                        selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
-                        selectedSupplier.Note = noteTextBox.Text;
-                        selectedSupplier.AccountName = accountNameTextBox.Text;
-                        selectedSupplier.AccountNo = accountNoTextBox.Text;
-                        selectedSupplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
-                        selectedSupplier.Bank = bankTextBox.Text;
-                        selectedSupplier.OwnerId = ownerIdTextBox.Text;
+                        updateExistingSupplier();
 
-                        supplierController.UpdateSupplier(selectedSupplier);
                         refreshDataGrid();
                         suppliersDataGrid.SelectedIndex = currentIndex;
                     }
                 }
                 else if (paymentRuleTabControl.IsSelected)
                 {
-                    ICustomer customer = null;
-
-                    foreach (ICustomer theCustomer in customerController.ReadAllCustomers())
+                    if (selectedPaymentRule == null)
                     {
-                        if (theCustomer.Name == customerTextBox.Text)
-                        {
-                            customer = theCustomer;
-                        }
+                        createNewPaymentRule();
+
+                        refreshPaymentRuleDataGrid();
+                        setPaymentRuleValuesInTextBoxes();
                     }
+                    else
+                    {
+                        int currentIndex = paymentRuleDataGrid.SelectedIndex;
 
-                    ISupplier supplier = selectedSupplier;
-                    BookingType bookingType = (BookingType) bookingTypeComboBox.SelectedItem;
-                    decimal percentage;
-                    decimal.TryParse(percentageTextBox.Text, NumberStyles.Any, culture, out percentage);
-                    int daysOffSet;
-                    int.TryParse(daysOffsetTextBox.Text, out daysOffSet);
-                    BaseDate baseDate = (BaseDate) baseDateComboBox.SelectedItem;
-                    PaymentType paymentType = (PaymentType) paymentTypeComboBox.SelectedItem;
+                        updateExistingPaymentRule();
 
-
-                    supplierController.AddPaymentRule(supplier, customer, bookingType, percentage, daysOffSet, baseDate,
-                                                      paymentType);
-                    refreshPaymentRuleDataGrid();
-                    setPaymentRuleValuesInTextBoxes();
+                        refreshPaymentRuleDataGrid();
+                        paymentRuleDataGrid.SelectedIndex = currentIndex;
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -173,7 +145,89 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
-        private void setValuesInTextBoxes()
+        private void createNewPaymentRule()
+        {
+            decimal percentage;
+            int daysOffSet;
+            decimal.TryParse(percentageTextBox.Text, NumberStyles.Any, culture, out percentage);
+            int.TryParse(daysOffsetTextBox.Text, out daysOffSet);
+
+            ICustomer customer = findCustomerByName();
+            ISupplier supplier = selectedSupplier;
+            BookingType bookingType = (BookingType)bookingTypeComboBox.SelectedItem;
+            BaseDate baseDate = (BaseDate)baseDateComboBox.SelectedItem;
+            PaymentType paymentType = (PaymentType)paymentTypeComboBox.SelectedItem;
+            supplierController.AddPaymentRule(supplier, customer, bookingType, percentage, daysOffSet, baseDate,
+                                              paymentType);
+        }
+
+        private void updateExistingPaymentRule()
+        {
+            decimal percentage;
+            int daysOffSet;
+            decimal.TryParse(percentageTextBox.Text, NumberStyles.Any, culture, out percentage);
+            int.TryParse(daysOffsetTextBox.Text, out daysOffSet);
+
+            ICustomer customer = findCustomerByName();
+            BookingType bookingType = (BookingType)bookingTypeComboBox.SelectedItem;
+            BaseDate baseDate = (BaseDate)baseDateComboBox.SelectedItem;
+            PaymentType paymentType = (PaymentType)paymentTypeComboBox.SelectedItem;
+
+            selectedPaymentRule.Percentage = percentage;
+            selectedPaymentRule.DaysOffset = daysOffSet;
+            selectedPaymentRule.Customer = customer;
+            selectedPaymentRule.BookingType = bookingType;
+            selectedPaymentRule.BaseDate = baseDate;
+            selectedPaymentRule.PaymentType = paymentType;
+
+            // PaymentRules are updated by updating the Supplier
+            supplierController.UpdateSupplier(selectedSupplier);
+        }
+
+        private ICustomer findCustomerByName()
+        {
+            ICustomer customer = null;
+            foreach (ICustomer theCustomer in customerController.ReadAllCustomers())
+            {
+                if (theCustomer.Name == customerTextBox.Text)
+                {
+                    customer = theCustomer;
+                }
+            }
+            return customer;
+        }
+
+        private void updateExistingSupplier()
+        {
+            selectedSupplier.Name = nameTextBox.Text;
+            selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
+            selectedSupplier.Note = noteTextBox.Text;
+            selectedSupplier.AccountName = accountNameTextBox.Text;
+            selectedSupplier.AccountNo = accountNoTextBox.Text;
+            selectedSupplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+            selectedSupplier.Bank = bankTextBox.Text;
+            selectedSupplier.OwnerId = ownerIdTextBox.Text;
+
+            supplierController.UpdateSupplier(selectedSupplier);
+        }
+
+        private void createNewSupplier()
+        {
+            string name = nameTextBox.Text;
+            SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
+            string note = noteTextBox.Text;
+
+            ISupplier supplier = supplierController.CreateSupplier(name, note, type);
+            supplier.AccountName = accountNameTextBox.Text;
+            supplier.AccountNo = accountNoTextBox.Text;
+            supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+            supplier.Bank = bankTextBox.Text;
+            supplier.OwnerId = ownerIdTextBox.Text;
+
+            supplierController.UpdateSupplier(supplier);
+        }
+
+        private void setSupplierValuesInTextBoxes()
         {
             if (selectedSupplier != null)
             {
@@ -243,13 +297,13 @@ namespace LonelyTreeExam.UserControls
         private void suppliersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedSupplier = (ISupplier)suppliersDataGrid.SelectedItem;
-            setValuesInTextBoxes();
+            setSupplierValuesInTextBoxes();
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
             suppliersDataGrid.SelectedItem = null;
-            setValuesInTextBoxes();
+            setSupplierValuesInTextBoxes();
             paymentRuleDataGrid.SelectedItem = null;
             setPaymentRuleValuesInTextBoxes();
         }
