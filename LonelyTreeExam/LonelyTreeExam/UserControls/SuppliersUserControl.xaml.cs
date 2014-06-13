@@ -58,7 +58,7 @@ namespace LonelyTreeExam.UserControls
         private HashSet<string> autoCompleteEntries;
         private CultureInfo culture;
 
-        private void refreshDataGrid()
+        private void refreshSupplierDataGrid()
         {
             suppliersDataGrid.ItemsSource = null;
             suppliersDataGrid.ItemsSource = supplierController.ReadAllSuppliers();
@@ -98,10 +98,16 @@ namespace LonelyTreeExam.UserControls
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            suppliersDataGrid.SelectedItem = null;
-            setSupplierValuesInTextBoxes();
-            paymentRuleDataGrid.SelectedItem = null;
-            setPaymentRuleValuesInTextBoxes();
+            if (supplierTabControl.IsSelected)
+            {
+                suppliersDataGrid.SelectedItem = null;
+                setSupplierValuesInTextBoxes();
+            }
+            else
+            {
+                paymentRuleDataGrid.SelectedItem = null;
+                setPaymentRuleValuesInTextBoxes();
+            }
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
@@ -115,7 +121,7 @@ namespace LonelyTreeExam.UserControls
                         supplierController.DeleteSupplier(supplier);
                     }
                     suppliersDataGrid.SelectedItem = null;
-                    refreshDataGrid();
+                    refreshSupplierDataGrid();
                 }
             }
             else if (paymentRuleTabControl.IsSelected)
@@ -157,7 +163,7 @@ namespace LonelyTreeExam.UserControls
             {
                 createNewSupplier();
 
-                refreshDataGrid();
+                refreshSupplierDataGrid();
                 setSupplierValuesInTextBoxes();
             }
             else
@@ -166,7 +172,7 @@ namespace LonelyTreeExam.UserControls
 
                 updateExistingSupplier();
 
-                refreshDataGrid();
+                refreshSupplierDataGrid();
                 suppliersDataGrid.SelectedIndex = currentIndex;
             }
         }
