@@ -43,6 +43,12 @@ namespace LonelyTreeExam.UserControls
             culture = MainWindow.GetCulture();
         }
 
+        internal void Refresh()
+        {
+            refreshDataGrid();
+            addAutoCompleteEntries();
+        }
+
         #region Private Fields
         private BookingController bookingController;
         private SupplierController supplierController;

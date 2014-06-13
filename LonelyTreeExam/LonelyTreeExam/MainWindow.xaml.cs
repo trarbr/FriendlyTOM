@@ -39,8 +39,9 @@ namespace LonelyTreeExam
                 accountingUserControl.Content = accountingControl;
                 suppliersUserControl.Content = new SuppliersUserControl(supplierController, customerController);
                 customersUserControl.Content = new CustomersUserControl(customerController);
-                bookingsUserControl.Content = new BookingsUserControl(bookingController, supplierController,
+                bookingsControl = new BookingsUserControl(bookingController, supplierController,
                     customerController);
+                bookingsUserControl.Content = bookingsControl;
             }
             catch (Exception ex)
             {
@@ -56,6 +57,7 @@ namespace LonelyTreeExam
         }
 
         private AccountingUserControl accountingControl;
+        private BookingsUserControl bookingsControl;
         private int currentTabIndex;
 
         private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,6 +65,7 @@ namespace LonelyTreeExam
             if (mainTabNavigation.SelectedIndex != currentTabIndex)
             {
                 accountingControl.RefreshAll();
+                bookingsControl.Refresh();
             }
         }
     }
