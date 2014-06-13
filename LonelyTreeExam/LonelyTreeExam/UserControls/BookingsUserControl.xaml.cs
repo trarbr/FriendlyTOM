@@ -38,7 +38,7 @@ namespace LonelyTreeExam.UserControls
             bookingTypeComboBox.SelectedIndex = 0;
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
-            autoCompleteEntries = new HashSet<string>();
+            autoCompleteEntries = new HashSet<IParty>();
             addAutoCompleteEntries();
             culture = MainWindow.GetCulture();
         }
@@ -56,7 +56,7 @@ namespace LonelyTreeExam.UserControls
         private IBooking selectedBooking;
         private BitmapImage collapsePlusImage;
         private BitmapImage collapseMinImage;
-        private HashSet<string> autoCompleteEntries;
+        private HashSet<IParty> autoCompleteEntries;
         private CultureInfo culture;
         #endregion
 
@@ -65,19 +65,19 @@ namespace LonelyTreeExam.UserControls
         {
             foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
             {
-                if (!autoCompleteEntries.Contains(supplier.Name))
+                if (!autoCompleteEntries.Contains(supplier))
                 {
                     supplierTextBox.AddItem(new AutoCompleteEntry(supplier.Name, null));
-                    autoCompleteEntries.Add(supplier.Name);
+                    autoCompleteEntries.Add(supplier);
                 }
             }
 
             foreach (ICustomer customer in customerController.ReadAllCustomers())
             {
-                if (!autoCompleteEntries.Contains(customer.Name))
+                if (!autoCompleteEntries.Contains(customer))
                 {
                     customerTextBox.AddItem(new AutoCompleteEntry(customer.Name, null));
-                    autoCompleteEntries.Add(customer.Name);
+                    autoCompleteEntries.Add(customer);
                 }
             }
         }
