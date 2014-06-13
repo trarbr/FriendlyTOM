@@ -113,114 +113,17 @@ namespace LonelyTreeExam.UserControls
             {
                 if (selectedBooking == null)
                 {
-                    string sale = saleTextBox.Text;
-                    int bookingNumber;
-                    int.TryParse(bookingNumberTextBox.Text, out bookingNumber);
-                    DateTime startDate = startDateDatePicker.SelectedDate.Value;
-                    DateTime endDate = endDateDatePicker.SelectedDate.Value;
-
-                    ISupplier selectedSupplier = null;
-                    foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
-                    {
-                        if (supplier.Name == supplierTextBox.Text)
-                        {
-                            selectedSupplier = supplier;
-                            break;
-                        }
-                    }
-
-                    ICustomer selectedCustomer = null;
-                    foreach (ICustomer customer in customerController.ReadAllCustomers())
-                    {
-                        if (customer.Name == customerTextBox.Text)
-                        {
-                            selectedCustomer = customer;
-                            break;
-                        }
-                    }
-
-                    IBooking booking = bookingController.CreateBooking(selectedSupplier, selectedCustomer, sale, bookingNumber,
-                                                                       startDate, endDate);
-
-                    booking.Type = (BookingType)bookingTypeComboBox.SelectedItem;
-                    
-                    decimal iVAExempt;
-                    decimal iVASubject;
-                    decimal service;
-                    decimal productRetention;
-                    decimal supplierRetention;
-
-                    decimal.TryParse(IVAExemptTextBox.Text, NumberStyles.Any, culture, out iVAExempt);
-                    decimal.TryParse(IVASubjectTextBox.Text, NumberStyles.Any, culture, out iVASubject);
-                    decimal.TryParse(serviceTextBox.Text, NumberStyles.Any, culture, out service);
-                    decimal.TryParse(productRetentionTextBox.Text, NumberStyles.Any, culture, out productRetention);
-                    decimal.TryParse(supplierRetentionTextBox.Text, NumberStyles.Any, culture, out supplierRetention);
-
-                    booking.IVAExempt = iVAExempt;
-                    booking.IVASubject = iVASubject;
-                    booking.Service = service;
-                    booking.ProductRetention = productRetention;
-                    booking.SupplierRetention = supplierRetention;
-                    booking.Note = noteTextBox.Text;
-                    bookingController.UpdateBooking(booking);
+                    createNewBooking();
 
                     refreshDataGrid();
-                    bookingsDataGrid.SelectedItem = null;
                     setValuesInTextBoxes();
                 }
                 else
                 {
                     int currentIndex = bookingsDataGrid.SelectedIndex;
 
-                    ISupplier selectedSupplier = null;
-                    foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
-                    {
-                        if (supplier.Name == supplierTextBox.Text)
-                        {
-                            selectedSupplier = supplier;
-                            break;
-                        }
-                    }
-
-                    ICustomer selectedCustomer = null;
-                    foreach (ICustomer customer in customerController.ReadAllCustomers())
-                    {
-                        if (customer.Name == customerTextBox.Text)
-                        {
-                            selectedCustomer = customer;
-                            break;
-                        }
-                    }
-
-                    decimal iVAExempt;
-                    decimal iVASubject;
-                    decimal service;
-                    decimal productRetention;
-                    decimal supplierRetention;
-                    int bookingNumber;
-
-                    decimal.TryParse(IVAExemptTextBox.Text, NumberStyles.Any, culture, out iVAExempt);
-                    decimal.TryParse(IVASubjectTextBox.Text, NumberStyles.Any, culture, out iVASubject);
-                    decimal.TryParse(serviceTextBox.Text, NumberStyles.Any, culture, out service);
-                    decimal.TryParse(productRetentionTextBox.Text, NumberStyles.Any, culture, out productRetention);
-                    decimal.TryParse(supplierRetentionTextBox.Text, NumberStyles.Any, culture, out supplierRetention);
-                    int.TryParse(bookingNumberTextBox.Text, out bookingNumber);
-
-                    selectedBooking.IVAExempt = iVAExempt;
-                    selectedBooking.IVASubject = iVASubject;
-                    selectedBooking.Service = service;
-                    selectedBooking.ProductRetention = productRetention;
-                    selectedBooking.SupplierRetention = supplierRetention;
-                    selectedBooking.BookingNumber = bookingNumber;
-                    selectedBooking.Customer = selectedCustomer;
-                    selectedBooking.Supplier = selectedSupplier;
-                    selectedBooking.EndDate = endDateDatePicker.SelectedDate.Value;
-                    selectedBooking.StartDate = startDateDatePicker.SelectedDate.Value;
-                    selectedBooking.Note = noteTextBox.Text;
-                    selectedBooking.Sale = saleTextBox.Text;
-                    selectedBooking.Type = (BookingType) bookingTypeComboBox.SelectedItem;
-
-                    bookingController.UpdateBooking(selectedBooking);
+                    updateExistingBooking();
+                    
                     refreshDataGrid();
                     bookingsDataGrid.SelectedIndex = currentIndex;
                 }
@@ -230,6 +133,108 @@ namespace LonelyTreeExam.UserControls
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void createNewBooking()
+        {
+            int bookingNumber;
+            int.TryParse(bookingNumberTextBox.Text, out bookingNumber);
+
+            string sale = saleTextBox.Text;
+            DateTime startDate = startDateDatePicker.SelectedDate.Value;
+            DateTime endDate = endDateDatePicker.SelectedDate.Value;
+
+            ISupplier selectedSupplier = findSupplierByName();
+            ICustomer selectedCustomer = findCustomerByName();
+
+            IBooking booking = bookingController.CreateBooking(selectedSupplier, selectedCustomer, sale, bookingNumber,
+                startDate, endDate);
+
+            decimal iVAExempt;
+            decimal iVASubject;
+            decimal service;
+            decimal productRetention;
+            decimal supplierRetention;
+
+            decimal.TryParse(IVAExemptTextBox.Text, NumberStyles.Any, culture, out iVAExempt);
+            decimal.TryParse(IVASubjectTextBox.Text, NumberStyles.Any, culture, out iVASubject);
+            decimal.TryParse(serviceTextBox.Text, NumberStyles.Any, culture, out service);
+            decimal.TryParse(productRetentionTextBox.Text, NumberStyles.Any, culture, out productRetention);
+            decimal.TryParse(supplierRetentionTextBox.Text, NumberStyles.Any, culture, out supplierRetention);
+
+            booking.Type = (BookingType)bookingTypeComboBox.SelectedItem;
+            booking.IVAExempt = iVAExempt;
+            booking.IVASubject = iVASubject;
+            booking.Service = service;
+            booking.ProductRetention = productRetention;
+            booking.SupplierRetention = supplierRetention;
+            booking.Note = noteTextBox.Text;
+
+            bookingController.UpdateBooking(booking);
+        }
+
+        private void updateExistingBooking()
+        {
+            decimal iVAExempt;
+            decimal iVASubject;
+            decimal service;
+            decimal productRetention;
+            decimal supplierRetention;
+            int bookingNumber;
+
+            decimal.TryParse(IVAExemptTextBox.Text, NumberStyles.Any, culture, out iVAExempt);
+            decimal.TryParse(IVASubjectTextBox.Text, NumberStyles.Any, culture, out iVASubject);
+            decimal.TryParse(serviceTextBox.Text, NumberStyles.Any, culture, out service);
+            decimal.TryParse(productRetentionTextBox.Text, NumberStyles.Any, culture, out productRetention);
+            decimal.TryParse(supplierRetentionTextBox.Text, NumberStyles.Any, culture, out supplierRetention);
+            int.TryParse(bookingNumberTextBox.Text, out bookingNumber);
+            ISupplier selectedSupplier = findSupplierByName();
+            ICustomer selectedCustomer = findCustomerByName();
+
+            selectedBooking.IVAExempt = iVAExempt;
+            selectedBooking.IVASubject = iVASubject;
+            selectedBooking.Service = service;
+            selectedBooking.ProductRetention = productRetention;
+            selectedBooking.SupplierRetention = supplierRetention;
+            selectedBooking.BookingNumber = bookingNumber;
+            selectedBooking.Customer = selectedCustomer;
+            selectedBooking.Supplier = selectedSupplier;
+            selectedBooking.EndDate = endDateDatePicker.SelectedDate.Value;
+            selectedBooking.StartDate = startDateDatePicker.SelectedDate.Value;
+            selectedBooking.Note = noteTextBox.Text;
+            selectedBooking.Sale = saleTextBox.Text;
+            selectedBooking.Type = (BookingType)bookingTypeComboBox.SelectedItem;
+
+            bookingController.UpdateBooking(selectedBooking);
+        }
+
+        private ICustomer findCustomerByName()
+        {
+            ICustomer selectedCustomer = null;
+            foreach (ICustomer customer in customerController.ReadAllCustomers())
+            {
+                if (customer.Name == customerTextBox.Text)
+                {
+                    selectedCustomer = customer;
+                    break;
+                }
+            }
+            return selectedCustomer;
+        }
+
+        private ISupplier findSupplierByName()
+        {
+            ISupplier selectedSupplier = null;
+            foreach (ISupplier supplier in supplierController.ReadAllSuppliers())
+            {
+                if (supplier.Name == supplierTextBox.Text)
+                {
+                    selectedSupplier = supplier;
+                    break;
+                }
+            }
+            return selectedSupplier;
+        }
+
 
         private void collapseButton_Click(object sender, RoutedEventArgs e)
         {
