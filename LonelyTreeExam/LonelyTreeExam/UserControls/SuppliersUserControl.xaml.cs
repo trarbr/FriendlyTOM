@@ -46,7 +46,7 @@ namespace LonelyTreeExam.UserControls
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             autoCompleteEntries = new HashSet<string>();
-            AddCustomersToAutoComplete(customerController.ReadAllCustomers());
+            addCustomersToAutoComplete(customerController.ReadAllCustomers());
         }
 
         private CustomerController customerController;
@@ -94,6 +94,42 @@ namespace LonelyTreeExam.UserControls
             }
 
             suppliersDataGrid.Items.Refresh();
+        }
+
+        private void newButton_Click(object sender, RoutedEventArgs e)
+        {
+            suppliersDataGrid.SelectedItem = null;
+            setSupplierValuesInTextBoxes();
+            paymentRuleDataGrid.SelectedItem = null;
+            setPaymentRuleValuesInTextBoxes();
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (supplierTabControl.IsSelected)
+            {
+                if (selectedSupplier != null)
+                {
+                    foreach (ISupplier supplier in suppliersDataGrid.SelectedItems)
+                    {
+                        supplierController.DeleteSupplier(supplier);
+                    }
+                    suppliersDataGrid.SelectedItem = null;
+                    refreshDataGrid();
+                }
+            }
+            else if (paymentRuleTabControl.IsSelected)
+            {
+                if (selectedPaymentRule != null)
+                {
+                    foreach (IPaymentRule paymentRule in paymentRuleDataGrid.SelectedItems)
+                    {
+                        supplierController.DeletePaymentRule(paymentRule);
+                    }
+                    paymentRuleDataGrid.SelectedItem = null;
+                    refreshPaymentRuleDataGrid();
+                }
+            }
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
@@ -145,6 +181,36 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
+        private void createNewSupplier()
+        {
+            string name = nameTextBox.Text;
+            SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
+            string note = noteTextBox.Text;
+
+            ISupplier supplier = supplierController.CreateSupplier(name, note, type);
+            supplier.AccountName = accountNameTextBox.Text;
+            supplier.AccountNo = accountNoTextBox.Text;
+            supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+            supplier.Bank = bankTextBox.Text;
+            supplier.OwnerId = ownerIdTextBox.Text;
+
+            supplierController.UpdateSupplier(supplier);
+        }
+
+        private void updateExistingSupplier()
+        {
+            selectedSupplier.Name = nameTextBox.Text;
+            selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
+            selectedSupplier.Note = noteTextBox.Text;
+            selectedSupplier.AccountName = accountNameTextBox.Text;
+            selectedSupplier.AccountNo = accountNoTextBox.Text;
+            selectedSupplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
+            selectedSupplier.Bank = bankTextBox.Text;
+            selectedSupplier.OwnerId = ownerIdTextBox.Text;
+
+            supplierController.UpdateSupplier(selectedSupplier);
+        }
+
         private void createNewPaymentRule()
         {
             decimal percentage;
@@ -182,49 +248,6 @@ namespace LonelyTreeExam.UserControls
 
             // PaymentRules are updated by updating the Supplier
             supplierController.UpdateSupplier(selectedSupplier);
-        }
-
-        private ICustomer findCustomerByName()
-        {
-            ICustomer customer = null;
-            foreach (ICustomer theCustomer in customerController.ReadAllCustomers())
-            {
-                if (theCustomer.Name == customerTextBox.Text)
-                {
-                    customer = theCustomer;
-                }
-            }
-            return customer;
-        }
-
-        private void updateExistingSupplier()
-        {
-            selectedSupplier.Name = nameTextBox.Text;
-            selectedSupplier.Type = (SupplierType)supplierTypeComboBox.SelectedItem;
-            selectedSupplier.Note = noteTextBox.Text;
-            selectedSupplier.AccountName = accountNameTextBox.Text;
-            selectedSupplier.AccountNo = accountNoTextBox.Text;
-            selectedSupplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
-            selectedSupplier.Bank = bankTextBox.Text;
-            selectedSupplier.OwnerId = ownerIdTextBox.Text;
-
-            supplierController.UpdateSupplier(selectedSupplier);
-        }
-
-        private void createNewSupplier()
-        {
-            string name = nameTextBox.Text;
-            SupplierType type = (SupplierType)supplierTypeComboBox.SelectedItem;
-            string note = noteTextBox.Text;
-
-            ISupplier supplier = supplierController.CreateSupplier(name, note, type);
-            supplier.AccountName = accountNameTextBox.Text;
-            supplier.AccountNo = accountNoTextBox.Text;
-            supplier.AccountType = (AccountType)accountTypeComboBox.SelectedItem;
-            supplier.Bank = bankTextBox.Text;
-            supplier.OwnerId = ownerIdTextBox.Text;
-
-            supplierController.UpdateSupplier(supplier);
         }
 
         private void setSupplierValuesInTextBoxes()
@@ -282,7 +305,7 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
-        internal void AddCustomersToAutoComplete(List<ICustomer> customers)
+        private void addCustomersToAutoComplete(List<ICustomer> customers)
         {
             foreach (ICustomer customer in customers)
             {
@@ -294,46 +317,29 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
+        private ICustomer findCustomerByName()
+        {
+            ICustomer customer = null;
+            foreach (ICustomer theCustomer in customerController.ReadAllCustomers())
+            {
+                if (theCustomer.Name == customerTextBox.Text)
+                {
+                    customer = theCustomer;
+                }
+            }
+            return customer;
+        }
+
         private void suppliersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedSupplier = (ISupplier)suppliersDataGrid.SelectedItem;
             setSupplierValuesInTextBoxes();
         }
 
-        private void newButton_Click(object sender, RoutedEventArgs e)
+        private void paymentRuleDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            suppliersDataGrid.SelectedItem = null;
-            setSupplierValuesInTextBoxes();
-            paymentRuleDataGrid.SelectedItem = null;
+            selectedPaymentRule = (IPaymentRule) paymentRuleDataGrid.SelectedItem;
             setPaymentRuleValuesInTextBoxes();
-        }
-
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (supplierTabControl.IsSelected)
-            {
-                if (selectedSupplier != null)
-                {
-                    foreach (ISupplier supplier in suppliersDataGrid.SelectedItems)
-                    {
-                        supplierController.DeleteSupplier(supplier);
-                    }
-                    suppliersDataGrid.SelectedItem = null;
-                    refreshDataGrid();
-                }
-            }
-            else if (paymentRuleTabControl.IsSelected)
-            {
-                if (selectedPaymentRule != null)
-                {
-                    foreach (IPaymentRule paymentRule in paymentRuleDataGrid.SelectedItems)
-                    {
-                        supplierController.DeletePaymentRule(paymentRule);
-                    }
-                    paymentRuleDataGrid.SelectedItem = null;
-                    refreshPaymentRuleDataGrid();
-                }
-            }
         }
 
         private void collapseButton_Click(object sender, RoutedEventArgs e)
@@ -352,12 +358,6 @@ namespace LonelyTreeExam.UserControls
                 collapseImage.Source = collapseMinImage;
                 collapseButton.ToolTip = "Hide details";
             }
-        }
-
-        private void paymentRuleDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedPaymentRule = (IPaymentRule) paymentRuleDataGrid.SelectedItem;
-            setPaymentRuleValuesInTextBoxes();
         }
     }
 }
