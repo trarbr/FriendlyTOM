@@ -138,46 +138,36 @@ namespace LonelyTreeExam.UserControls
             {
                 if (supplierTabControl.IsSelected)
                 {
-                    if (selectedSupplier == null)
-                    {
-                        createNewSupplier();
-
-                        refreshDataGrid();
-                        setSupplierValuesInTextBoxes();
-                    }
-                    else
-                    {
-                        int currentIndex = suppliersDataGrid.SelectedIndex;
-
-                        updateExistingSupplier();
-
-                        refreshDataGrid();
-                        suppliersDataGrid.SelectedIndex = currentIndex;
-                    }
+                    createOrUpdateSupplier();
                 }
                 else if (paymentRuleTabControl.IsSelected)
                 {
-                    if (selectedPaymentRule == null)
-                    {
-                        createNewPaymentRule();
-
-                        refreshPaymentRuleDataGrid();
-                        setPaymentRuleValuesInTextBoxes();
-                    }
-                    else
-                    {
-                        int currentIndex = paymentRuleDataGrid.SelectedIndex;
-
-                        updateExistingPaymentRule();
-
-                        refreshPaymentRuleDataGrid();
-                        paymentRuleDataGrid.SelectedIndex = currentIndex;
-                    }
+                    createOrUpdatePaymentRule();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void createOrUpdateSupplier()
+        {
+            if (selectedSupplier == null)
+            {
+                createNewSupplier();
+
+                refreshDataGrid();
+                setSupplierValuesInTextBoxes();
+            }
+            else
+            {
+                int currentIndex = suppliersDataGrid.SelectedIndex;
+
+                updateExistingSupplier();
+
+                refreshDataGrid();
+                suppliersDataGrid.SelectedIndex = currentIndex;
             }
         }
 
@@ -209,6 +199,26 @@ namespace LonelyTreeExam.UserControls
             selectedSupplier.OwnerId = ownerIdTextBox.Text;
 
             supplierController.UpdateSupplier(selectedSupplier);
+        }
+
+        private void createOrUpdatePaymentRule()
+        {
+            if (selectedPaymentRule == null)
+            {
+                createNewPaymentRule();
+
+                refreshPaymentRuleDataGrid();
+                setPaymentRuleValuesInTextBoxes();
+            }
+            else
+            {
+                int currentIndex = paymentRuleDataGrid.SelectedIndex;
+
+                updateExistingPaymentRule();
+
+                refreshPaymentRuleDataGrid();
+                paymentRuleDataGrid.SelectedIndex = currentIndex;
+            }
         }
 
         private void createNewPaymentRule()
