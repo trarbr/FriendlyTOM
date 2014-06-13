@@ -66,6 +66,8 @@ namespace LonelyTreeExam
             {
                 accountingControl.RefreshAll();
                 bookingsControl.Refresh();
+
+                currentTabIndex = mainTabNavigation.SelectedIndex;
             }
         }
     }
