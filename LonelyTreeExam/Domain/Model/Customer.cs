@@ -3,6 +3,7 @@ using System.Collections.Generic;
 ﻿using Common.Enums;
 using Common.Interfaces;
 using DataAccess;
+using Domain.Helpers;
 
 namespace Domain.Model
 {
@@ -47,6 +48,9 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _customerEntity = customerEntity;
             initializeParty(_customerEntity);
+
+            Register register = Register.GetInstance();
+            register.RegisterCustomer(customerEntity, this);
         }
 
         internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)

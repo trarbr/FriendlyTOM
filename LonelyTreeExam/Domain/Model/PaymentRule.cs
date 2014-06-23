@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Common.Enums;
 using Common.Interfaces;
 using DataAccess;
+using Domain.Helpers;
 
 namespace Domain.Model
 {
@@ -91,7 +92,8 @@ namespace Domain.Model
 
             // Get/Create Models of supplier and customer
             Supplier = supplier;
-            Customer = new Customer(_paymentRuleEntity.Customer, dataAccessFacade);
+            Register register = Register.GetInstance();
+            Customer = register.GetCustomer(paymentRuleEntity.Customer);
         } 
 
         internal void Delete()

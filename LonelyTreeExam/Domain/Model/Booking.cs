@@ -4,6 +4,7 @@ using Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using DataAccess;
+using Domain.Helpers;
 
 namespace Domain.Model
 {
@@ -150,8 +151,9 @@ namespace Domain.Model
             _bookingEntity = bookingEntity;
 
             // Create Models of supplier and customer
-            _supplier = new Supplier(dataAccessFacade, _bookingEntity.Supplier);
-            _customer = new Customer(_bookingEntity.Customer, dataAccessFacade);
+            Register register = Register.GetInstance();
+            _supplier = register.GetSupplier(bookingEntity.Supplier);
+            _customer = register.GetCustomer(bookingEntity.Customer);
         }
 
         internal Booking(Supplier supplier, Customer customer, string sale, int bookingNumber, DateTime startDate, 

@@ -2,6 +2,7 @@
 using Common.Enums;
 using Common.Interfaces;
 using DataAccess;
+using Domain.Helpers;
 using System.Collections.Generic;
 
 namespace Domain.Model
@@ -72,6 +73,9 @@ namespace Domain.Model
             initializeParty(_supplierEntity);
 
             readPaymentRules();
+
+            Register register = Register.GetInstance();
+            register.RegisterSupplier(supplierEntity, this);
         }
 
         internal static List<Supplier> ReadAll(IDataAccessFacade dataAccessFacade)

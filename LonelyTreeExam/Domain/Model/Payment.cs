@@ -5,6 +5,7 @@ using System.IO;
 using Common.Interfaces;
 using Common.Enums;
 using DataAccess;
+using Domain.Helpers;
 
 namespace Domain.Model
 {
@@ -150,13 +151,15 @@ namespace Domain.Model
             // Create Models of payer and payee
             if (_paymentEntity.Payer is ISupplier)
             {
-                _payer = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Payer);
-                _payee = new Customer((ICustomer)_paymentEntity.Payee, dataAccessFacade);
+                Register register = Register.GetInstance();
+                _payer = register.GetSupplier((ISupplier)_paymentEntity.Payer);
+                _payee = register.GetCustomer((ICustomer)_paymentEntity.Payee);
             }
             else if (_paymentEntity.Payer is ICustomer)
             {
-                _payer = new Customer((ICustomer)_paymentEntity.Payer, dataAccessFacade);
-                _payee = new Supplier(dataAccessFacade, (ISupplier)_paymentEntity.Payee);
+                Register register = Register.GetInstance();
+                _payer = register.GetCustomer((ICustomer)_paymentEntity.Payer);
+                _payee = register.GetSupplier((ISupplier)_paymentEntity.Payee);
             }
 
         }
