@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\SupplierController.cs" />
+    <Compile Include="Helpers\Register.cs" />
     <Compile Include="Model\Booking.cs" />
     <Compile Include="Model\AParty.cs" />
     <Compile Include="Model\Customer.cs" />
