@@ -29,8 +29,8 @@ namespace LonelyTreeExam
 
             try
             {
-                SupplierController supplierController = new SupplierController();
                 CustomerController customerController = new CustomerController();
+                SupplierController supplierController = new SupplierController();
                 PaymentController paymentController = new PaymentController();
                 BookingController bookingController = new BookingController(paymentController, customerController);
 
