@@ -10,16 +10,6 @@ namespace Domain.Helpers
 {
     internal class Register
     {
-        private Dictionary<ISupplier, Supplier> suppliers;
-        private Dictionary<ICustomer, Customer> customers;
-        private static Register _register;
-
-        private Register()
-        {
-            suppliers = new Dictionary<ISupplier, Supplier>();
-            customers = new Dictionary<ICustomer, Customer>();
-        }
-
         internal static Register GetInstance()
         {
             if (_register == null)
@@ -54,6 +44,16 @@ namespace Domain.Helpers
         internal Customer GetCustomer(ICustomer customerEntity)
         {
             return customers[customerEntity];
+        }
+
+        private Dictionary<ISupplier, Supplier> suppliers;
+        private Dictionary<ICustomer, Customer> customers;
+        private static Register _register;
+
+        private Register()
+        {
+            suppliers = new Dictionary<ISupplier, Supplier>();
+            customers = new Dictionary<ICustomer, Customer>();
         }
     }
 }
