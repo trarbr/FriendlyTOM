@@ -46,7 +46,7 @@ namespace LonelyTreeExam.UserControls
             collapsePlusImage = new BitmapImage(new Uri("/Images/collapse-plus.png", UriKind.Relative));
             collapseMinImage = new BitmapImage(new Uri("/Images/collapse-min.png", UriKind.Relative));
             autoCompleteEntries = new HashSet<string>();
-            addCustomersToAutoComplete(customerController.ReadAllCustomers());
+            addCustomersToAutoComplete();
         }
 
         private CustomerController customerController;
@@ -321,9 +321,9 @@ namespace LonelyTreeExam.UserControls
             }
         }
 
-        private void addCustomersToAutoComplete(List<ICustomer> customers)
+        private void addCustomersToAutoComplete()
         {
-            foreach (ICustomer customer in customers)
+            foreach (ICustomer customer in customerController.ReadAllCustomers())
             {
                 if (!autoCompleteEntries.Contains(customer.Name))
                 {
@@ -374,6 +374,11 @@ namespace LonelyTreeExam.UserControls
                 collapseImage.Source = collapseMinImage;
                 collapseButton.ToolTip = "Hide details";
             }
+        }
+
+        internal void Refresh()
+        {
+            addCustomersToAutoComplete();
         }
     }
 }

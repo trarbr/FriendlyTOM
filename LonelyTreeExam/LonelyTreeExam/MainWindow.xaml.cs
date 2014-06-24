@@ -37,7 +37,8 @@ namespace LonelyTreeExam
 
                 accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
                 accountingUserControl.Content = accountingControl;
-                suppliersUserControl.Content = new SuppliersUserControl(supplierController, customerController);
+                suppliersControl = new SuppliersUserControl(supplierController, customerController);
+                suppliersUserControl.Content = suppliersControl;
                 customersUserControl.Content = new CustomersUserControl(customerController);
                 bookingsControl = new BookingsUserControl(bookingController, supplierController,
                     customerController);
@@ -58,6 +59,7 @@ namespace LonelyTreeExam
 
         private AccountingUserControl accountingControl;
         private BookingsUserControl bookingsControl;
+        private SuppliersUserControl suppliersControl;
         private int currentTabIndex;
 
         private void mainTabNavigation_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,6 +68,7 @@ namespace LonelyTreeExam
             {
                 accountingControl.RefreshAll();
                 bookingsControl.Refresh();
+                suppliersControl.Refresh();
 
                 currentTabIndex = mainTabNavigation.SelectedIndex;
             }
