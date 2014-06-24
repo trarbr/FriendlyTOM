@@ -64,6 +64,9 @@ namespace Domain.Model
             _supplierEntity = dataAccessFacade.CreateSupplier(name, note, type);
             //Calls party class to put supplierentity as a party. 
             initializeParty(_supplierEntity);
+
+            Register register = Register.GetInstance();
+            register.RegisterSupplier(_supplierEntity, this);
         }
 
         internal Supplier(IDataAccessFacade dataAccessFacade, ISupplier supplierEntity)
@@ -75,7 +78,7 @@ namespace Domain.Model
             readPaymentRules();
 
             Register register = Register.GetInstance();
-            register.RegisterSupplier(supplierEntity, this);
+            register.RegisterSupplier(_supplierEntity, this);
         }
 
         internal static List<Supplier> ReadAll(IDataAccessFacade dataAccessFacade)

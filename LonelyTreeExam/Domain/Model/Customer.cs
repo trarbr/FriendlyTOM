@@ -50,7 +50,7 @@ namespace Domain.Model
             initializeParty(_customerEntity);
 
             Register register = Register.GetInstance();
-            register.RegisterCustomer(customerEntity, this);
+            register.RegisterCustomer(_customerEntity, this);
         }
 
         internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
@@ -59,6 +59,9 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
             initializeParty(_customerEntity);
+
+            Register register = Register.GetInstance();
+            register.RegisterCustomer(_customerEntity, this);
         }
 
         //Reads all entities of customer there is in the DataAccessFacade.
