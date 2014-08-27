@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LonelyTreeExam", "LonelyTreeExam\LonelyTreeExam.csproj", "{BE8B3CE1-124F-4FD7-B88E-E4FA32C07128}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendlyTOM", "FriendlyTOM\FriendlyTOM.csproj", "{BE8B3CE1-124F-4FD7-B88E-E4FA32C07128}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{DC8EF77F-9BFC-4D77-950D-AB7D6F2BCFDC}"
 EndProject
