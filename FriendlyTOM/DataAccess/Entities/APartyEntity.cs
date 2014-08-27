@@ -1,5 +1,4 @@
-﻿// MM
-using Common.Interfaces;
+﻿using Common.Interfaces;
 
 namespace DataAccess.Entities
 {

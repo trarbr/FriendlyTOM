@@ -1,5 +1,4 @@
-﻿// TB
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using DataAccess.Entities;
 using System;
 using System.Collections.Generic;

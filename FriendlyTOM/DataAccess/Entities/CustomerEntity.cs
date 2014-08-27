@@ -1,5 +1,4 @@
-﻿// LB
-using Common.Enums;
+﻿using Common.Enums;
 using Common.Interfaces;
 
 namespace DataAccess.Entities

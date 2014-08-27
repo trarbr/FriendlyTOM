@@ -1,5 +1,4 @@
-﻿// TB
-using System;
+﻿using System;
 using Common.Interfaces;
 using Common.Enums;
 

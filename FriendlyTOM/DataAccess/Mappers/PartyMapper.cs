@@ -1,5 +1,4 @@
-﻿// PI
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 
 namespace DataAccess.Mappers
 {

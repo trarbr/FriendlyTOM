@@ -1,5 +1,4 @@
-﻿// LB
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 ﻿using Common.Enums;
 using Common.Interfaces;
 using DataAccess;

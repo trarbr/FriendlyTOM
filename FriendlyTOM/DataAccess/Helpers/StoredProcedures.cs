@@ -1,5 +1,4 @@
-﻿// PI 
-namespace DataAccess.Helpers
+﻿namespace DataAccess.Helpers
 {
     internal static class StoredProcedures
     {

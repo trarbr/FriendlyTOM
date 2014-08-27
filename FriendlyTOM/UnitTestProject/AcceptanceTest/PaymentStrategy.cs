@@ -1,5 +1,4 @@
-﻿// TB
-using System;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Common.Enums;

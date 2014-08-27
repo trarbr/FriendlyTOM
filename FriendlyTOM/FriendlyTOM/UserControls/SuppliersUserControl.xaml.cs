@@ -1,5 +1,4 @@
-﻿// MM
-using Common.Enums;
+﻿using Common.Enums;
 using Common.Interfaces;
 using Domain.Controller;
 using System;
