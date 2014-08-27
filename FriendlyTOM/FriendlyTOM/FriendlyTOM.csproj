@@ -7,7 +7,7 @@
     <ProjectGuid>{BE8B3CE1-124F-4FD7-B88E-E4FA32C07128}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LonelyTreeExam</RootNamespace>
+    <RootNamespace>FriendlyTOM</RootNamespace>
     <AssemblyName>LonelyTreeExam</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

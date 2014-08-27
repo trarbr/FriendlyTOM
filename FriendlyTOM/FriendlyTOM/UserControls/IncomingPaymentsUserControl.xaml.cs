@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 using Domain.Controller;
 using Common.Interfaces;
 
-namespace LonelyTreeExam.UserControls
+namespace FriendlyTOM.UserControls
 {
     /// <summary>
     /// Interaction logic for CurrentPaymentUserControl.xaml

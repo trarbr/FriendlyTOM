@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 using Domain.Controller;
 using Common.Interfaces;
-namespace LonelyTreeExam.UserControls
+namespace FriendlyTOM.UserControls
 {
     /// <summary>
     /// Interaction logic for ArchivedPaymentsUserControl.xaml

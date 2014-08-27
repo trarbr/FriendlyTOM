@@ -1,5 +1,5 @@
 ﻿using Domain.Controller;
-using LonelyTreeExam.UserControls;
+using FriendlyTOM.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LonelyTreeExam
+namespace FriendlyTOM
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

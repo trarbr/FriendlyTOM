@@ -15,10 +15,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LonelyTreeExam.AutoComplete;
+using FriendlyTOM.AutoComplete;
 using System.Globalization;
 
-namespace LonelyTreeExam.UserControls
+namespace FriendlyTOM.UserControls
 {
     /// <summary>
     /// Interaction logic for SuppliersUserControl.xaml

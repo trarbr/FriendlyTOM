@@ -2,7 +2,7 @@
 using Common.Enums;
 using Common.Interfaces;
 using Domain.Controller;
-using LonelyTreeExam.AutoComplete;
+using FriendlyTOM.AutoComplete;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LonelyTreeExam.UserControls
+namespace FriendlyTOM.UserControls
 {
     /// <summary>
     /// Interaction logic for DetailsUserControl.xaml

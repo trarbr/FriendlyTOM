@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LonelyTreeExam.AutoComplete
+namespace FriendlyTOM.AutoComplete
 {
     /// <summary>
     /// Interaction logic for AutoCompleteTextBox.xaml

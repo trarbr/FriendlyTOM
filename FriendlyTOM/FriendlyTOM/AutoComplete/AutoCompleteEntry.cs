@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LonelyTreeExam.AutoComplete
+namespace FriendlyTOM.AutoComplete
 {
     public class AutoCompleteEntry
     {

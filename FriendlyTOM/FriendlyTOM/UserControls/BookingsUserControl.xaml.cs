@@ -1,7 +1,7 @@
 ﻿using Common.Enums;
 using Common.Interfaces;
 using Domain.Controller;
-using LonelyTreeExam.AutoComplete;
+using FriendlyTOM.AutoComplete;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LonelyTreeExam.UserControls
+namespace FriendlyTOM.UserControls
 {
     /// <summary>
     /// Interaction logic for BookingsUserControl.xaml
