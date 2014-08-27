@@ -53,11 +53,16 @@ namespace UnitTestProject
         [TestMethod]
         public void TestEntityConstructorValidData()
         {
-            APartyEntity payee = new SupplierEntity(SupplierType.Cruise, "", "Galasam");
-            APartyEntity payer = new CustomerEntity(CustomerType.Bureau, "", "Lonely Tree");
-            PaymentEntity entity = new PaymentEntity(validDueDate, validDueAmount, payer,
-                payee, validType, validSale, validBooking);
-            Payment payment = new Payment(entity, dataAccessFacadeStub);
+            Supplier payee = new Supplier(
+                "Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
+            Customer payer = new Customer(
+                CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
+            IParty payeeEntity = payee._supplierEntity;
+            IParty payerEntity = payer._customerEntity;
+
+            PaymentEntity paymentEntity = new PaymentEntity(validDueDate, validDueAmount, 
+                payerEntity, payeeEntity, validType, validSale, validBooking);
+            Payment payment = new Payment(paymentEntity, dataAccessFacadeStub);
 
             Assert.AreEqual(validDueDate, payment.DueDate);
             Assert.AreEqual(validDueAmount, payment.DueAmount);
