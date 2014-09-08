@@ -115,6 +115,9 @@
     <Compile Include="UserControls\OutgoingPaymentsUserControl.xaml.cs">
       <DependentUpon>OutgoingPaymentsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SettingsUserControl.xaml.cs">
+      <DependentUpon>SettingsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SuppliersUserControl.xaml.cs">
       <DependentUpon>SuppliersUserControl.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\OutgoingPaymentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SettingsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,6 +283,8 @@
     <Content Include="create-settings.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\rosette.png" />
+    <Resource Include="Images\database.png" />
     <Resource Include="Images\wrench.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

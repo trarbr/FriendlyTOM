@@ -43,6 +43,7 @@ namespace FriendlyTOM
                 bookingsControl = new BookingsUserControl(bookingController, supplierController,
                     customerController);
                 bookingsUserControl.Content = bookingsControl;
+                settingsUserControl.Content = new SettingsUserControl();
             }
             catch (Exception ex)
             {
