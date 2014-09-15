@@ -39,7 +39,6 @@ limitations under the License.
                     </StackPanel>
                 </TabItem.Header>
                 <StackPanel>
-                    <TextBlock x:Name="aboutLabel"/>
                     <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <FlowDocument>
                         <!-- Insert Friendly TOM icon -->
