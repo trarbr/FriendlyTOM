@@ -31,6 +31,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Domain.Controller;
+using Microsoft.Win32;
 
 namespace FriendlyTOM.UserControls
 {
@@ -64,7 +65,11 @@ namespace FriendlyTOM.UserControls
 
         private void restoreButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Backup files (*.bak)|*.bak";
+            dialog.ShowDialog();
+            string pathName = dialog.FileName;
+            settingsController.RestoreDatabase(pathName);
         }
     }
 }

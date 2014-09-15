@@ -24,6 +24,7 @@ namespace DataAccess
    public interface IDataAccessFacade
    {
        void BackupDatabase(string backupPath);
+       void RestoreDatabase(string backupPath);
 
         #region Payment
         IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer,

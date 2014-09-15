@@ -90,6 +90,11 @@ namespace DataAccess
             sqlManager.BackupDatabase(backupPath);
         }
 
+        public void RestoreDatabase(string backupPath)
+        {
+            sqlManager.RestoreDatabase(backupPath);
+        }
+
         #region Public Payment Methods
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer,
             IParty payee, PaymentType type, string sale, int booking)

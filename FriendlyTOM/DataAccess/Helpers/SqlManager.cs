@@ -69,7 +69,24 @@ namespace DataAccess.Helpers
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
 
+        public void RestoreDatabase(string backupPath)
+        {
+            using (SqlConnection con = new SqlConnection(serverString + ";Initial Catalog=" + "master"))
+            {
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "RestoreDatabase";
+
+                    SqlParameter parameter = new SqlParameter("@BackupPath", backupPath);
+                    cmd.Parameters.Add(parameter);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         private bool databaseExists()

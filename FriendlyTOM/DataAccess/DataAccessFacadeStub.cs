@@ -187,5 +187,11 @@ namespace DataAccess
         {
             throw new NotImplementedException();
         }
+
+
+        public void RestoreDatabase(string backupPath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
