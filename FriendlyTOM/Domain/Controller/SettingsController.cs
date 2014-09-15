@@ -14,6 +14,7 @@ namespace Domain.Controller
         {
             IDataAccessFacade dataAccessFacade = DataAccessFacade.GetInstance();
 
+            dataAccessFacade.BackupDatabase(backupPath);
         }
     }
 }

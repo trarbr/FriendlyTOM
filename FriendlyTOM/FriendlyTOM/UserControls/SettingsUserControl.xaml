@@ -30,6 +30,13 @@ limitations under the License.
                         <Label Content="Database"/>
                     </StackPanel>
                 </TabItem.Header>
+                <StackPanel Orientation="Horizontal" Height="50" HorizontalAlignment="Center" 
+                     VerticalAlignment="Top">
+                    <Button x:Name="backupButton" Content="Backup Database" Width="110" Margin="10"
+                        Click="backupButton_Click"/>
+                    <Button x:Name="restoreButton" Content="Restore Database" Width="110" Margin="10"
+                        Click="restoreButton_Click"/>
+                </StackPanel>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

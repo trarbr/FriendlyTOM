@@ -30,6 +30,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Domain.Controller;
+
 namespace FriendlyTOM.UserControls
 {
     /// <summary>
@@ -37,15 +39,32 @@ namespace FriendlyTOM.UserControls
     /// </summary>
     public partial class SettingsUserControl : UserControl
     {
-        public SettingsUserControl()
+        private SettingsController settingsController;
+        public SettingsUserControl(SettingsController settingsController)
         {
             InitializeComponent();
+
+            this.settingsController = settingsController;
         }
 
         private void hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void backupButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog dialog = 
+                new System.Windows.Forms.FolderBrowserDialog();
+            dialog.ShowDialog();
+            string pathName = dialog.SelectedPath + @"\";
+            settingsController.BackupDatabase(pathName);
+        }
+
+        private void restoreButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -48,7 +48,7 @@
     <Compile Include="Entities\PaymentEntity.cs" />
     <Compile Include="Entities\PaymentRuleEntity.cs" />
     <Compile Include="Entities\SupplierEntity.cs" />
-    <Compile Include="Helpers\SqlSetup.cs" />
+    <Compile Include="Helpers\SqlManager.cs" />
     <Compile Include="Helpers\StoredProcedures.cs" />
     <Compile Include="IDataAccessFacade.cs" />
     <Compile Include="Mappers\ASQLMapper.cs" />

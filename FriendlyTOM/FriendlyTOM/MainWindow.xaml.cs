@@ -59,7 +59,7 @@ namespace FriendlyTOM
                 bookingsControl = new BookingsUserControl(bookingController, supplierController,
                     customerController);
                 bookingsUserControl.Content = bookingsControl;
-                settingsUserControl.Content = new SettingsUserControl();
+                settingsUserControl.Content = new SettingsUserControl(new SettingsController());
             }
             catch (Exception ex)
             {

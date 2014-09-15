@@ -16,6 +16,7 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
@@ -24,20 +25,23 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Helpers
 {
-    class SqlSetup
+    class SqlManager
     {
+        public string ConnectionString { get; private set; }
         private string serverString;
         private string databaseName;
         private string initialCatalog;
 
-        public SqlSetup(string connectionString, string databaseName)
+        public SqlManager(string serverString, string databaseName)
         {
-            this.serverString = connectionString;
+            // TODO: Remove initialCatalog
+            this.serverString = serverString;
             this.databaseName = databaseName;
             initialCatalog = ";Initial Catalog=" + databaseName;
+            ConnectionString = serverString + initialCatalog;
         }
 
-        public void Execute()
+        public void SetupDatabase()
         {
             // try and establish connection
             if (!databaseExists())
@@ -45,6 +49,27 @@ namespace DataAccess.Helpers
                 // if it fails, run setup script
                 runSetup();
             }
+        }
+
+        public void BackupDatabase(string backupPath)
+        {
+            // backupPath must have trailing backslash
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "BackupDatabase";
+
+                    SqlParameter parameter = new SqlParameter("@BackupPath", backupPath);
+                    cmd.Parameters.Add(parameter);
+
+                    con.Open();
+                    // make sure to catch and report errors!
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
         }
 
         private bool databaseExists()

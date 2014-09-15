@@ -27,6 +27,7 @@ namespace DataAccess
 {
     public class DataAccessFacade : IDataAccessFacade
     {
+        private SqlManager sqlManager;
         #region Public Constructor
         /// <summary>
         /// Initializes a DataAccessFacade for accessing a MS SQL database
@@ -40,11 +41,11 @@ namespace DataAccess
                 string serverString = @"Data Source=localhost\SQLEXPRESS;Integrated Security=True";
                 string databaseName = @"FTOM";
 
-                connectionString = serverString + ";Initial Catalog=" + databaseName;
+                sqlManager = new SqlManager(serverString, databaseName);
 
-                SqlSetup sqlSetup = new SqlSetup(serverString, databaseName);
+                sqlManager.SetupDatabase();
 
-                sqlSetup.Execute();
+                connectionString = sqlManager.ConnectionString;
             }
             else
             {
@@ -83,6 +84,11 @@ namespace DataAccess
                 return instance;
         }
         #endregion
+
+        public void BackupDatabase(string backupPath)
+        {
+            sqlManager.BackupDatabase(backupPath);
+        }
 
         #region Public Payment Methods
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer,

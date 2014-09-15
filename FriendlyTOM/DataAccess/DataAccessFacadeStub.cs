@@ -182,5 +182,10 @@ namespace DataAccess
             supplier.RemovePaymentRule(paymentRule);
         }
         #endregion
+
+        public void BackupDatabase(string backupPath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
