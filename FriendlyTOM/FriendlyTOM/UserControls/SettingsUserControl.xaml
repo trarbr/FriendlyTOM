@@ -22,6 +22,22 @@
                         <Label Content="About"/>
                     </StackPanel>
                 </TabItem.Header>
+                <StackPanel>
+                    <TextBlock x:Name="aboutLabel"/>
+                    <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <FlowDocument>
+                        <!-- Insert Friendly TOM icon -->
+                        <!-- URL to github -->
+                        <!-- links to iconsets -->
+                        <!-- support as email link -->
+                            <Paragraph TextAlignment="Center">Friendly TOM</Paragraph> 
+                            <Paragraph TextAlignment="Center" FontSize="12">version 0.1.0</Paragraph>
+                            <Paragraph TextAlignment="Center" FontSize="12">by the Friendly TOM Team.</Paragraph>
+                            <Paragraph TextAlignment="Center" FontSize="12">Icons by Mark James and Nick Frost.</Paragraph>
+                            <Paragraph TextAlignment="Center" FontSize="16">For support, please contact tr@arbr.dk.</Paragraph>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </Grid>
