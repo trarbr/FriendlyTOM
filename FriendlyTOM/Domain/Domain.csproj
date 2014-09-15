@@ -48,6 +48,7 @@
     <Compile Include="Controller\PaymentController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\SettingsController.cs" />
     <Compile Include="Controller\SupplierController.cs" />
     <Compile Include="Helpers\Register.cs" />
     <Compile Include="Model\Booking.cs" />

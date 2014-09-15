@@ -84,7 +84,6 @@ namespace DataAccess
         }
         #endregion
 
-        // PI
         #region Public Payment Methods
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer,
             IParty payee, PaymentType type, string sale, int booking)
@@ -123,7 +122,6 @@ namespace DataAccess
         }
         #endregion
         
-        // MM
         #region Public Supplier Methods
         public ISupplier CreateSupplier(string name, string note, SupplierType type)
         {
@@ -164,7 +162,6 @@ namespace DataAccess
         }
         #endregion
 
-        // LB
         #region Public Customer Methods
         public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
@@ -199,7 +196,6 @@ namespace DataAccess
         }
         #endregion
 
-        // TB
         #region Public Booking Methods
         public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber, 
             DateTime startDate, DateTime endDate)
@@ -235,7 +231,6 @@ namespace DataAccess
         }
         #endregion
 
-        // TB
         #region Public PaymentRule Methods
         public IPaymentRule CreatePaymentRule(ISupplier supplierEntity, ICustomer customerEntity, 
             BookingType bookingType, decimal percentage, int daysOffset, BaseDate baseDate, PaymentType paymentType)
