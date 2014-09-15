@@ -41,15 +41,34 @@ limitations under the License.
                 <StackPanel>
                     <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <FlowDocument>
-                        <!-- Insert Friendly TOM icon -->
-                        <!-- URL to github -->
-                        <!-- links to iconsets -->
-                        <!-- support as email link -->
-                            <Paragraph TextAlignment="Center">Friendly TOM</Paragraph> 
-                            <Paragraph TextAlignment="Center" FontSize="12">version 0.1.0</Paragraph>
-                            <Paragraph TextAlignment="Center" FontSize="12">by the Friendly TOM Team.</Paragraph>
-                            <Paragraph TextAlignment="Center" FontSize="12">Icons by Mark James and Nick Frost.</Paragraph>
-                            <Paragraph TextAlignment="Center" FontSize="16">For support, please contact tr@arbr.dk.</Paragraph>
+                            <Paragraph TextAlignment="Center">
+                                <Image Source="/Images/friendly-tom.ico" Height="60"/>
+                            </Paragraph>
+                            <Paragraph TextAlignment="Center">
+                                <Hyperlink NavigateUri="https://github.com/trarbr/FriendlyTOM" 
+                                RequestNavigate="hyperlink_RequestNavigate">
+                                    Friendly TOM
+                                </Hyperlink>
+                                <Run FontSize="12">version 0.1.0</Run>
+                            </Paragraph> 
+                            <Paragraph TextAlignment="Center">Your Friendly Tour Operations Manager</Paragraph> 
+                            <Paragraph TextAlignment="Center" FontSize="12">
+                                by
+                                <Hyperlink NavigateUri="https://github.com/trarbr/FriendlyTOM/blob/master/AUTHORS.rst" 
+                                RequestNavigate="hyperlink_RequestNavigate">
+                                    the Friendly TOM Team
+                                </Hyperlink>.
+                            </Paragraph>
+                            <Paragraph TextAlignment="Center" FontSize="12">Icons by
+                                <Hyperlink NavigateUri="http://www.famfamfam.com/lab/icons/silk/"
+                                    RequestNavigate="hyperlink_RequestNavigate">
+                                    Mark James
+                                </Hyperlink> and
+                                <Hyperlink NavigateUri="https://www.iconfinder.com/iconsets/ballicons-free"
+                                    RequestNavigate="hyperlink_RequestNavigate">
+                                    Nick Frost</Hyperlink>.
+                            </Paragraph>
+                            <Paragraph TextAlignment="Center">For support, please contact tr@arbr.dk.</Paragraph>
                         </FlowDocument>
                     </FlowDocumentScrollViewer>
                 </StackPanel>

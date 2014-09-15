@@ -16,6 +16,7 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,17 @@ namespace FriendlyTOM.UserControls
         public SettingsUserControl()
         {
             InitializeComponent();
+        }
+
+        private void hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
+        }
+
+        private void Hyperlink_RequestNavigate_1(object sender, RequestNavigateEventArgs e)
+        {
+
         }
     }
 }
