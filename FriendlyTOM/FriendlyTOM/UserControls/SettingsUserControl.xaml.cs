@@ -69,7 +69,14 @@ namespace FriendlyTOM.UserControls
             dialog.Filter = "Backup files (*.bak)|*.bak";
             dialog.ShowDialog();
             string pathName = dialog.FileName;
-            settingsController.RestoreDatabase(pathName);
+            try
+            {
+                settingsController.RestoreDatabase(pathName);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

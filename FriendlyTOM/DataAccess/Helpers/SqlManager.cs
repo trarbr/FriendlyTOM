@@ -84,7 +84,15 @@ namespace DataAccess.Helpers
                     cmd.Parameters.Add(parameter);
 
                     con.Open();
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException)
+                    {
+                        throw new ArgumentOutOfRangeException("backupPath", 
+                            "Restore failed because of error. Probably the selected backup file is corrupt!");
+                    }
                 }
             }
         }
