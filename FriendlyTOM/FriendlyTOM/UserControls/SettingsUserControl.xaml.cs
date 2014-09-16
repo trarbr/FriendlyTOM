@@ -60,7 +60,14 @@ namespace FriendlyTOM.UserControls
                 new System.Windows.Forms.FolderBrowserDialog();
             dialog.ShowDialog();
             string pathName = dialog.SelectedPath + @"\";
-            settingsController.BackupDatabase(pathName);
+            try
+            {
+                settingsController.BackupDatabase(pathName);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void restoreButton_Click(object sender, RoutedEventArgs e)

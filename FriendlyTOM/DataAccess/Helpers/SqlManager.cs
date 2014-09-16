@@ -65,8 +65,15 @@ namespace DataAccess.Helpers
                     cmd.Parameters.Add(parameter);
 
                     con.Open();
-                    // make sure to catch and report errors!
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException)
+                    {
+                        throw new ArgumentOutOfRangeException("backupPath",
+                            "Backup failed! The database probably doesn't have write permissions to the selected folder!");
+                    }
                 }
             }
         }
