@@ -58,12 +58,19 @@ limitations under the License.
                                 </Hyperlink>
                                 <Run FontSize="12">version 0.1.0</Run>
                             </Paragraph> 
-                            <Paragraph TextAlignment="Center">Your Friendly Tour Operations Manager</Paragraph> 
+                            <Paragraph TextAlignment="Center">Your Friendly Tour Operations Manager</Paragraph>
                             <Paragraph TextAlignment="Center" FontSize="12">
                                 by
                                 <Hyperlink NavigateUri="https://github.com/trarbr/FriendlyTOM/blob/master/AUTHORS.rst" 
                                 RequestNavigate="hyperlink_RequestNavigate">
                                     the Friendly TOM Team
+                                </Hyperlink>
+                            </Paragraph>
+                            <Paragraph TextAlignment="Center" FontSize="12">
+                                in coorporation with
+                                <Hyperlink NavigateUri="http://lonelytreetours.com/" 
+                                RequestNavigate="hyperlink_RequestNavigate">
+                                    Lonely Tree
                                 </Hyperlink>.
                             </Paragraph>
                             <Paragraph TextAlignment="Center" FontSize="12">Icons by
