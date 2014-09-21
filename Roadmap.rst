@@ -44,6 +44,7 @@ v0.3:
 
 - Database security: SSL/TLS for transit security and database encryption for
   security at rest.
+- Proper error messages.
 
 Before introducing new entities / business features, must implement proper
 initialization.
