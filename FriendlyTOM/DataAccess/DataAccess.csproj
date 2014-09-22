@@ -68,9 +68,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Helpers\install-FTOM-0_1_0.bak">
+    <Content Include="Helpers\install-FTOM-0_1_0.bak">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
