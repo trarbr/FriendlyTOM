@@ -277,12 +277,6 @@
     <Resource Include="Images\friendly-tom.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="create-schema.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="create-settings.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Images\rosette.png" />
     <Resource Include="Images\database.png" />
     <Resource Include="Images\wrench.png" />
