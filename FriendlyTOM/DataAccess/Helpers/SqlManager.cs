@@ -21,6 +21,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DataAccess.Helpers
@@ -47,33 +48,35 @@ namespace DataAccess.Helpers
             if (!databaseExists())
             {
                 // if it fails, run setup script
-                runSetup();
+                //runSetup();
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string backupPath = currentDirectory + @"\Helpers\install-FTOM-0_1_0.bak";
+                RestoreDatabase(backupPath);
+                Thread.Sleep(10000);
             }
         }
 
         public void BackupDatabase(string backupPath)
         {
-            // backupPath must have trailing backslash
+            backupPath += DateTime.Today.ToShortDateString() + ".bak";
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "BackupDatabase";
-
-                    SqlParameter parameter = new SqlParameter("@BackupPath", backupPath);
-                    cmd.Parameters.Add(parameter);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "BACKUP DATABASE FTOM TO DISK = @backupPath";
+                    cmd.Parameters.AddWithValue("backupPath", backupPath);
 
                     con.Open();
-                    try
-                    {
+                    //try
+                    //{
                         cmd.ExecuteNonQuery();
-                    }
-                    catch (SqlException)
-                    {
-                        throw new ArgumentOutOfRangeException("backupPath",
-                            "Backup failed! The database probably doesn't have write permissions to the selected folder!");
-                    }
+                    //}
+                    //catch (SqlException)
+                    //{
+                    //    throw new ArgumentOutOfRangeException("backupPath",
+                    //        "Backup failed! The database probably doesn't have write permissions to the selected folder!");
+                    //}
                 }
             }
         }
@@ -82,25 +85,45 @@ namespace DataAccess.Helpers
         {
             using (SqlConnection con = new SqlConnection(serverString + ";Initial Catalog=" + "master"))
             {
-                using (SqlCommand cmd = con.CreateCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "RestoreDatabase";
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
 
-                    SqlParameter parameter = new SqlParameter("@BackupPath", backupPath);
-                    cmd.Parameters.Add(parameter);
+                // first kick all users 
+                cmd.CommandText = @"
+                    DECLARE @spid varchar(10)
+                    SELECT @spid = spid
+                      FROM master.sys.sysprocesses
+    				  WHERE dbid = DB_ID('FTOM')
+    			    WHILE @@ROWCOUNT <> 0
+                    BEGIN
+                      EXEC('KILL ' + @spid)
+                      SELECT @spid = spid
+                        FROM master.sys.sysprocesses
+                        WHERE
+                          dbid = DB_ID('FTOM') AND
+                          spid > @spid
+                    END";
+                con.Open();
+                cmd.ExecuteNonQuery();
 
-                    con.Open();
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (SqlException)
-                    {
-                        throw new ArgumentOutOfRangeException("backupPath", 
-                            "Restore failed because of error. Probably the selected backup file is corrupt!");
-                    }
-                }
+                // drop the database??
+                    // DROP DATABASE FTOM";
+
+                // then restore the database
+                cmd = con.CreateCommand();
+                cmd.CommandText = "RESTORE DATABASE FTOM FROM DISK = @backupPath";
+
+                cmd.Parameters.AddWithValue("backupPath", backupPath);
+
+                //try
+                //{
+                    cmd.ExecuteNonQuery();
+                //}
+                //catch (SqlException)
+                //{
+                //    throw new ArgumentOutOfRangeException("backupPath", 
+                //        "Restore failed because of error. Probably the selected backup file is corrupt!");
+                //}
             }
         }
 
