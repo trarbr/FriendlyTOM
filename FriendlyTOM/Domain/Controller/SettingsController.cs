@@ -24,10 +24,21 @@ namespace Domain.Controller
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             string friendlyTOM = createFolder(myDocuments, "FriendlyTOM");
-            createFolder(friendlyTOM, "Attachments");
+            // might need the below to implement Attachments properly
+            //createFolder(friendlyTOM, "Attachments");
             string backups = createFolder(friendlyTOM, "Backups");
 
             setupBackupPermissions(backups);
+
+            // copy the install backup into this folder
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string backupPathSource = currentDirectory + @"\Helpers\install-FTOM-0_1_0.bak";
+            string backupPathTarget = backups + @"\install-FTOM-0_1_0.bak";
+
+            if (!File.Exists(backupPathTarget))
+            {
+                File.Copy(backupPathSource, backupPathTarget);
+            }
         }
 
         public void BackupDatabase(string backupPath)

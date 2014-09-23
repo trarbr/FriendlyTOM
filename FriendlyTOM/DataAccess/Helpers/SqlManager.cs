@@ -48,8 +48,9 @@ namespace DataAccess.Helpers
             if (!databaseExists())
             {
                 // if it fails, restore install backup
-                string currentDirectory = Directory.GetCurrentDirectory();
-                string backupPath = currentDirectory + @"\Helpers\install-FTOM-0_1_0.bak";
+                // TODO: Fix the initialization stuff!
+                string backupPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                backupPath += @"\FriendlyTOM\Backups\install-FTOM-0_1_0.bak";
                 RestoreDatabase(backupPath);
                 Thread.Sleep(10000);
             }

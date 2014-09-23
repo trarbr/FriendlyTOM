@@ -35,7 +35,6 @@ namespace DataAccess
         /// <param name="test">For integration tests, set test = true to use test database</param>
         public DataAccessFacade(bool test = false)
         {
-
             if (!test)
             {
                 string serverString = @"Data Source=localhost\SQLEXPRESS;Integrated Security=True";
