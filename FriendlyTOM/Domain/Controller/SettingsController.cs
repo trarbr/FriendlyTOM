@@ -14,26 +14,29 @@ namespace Domain.Controller
     public class SettingsController
     {
         private IDataAccessFacade dataAccessFacade;
+        private string backupsFolder;
+        private string friendlyTOMFolder;
+
         public SettingsController()
         {
             this.dataAccessFacade = DataAccessFacade.GetInstance();
+
+            string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            friendlyTOMFolder = Path.Combine(myDocuments, "FriendlyTOM");
+            backupsFolder = Path.Combine(friendlyTOMFolder, "Backups");
         }
 
         public void FirstRunSetup()
         {
-            string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            createFolder(friendlyTOMFolder);
+            createFolder(backupsFolder);
 
-            string friendlyTOM = createFolder(myDocuments, "FriendlyTOM");
-            // might need the below to implement Attachments properly
-            //createFolder(friendlyTOM, "Attachments");
-            string backups = createFolder(friendlyTOM, "Backups");
-
-            setupBackupPermissions(backups);
+            setupBackupPermissions(backupsFolder);
 
             // copy the install backup into this folder
             string currentDirectory = Directory.GetCurrentDirectory();
             string backupPathSource = currentDirectory + @"\Helpers\install-FTOM-0_1_0.bak";
-            string backupPathTarget = backups + @"\install-FTOM-0_1_0.bak";
+            string backupPathTarget = backupsFolder + @"\install-FTOM-0_1_0.bak";
 
             if (!File.Exists(backupPathTarget))
             {
@@ -41,13 +44,18 @@ namespace Domain.Controller
             }
         }
 
-        public void BackupDatabase(string backupPath)
+        public void BackupDatabase()
         {
+            //string date = DateTime.Today.ToShortDateString();
+            string backupName = String.Format("{0:yyyy-MM-dd_HHmmss}.bak", DateTime.Now);
+            string backupPath = Path.Combine(backupsFolder, backupName);
             dataAccessFacade.BackupDatabase(backupPath);
         }
 
-        public void RestoreDatabase(string backupPath)
+        public void RestoreDatabase(string timestamp)
         {
+            string backupName = timestamp + ".bak";
+            string backupPath = Path.Combine(backupsFolder, backupName);
             dataAccessFacade.RestoreDatabase(backupPath);
         }
 
@@ -99,17 +107,34 @@ namespace Domain.Controller
             }
         }
 
-        private string createFolder(string rootFolder, string folderName)
+        private string createFolder(string folderName)
         {
-            string folder = Path.Combine(rootFolder, folderName);
-            if (!Directory.Exists(folder))
+            if (!Directory.Exists(folderName))
             {
-                Directory.CreateDirectory(folder);
+                Directory.CreateDirectory(folderName);
             }
 
-            return folder;
+            return folderName;
         }
 
+        public List<string> GetListOfBackups()
+        {
+            List<string> backups = new List<string>();
+            try
+            {
+                string[] filenames = Directory.GetFiles(backupsFolder);
+                foreach (string filename in filenames)
+                {
+                    string backup = Path.GetFileNameWithoutExtension(filename);
+                    backups.Add(backup);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
+            return backups;
+        }
     }
 }

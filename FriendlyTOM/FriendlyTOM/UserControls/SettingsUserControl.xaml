@@ -20,7 +20,7 @@ limitations under the License.
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="600">
+             d:DesignHeight="350" d:DesignWidth="600" Loaded="UserControl_Loaded">
     <Grid>
         <TabControl>
             <TabItem>
@@ -30,12 +30,15 @@ limitations under the License.
                         <Label Content="Database"/>
                     </StackPanel>
                 </TabItem.Header>
-                <StackPanel Orientation="Horizontal" Height="50" HorizontalAlignment="Center" 
+                <StackPanel>
+                    <ListBox x:Name="backupsListBox" Width="300" MinHeight="200"/>
+                    <StackPanel Orientation="Horizontal" Height="50" HorizontalAlignment="Center" 
                      VerticalAlignment="Top">
-                    <Button x:Name="backupButton" Content="Backup Database" Width="110" Margin="10"
+                        <Button x:Name="backupButton" Content="Backup Database" Width="110" Margin="10"
                         Click="backupButton_Click"/>
-                    <Button x:Name="restoreButton" Content="Restore Database" Width="110" Margin="10"
+                        <Button x:Name="restoreButton" Content="Restore Database" Width="110" Margin="10"
                         Click="restoreButton_Click"/>
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
             <TabItem>

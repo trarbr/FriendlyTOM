@@ -58,7 +58,6 @@ namespace DataAccess.Helpers
 
         public void BackupDatabase(string backupPath)
         {
-            backupPath += DateTime.Today.ToShortDateString() + ".bak";
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = con.CreateCommand())

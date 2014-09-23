@@ -56,36 +56,43 @@ namespace FriendlyTOM.UserControls
 
         private void backupButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog dialog = 
-                new System.Windows.Forms.FolderBrowserDialog();
-            dialog.ShowDialog();
-            string pathName = dialog.SelectedPath + @"\";
             try
             {
-                settingsController.BackupDatabase(pathName);
+                settingsController.BackupDatabase();
+                refreshBackupsListBox();
             }
             catch (ArgumentOutOfRangeException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            MessageBox.Show("Database backed up successfully!");
         }
 
         private void restoreButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Backup files (*.bak)|*.bak";
-            dialog.ShowDialog();
-            string pathName = dialog.FileName;
+            string selectedBackup = backupsListBox.SelectedItem.ToString();
             try
             {
-                settingsController.RestoreDatabase(pathName);
+                settingsController.RestoreDatabase(selectedBackup);
+                MessageBox.Show("Database restored successfully! Please restart Friendly TOM to load changes.");
             }
             catch (ArgumentOutOfRangeException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            MessageBox.Show("Database restored successfully! Please restart Friendly TOM to load changes.");
+        }
+
+        private void refreshBackupsListBox()
+        {
+            // load list of backups, put in listbox
+            List<string> backups = settingsController.GetListOfBackups();
+
+            backupsListBox.ItemsSource = null;
+            backupsListBox.ItemsSource = backups;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            refreshBackupsListBox();
         }
     }
 }
