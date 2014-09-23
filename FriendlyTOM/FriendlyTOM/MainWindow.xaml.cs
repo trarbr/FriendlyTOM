@@ -43,14 +43,19 @@ namespace FriendlyTOM
         {
             InitializeComponent();
 
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
             try
             {
+                SettingsController settingsController = new SettingsController();
+                settingsController.FirstRunSetup();
+
                 CustomerController customerController = new CustomerController();
                 SupplierController supplierController = new SupplierController();
                 PaymentController paymentController = new PaymentController();
                 BookingController bookingController = new BookingController(paymentController, customerController);
 
-
+                settingsUserControl.Content = new SettingsUserControl(settingsController);
                 accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
                 accountingUserControl.Content = accountingControl;
                 suppliersControl = new SuppliersUserControl(supplierController, customerController);
@@ -59,7 +64,6 @@ namespace FriendlyTOM
                 bookingsControl = new BookingsUserControl(bookingController, supplierController,
                     customerController);
                 bookingsUserControl.Content = bookingsControl;
-                settingsUserControl.Content = new SettingsUserControl(new SettingsController());
             }
             catch (Exception ex)
             {

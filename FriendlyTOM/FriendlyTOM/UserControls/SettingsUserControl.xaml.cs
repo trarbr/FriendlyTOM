@@ -68,6 +68,7 @@ namespace FriendlyTOM.UserControls
             {
                 MessageBox.Show(ex.Message);
             }
+            MessageBox.Show("Database backed up successfully!");
         }
 
         private void restoreButton_Click(object sender, RoutedEventArgs e)
@@ -84,6 +85,7 @@ namespace FriendlyTOM.UserControls
             {
                 MessageBox.Show(ex.Message);
             }
+            MessageBox.Show("Database restored successfully! Please restart Friendly TOM to load changes.");
         }
     }
 }
