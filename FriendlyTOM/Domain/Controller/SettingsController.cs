@@ -33,15 +33,26 @@ namespace Domain.Controller
 
             setupBackupPermissions(backupsFolder);
 
-            // copy the install backup into this folder
+            // run the database setup 
+            setupDatabase();
+        }
+
+        private void setupDatabase()
+        {
+            // copy the install backup into backups folder
+            // maybe use an application folder instead of backups
             string currentDirectory = Directory.GetCurrentDirectory();
             string backupPathSource = currentDirectory + @"\Helpers\install-FTOM-0_1_0.bak";
             string backupPathTarget = backupsFolder + @"\install-FTOM-0_1_0.bak";
-
             if (!File.Exists(backupPathTarget))
             {
                 File.Copy(backupPathSource, backupPathTarget);
             }
+
+            // incredible leak of information? Domain needs to know where the database backup is?
+
+            dataAccessFacade.SetupDatabase(backupPathTarget);
+            dataAccessFacade.InitializeDatabase();
         }
 
         public void BackupDatabase()

@@ -42,16 +42,13 @@ namespace DataAccess.Helpers
             ConnectionString = serverString + initialCatalog;
         }
 
-        public void SetupDatabase()
+        public void SetupDatabase(string installPath)
         {
             // try and establish connection
             if (!databaseExists())
             {
                 // if it fails, restore install backup
-                // TODO: Fix the initialization stuff!
-                string backupPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                backupPath += @"\FriendlyTOM\Backups\install-FTOM-0_1_0.bak";
-                RestoreDatabase(backupPath);
+                RestoreDatabase(installPath);
                 Thread.Sleep(10000);
             }
         }

@@ -35,6 +35,7 @@ namespace DataAccess
         /// <param name="test">For integration tests, set test = true to use test database</param>
         public DataAccessFacade(bool test = false)
         {
+            /*
             if (!test)
             {
                 string serverString = @"Data Source=localhost\SQLEXPRESS;Integrated Security=True";
@@ -51,8 +52,24 @@ namespace DataAccess
                 connectionString = 
                     @"Data Source=localhost\SQLEXPRESS;Initial Catalog=LTTEST;Integrated Security=True";
             }
+            */
 
             //Creates a new instance of the mappers with the connection information
+        }
+
+        public static IDataAccessFacade GetInstance()
+        {
+            if (instance == null)
+            {
+                return instance = new DataAccessFacade();   
+            }
+
+            return instance;
+        }
+        #endregion
+
+        public void InitializeDatabase()
+        {
             paymentMapper = new PaymentMapper(connectionString);
             customerMapper = new CustomerMapper(connectionString);
             supplierMapper = new SupplierMapper(connectionString);
@@ -72,17 +89,20 @@ namespace DataAccess
 
             customerMapper.ReadAll();
             supplierMapper.ReadAll();
+
         }
 
-        public static IDataAccessFacade GetInstance()
+        public void SetupDatabase(string installPath)
         {
-            if (instance == null)
-            {
-                return instance = new DataAccessFacade();   
-            }
-                return instance;
+            string serverString = @"Data Source=localhost\SQLEXPRESS;Integrated Security=True";
+            string databaseName = @"FTOM";
+
+            sqlManager = new SqlManager(serverString, databaseName);
+
+            sqlManager.SetupDatabase(installPath);
+
+            connectionString = sqlManager.ConnectionString;
         }
-        #endregion
 
         public void BackupDatabase(string backupPath)
         {

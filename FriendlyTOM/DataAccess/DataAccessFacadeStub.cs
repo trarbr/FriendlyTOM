@@ -193,5 +193,26 @@ namespace DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public void SetupDatabase(string serverString, string databaseName)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void InitializeDatabase()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetupDatabase(string serverString, string databaseName, string installPath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetupDatabase(string installPath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
