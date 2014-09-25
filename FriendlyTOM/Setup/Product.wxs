@@ -13,6 +13,8 @@
 
     <UIRef Id="WixUI_Minimal"/>
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)..\LICENSE.rtf"/>
+    <Icon Id="icon.ico" SourceFile="$(var.FriendlyTOM.ProjectDir)Images\friendly-tom.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="icon.ico"/>
   </Product>
 
   <Fragment>
