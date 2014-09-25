@@ -13,8 +13,8 @@
 
     <UIRef Id="WixUI_Minimal"/>
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)..\LICENSE.rtf"/>
-    <Icon Id="icon.ico" SourceFile="$(var.FriendlyTOM.ProjectDir)Images\friendly-tom.ico"/>
-    <Property Id="ARPPRODUCTICON" Value="icon.ico"/>
+    <Icon Id="friendlytom.ico" SourceFile="$(var.FriendlyTOM.ProjectDir)Images\friendly-tom.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="friendlytom.ico"/>
   </Product>
 
   <Fragment>
@@ -47,7 +47,7 @@
     <ComponentGroup Id="StartMenuShortcut" Directory="ApplicationProgramsFolder">
       <Component Id="cmp_StartMenuShortcut" Guid="{DE2418AA-F45F-48CE-88C1-534F252621A9}" >
         <Shortcut Id="fil_StartMenuShortcut" Name="Friendly TOM" Target="[#fil_FriendlyTOM.exe]"
-                  WorkingDirectory="INSTALLFOLDER"/>
+                  WorkingDirectory="INSTALLFOLDER" Icon="friendlytom.ico"/>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Microsoft\FriendlyTOM" Name="installed"
                        Type="integer" Value="1" KeyPath="yes"/>
