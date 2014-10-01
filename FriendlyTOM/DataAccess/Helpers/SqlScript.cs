@@ -20,20 +20,22 @@ namespace DataAccess.Helpers
             this.sqlScriptFile = sqlScriptFile;
         }
 
-        internal void Prepare()
+        internal void ReadCommands()
         {
-            StreamReader reader = new StreamReader(sqlScriptFile);
-            List<string> header = new List<string>();
-
-            string line = reader.ReadLine();
-            while (line != "")
+            using (StreamReader reader = new StreamReader(sqlScriptFile))
             {
-                header.Add(line);
-                line = reader.ReadLine();
-            }
-            sleepTime = int.Parse(header[0].Split(':')[1].Trim());
+                List<string> header = new List<string>();
 
-            allCommands = reader.ReadToEnd();
+                string line = reader.ReadLine();
+                while (line != "")
+                {
+                    header.Add(line);
+                    line = reader.ReadLine();
+                }
+                sleepTime = int.Parse(header[0].Split(':')[1].Trim());
+
+                allCommands = reader.ReadToEnd();
+            }
         }
 
         internal void Execute(SqlConnection con)
@@ -42,12 +44,13 @@ namespace DataAccess.Helpers
             string[] commands = Regex.Split(allCommands, "^GO", RegexOptions.Multiline);
 
             con.Open();
-            SqlCommand cmd = con.CreateCommand();
+            SqlCommand cmd;
             foreach (string command in commands)
             {
                 commandText = command.Trim();
                 if (!String.IsNullOrWhiteSpace(commandText))
                 {
+                    cmd = con.CreateCommand();
                     cmd.CommandText = commandText;
                     cmd.ExecuteNonQuery();
                 }

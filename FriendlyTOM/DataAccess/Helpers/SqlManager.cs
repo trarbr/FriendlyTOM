@@ -66,7 +66,7 @@ namespace DataAccess.Helpers
             foreach (string sqlScriptFile in sqlScriptFiles)
             {
                 SqlScript sqlScript = new SqlScript(sqlScriptFile);
-                sqlScript.Prepare();
+                sqlScript.ReadCommands();
                 sqlScripts.Add(sqlScript);
             }
 
