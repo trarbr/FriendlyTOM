@@ -66,6 +66,10 @@ namespace Domain.Controller
              * or maybe it should copy a zip file, entering all those files into WiX will be a pain
              * or I should finally learn how to make VS snippets, the filename and guid are the only 
              * parts that change between components
+             * or just do it like in the good olden days with huge files, use GO as seperator etc etc
+             * can still embed sleep times in the scripts to make more generic, and use the 001 naming
+             * and only script creation of tables and stored procedures, remember to get schema and data!
+             * and put parammeterized sql text in the files (for later versions)
              */
             
 
