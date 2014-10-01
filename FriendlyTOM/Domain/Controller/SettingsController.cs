@@ -39,6 +39,36 @@ namespace Domain.Controller
 
         private void setupDatabase()
         {
+            /*
+             * installer copies sqlscripts into INSTALLFOLDER/SqlScripts
+             * SettingsController calls DAF.SetupDatabase(versionnumber)
+             * DAF forwards call to SqlManager
+             * SqlManager tries to connect to DB.
+             *      If it fails
+             *          it gets all the install_$version scripts where $version = versionnumber
+             *      If it succeeds
+             *          it checks that the SchemaVersion is equal to what settingsController set as versionnumber
+             *              If not
+             *                  if gets all migrate_ scripts with SchemaVersion < $version <= versionnumber
+             *              if yes:
+             *                  it gets nothing
+             *                  
+             * SqlManager executes all the scripts
+             */
+
+            /*
+             * sqlscripts are named like: install_$version_001.sql where install can also be migrate
+             * scripts must be fired in order, 001 first, 002 second etc
+             * remember to pause when creating a db!
+             * The sqlscript can contain a header with comment describing what it is as well as an
+             * indication of how long it should sleep after
+             * sqlscripts should be broken up into many small parts for reuse
+             * or maybe it should copy a zip file, entering all those files into WiX will be a pain
+             * or I should finally learn how to make VS snippets, the filename and guid are the only 
+             * parts that change between components
+             */
+            
+
             // copy the install backup into backups folder
             // maybe use an application folder instead of backups
             string currentDirectory = Directory.GetCurrentDirectory();
