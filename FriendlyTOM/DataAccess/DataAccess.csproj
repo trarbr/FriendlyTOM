@@ -49,6 +49,7 @@
     <Compile Include="Entities\PaymentRuleEntity.cs" />
     <Compile Include="Entities\SupplierEntity.cs" />
     <Compile Include="Helpers\SqlManager.cs" />
+    <Compile Include="Helpers\SqlScript.cs" />
     <Compile Include="Helpers\StoredProcedures.cs" />
     <Compile Include="IDataAccessFacade.cs" />
     <Compile Include="Mappers\ASQLMapper.cs" />
@@ -71,7 +72,12 @@
     <Content Include="Helpers\install-FTOM-0_1_0.bak">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlScripts\install_0-1-0_000.sql" />
+    <Content Include="SqlScripts\install_0-1-0_000.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlScripts\install_0-1-0_001.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

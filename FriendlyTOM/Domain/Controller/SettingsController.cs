@@ -16,6 +16,7 @@ namespace Domain.Controller
         private IDataAccessFacade dataAccessFacade;
         private string backupsFolder;
         private string friendlyTOMFolder;
+        private const string VERSION = "0.1.0";
 
         public SettingsController()
         {
@@ -59,33 +60,19 @@ namespace Domain.Controller
             /*
              * sqlscripts are named like: install_$version_001.sql where install can also be migrate
              * scripts must be fired in order, 001 first, 002 second etc
-             * remember to pause when creating a db!
-             * The sqlscript can contain a header with comment describing what it is as well as an
-             * indication of how long it should sleep after
-             * sqlscripts should be broken up into many small parts for reuse
-             * or maybe it should copy a zip file, entering all those files into WiX will be a pain
-             * or I should finally learn how to make VS snippets, the filename and guid are the only 
-             * parts that change between components
-             * or just do it like in the good olden days with huge files, use GO as seperator etc etc
-             * can still embed sleep times in the scripts to make more generic, and use the 001 naming
-             * and only script creation of tables and stored procedures, remember to get schema and data!
+             * only automaticly script creation of tables and stored procedures, remember to get schema and data!
              * and put parammeterized sql text in the files (for later versions)
              */
-            
 
-            // copy the install backup into backups folder
-            // maybe use an application folder instead of backups
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string backupPathSource = currentDirectory + @"\Helpers\install-FTOM-0_1_0.bak";
-            string backupPathTarget = backupsFolder + @"\install-FTOM-0_1_0.bak";
-            if (!File.Exists(backupPathTarget))
-            {
-                File.Copy(backupPathSource, backupPathTarget);
-            }
+            /*
+             * sqlscript formats:
+             * header first line: sleeptime
+             * rest of header: comment explaning what is happening
+             * blank line seperates header from body
+             * body contains sql statements, seperated by go statements
+             */
 
-            // incredible leak of information? Domain needs to know where the database backup is?
-
-            dataAccessFacade.SetupDatabase(backupPathTarget);
+            dataAccessFacade.SetupDatabase(VERSION);
             dataAccessFacade.InitializeDatabase();
         }
 

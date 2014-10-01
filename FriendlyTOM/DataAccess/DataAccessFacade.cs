@@ -92,14 +92,14 @@ namespace DataAccess
 
         }
 
-        public void SetupDatabase(string installPath)
+        public void SetupDatabase(string version)
         {
             string serverString = @"Data Source=localhost\SQLEXPRESS;Integrated Security=True";
             string databaseName = @"FTOM";
 
             sqlManager = new SqlManager(serverString, databaseName);
 
-            sqlManager.SetupDatabase(installPath);
+            sqlManager.SetupDatabase(version);
 
             connectionString = sqlManager.ConnectionString;
         }
