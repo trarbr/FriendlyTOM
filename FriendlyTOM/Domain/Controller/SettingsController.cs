@@ -29,10 +29,10 @@ namespace Domain.Controller
 
         public void FirstRunSetup()
         {
-            createFolder(friendlyTOMFolder);
-            createFolder(backupsFolder);
+            ensureFolderExists(friendlyTOMFolder);
+            ensureFolderExists(backupsFolder);
 
-            setupBackupPermissions(backupsFolder);
+            ensureSqlBackupPermissions(backupsFolder);
 
             // run the database setup 
             setupDatabase();
@@ -40,38 +40,6 @@ namespace Domain.Controller
 
         private void setupDatabase()
         {
-            /*
-             * installer copies sqlscripts into INSTALLFOLDER/SqlScripts
-             * SettingsController calls DAF.SetupDatabase(versionnumber)
-             * DAF forwards call to SqlManager
-             * SqlManager tries to connect to DB.
-             *      If it fails
-             *          it gets all the install_$version scripts where $version = versionnumber
-             *      If it succeeds
-             *          it checks that the SchemaVersion is equal to what settingsController set as versionnumber
-             *              If not
-             *                  if gets all migrate_ scripts with SchemaVersion < $version <= versionnumber
-             *              if yes:
-             *                  it gets nothing
-             *                  
-             * SqlManager executes all the scripts
-             */
-
-            /*
-             * sqlscripts are named like: install_$version_001.sql where install can also be migrate
-             * scripts must be fired in order, 001 first, 002 second etc
-             * only automaticly script creation of tables and stored procedures, remember to get schema and data!
-             * and put parammeterized sql text in the files (for later versions)
-             */
-
-            /*
-             * sqlscript formats:
-             * header first line: sleeptime
-             * rest of header: comment explaning what is happening
-             * blank line seperates header from body
-             * body contains sql statements, seperated by go statements
-             */
-
             dataAccessFacade.SetupDatabase(VERSION);
             dataAccessFacade.InitializeDatabase();
         }
@@ -91,7 +59,7 @@ namespace Domain.Controller
             dataAccessFacade.RestoreDatabase(backupPath);
         }
 
-        private void setupBackupPermissions(string backupsFolder)
+        private void ensureSqlBackupPermissions(string backupsFolder)
         {
             bool sqlUserHasPermission = false;
             string sqlUserName = @"NT SERVICE\MSSQL$SQLEXPRESS";
@@ -101,7 +69,6 @@ namespace Domain.Controller
             AuthorizationRuleCollection rules = dirSec.GetAccessRules(true, true, typeof(NTAccount));
 
             // iterate over all rules, check if any of them has sqluser and read write permission
-            // if not, create the rules and add it
             int ruleIndex = 0;
             int ruleCount = rules.Count;
             while (!sqlUserHasPermission && ruleIndex < ruleCount)
@@ -120,6 +87,7 @@ namespace Domain.Controller
                 ruleIndex++;
             }
 
+            // if no permssions for sqluser found, create the rules and add them
             if (!sqlUserHasPermission)
             {
                 FileSystemAccessRule readAccess = new FileSystemAccessRule(
@@ -139,7 +107,7 @@ namespace Domain.Controller
             }
         }
 
-        private string createFolder(string folderName)
+        private string ensureFolderExists(string folderName)
         {
             if (!Directory.Exists(folderName))
             {

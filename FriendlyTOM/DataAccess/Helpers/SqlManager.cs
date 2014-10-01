@@ -44,6 +44,20 @@ namespace DataAccess.Helpers
 
         public void SetupDatabase(string version)
         {
+            /*
+             * SqlManager tries to connect to DB.
+             *      If it fails
+             *          it gets all the install_$version scripts where $version = versionnumber
+             *      If it succeeds
+             *          it checks that the SchemaVersion is equal to what settingsController set as versionnumber
+             *              If not
+             *                  if gets all migrate_ scripts with SchemaVersion < $version <= versionnumber
+             *              if yes:
+             *                  it gets nothing
+             *                  
+             * SqlManager executes all the scripts
+            */
+
             // try and establish connection
             if (!databaseExists())
             {
@@ -55,6 +69,13 @@ namespace DataAccess.Helpers
 
         private void createDatabase(string version)
         {
+            /*
+             * sqlscripts are named like: install_$version_000.sql where install can also be migrate
+             * scripts must be fired in order, 000 first, 001 second etc
+             * only automaticly script creation of tables and stored procedures, remember to get schema and data!
+             * and put parammeterized sql text in the files (for later versions)
+             */
+
             version = version.Replace('.', '-');
             // get all files with name install_version_*
             string[] sqlScriptFiles = Directory.GetFiles(@"SqlScripts\", 
