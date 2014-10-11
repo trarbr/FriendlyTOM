@@ -1,4 +1,20 @@
-﻿using System;
+﻿/*
+Copyright 2014 The Friendly TOM Team (see AUTHORS.rst)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +32,7 @@ namespace Domain.Controller
         private IDataAccessFacade dataAccessFacade;
         private string backupsFolder;
         private string friendlyTOMFolder;
+        private const string VERSION = "0.1.0";
 
         public SettingsController()
         {
@@ -28,10 +45,10 @@ namespace Domain.Controller
 
         public void FirstRunSetup()
         {
-            createFolder(friendlyTOMFolder);
-            createFolder(backupsFolder);
+            ensureFolderExists(friendlyTOMFolder);
+            ensureFolderExists(backupsFolder);
 
-            setupBackupPermissions(backupsFolder);
+            ensureSqlBackupPermissions(backupsFolder);
 
             // run the database setup 
             setupDatabase();
@@ -39,19 +56,7 @@ namespace Domain.Controller
 
         private void setupDatabase()
         {
-            // copy the install backup into backups folder
-            // maybe use an application folder instead of backups
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string backupPathSource = currentDirectory + @"\Helpers\install-FTOM-0_1_0.bak";
-            string backupPathTarget = backupsFolder + @"\install-FTOM-0_1_0.bak";
-            if (!File.Exists(backupPathTarget))
-            {
-                File.Copy(backupPathSource, backupPathTarget);
-            }
-
-            // incredible leak of information? Domain needs to know where the database backup is?
-
-            dataAccessFacade.SetupDatabase(backupPathTarget);
+            dataAccessFacade.SetupDatabase(VERSION);
             dataAccessFacade.InitializeDatabase();
         }
 
@@ -70,7 +75,7 @@ namespace Domain.Controller
             dataAccessFacade.RestoreDatabase(backupPath);
         }
 
-        private void setupBackupPermissions(string backupsFolder)
+        private void ensureSqlBackupPermissions(string backupsFolder)
         {
             bool sqlUserHasPermission = false;
             string sqlUserName = @"NT SERVICE\MSSQL$SQLEXPRESS";
@@ -80,7 +85,6 @@ namespace Domain.Controller
             AuthorizationRuleCollection rules = dirSec.GetAccessRules(true, true, typeof(NTAccount));
 
             // iterate over all rules, check if any of them has sqluser and read write permission
-            // if not, create the rules and add it
             int ruleIndex = 0;
             int ruleCount = rules.Count;
             while (!sqlUserHasPermission && ruleIndex < ruleCount)
@@ -99,6 +103,7 @@ namespace Domain.Controller
                 ruleIndex++;
             }
 
+            // if no permssions for sqluser found, create the rules and add them
             if (!sqlUserHasPermission)
             {
                 FileSystemAccessRule readAccess = new FileSystemAccessRule(
@@ -118,7 +123,7 @@ namespace Domain.Controller
             }
         }
 
-        private string createFolder(string folderName)
+        private string ensureFolderExists(string folderName)
         {
             if (!Directory.Exists(folderName))
             {

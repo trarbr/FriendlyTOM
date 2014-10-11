@@ -42,14 +42,61 @@ namespace DataAccess.Helpers
             ConnectionString = serverString + initialCatalog;
         }
 
-        public void SetupDatabase(string installPath)
+        public void SetupDatabase(string version)
         {
+            /*
+             * SqlManager tries to connect to DB.
+             *      If it fails
+             *          it gets all the install_$version scripts where $version = versionnumber
+             *      If it succeeds
+             *          it checks that the SchemaVersion is equal to what settingsController set as versionnumber
+             *              If not
+             *                  if gets all migrate_ scripts with SchemaVersion < $version <= versionnumber
+             *              if yes:
+             *                  it gets nothing
+             *                  
+             * SqlManager executes all the scripts
+            */
+
             // try and establish connection
             if (!databaseExists())
             {
-                // if it fails, restore install backup
-                RestoreDatabase(installPath);
-                Thread.Sleep(10000);
+                // if it fails, create the database
+                createDatabase(version);
+            }
+            // now check version number
+        }
+
+        private void createDatabase(string version)
+        {
+            /*
+             * sqlscripts are named like: install_$version_000.sql where install can also be migrate
+             * scripts must be fired in order, 000 first, 001 second etc
+             * only automaticly script creation of tables and stored procedures, remember to get schema and data!
+             * and put parammeterized sql text in the files (for later versions)
+             */
+
+            version = version.Replace('.', '-');
+            // get all files with name install_version_*
+            string[] sqlScriptFiles = Directory.GetFiles(@"SqlScripts\", 
+                String.Format("install_{0}_*.sql", version));
+
+            // execute the scripts
+            List<SqlScript> sqlScripts = new List<SqlScript>();
+
+            foreach (string sqlScriptFile in sqlScriptFiles)
+            {
+                SqlScript sqlScript = new SqlScript(sqlScriptFile);
+                sqlScript.ReadCommands();
+                sqlScripts.Add(sqlScript);
+            }
+
+            using (SqlConnection con = new SqlConnection(serverString))
+            {
+                foreach (SqlScript sqlScript in sqlScripts)
+                {
+                    sqlScript.Execute(con);
+                }
             }
         }
 
@@ -64,15 +111,15 @@ namespace DataAccess.Helpers
                     cmd.Parameters.AddWithValue("backupPath", backupPath);
 
                     con.Open();
-                    //try
-                    //{
+                    try
+                    {
                         cmd.ExecuteNonQuery();
-                    //}
-                    //catch (SqlException)
-                    //{
-                    //    throw new ArgumentOutOfRangeException("backupPath",
-                    //        "Backup failed! The database probably doesn't have write permissions to the selected folder!");
-                    //}
+                    }
+                    catch (SqlException)
+                    {
+                        throw new ArgumentOutOfRangeException("backupPath",
+                            "Backup failed! The database probably doesn't have write permissions to the selected folder!");
+                    }
                 }
             }
         }
@@ -102,24 +149,20 @@ namespace DataAccess.Helpers
                 con.Open();
                 cmd.ExecuteNonQuery();
 
-                // drop the database??
-                    // DROP DATABASE FTOM";
-
-                // then restore the database
                 cmd = con.CreateCommand();
                 cmd.CommandText = "RESTORE DATABASE FTOM FROM DISK = @backupPath";
 
                 cmd.Parameters.AddWithValue("backupPath", backupPath);
 
-                //try
-                //{
+                try
+                {
                     cmd.ExecuteNonQuery();
-                //}
-                //catch (SqlException)
-                //{
-                //    throw new ArgumentOutOfRangeException("backupPath", 
-                //        "Restore failed because of error. Probably the selected backup file is corrupt!");
-                //}
+                }
+                catch (SqlException)
+                {
+                    throw new ArgumentOutOfRangeException("backupPath",
+                        "Restore failed because of error. Probably the selected backup file is corrupt!");
+                }
             }
         }
 

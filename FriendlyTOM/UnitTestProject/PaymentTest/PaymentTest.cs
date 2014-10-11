@@ -338,71 +338,71 @@ namespace UnitTestProject
         }
 
         //test attachments exceptions
-        [TestMethod]
-        public void TestAttachmentOneValidString()
-        {
-            Payment payment = createValidPayment();
-            string expectedAttachment = @"C:\ConnectString.txt";        
+        //[TestMethod]
+        //public void TestAttachmentOneValidString()
+        //{
+        //    Payment payment = createValidPayment();
+        //    string expectedAttachment = @"C:\ConnectString.txt";        
 
-            payment.AddAttachment(expectedAttachment);
+        //    payment.AddAttachment(expectedAttachment);
 
-            string actualAttachment = payment.Attachments[0];
+        //    string actualAttachment = payment.Attachments[0];
 
-            Assert.AreEqual(expectedAttachment, actualAttachment);
-        }
+        //    Assert.AreEqual(expectedAttachment, actualAttachment);
+        //}
 
-        [TestMethod]
-        public void TestAttachmentManyValidStrings()
-        {
-            Payment payment = createValidPayment();
+        //[TestMethod]
+        //public void TestAttachmentManyValidStrings()
+        //{
+        //    Payment payment = createValidPayment();
 
-            List<string> expectedAttachments = new List<string>();
-            expectedAttachments.Add(@"C:\ConnectString.txt");
-            expectedAttachments.Add(@"C:\Windows\notepad.exe");
-            expectedAttachments.Add(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe");
+        //    List<string> expectedAttachments = new List<string>();
+        //    expectedAttachments.Add(@"C:\ConnectString.txt");
+        //    expectedAttachments.Add(@"C:\Windows\notepad.exe");
+        //    expectedAttachments.Add(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe");
 
-            foreach (string attachment in expectedAttachments)
-            {
-                payment.AddAttachment(attachment);
-            }
+        //    foreach (string attachment in expectedAttachments)
+        //    {
+        //        payment.AddAttachment(attachment);
+        //    }
 
-            List<string> actualAttachments = new List<string>();
+        //    List<string> actualAttachments = new List<string>();
 
-            foreach (string attachment in payment.Attachments)
-            {
-                actualAttachments.Add(attachment);
-            }
+        //    foreach (string attachment in payment.Attachments)
+        //    {
+        //        actualAttachments.Add(attachment);
+        //    }
 
-            CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
-        }
+        //    CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
+        //}
 
-        [TestMethod]
-        public void TestDeleteOneAttachment()
-        {
-            Payment payment = createValidPayment();
+        //[TestMethod]
+        //public void TestDeleteOneAttachment()
+        //{
+        //    Payment payment = createValidPayment();
 
-            List<string> expectedAttachments = new List<string>();
-            expectedAttachments.Add(@"C:\ConnectString.txt");
-            expectedAttachments.Add(@"C:\Windows\notepad.exe");
-            expectedAttachments.Add(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe");
+        //    List<string> expectedAttachments = new List<string>();
+        //    expectedAttachments.Add(@"C:\ConnectString.txt");
+        //    expectedAttachments.Add(@"C:\Windows\notepad.exe");
+        //    expectedAttachments.Add(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe");
 
-            foreach (string attachment in expectedAttachments)
-            {
-                payment.AddAttachment(attachment);
-            }
+        //    foreach (string attachment in expectedAttachments)
+        //    {
+        //        payment.AddAttachment(attachment);
+        //    }
 
-            payment.DeleteAttachment(@"C:\ConnectString.txt");
-            expectedAttachments.Remove(@"C:\ConnectString.txt");
+        //    payment.DeleteAttachment(@"C:\ConnectString.txt");
+        //    expectedAttachments.Remove(@"C:\ConnectString.txt");
 
-            List<string> actualAttachments = new List<string>();
+        //    List<string> actualAttachments = new List<string>();
 
-            foreach (string attachment in payment.Attachments)
-            {
-                actualAttachments.Add(attachment);
-            }
+        //    foreach (string attachment in payment.Attachments)
+        //    {
+        //        actualAttachments.Add(attachment);
+        //    }
 
-            CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
-        }
+        //    CollectionAssert.AreEqual(expectedAttachments, actualAttachments);
+        //}
 
         [TestMethod]
         public void TestAttachmentNonexistingFile()

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Friendly TOM" Language="1033" Version="0.1.0" Manufacturer="The Friendly TOM Team" UpgradeCode="b0c3b329-dc82-40e5-929c-fa266b2123c8">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="Friendly TOM" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="StartMenuShortcut" />
+      <ComponentGroupRef Id="SqlScripts"/>
+    </Feature>
+
+    <UIRef Id="WixUI_Minimal"/>
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)..\LICENSE.rtf"/>
+    <Icon Id="friendlytom.ico" SourceFile="$(var.FriendlyTOM.ProjectDir)Images\friendly-tom.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="friendlytom.ico"/>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Friendly TOM">
+          <Directory Id="SqlScripts" Name="SqlScripts" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Friendly TOM" />
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="cmp_FriendlyTOM.exe" Guid="{AA21C962-557B-4650-B77A-DCA92EDB9791}">
+        <File Id="fil_FriendlyTOM.exe" KeyPath="yes" Source="$(var.FriendlyTOM.TargetPath)" />
+      </Component>
+      <Component Id="cmp_Common.dll" Guid="{6C698341-5939-4905-BBA3-E81208507994}">
+        <File Id="fil_Common.dll" KeyPath="yes" Source="$(var.Common.TargetPath)" />
+      </Component>
+      <Component Id="cmp_DataAccess.dll" Guid="{492CF822-B1AB-486F-8BFA-A1FB47F2FE7A}">
+        <File Id="fil_DataAccess.dll" KeyPath="yes" Source="$(var.DataAccess.TargetPath)" />
+      </Component>
+      <Component Id="cmp_Domain.dll" Guid="{46DE7A47-1675-462B-8D98-433B9506DBE4}">
+        <File Id="fil_Domain.dll" KeyPath="yes" Source="$(var.Domain.TargetPath)" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="SqlScripts" Directory="SqlScripts">
+      <Component Id="cmp_install_010_000.sql" Guid="{0835583B-EB97-4B71-901A-6EECBD4A21CC}">
+        <File Id="fil_install_010_000.sql" KeyPath="yes" 
+              Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-1-0_000.sql"/>
+      </Component>
+      <Component Id="cmp_install_010_001.sql" Guid="{575E9E70-8506-45E9-9C52-78E664725964}">
+        <File Id="fil_install_010_001.sql" KeyPath="yes"
+              Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-1-0_001.sql"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="StartMenuShortcut" Directory="ApplicationProgramsFolder">
+      <Component Id="cmp_StartMenuShortcut" Guid="{DE2418AA-F45F-48CE-88C1-534F252621A9}" >
+        <Shortcut Id="fil_StartMenuShortcut" Name="Friendly TOM" Target="[#fil_FriendlyTOM.exe]"
+                  WorkingDirectory="INSTALLFOLDER" Icon="friendlytom.ico"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\FriendlyTOM" Name="installed"
+                       Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
