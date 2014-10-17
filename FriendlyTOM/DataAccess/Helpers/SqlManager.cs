@@ -66,7 +66,7 @@ namespace DataAccess.Helpers
             }
             // now check version number
             Version schemaVersion = getSchemaVersion();
-            if (schemaVersion != version)
+            if (schemaVersion < version)
             {
                 upgradeSchema(schemaVersion, version);
             }
