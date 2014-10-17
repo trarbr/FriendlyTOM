@@ -32,7 +32,7 @@ namespace Domain.Controller
         private IDataAccessFacade dataAccessFacade;
         private string backupsFolder;
         private string friendlyTOMFolder;
-        private const string VERSION = "0.1.0";
+        private const string VERSION = "0.1.1";
 
         public SettingsController()
         {
