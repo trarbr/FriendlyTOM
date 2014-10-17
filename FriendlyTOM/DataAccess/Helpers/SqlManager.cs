@@ -68,13 +68,6 @@ namespace DataAccess.Helpers
             Version schemaVersion = getSchemaVersion();
             if (schemaVersion != version)
             {
-                // go through the list of versions, which is stored... where?
-                // implicit in the migrate_version_*.sql files?
-                // or store a datastructure somewhere - common?
-
-                // while schema_version not equal to version
-                // get the version that is closest to schema_version (walk through a sorted list)
-                // run those migration scripts
                 upgradeSchema(schemaVersion, version);
             }
         }
