@@ -65,6 +65,37 @@ namespace DataAccess.Helpers
                 createDatabase(version);
             }
             // now check version number
+            string schema_version = getSchemaVersion();
+            if (schema_version != version)
+            {
+                // go through the list of versions, which is stored... where?
+                // implicit in the migrate_version_*.sql files?
+                // or store a datastructure somewhere - common?
+            }
+        }
+
+        private string getSchemaVersion()
+        {
+            string schema_version = "";
+
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT SchemaVersion FROM Metadata";
+
+                    con.Open();
+                    
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    reader.Read();
+
+                    schema_version = (string)reader["SchemaVersion"];
+                }
+
+            }
+
+            return schema_version;
         }
 
         private void createDatabase(string version)
@@ -76,10 +107,10 @@ namespace DataAccess.Helpers
              * and put parammeterized sql text in the files (for later versions)
              */
 
-            version = version.Replace('.', '-');
+            string version_with_dashes = version.Replace('.', '-');
             // get all files with name install_version_*
             string[] sqlScriptFiles = Directory.GetFiles(@"SqlScripts\", 
-                String.Format("install_{0}_*.sql", version));
+                String.Format("install_{0}_*.sql", version_with_dashes));
 
             // execute the scripts
             List<SqlScript> sqlScripts = new List<SqlScript>();
