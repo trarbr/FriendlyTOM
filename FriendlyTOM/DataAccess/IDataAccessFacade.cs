@@ -23,7 +23,7 @@ namespace DataAccess
 {
    public interface IDataAccessFacade
    {
-       void SetupDatabase(string version);
+       void SetupDatabase(Version version);
        void InitializeDatabase();
        void BackupDatabase(string backupPath);
        void RestoreDatabase(string backupPath);

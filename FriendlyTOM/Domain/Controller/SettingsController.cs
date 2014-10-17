@@ -32,7 +32,7 @@ namespace Domain.Controller
         private IDataAccessFacade dataAccessFacade;
         private string backupsFolder;
         private string friendlyTOMFolder;
-        private const string VERSION = "0.1.1";
+        private readonly Version version = Version.Parse("0.1.1");
 
         public SettingsController()
         {
@@ -56,7 +56,7 @@ namespace Domain.Controller
 
         private void setupDatabase()
         {
-            dataAccessFacade.SetupDatabase(VERSION);
+            dataAccessFacade.SetupDatabase(version);
             dataAccessFacade.InitializeDatabase();
         }
 
