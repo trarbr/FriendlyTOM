@@ -26,10 +26,12 @@ v0.1.2:
 
 - Fix Supplier OwnerId. Should be two fields, CI and RUC, and all OwnerIds are
   transferred to RUC.
+- Add a Search label to the filtering textbox above DataGrids.
+- Add a hint that shows required fields in GUI
 
 v0.2:
 
-- Remove all code-level references to Lonely Tree
+- Remove all code-level references to Lonely Tree (also in the docs!)
 
    - Introduces need to rework how Payments work in the code: One abstract
      payment class with ingoing and outgoing subclasses.
