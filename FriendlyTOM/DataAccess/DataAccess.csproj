@@ -69,6 +69,18 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="SqlScripts\install_0-1-1_001.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlScripts\install_0-1-1_000.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlScripts\migrate_0-1-1_001.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlScripts\migrate_0-1-1_000.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SqlScripts\install_0-1-0_000.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

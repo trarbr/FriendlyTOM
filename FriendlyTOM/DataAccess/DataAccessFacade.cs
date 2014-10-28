@@ -92,7 +92,7 @@ namespace DataAccess
 
         }
 
-        public void SetupDatabase(string version)
+        public void SetupDatabase(Version version)
         {
             string serverString = @"Data Source=localhost\SQLEXPRESS;Integrated Security=True";
             string databaseName = @"FTOM";

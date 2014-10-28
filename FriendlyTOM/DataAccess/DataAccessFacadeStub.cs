@@ -214,5 +214,10 @@ namespace DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public void SetupDatabase(Version version)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

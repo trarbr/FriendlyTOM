@@ -42,7 +42,7 @@ namespace DataAccess.Helpers
             ConnectionString = serverString + initialCatalog;
         }
 
-        public void SetupDatabase(string version)
+        public void SetupDatabase(Version version)
         {
             /*
              * SqlManager tries to connect to DB.
@@ -65,9 +65,93 @@ namespace DataAccess.Helpers
                 createDatabase(version);
             }
             // now check version number
+            Version schemaVersion = getSchemaVersion();
+            if (schemaVersion < version)
+            {
+                upgradeSchema(schemaVersion, version);
+            }
         }
 
-        private void createDatabase(string version)
+        private void upgradeSchema(Version fromVersion, Version toVersion)
+        {
+            // get the list of all migrations newer than fromVersion
+            List<Version> next_versions = new List<Version>();
+            string[] migrate_scripts = Directory.GetFiles(@"SqlScripts\", "migrate_*_000.sql");
+            foreach (string script in migrate_scripts)
+            {
+                string versionAsString = script.Split('_')[1];
+                versionAsString = versionAsString.Replace('-', '.');
+                Version version = new Version(versionAsString);
+                if (version > fromVersion)
+                {
+                    next_versions.Add(version);
+                }
+            }
+            next_versions.Sort();
+
+            int i = 0;
+            while (fromVersion != toVersion && i < next_versions.Count)
+            {
+                Version nextVersion = next_versions[i];
+                migrateDatabase(nextVersion);
+                fromVersion = getSchemaVersion();
+                i++;
+            }
+
+        }
+
+        private void migrateDatabase(Version nextVersion)
+        {
+            // find the scripts
+            string versionWithDashes = nextVersion.ToString().Replace('.', '-');
+            string[] sqlScriptFiles = Directory.GetFiles(@"SqlScripts\", 
+                String.Format("migrate_{0}_*.sql", versionWithDashes));
+
+            // initialize scripts
+            List<SqlScript> sqlScripts = new List<SqlScript>();
+            foreach (string sqlScriptFile in sqlScriptFiles)
+            {
+                SqlScript sqlScript = new SqlScript(sqlScriptFile);
+                sqlScript.ReadCommands();
+                sqlScripts.Add(sqlScript);
+            }
+
+            // run the scripts
+            using (SqlConnection con = new SqlConnection(serverString))
+            {
+                foreach (SqlScript sqlScript in sqlScripts)
+                {
+                    sqlScript.Execute(con);
+                }
+            }
+        }
+
+        private Version getSchemaVersion()
+        {
+            Version schemaVersion = null;
+
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT SchemaVersion FROM Metadata";
+
+                    con.Open();
+                    
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    reader.Read();
+
+                    string schemaVersionAsString = (string)reader["SchemaVersion"];
+
+                    schemaVersion = new Version(schemaVersionAsString);
+                }
+            }
+
+            return schemaVersion;
+        }
+
+        private void createDatabase(Version version)
         {
             /*
              * sqlscripts are named like: install_$version_000.sql where install can also be migrate
@@ -76,10 +160,10 @@ namespace DataAccess.Helpers
              * and put parammeterized sql text in the files (for later versions)
              */
 
-            version = version.Replace('.', '-');
+            string versionWithDashes = version.ToString().Replace('.', '-');
             // get all files with name install_version_*
             string[] sqlScriptFiles = Directory.GetFiles(@"SqlScripts\", 
-                String.Format("install_{0}_*.sql", version));
+                String.Format("install_{0}_*.sql", versionWithDashes));
 
             // execute the scripts
             List<SqlScript> sqlScripts = new List<SqlScript>();
