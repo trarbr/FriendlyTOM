@@ -3,14 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+########################################
 Welcome to Friendly TOM's documentation!
-========================================
+########################################
 
-Bla bla bla
-
-Get a real header - look at other projects
-
+************
 User Manual:
+************
 
 .. toctree::
     :maxdepth: 2
@@ -19,7 +18,9 @@ User Manual:
     installation
     quickstart
 
+************************
 Developer documentation:
+************************
 
 .. toctree::
     :maxdepth: 2
