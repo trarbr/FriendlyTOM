@@ -6,6 +6,8 @@
 Welcome to Friendly TOM's documentation!
 ========================================
 
+Bla bla bla
+
 Get a real header - look at other projects
 
 User Manual:
