@@ -17,6 +17,7 @@ User Manual:
     introduction
     installation
     quickstart
+    glossary
 
 ************************
 Developer documentation:
