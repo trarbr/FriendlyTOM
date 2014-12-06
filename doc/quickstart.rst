@@ -21,6 +21,7 @@
 .. |Outgoing-icon| image:: images/icons/outgoing.png
 .. |Archive-icon| image:: images/icons/archive.png
 
+.. _quickstart:
 
 Quickstart
 ==========
