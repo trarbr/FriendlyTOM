@@ -53,19 +53,3 @@ initialization.
 
 Also: documentation!
 
-Actions
--------
-
-A thing that I believe will help any tour operators workflow is to generate a
-list of to-do actions for each day based on the current "state of business".
-
-E.g: Make a payment, confirm a booking, place a booking, call
-hotel/restaurant/etc? to make sure they're ready for guests.
-
-New booking form submitted -> new tentative sale. Enter loop between customer
-and sales rep figuring out itinirary, price figured out, then agreement -> 
-new planned sale. Sales/Ops people place blockings, sale confirmation deadline 
-figured out, then confirmed -> new confirmed sale, ops people confirm blockings, 
-payments move from tentative to confirmed (or only confirm on invoice?), people
-arrive -> new running sale, make sure all arrangements go as planned, people
-leave -> new archived sale, everyone is super happy!
