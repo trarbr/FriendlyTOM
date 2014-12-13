@@ -94,8 +94,8 @@
     <Compile Include="AutoComplete\AutoCompleteTextBox.xaml.cs">
       <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AccountingUserControl.xaml.cs">
-      <DependentUpon>AccountingUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\PaymentsUserControl.xaml.cs">
+      <DependentUpon>PaymentsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ArchivedPaymentsUserControl.xaml.cs">
       <DependentUpon>ArchivedPaymentsUserControl.xaml</DependentUpon>
@@ -137,7 +137,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\AccountingUserControl.xaml">
+    <Page Include="UserControls\PaymentsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

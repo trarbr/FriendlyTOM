@@ -9,7 +9,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/book.png" Height="16"/>
-                        <Label Content="Accounting" />
+                        <Label Content="Payments" />
                     </StackPanel>
                 </TabItem.Header>
                 <UserControl x:Name="accountingUserControl"/>
