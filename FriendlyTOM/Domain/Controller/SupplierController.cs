@@ -25,6 +25,8 @@ namespace Domain.Controller
 {
     public class SupplierController
     {
+        public BookingController bookingController { get; set; }
+        public PaymentController paymentController { get; set; }
        #region Public Methods
         public SupplierController()
         {
@@ -71,6 +73,8 @@ namespace Domain.Controller
         {
             //Calls the suppliercollection class for delete
             supplierCollection.Delete((Supplier) supplier);
+            bookingController.DeleteBookingsForParty((AParty)supplier);
+            paymentController.DeletePaymentForParty((AParty)supplier);
         }
 
         public void AddPaymentRule(ISupplier supplier, ICustomer customer, BookingType bookingType, decimal percentage,

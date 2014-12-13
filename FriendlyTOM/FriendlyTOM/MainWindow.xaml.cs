@@ -55,6 +55,11 @@ namespace FriendlyTOM
                 PaymentController paymentController = new PaymentController();
                 BookingController bookingController = new BookingController(paymentController, customerController);
 
+                customerController.bookingController = bookingController;
+                customerController.paymentController = paymentController;
+                supplierController.bookingController = bookingController;
+                supplierController.paymentController = paymentController;
+
                 settingsUserControl.Content = new SettingsUserControl(settingsController);
                 accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
                 accountingUserControl.Content = accountingControl;

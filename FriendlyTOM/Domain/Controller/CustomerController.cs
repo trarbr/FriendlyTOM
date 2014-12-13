@@ -25,6 +25,9 @@ namespace Domain.Controller
 {
     public class CustomerController
     {
+        public BookingController bookingController { get; set; }
+        public PaymentController paymentController { get; set; }
+
         #region Public Methods
         public CustomerController()
         {
@@ -69,6 +72,8 @@ namespace Domain.Controller
         {
             //Calls custommercollection class for delete
             customerCollection.Delete((Customer) customer);
+            bookingController.DeleteBookingsForParty((AParty)customer);
+            paymentController.DeletePaymentForParty((AParty)customer);
         }
         #endregion
 

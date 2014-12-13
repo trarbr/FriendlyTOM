@@ -20,6 +20,7 @@ using Domain.Collections;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Controller
 {
@@ -95,5 +96,15 @@ namespace Domain.Controller
         private PaymentController paymentController;
         private CustomerController customerController;
         #endregion
+
+        internal void DeleteBookingsForParty(AParty party)
+        {
+            var bookingsToDelete = ReadAllBookings()
+                .Where<IBooking>(b => b.Supplier == party || b.Customer == party);
+            foreach (var booking in bookingsToDelete)
+            {
+                DeleteBooking(booking);
+            }
+        }
     }
 }

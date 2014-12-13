@@ -16,6 +16,7 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Interfaces;
 using DataAccess;
 using Domain.Collections;
@@ -108,6 +109,16 @@ namespace Domain.Controller
             paymentCollection.Delete((Payment)payment);
         }
         #endregion
+
+        internal void DeletePaymentForParty(AParty party)
+        {
+            var paymentsToDelete = ReadAllPayments()
+                .Where<IPayment>(p => p.Payee == party || p.Payer == party);
+            foreach (var payment in paymentsToDelete)
+            {
+                DeletePayment(payment);
+            }
+        }
 
         #region Private Properties
         private IDataAccessFacade dataAccessFacade;
