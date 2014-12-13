@@ -71,6 +71,7 @@ limitations under the License.
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="0">
@@ -91,7 +92,10 @@ limitations under the License.
                 <TextBox x:Name="phoneNoTextBox" Height="26" TextWrapping="Wrap"/>
                 <TextBox x:Name="faxNoTextBox" Height="26" TextWrapping="Wrap"/>
             </StackPanel>
-            <StackPanel Grid.Column="2" Margin="20,0,0,0">
+            <StackPanel Grid.Column="2">
+                <Label Content="*"/>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Margin="20,0,0,0">
                 <Label Content="Note:"/>
                 <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                     HorizontalScrollBarVisibility="Auto"/>
