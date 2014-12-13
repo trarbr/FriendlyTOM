@@ -24,6 +24,9 @@ v0.1.1:
 
 v0.1.2:
 
+- Fix deletion bug. Currently, if a Supplier is deleted the program will crash
+  on next startup because the related payments and bookigns have not been 
+  deleted.
 - Fix Supplier OwnerId. Should be two fields, CI and RUC, and all OwnerIds are
   transferred to RUC.
 - Add a Search label to the filtering textbox above DataGrids.
