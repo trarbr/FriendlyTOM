@@ -305,21 +305,27 @@ namespace FriendlyTOM.UserControls
         {
             if (attachmentsListView.SelectedItem != null)
             {
-                string selectedAttachment = "";
-                selectedAttachment = attachmentsListView.SelectedItem.ToString();
-                if(selectedAttachment != "")
+                MessageBoxResult doDelete = MessageBox.Show(
+                    "Delete selected attachment(s)? This will remove it from the list, but not delete the file", 
+                    "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (doDelete == MessageBoxResult.Yes)
                 {
-                    if (selectedPayment == null)
+                    string selectedAttachment = "";
+                    selectedAttachment = attachmentsListView.SelectedItem.ToString();
+                    if (selectedAttachment != "")
                     {
-                        attachments.Remove(selectedAttachment);
-                        attachmentsListView.ItemsSource = null;
-                        attachmentsListView.ItemsSource = attachments;
-                    }
-                    else
-                    {
-                        selectedPayment.DeleteAttachment(selectedAttachment);
-                        attachmentsListView.ItemsSource = null;
-                        attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                        if (selectedPayment == null)
+                        {
+                            attachments.Remove(selectedAttachment);
+                            attachmentsListView.ItemsSource = null;
+                            attachmentsListView.ItemsSource = attachments;
+                        }
+                        else
+                        {
+                            selectedPayment.DeleteAttachment(selectedAttachment);
+                            attachmentsListView.ItemsSource = null;
+                            attachmentsListView.ItemsSource = selectedPayment.Attachments;
+                        }
                     }
                 }
             }

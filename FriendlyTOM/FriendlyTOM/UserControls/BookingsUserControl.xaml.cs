@@ -113,12 +113,17 @@ namespace FriendlyTOM.UserControls
         {
             if (selectedBooking != null)
             {
-                foreach (IBooking booking in bookingsDataGrid.SelectedItems)
+                MessageBoxResult doDelete = MessageBox.Show("Delete selected booking(s)?", "Confirm deletion",
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (doDelete == MessageBoxResult.Yes)
                 {
-                    bookingController.DeleteBooking(booking);
+                    foreach (IBooking booking in bookingsDataGrid.SelectedItems)
+                    {
+                        bookingController.DeleteBooking(booking);
+                    }
+                    bookingsDataGrid.SelectedItem = null;
+                    refreshDataGrid();
                 }
-                bookingsDataGrid.SelectedItem = null;
-                refreshDataGrid();
             }
         }
 
