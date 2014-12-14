@@ -1,5 +1,4 @@
-﻿using DataAccess;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,25 +54,28 @@ namespace Domain.Controller
         {
         }
 
-        public void Initialize()
+        public void Initialize(DataAccess.IDataAccessFacade dataAccessFacade = null)
         {
             try
             {
-                var dataAccessFacade = DataAccess.DataAccessFacade.Instance;
+                if (dataAccessFacade == null)
+                {
+                    dataAccessFacade = DataAccess.DataAccessFacade.Instance;
+                }
 
                 _settingsController = new SettingsController(dataAccessFacade);
                 _settingsController.FirstRunSetup();
 
                 _customerController = new CustomerController(dataAccessFacade);
                 _supplierController = new SupplierController(dataAccessFacade);
+                _bookingController = new BookingController(dataAccessFacade);
                 _paymentController = new PaymentController(dataAccessFacade);
-                _bookingController = new BookingController(dataAccessFacade, 
-                    _paymentController, _customerController);
 
-                _customerController.bookingController = _bookingController;
-                _customerController.paymentController = _paymentController;
-                _supplierController.bookingController = _bookingController;
-                _supplierController.paymentController = _paymentController;
+                // NOTE: The order of initialization is important! Reordering it can break stuff!
+                _customerController.Initialize(_bookingController, _paymentController);
+                _supplierController.Initialize(_bookingController, _paymentController);
+                _bookingController.Initialize(_customerController, _paymentController);
+                _paymentController.Initialize();
             }
             catch
             {

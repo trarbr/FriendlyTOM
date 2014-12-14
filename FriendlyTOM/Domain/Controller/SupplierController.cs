@@ -25,15 +25,21 @@ namespace Domain.Controller
 {
     public class SupplierController
     {
-        public BookingController bookingController { get; set; }
-        public PaymentController paymentController { get; set; }
-       #region Public Methods
-        public SupplierController(IDataAccessFacade dataAccessFacade)
+        #region Setup
+        internal SupplierController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
-            supplierCollection = new SupplierCollection(dataAccessFacade);
         }
 
+        internal void Initialize(BookingController bookingController, PaymentController paymentController)
+        {
+            supplierCollection = new SupplierCollection(dataAccessFacade);
+            this.bookingController = bookingController;
+            this.paymentController = paymentController;
+        }
+        #endregion
+
+        #region CRUD
         public ISupplier CreateSupplier(string name, string note,
             SupplierType type)
         {
@@ -85,9 +91,9 @@ namespace Domain.Controller
         }
         #endregion
 
-       #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private SupplierCollection supplierCollection;
-        #endregion
+        private BookingController bookingController;
+        private PaymentController paymentController;
     }
 }

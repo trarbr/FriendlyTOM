@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 using System.Collections.Generic;
+using System.Linq;
 using Common.Enums;
 using Common.Interfaces;
 using DataAccess;
@@ -25,30 +26,29 @@ namespace Domain.Controller
 {
     public class CustomerController
     {
-        public BookingController bookingController { get; set; }
-        public PaymentController paymentController { get; set; }
-
-        #region Public Methods
-        public CustomerController(IDataAccessFacade dataAccessFacade)
+        #region Setup
+        internal CustomerController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
-            customerCollection = new CustomerCollection(dataAccessFacade);
         }
 
+        internal void Initialize(BookingController bookingController, PaymentController paymentController)
+        {
+            this.bookingController = bookingController;
+            this.paymentController = paymentController;
+            customerCollection = new CustomerCollection(dataAccessFacade);
+        }
+        #endregion
+
+        #region CRUD
         public ICustomer CreateCustomer(CustomerType type, string note, string name)
         {
-            //Calls custommercollection class for Create
             return customerCollection.Create(type, note, name);
         }
 
         public List<ICustomer> ReadAllCustomers()
         {
-            //Calls custommercollection class for readAll
-            List<ICustomer> customers = new List<ICustomer>();
-            foreach (Customer customer in customerCollection.ReadAll())
-            {
-                customers.Add(customer);
-            }
+            var customers = customerCollection.ReadAll().Cast<ICustomer>().ToList();
             return customers;
         }
         
@@ -69,37 +69,19 @@ namespace Domain.Controller
 
         internal Customer findLonelyTree()
         {
-            Customer lonelyTree = null;
-            foreach (Customer customer in customerCollection.ReadAll())
-            {
-                if (customer.Name == "Lonely Tree")
-                {
-                    lonelyTree = customer;
-                    break;
-                }
-            }
-
+            var lonelyTree = customerCollection.ReadAll().FirstOrDefault(c => c.Name == "Lonely Tree");
             return lonelyTree;
         }
 
         internal Customer findAnyCustomer()
         {
-            Customer anyCustomer = null;
-            foreach (Customer customer in customerCollection.ReadAll())
-            {
-                if (customer.Name == "Any")
-                {
-                    anyCustomer = customer;
-                    break;
-                }
-            }
-
-            return anyCustomer;
+            var any = customerCollection.ReadAll().FirstOrDefault(c => c.Name == "Any");
+            return any;
         }
 
-        #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private CustomerCollection customerCollection;
-        #endregion
+        private BookingController bookingController;
+        private PaymentController paymentController;
     }
 }

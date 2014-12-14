@@ -45,7 +45,13 @@ namespace UnitTestProject.AcceptanceTest
             customerController = new CustomerController(dataAccessFacade);
             supplierController = new SupplierController(dataAccessFacade);
             paymentController = new PaymentController(dataAccessFacade);
-            bookingController = new BookingController(dataAccessFacade, paymentController, customerController);
+            bookingController = new BookingController(dataAccessFacade);
+
+            customerController.Initialize(bookingController, paymentController);
+            supplierController.Initialize(bookingController, paymentController);
+            bookingController.Initialize(customerController, paymentController);
+            paymentController.Initialize();
+
 
             ICustomer lonelyTree = customerController.CreateCustomer(CustomerType.Bureau, "", "Lonely Tree");
         }
