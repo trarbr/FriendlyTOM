@@ -34,9 +34,9 @@ namespace Domain.Controller
         private string friendlyTOMFolder;
         private readonly Version version = Version.Parse("0.1.1");
 
-        public SettingsController()
+        public SettingsController(IDataAccessFacade dataAccessFacade)
         {
-            this.dataAccessFacade = DataAccessFacade.Instance;
+            this.dataAccessFacade = dataAccessFacade;
 
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             friendlyTOMFolder = Path.Combine(myDocuments, "FriendlyTOM");

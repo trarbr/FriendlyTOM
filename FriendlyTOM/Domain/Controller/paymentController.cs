@@ -28,17 +28,6 @@ namespace Domain.Controller
     public class PaymentController
     {
         #region Public Methods
-        public PaymentController()
-        {
-            dataAccessFacade = DataAccessFacade.Instance;
-
-            paymentCollection = new PaymentCollection(dataAccessFacade);
-        }
-
-        /// <summary>
-        /// For testing against a specified DataAccessFacade
-        /// </summary>
-        /// <param name="dataAccessFacade"></param>
         public PaymentController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;

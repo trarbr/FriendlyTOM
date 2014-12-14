@@ -27,26 +27,22 @@ namespace Domain.Controller
     public class BookingController
     {
         #region Public Constructor
-        public BookingController(PaymentController paymentController, CustomerController customerController)
-        {
-            dataAccessFacade = DataAccessFacade.Instance;
-            bookingCollection = new BookingCollection(dataAccessFacade);
-            this.paymentController = paymentController;
-            this.customerController = customerController;
-        }
-
-        /// <summary>
-        /// For testing against a specified DataAccessFacade
-        /// </summary>
-        /// <param name="dataAccessFacade"></param>
-        public BookingController(PaymentController paymentController, CustomerController customerController,
-            IDataAccessFacade dataAccessFacade)
+        public BookingController(IDataAccessFacade dataAccessFacade, 
+            PaymentController paymentController, CustomerController customerController)
         {
             this.dataAccessFacade = dataAccessFacade;
             bookingCollection = new BookingCollection(dataAccessFacade);
             this.paymentController = paymentController;
             this.customerController = customerController;
         }
+
+        //public BookingController(IDataAccessFacade dataAccessFacade, 
+        //    PaymentController _paymentController, CustomerController _customerController)
+        //{
+        //    this.dataAccessFacade = dataAccessFacade;
+        //    this._paymentController = _paymentController;
+        //    this._customerController = _customerController;
+        //}
         #endregion
 
         #region Public CRUD
@@ -95,6 +91,8 @@ namespace Domain.Controller
         private BookingCollection bookingCollection;
         private PaymentController paymentController;
         private CustomerController customerController;
+        private PaymentController _paymentController;
+        private CustomerController _customerController;
         #endregion
 
         internal void DeleteBookingsForParty(AParty party)

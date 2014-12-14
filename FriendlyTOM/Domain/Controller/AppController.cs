@@ -59,13 +59,16 @@ namespace Domain.Controller
         {
             try
             {
-                _settingsController = new SettingsController();
+                var dataAccessFacade = DataAccess.DataAccessFacade.Instance;
+
+                _settingsController = new SettingsController(dataAccessFacade);
                 _settingsController.FirstRunSetup();
 
-                _customerController = new CustomerController();
-                _supplierController = new SupplierController();
-                _paymentController = new PaymentController();
-                _bookingController = new BookingController(_paymentController, _customerController);
+                _customerController = new CustomerController(dataAccessFacade);
+                _supplierController = new SupplierController(dataAccessFacade);
+                _paymentController = new PaymentController(dataAccessFacade);
+                _bookingController = new BookingController(dataAccessFacade, 
+                    _paymentController, _customerController);
 
                 _customerController.bookingController = _bookingController;
                 _customerController.paymentController = _paymentController;

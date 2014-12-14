@@ -28,16 +28,6 @@ namespace Domain.Controller
         public BookingController bookingController { get; set; }
         public PaymentController paymentController { get; set; }
        #region Public Methods
-        public SupplierController()
-        {
-            dataAccessFacade = DataAccessFacade.Instance;
-            supplierCollection = new SupplierCollection(dataAccessFacade);
-        }
-
-        /// <summary>
-        /// For testing against a specified DataAccessFacade
-        /// </summary>
-        /// <param name="dataAccessFacade"></param>
         public SupplierController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
