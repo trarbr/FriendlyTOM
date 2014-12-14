@@ -150,7 +150,7 @@ namespace UnitTestProject
 
         private Customer createValidCustomer()
         {
-            Customer customer = new Customer(validType, validNote, validName, dataAccessFacadeStub);
+            Customer customer = new Customer(validName, validNote, validType, dataAccessFacadeStub);
             return customer;
         }
     }

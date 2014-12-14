@@ -68,7 +68,7 @@ namespace Domain.Model
             register.RegisterCustomer(_customerEntity, this);
         }
 
-        internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
+        internal Customer(string name, string note, CustomerType type, IDataAccessFacade dataAccessFacade)
         {
             validateName(name);
             this.dataAccessFacade = dataAccessFacade;

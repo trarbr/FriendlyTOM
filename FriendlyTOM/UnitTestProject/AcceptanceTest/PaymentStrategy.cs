@@ -53,16 +53,15 @@ namespace UnitTestProject.AcceptanceTest
             paymentController.Initialize();
 
 
-            ICustomer lonelyTree = customerController.CreateCustomer(CustomerType.Bureau, "", "Lonely Tree");
+            ICustomer lonelyTree = customerController.CreateCustomer("Lonely Tree", "", CustomerType.Bureau);
         }
 
         [TestMethod]
         public void TestVFJan13()
         {
             // Test scenario: Viktors Farmor booking 13 for sale VF Jan with Estrella Chimborazo
-            ICustomer viktorsFarmor = customerController.CreateCustomer(CustomerType.Bureau, "", "Viktors Farmor");
-            ISupplier estrellaChimborazo = supplierController.CreateSupplier("Estrella Chimborazo", "",
-                SupplierType.Restaurant);
+            ICustomer viktorsFarmor = customerController.CreateCustomer("Viktors Farmor", "", CustomerType.Bureau);
+            ISupplier estrellaChimborazo = supplierController.CreateSupplier("Estrella Chimborazo", "", SupplierType.Restaurant);
 
             // PaymentRule to use for the booking
             supplierController.AddPaymentRule(estrellaChimborazo, viktorsFarmor, BookingType.Group, 100, -1,
@@ -107,7 +106,7 @@ namespace UnitTestProject.AcceptanceTest
         public void TestSvaneRejserJosefsen3()
         {
             // Test scenario: Svane Rejser booking 3 for sale Svane Rejser Josefsen with NatureGalapagos
-            ICustomer svaneRejser = customerController.CreateCustomer(CustomerType.Bureau, "", "Svane Rejser");
+            ICustomer svaneRejser = customerController.CreateCustomer("Svane Rejser", "", CustomerType.Bureau);
             ISupplier natureGalapagos = supplierController.CreateSupplier("NatureGalapagos", "", SupplierType.Cruise);
 
             // PaymentRules to use for the booking

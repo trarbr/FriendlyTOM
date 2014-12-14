@@ -41,9 +41,9 @@ namespace Domain.Controller
         #endregion
 
         #region CRUD
-        public ICustomer CreateCustomer(CustomerType type, string note, string name)
+        public ICustomer CreateCustomer(string name, string note, CustomerType type)
         {
-            return customerCollection.Create(type, note, name);
+            return customerCollection.Create(name, note, type);
         }
 
         public List<ICustomer> ReadAllCustomers()

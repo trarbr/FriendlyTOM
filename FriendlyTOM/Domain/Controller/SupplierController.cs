@@ -31,7 +31,8 @@ namespace Domain.Controller
             this.dataAccessFacade = dataAccessFacade;
         }
 
-        internal void Initialize(BookingController bookingController, PaymentController paymentController)
+        internal void Initialize(BookingController bookingController, 
+            PaymentController paymentController)
         {
             supplierCollection = new SupplierCollection(dataAccessFacade);
             this.bookingController = bookingController;
@@ -40,8 +41,7 @@ namespace Domain.Controller
         #endregion
 
         #region CRUD
-        public ISupplier CreateSupplier(string name, string note,
-            SupplierType type)
+        public ISupplier CreateSupplier(string name, string note, SupplierType type)
         {
             //Calls the suppliercollection class for create.
             return supplierCollection.Create(name, note, type);

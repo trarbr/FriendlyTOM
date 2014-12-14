@@ -96,7 +96,7 @@ namespace FriendlyTOM.UserControls
                     string name = nameTextBox.Text;
                     CustomerType type = (CustomerType)customerTypeComboBox.SelectedItem;
                     string note = noteTextBox.Text;
-                    ICustomer customer = customerController.CreateCustomer(type, note, name);
+                    ICustomer customer = customerController.CreateCustomer(name, note, type);
 
                     customer.ContactPerson = contactPersonTextBox.Text;
                     customer.Email = emailTextBox.Text;
