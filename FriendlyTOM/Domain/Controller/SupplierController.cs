@@ -30,7 +30,7 @@ namespace Domain.Controller
        #region Public Methods
         public SupplierController()
         {
-            dataAccessFacade = DataAccessFacade.GetInstance();
+            dataAccessFacade = DataAccessFacade.Instance;
             supplierCollection = new SupplierCollection(dataAccessFacade);
         }
 

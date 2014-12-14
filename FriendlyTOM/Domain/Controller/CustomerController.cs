@@ -31,7 +31,7 @@ namespace Domain.Controller
         #region Public Methods
         public CustomerController()
         {
-            dataAccessFacade = DataAccessFacade.GetInstance();
+            dataAccessFacade = DataAccessFacade.Instance;
             customerCollection = new CustomerCollection(dataAccessFacade);
         }
 

@@ -30,7 +30,7 @@ namespace Domain.Controller
         #region Public Methods
         public PaymentController()
         {
-            dataAccessFacade = DataAccessFacade.GetInstance();
+            dataAccessFacade = DataAccessFacade.Instance;
 
             paymentCollection = new PaymentCollection(dataAccessFacade);
         }

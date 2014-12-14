@@ -29,7 +29,7 @@ namespace Domain.Controller
         #region Public Constructor
         public BookingController(PaymentController paymentController, CustomerController customerController)
         {
-            dataAccessFacade = DataAccessFacade.GetInstance();
+            dataAccessFacade = DataAccessFacade.Instance;
             bookingCollection = new BookingCollection(dataAccessFacade);
             this.paymentController = paymentController;
             this.customerController = customerController;

@@ -36,7 +36,7 @@ namespace Domain.Controller
 
         public SettingsController()
         {
-            this.dataAccessFacade = DataAccessFacade.GetInstance();
+            this.dataAccessFacade = DataAccessFacade.Instance;
 
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             friendlyTOMFolder = Path.Combine(myDocuments, "FriendlyTOM");
