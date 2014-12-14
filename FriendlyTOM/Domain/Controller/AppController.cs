@@ -54,14 +54,11 @@ namespace Domain.Controller
         {
         }
 
-        public void Initialize(DataAccess.IDataAccessFacade dataAccessFacade = null)
+        public void Initialize()
         {
             try
             {
-                if (dataAccessFacade == null)
-                {
-                    dataAccessFacade = DataAccess.DataAccessFacade.Instance;
-                }
+                var dataAccessFacade = DataAccess.DataAccessFacade.Instance;
 
                 _settingsController = new SettingsController(dataAccessFacade);
                 _settingsController.FirstRunSetup();
