@@ -43,6 +43,7 @@
     <Compile Include="Collections\CustomerCollection.cs" />
     <Compile Include="Collections\PaymentCollection.cs" />
     <Compile Include="Collections\SupplierCollection.cs" />
+    <Compile Include="Controller\AppController.cs" />
     <Compile Include="Controller\BookingController.cs" />
     <Compile Include="Controller\CustomerController.cs" />
     <Compile Include="Controller\PaymentController.cs" />
