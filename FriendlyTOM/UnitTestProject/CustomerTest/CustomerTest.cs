@@ -128,12 +128,16 @@ namespace UnitTestProject
         {
             Customer customer1 = createValidCustomer();
             customer1.Name = "1";
+            customer1.Update();
             Customer customer2 = createValidCustomer();
             customer2.Name = "2";
+            customer2.Update();
             Customer customer3 = createValidCustomer();
             customer3.Name = "3";
+            customer3.Update();
             Customer customer4 = createValidCustomer();
             customer4.Name = "4";
+            customer4.Update();
 
             List<Customer> actualCustomers = Customer.ReadAll(dataAccessFacadeStub);
             List<Customer> expectedCustomers = new List<Customer>();
