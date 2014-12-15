@@ -180,10 +180,6 @@ namespace DataAccess
         {
             //Calls update for a specific supplier.
             supplierMapper.Update((SupplierEntity)supplier);
-            foreach (IPaymentRule paymentRule in supplier.PaymentRules)
-            {
-                paymentRuleMapper.Update((PaymentRuleEntity)paymentRule);
-            }
         }
 
         public void DeleteSupplier(ISupplier supplier)

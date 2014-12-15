@@ -314,12 +314,16 @@ namespace UnitTestProject
             ISupplier commissioner4 = new Supplier("4", "Timoto", SupplierType.Cruise, dataAccessFacadeStub);
             Payment payment1 = createValidPayment();
             payment1.Payee = commissioner1;
+            payment1.Update();
             Payment payment2 = createValidPayment();
             payment2.Payee = commissioner2;
+            payment2.Update();
             Payment payment3 = createValidPayment();
             payment3.Payee = commissioner3;
+            payment3.Update();
             Payment payment4 = createValidPayment();
             payment4.Payee = commissioner4;
+            payment4.Update();
 
             List<Payment> actualPayments = Payment.ReadAll(dataAccessFacadeStub);
 

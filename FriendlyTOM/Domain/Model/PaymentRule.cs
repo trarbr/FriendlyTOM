@@ -32,11 +32,10 @@ namespace Domain.Model
         public ISupplier Supplier
         {
             get { return _supplier; }
-            set
+            set 
             {
                 validateSupplier(value);
-                _supplier = (Supplier)value;
-                _paymentRuleEntity.Supplier = _supplier._supplierEntity;
+                _supplier = (Supplier)value; 
             }
         }
 
@@ -47,39 +46,38 @@ namespace Domain.Model
             {
                 validateCustomer(value);
                 _customer = (Customer)value;
-                _paymentRuleEntity.Customer = _customer._customerEntity;
             }
         }
 
         public BookingType BookingType
         {
-            get { return _paymentRuleEntity.BookingType; }
-            set { _paymentRuleEntity.BookingType = value; }
+            get { return _bookingType; }
+            set { _bookingType = value; }
         }
 
         public decimal Percentage
         {
             // validate - no more than 100
-            get { return _paymentRuleEntity.Percentage; }
-            set { _paymentRuleEntity.Percentage = value; }
+            get { return _percentage; }
+            set { _percentage = value; }
         }
 
         public int DaysOffset
         {
-            get { return _paymentRuleEntity.DaysOffset; }
-            set { _paymentRuleEntity.DaysOffset = value; }
+            get { return _daysOffset; }
+            set { _daysOffset = value; }
         }
 
         public BaseDate BaseDate
         {
-            get { return _paymentRuleEntity.BaseDate; }
-            set { _paymentRuleEntity.BaseDate = value; }
+            get { return _baseDate; }
+            set { _baseDate = value; }
         }
 
         public PaymentType PaymentType
         {
-            get { return _paymentRuleEntity.PaymentType; }
-            set { _paymentRuleEntity.PaymentType = value; }
+            get { return _paymentType; }
+            set { _paymentType = value; }
         }
 
         internal IPaymentRule _paymentRuleEntity;
@@ -91,6 +89,14 @@ namespace Domain.Model
             validateCustomer(customer);
             validateSupplier(supplier);
 
+            _supplier = supplier;
+            _customer = customer;
+            _bookingType = bookingType;
+            _percentage = percentage;
+            _daysOffset = daysOffset;
+            _baseDate = baseDate;
+            _paymentType = paymentType;
+
             // Get entities for DataAccess
             ISupplier supplierEntity = supplier._supplierEntity;
             ICustomer customerEntity = customer._customerEntity;
@@ -98,18 +104,37 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _paymentRuleEntity = dataAccessFacade.CreatePaymentRule(supplierEntity, customerEntity, bookingType, 
                 percentage, daysOffset, baseDate, paymentType);
+
         }
-        
-        internal PaymentRule(IPaymentRule paymentRuleEntity, Supplier supplier, IDataAccessFacade dataAccessFacade)
+
+        internal PaymentRule(IPaymentRule paymentRuleEntity, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
-            this._paymentRuleEntity = paymentRuleEntity;
+            _paymentRuleEntity = paymentRuleEntity;
+            _bookingType = paymentRuleEntity.BookingType;
+            _percentage = paymentRuleEntity.Percentage;
+            _daysOffset = paymentRuleEntity.DaysOffset;
+            _baseDate = paymentRuleEntity.BaseDate;
+            _paymentType = paymentRuleEntity.PaymentType;
 
             // Get/Create Models of supplier and customer
-            Supplier = supplier;
             Register register = Register.GetInstance();
-            Customer = register.GetCustomer(paymentRuleEntity.Customer);
+            _supplier = register.GetSupplier(paymentRuleEntity.Supplier);
+            _customer = register.GetCustomer(paymentRuleEntity.Customer);
         } 
+
+        internal void Update()
+        {
+            _paymentRuleEntity.Supplier = _supplier._supplierEntity;
+            _paymentRuleEntity.Customer = _customer._customerEntity;
+            _paymentRuleEntity.BookingType = _bookingType;
+            _paymentRuleEntity.Percentage = _percentage;
+            _paymentRuleEntity.DaysOffset = _daysOffset;
+            _paymentRuleEntity.BaseDate = _baseDate;
+            _paymentRuleEntity.PaymentType = _paymentType;
+
+            dataAccessFacade.UpdatePaymentRule(_paymentRuleEntity);
+        }
 
         internal void Delete()
         {
@@ -119,6 +144,11 @@ namespace Domain.Model
         private IDataAccessFacade dataAccessFacade;
         private Supplier _supplier;
         private Customer _customer;
+        private BookingType _bookingType;
+        private decimal _percentage;
+        private int _daysOffset;
+        private BaseDate _baseDate;
+        private PaymentType _paymentType;
 
         private void validateCustomer(ICustomer value)
         {

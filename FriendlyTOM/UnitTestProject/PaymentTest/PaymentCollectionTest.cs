@@ -78,10 +78,12 @@ namespace UnitTestProject
             Payment p1 = createValidPayment();
             p1.Note = "Archived1";
             p1.Archived = true;
+            p1.Update();
 
             Payment p2 = createValidPayment();
             p2.Note = "Archived2";
             p2.Archived = true;
+            p2.Update();
 
             PaymentCollection paymentCollection = new PaymentCollection(dataAccessFacadeStub);
 
@@ -107,11 +109,13 @@ namespace UnitTestProject
             p1.Note = "Moved to Lonely Tree1";
             p1.Payee = validPayer;
             p1.Payer = validPayee;
+            p1.Update();
 
             Payment p2 = createValidPayment();
             p2.Note = "Moved to Lonely Tree2";
             p2.Payee = validPayer;
             p2.Payer = validPayee;
+            p2.Update();
 
             PaymentCollection paymentCollection = new PaymentCollection(dataAccessFacadeStub);
 
@@ -131,10 +135,13 @@ namespace UnitTestProject
         {
             Payment p1 = createValidPayment();
             p1.Note = "Outgoing1";
+            p1.Update();
             Payment p2 = createValidPayment();
-            p1.Note = "Outgoing2";
+            p2.Note = "Outgoing2";
+            p2.Update();
             Payment p3 = createValidPayment();
-            p1.Note = "Outgoing3";
+            p3.Note = "Outgoing3";
+            p3.Update();
 
             PaymentCollection paymentCollection = new PaymentCollection(dataAccessFacadeStub);
 
