@@ -113,6 +113,9 @@ namespace Domain.Model
         internal void Update()
         {
             //Calls update in the dataAccessFacade
+            _supplierEntity.Name = _name;
+            _supplierEntity.Note = _note;
+
             dataAccessFacade.UpdateSupplier(_supplierEntity);
         }
 
