@@ -47,7 +47,7 @@ namespace UnitTestProject.AcceptanceTest
             paymentController = new PaymentController(dataAccessFacade);
             bookingController = new BookingController(dataAccessFacade);
 
-            customerController.Initialize(bookingController, paymentController);
+            customerController.Initialize(bookingController, paymentController, supplierController);
             supplierController.Initialize(bookingController, paymentController);
             bookingController.Initialize(customerController, paymentController);
             paymentController.Initialize();

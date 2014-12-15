@@ -32,10 +32,12 @@ namespace Domain.Controller
             this.dataAccessFacade = dataAccessFacade;
         }
 
-        internal void Initialize(BookingController bookingController, PaymentController paymentController)
+        internal void Initialize(BookingController bookingController, PaymentController paymentController,
+            SupplierController supplierController)
         {
             this.bookingController = bookingController;
             this.paymentController = paymentController;
+            this.supplierController = supplierController;
             customerCollection = new CustomerCollection(dataAccessFacade);
         }
         #endregion
@@ -62,7 +64,6 @@ namespace Domain.Controller
         {
             //Calls custommercollection class for delete
             // Also deletes all related payments and bookings
-            // TODO: Delete related payment rules
             customerCollection.Delete((Customer) customer);
             bookingController.DeleteBookingsForParty((AParty)customer);
             paymentController.DeletePaymentForParty((AParty)customer);

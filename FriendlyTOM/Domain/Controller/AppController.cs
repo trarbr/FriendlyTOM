@@ -69,7 +69,7 @@ namespace Domain.Controller
                 _paymentController = new PaymentController(dataAccessFacade);
 
                 // NOTE: The order of initialization is important! Reordering it can break stuff!
-                _customerController.Initialize(_bookingController, _paymentController);
+                _customerController.Initialize(_bookingController, _paymentController, _supplierController);
                 _supplierController.Initialize(_bookingController, _paymentController);
                 _bookingController.Initialize(_customerController, _paymentController);
                 _paymentController.Initialize();
