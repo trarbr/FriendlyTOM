@@ -215,7 +215,7 @@ namespace DataAccess
            return customers;
         }
 
-        public void UpdateCustomers(ICustomer customer)
+        public void UpdateCustomer(ICustomer customer)
         {
             //Calls update for a specific customer.
            customerMapper.Update((CustomerEntity) customer);

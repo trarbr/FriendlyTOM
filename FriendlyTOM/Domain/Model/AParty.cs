@@ -24,28 +24,29 @@ namespace Domain.Model
         #region Public Properties
         public string Name
         {
-            get { return _partyEntity.Name; }
+            get { return _name; }
             set
             {
                 validateName(value);
-                _partyEntity.Name = value;
+                _name = value;
             }
         }
 
         public string Note
         {
-            get { return _partyEntity.Note; }
-            set
-            {
-                _partyEntity.Note = value;
-            }
+            get { return _note; }
+            set {_note = value; }
         }
         #endregion
+        protected string _name;
+        protected string _note;
 
         #region Protected Methods
         protected void initializeParty(IParty partyEntity)
         {
             _partyEntity = partyEntity;
+            _name = partyEntity.Name;
+            _note = partyEntity.Note;
         }
         #endregion
 

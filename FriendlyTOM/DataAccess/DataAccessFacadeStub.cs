@@ -109,7 +109,7 @@ namespace DataAccess
             return customers;
         }
 
-        public void UpdateCustomers(ICustomer customer)
+        public void UpdateCustomer(ICustomer customer)
         {
             CustomerEntity entity = (CustomerEntity) customer;
             entity.LastModified = DateTime.Now;
