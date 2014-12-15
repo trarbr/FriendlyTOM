@@ -20,6 +20,7 @@ using DataAccess;
 using Domain.Collections;
 using Domain.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Controller
 {
@@ -68,6 +69,11 @@ namespace Domain.Controller
         public void DeleteSupplier(ISupplier supplier)
         {
             //Calls the suppliercollection class for delete
+            // Also deletes all related payments and bookings
+            foreach (var paymentRule in supplier.PaymentRules)
+            {
+                DeletePaymentRule(paymentRule);
+            }
             supplierCollection.Delete((Supplier) supplier);
             bookingController.DeleteBookingsForParty((AParty)supplier);
             paymentController.DeletePaymentForParty((AParty)supplier);
@@ -89,11 +95,30 @@ namespace Domain.Controller
 
             supp.DeletePaymentRule(payRule);
         }
+        internal void DeletePaymentRulesForCustomer(ICustomer customer)
+        {
+            var paymentRulesForCustomer = new List<IPaymentRule>();
+            foreach (var supplier in ReadAllSuppliers())
+            {
+                foreach (var paymentRule in supplier.PaymentRules)
+                {
+                    if (paymentRule.Customer == customer)
+                    {
+                        paymentRulesForCustomer.Add(paymentRule);
+                    }
+                }
+            }
+            foreach (var paymentRule in paymentRulesForCustomer)
+            {
+                DeletePaymentRule(paymentRule);
+            }
+        }
         #endregion
 
         private IDataAccessFacade dataAccessFacade;
         private SupplierCollection supplierCollection;
         private BookingController bookingController;
         private PaymentController paymentController;
+
     }
 }

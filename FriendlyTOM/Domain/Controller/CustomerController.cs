@@ -61,9 +61,12 @@ namespace Domain.Controller
         public void DeleteCustomer(ICustomer customer)
         {
             //Calls custommercollection class for delete
+            // Also deletes all related payments and bookings
+            // TODO: Delete related payment rules
             customerCollection.Delete((Customer) customer);
             bookingController.DeleteBookingsForParty((AParty)customer);
             paymentController.DeletePaymentForParty((AParty)customer);
+            supplierController.DeletePaymentRulesForCustomer(customer);
         }
         #endregion
 
@@ -83,5 +86,6 @@ namespace Domain.Controller
         private CustomerCollection customerCollection;
         private BookingController bookingController;
         private PaymentController paymentController;
+        private SupplierController supplierController;
     }
 }
