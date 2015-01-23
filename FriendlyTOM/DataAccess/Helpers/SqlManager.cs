@@ -64,11 +64,14 @@ namespace DataAccess.Helpers
                 // if it fails, create the database
                 createDatabase(version);
             }
-            // now check version number
-            Version schemaVersion = getSchemaVersion();
-            if (schemaVersion < version)
+            else
             {
-                upgradeSchema(schemaVersion, version);
+                // migrate if programs version is greater than database schema version
+                Version schemaVersion = getSchemaVersion();
+                if (schemaVersion < version)
+                {
+                    upgradeSchema(schemaVersion, version);
+                }
             }
         }
 
