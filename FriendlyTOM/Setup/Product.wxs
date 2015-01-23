@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="Friendly TOM" Language="1033" Version="0.1.2" Manufacturer="The Friendly TOM Team" UpgradeCode="b0c3b329-dc82-40e5-929c-fa266b2123c8">
+  <Product Id="*" Name="Friendly TOM" Language="1033" Version="0.2.0" Manufacturer="The Friendly TOM Team" UpgradeCode="b0c3b329-dc82-40e5-929c-fa266b2123c8">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />

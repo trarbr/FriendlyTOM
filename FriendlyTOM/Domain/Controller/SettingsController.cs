@@ -151,6 +151,6 @@ namespace Domain.Controller
         private IDataAccessFacade dataAccessFacade;
         private string backupsFolder;
         private string friendlyTOMFolder;
-        private readonly Version version = Version.Parse("0.1.2");
+        private readonly Version version = Version.Parse("0.2.0");
     }
 }
