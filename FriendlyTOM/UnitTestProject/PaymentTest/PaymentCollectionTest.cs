@@ -45,7 +45,7 @@ namespace UnitTestProject
             paymentCollection = new PaymentCollection(dataAccessFacadeStub);
             validDueDate = new DateTime(2010, 10, 10);
             validDueAmount = 1m;
-            validPayer = new Customer("Lonely Tree", "", CustomerType.Bureau, dataAccessFacadeStub);
+            validPayer = new Customer("Lonely Tree", "", CustomerType.Agency, dataAccessFacadeStub);
             validPayee = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
             validType = PaymentType.Balance;
             validSale = "VF Jan";

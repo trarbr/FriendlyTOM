@@ -24,6 +24,6 @@ namespace Common.Enums
 {
     public enum AccountType
     {
-        Undefined, SavingsAccount, CheckingAccount
+        CheckingAccount, SavingsAccount
     }
 }

@@ -31,7 +31,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestConstructorSetsAllProperties()
         {
-            CustomerType type = CustomerType.Bureau;
+            CustomerType type = CustomerType.Agency;
             string note = "bla";
             string name = "Peter";
 

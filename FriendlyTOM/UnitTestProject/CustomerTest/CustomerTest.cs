@@ -41,7 +41,7 @@ namespace UnitTestProject
             dataAccessFacadeStub = new DataAccessFacadeStub();
             validName = "VF Jan";
             validNote = "8 Persons";
-            validType = CustomerType.Bureau;
+            validType = CustomerType.Agency;
         }
 
         [TestMethod]

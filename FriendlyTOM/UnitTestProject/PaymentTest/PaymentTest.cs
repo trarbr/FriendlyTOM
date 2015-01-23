@@ -44,7 +44,7 @@ namespace UnitTestProject
             dataAccessFacadeStub = new DataAccessFacadeStub();
             validDueDate = new DateTime(2010, 10, 10);
             validDueAmount = 1m;
-            validPayer = new Customer("Lonely Tree", "", CustomerType.Bureau, dataAccessFacadeStub);
+            validPayer = new Customer("Lonely Tree", "", CustomerType.Agency, dataAccessFacadeStub);
             validPayee = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
             validType = PaymentType.Balance;
             validSale = "VF Jan";
@@ -70,7 +70,7 @@ namespace UnitTestProject
         {
             Supplier payee = new Supplier(
                 "Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
-            Customer payer = new Customer("Lonely Tree", "", CustomerType.Bureau, dataAccessFacadeStub);
+            Customer payer = new Customer("Lonely Tree", "", CustomerType.Agency, dataAccessFacadeStub);
             IParty payeeEntity = payee._supplierEntity;
             IParty payerEntity = payer._customerEntity;
 

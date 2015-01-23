@@ -53,14 +53,14 @@ namespace UnitTestProject.AcceptanceTest
             paymentController.Initialize();
 
 
-            ICustomer lonelyTree = customerController.CreateCustomer("Lonely Tree", "", CustomerType.Bureau);
+            ICustomer lonelyTree = customerController.CreateCustomer("Lonely Tree", "", CustomerType.Agency);
         }
 
         [TestMethod]
         public void TestVFJan13()
         {
             // Test scenario: Viktors Farmor booking 13 for sale VF Jan with Estrella Chimborazo
-            ICustomer viktorsFarmor = customerController.CreateCustomer("Viktors Farmor", "", CustomerType.Bureau);
+            ICustomer viktorsFarmor = customerController.CreateCustomer("Viktors Farmor", "", CustomerType.Agency);
             ISupplier estrellaChimborazo = supplierController.CreateSupplier("Estrella Chimborazo", "", SupplierType.Restaurant);
 
             // PaymentRule to use for the booking
@@ -106,7 +106,7 @@ namespace UnitTestProject.AcceptanceTest
         public void TestSvaneRejserJosefsen3()
         {
             // Test scenario: Svane Rejser booking 3 for sale Svane Rejser Josefsen with NatureGalapagos
-            ICustomer svaneRejser = customerController.CreateCustomer("Svane Rejser", "", CustomerType.Bureau);
+            ICustomer svaneRejser = customerController.CreateCustomer("Svane Rejser", "", CustomerType.Agency);
             ISupplier natureGalapagos = supplierController.CreateSupplier("NatureGalapagos", "", SupplierType.Cruise);
 
             // PaymentRules to use for the booking
@@ -118,7 +118,7 @@ namespace UnitTestProject.AcceptanceTest
                 BaseDate.StartDate, PaymentType.Balance);
 
             // Dummy PaymentRule (must not be applied)
-            supplierController.AddPaymentRule(natureGalapagos, svaneRejser, BookingType.Undefined, 100, 0,
+            supplierController.AddPaymentRule(natureGalapagos, svaneRejser, BookingType.Standard, 100, 0,
                 BaseDate.StartDate, PaymentType.Full);
 
             IBooking booking = bookingController.CreateBooking(natureGalapagos, svaneRejser, "Svane Rejser Josefsen",

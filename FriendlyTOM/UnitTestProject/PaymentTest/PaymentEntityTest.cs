@@ -31,7 +31,7 @@ namespace UnitTestProject
             DateTime dueDate = new DateTime(2010, 10, 10);
             decimal dueAmount = 100m;
             APartyEntity payee = new SupplierEntity(SupplierType.Cruise, "", "Galasam");
-            APartyEntity payer = new CustomerEntity(CustomerType.Bureau, "", "Lonely Tree");
+            APartyEntity payer = new CustomerEntity(CustomerType.Agency, "", "Lonely Tree");
             PaymentType type = PaymentType.Full;
             string sale = "VF March";
             int booking = 128;
@@ -64,7 +64,7 @@ namespace UnitTestProject
             DateTime dueDate = new DateTime(2010, 10, 10);
             decimal dueAmount = 100m;
             APartyEntity payee = new SupplierEntity(SupplierType.Cruise, "", "Galasam");
-            APartyEntity payer = new CustomerEntity(CustomerType.Bureau, "", "Lonely Tree");
+            APartyEntity payer = new CustomerEntity(CustomerType.Agency, "", "Lonely Tree");
             PaymentType type = PaymentType.Full;
             string sale = "SR Josef";
             int booking = 59;

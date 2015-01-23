@@ -24,6 +24,6 @@ namespace Common.Enums
 {
     public enum SupplierType
     {
-        Hotel, Cruise, Restaurant, Guide, Driver, Lodge
+        Agency, Attraction, Cruise, Guide, Hotel, Restaurant, Transportation
     }
 }

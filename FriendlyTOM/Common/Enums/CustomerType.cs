@@ -24,6 +24,6 @@ namespace Common.Enums
 {
     public enum CustomerType
     {
-        Bureau, PrivateCustomer
+        Agency, PrivateCustomer
     }
 }

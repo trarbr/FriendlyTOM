@@ -24,6 +24,6 @@ namespace Common.Enums
 {
     public enum BaseDate
     {
-        StartDate, EndDate
+        EndDate, StartDate
     }
 }
