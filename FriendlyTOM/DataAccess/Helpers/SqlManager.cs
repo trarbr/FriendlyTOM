@@ -237,9 +237,10 @@ namespace DataAccess.Helpers
                 cmd.ExecuteNonQuery();
 
                 cmd = con.CreateCommand();
-                cmd.CommandText = "RESTORE DATABASE FTOM FROM DISK = @backupPath";
+                cmd.CommandText = String.Format("RESTORE DATABASE {0} FROM DISK = @backupPath", 
+                    databaseName);
 
-                cmd.Parameters.AddWithValue("backupPath", backupPath);
+                cmd.Parameters.AddWithValue("@backupPath", backupPath);
 
                 try
                 {
