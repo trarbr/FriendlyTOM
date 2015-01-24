@@ -152,6 +152,9 @@ namespace Domain.Model
             _type = type;
             _sale = sale;
             _booking = booking;
+            _paidDate = new DateTime(1900, 1, 1);
+            _note = "";
+            _invoice = "";
 
             // Get entities for DataAccess
             IParty payerEntity = ((AParty)payer)._partyEntity;
