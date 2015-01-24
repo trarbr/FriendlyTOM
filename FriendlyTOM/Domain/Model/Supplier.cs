@@ -98,14 +98,14 @@ namespace Domain.Model
 
             initializeParty(_supplierEntity);
 
+            Register register = Register.GetInstance();
+            register.RegisterSupplier(_supplierEntity, this);
+
             foreach (var paymentRuleEntity in _supplierEntity.PaymentRules)
             {
                 var paymentRule = new PaymentRule(paymentRuleEntity, dataAccessFacade);
                 _paymentRules.Add(paymentRule);
             }
-
-            Register register = Register.GetInstance();
-            register.RegisterSupplier(_supplierEntity, this);
         }
 
         internal static List<Supplier> ReadAll(IDataAccessFacade dataAccessFacade)
