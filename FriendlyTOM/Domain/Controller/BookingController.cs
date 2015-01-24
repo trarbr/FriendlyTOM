@@ -62,7 +62,8 @@ namespace Domain.Controller
 
         public void UpdateBooking(IBooking booking)
         {
-            //Calls Bookingcollection class for update
+            var bookingModel = (Booking)booking;
+            bookingModel.CalculateAmounts();
             bookingCollection.Update((Booking) booking);
         }
 
@@ -83,10 +84,9 @@ namespace Domain.Controller
         }
         #endregion
 
-        public void CalculatePaymentsForBooking(IBooking booking)
+        public void CreatePaymentsForBooking(IBooking booking)
         {
             Booking bookingModel = (Booking)booking;
-            bookingModel.CalculateAmounts();
             PaymentStrategy paymentStrategy = new PaymentStrategy(customerController);
             paymentStrategy.CreatePayments(bookingModel, paymentController);
         }

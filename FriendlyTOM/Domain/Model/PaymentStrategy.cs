@@ -55,7 +55,6 @@ namespace Domain.Model
                     dueDate = booking.EndDate.AddDays(paymentRule.DaysOffset);
                 }
 
-                booking.CalculateAmounts();
                 decimal dueAmount = booking.TransferAmount * paymentRule.Percentage / 100;
 
                 Customer lonelyTree = customerController.findLonelyTree();

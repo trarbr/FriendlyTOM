@@ -344,10 +344,18 @@ namespace FriendlyTOM.UserControls
             }
         }
 
-        private void calculatePayments_Click(object sender, RoutedEventArgs e)
+        private void createPayments_Click(object sender, RoutedEventArgs e)
         {
-            bookingController.CalculatePaymentsForBooking(selectedBooking);
-            refreshDataGrid();
+            if (selectedBooking == null)
+            {
+                MessageBox.Show("Please select a booking first!");
+            }
+            else
+            {
+                updateExistingBooking();
+                bookingController.CreatePaymentsForBooking(selectedBooking);
+                refreshDataGrid();
+            }
         }
         #endregion
     }
