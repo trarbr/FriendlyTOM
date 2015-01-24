@@ -77,6 +77,7 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _supplierEntity = dataAccessFacade.CreateSupplier(name, note, type);
             _paymentRules = new List<PaymentRule>();
+            _type = type;
             //Calls party class to put supplierentity as a party. 
             initializeParty(_supplierEntity);
 

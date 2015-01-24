@@ -56,12 +56,6 @@ namespace Domain.Model
             set { _faxNo = value; }
         }
         #endregion
-        private CustomerType _type;
-        private string _contactPerson;
-        private string _email;
-        private string _address;
-        private string _phoneNo;
-        private string _faxNo;
 
         #region Internal Methods
         internal Customer(ICustomer customerEntity, IDataAccessFacade dataAccessFacade)
@@ -86,6 +80,8 @@ namespace Domain.Model
             validateName(name);
             this.dataAccessFacade = dataAccessFacade;
             _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
+            _type = type;
+
             initializeParty(_customerEntity);
 
             Register register = Register.GetInstance();
@@ -131,6 +127,12 @@ namespace Domain.Model
         #endregion
 
         #region Private fields
+        private CustomerType _type;
+        private string _contactPerson;
+        private string _email;
+        private string _address;
+        private string _phoneNo;
+        private string _faxNo;
         internal ICustomer _customerEntity;
         private IDataAccessFacade dataAccessFacade;
         #endregion
