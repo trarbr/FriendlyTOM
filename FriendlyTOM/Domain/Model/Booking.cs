@@ -253,7 +253,10 @@ namespace Domain.Model
         {
             Subtotal = IVAExempt + IVASubject;
             IVA = IVASubject * 0.12m;
-            TransferAmount = Subtotal - (Subtotal * ProductRetention/100) + Service + IVA - (IVA * SupplierRetention/100);
+            var serviceAbs = Subtotal * Service / 100;
+            var productRetentionAbs = Subtotal * ProductRetention / 100;
+            var supplierRetentionAbs = IVA * SupplierRetention / 100;
+            TransferAmount = Subtotal + serviceAbs + IVA - productRetentionAbs - supplierRetentionAbs;
 
             Update();
         }

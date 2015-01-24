@@ -103,6 +103,49 @@ namespace UnitTestProject.AcceptanceTest
         }
 
         [TestMethod]
+        public void TestVFJan4()
+        {
+            // Test scenario: Viktors Farmor booking 4 for sale VF Jan with Tianguez
+            ICustomer viktorsFarmor = customerController.CreateCustomer("Viktors Farmor", "", CustomerType.Agency);
+            ISupplier tianguez = supplierController.CreateSupplier("Tianguez", "", SupplierType.Restaurant);
+
+            // PaymentRule to use for the booking
+            supplierController.AddPaymentRule(tianguez, viktorsFarmor, BookingType.Group, 100, -9,
+                BaseDate.StartDate, PaymentType.Full); 
+
+            IBooking booking = bookingController.CreateBooking(tianguez, viktorsFarmor, "VF Jan", 5,
+                new DateTime(2014, 01, 15), new DateTime(2014, 01, 15));
+            booking.Type = BookingType.Group;
+            booking.IVAExempt = 0m;
+            booking.IVASubject = 338m;
+            booking.Service = 10m;
+            booking.ProductRetention = 2m;
+            booking.SupplierRetention = 0m;
+
+            bookingController.CalculatePaymentsForBooking(booking);
+
+            // Check that TransferAmount and IVA match real world data
+            string expectedTransferAmount = "405.60";
+            string expectedIVA = "40.56";
+
+            Assert.AreEqual(expectedTransferAmount, booking.TransferAmount.ToString("N2", culture.NumberFormat));
+            Assert.AreEqual(expectedIVA, booking.IVA.ToString("N2", culture.NumberFormat));
+
+            // Check that correct number of payments was created
+            int expectedNumberOfPayments = 1;
+            List<IPayment> createdPayments = paymentController.ReadAllPayments();
+            Assert.AreEqual(expectedNumberOfPayments, createdPayments.Count);
+
+            // Check that Payment stats set by PaymentRules match real world data
+            IPayment payment = createdPayments[0];
+            string expectedDueAmount = "405.60";
+            DateTime expectedDueDate = new DateTime(2014, 01, 6);
+
+            Assert.AreEqual(expectedDueAmount, payment.DueAmount.ToString("N2", culture.NumberFormat));
+            Assert.AreEqual(expectedDueDate, payment.DueDate);
+        }
+
+        [TestMethod]
         public void TestSvaneRejserJosefsen3()
         {
             // Test scenario: Svane Rejser booking 3 for sale Svane Rejser Josefsen with NatureGalapagos

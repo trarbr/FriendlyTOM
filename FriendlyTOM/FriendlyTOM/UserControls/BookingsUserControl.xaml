@@ -92,9 +92,9 @@ limitations under the License.
                 <Label Content="Type:"/>
                 <Label Content="IVA Exempt:"/>
                 <Label Content="IVA Subject:"/>
-                <Label Content="Service:"/>
-                <Label Content="Product Retention:"/>
-                <Label Content="Supplier Retention:"/>
+                <Label Content="Service (%):"/>
+                <Label Content="Product Retention (%):"/>
+                <Label Content="Supplier Retention (%):"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="5,0,0,0">
                 <local:AutoCompleteTextBox x:Name="supplierTextBox" Height="26" Threshold="1" DelayTime="150"/>
