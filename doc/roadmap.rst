@@ -22,17 +22,20 @@ v0.1.1:
 
 - Fix whitespace in Customer/Supplier fields
 
-v0.1.2:
+v0.2.0:
 
 - Fix deletion bug. Currently, if a Supplier is deleted the program will crash
-  on next startup because the related payments and bookigns have not been 
+  on next startup because the related payments and bookings have not been 
   deleted.
-- Fix Supplier OwnerId. Should be two fields, CI and RUC, and all OwnerIds are
-  transferred to RUC.
 - Add a Search label to the filtering textbox above DataGrids.
 - Add a hint that shows required fields in GUI
 
-v0.2:
+v0.2.1:
+
+- Fix Supplier OwnerId. Should be two fields, CI and RUC, and all OwnerIds are
+  transferred to RUC.
+
+v0.3:
 
 - Remove all code-level references to Lonely Tree (also in the docs!)
 
@@ -45,7 +48,7 @@ v0.2:
    - Support attachments for all interesting entities (Customers, Suppliers)
    - Support easy backup of attachments
 
-v0.3:
+v0.4:
 
 - Database security: SSL/TLS for transit security and database encryption for
   security at rest.
