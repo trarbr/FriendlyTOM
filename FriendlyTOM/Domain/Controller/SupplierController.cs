@@ -70,7 +70,12 @@ namespace Domain.Controller
         {
             //Calls the suppliercollection class for delete
             // Also deletes all related payments and bookings
+            List<IPaymentRule> paymentRulesToDelete = new List<IPaymentRule>();
             foreach (var paymentRule in supplier.PaymentRules)
+            {
+                paymentRulesToDelete.Add(paymentRule);
+            }
+            foreach (var paymentRule in paymentRulesToDelete)
             {
                 DeletePaymentRule(paymentRule);
             }
