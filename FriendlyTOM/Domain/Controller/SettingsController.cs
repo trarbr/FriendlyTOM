@@ -115,15 +115,15 @@ namespace Domain.Controller
 
         public void BackupDatabase()
         {
-            //string date = DateTime.Today.ToShortDateString();
-            string backupName = String.Format("{0:yyyy-MM-dd_HHmmss}.bak", DateTime.Now);
+            string backupName = String.Format("{0:yyyy-MM-dd_HHmmss}-{1}.bak", DateTime.Now, 
+                version);
             string backupPath = Path.Combine(backupsFolder, backupName);
             dataAccessFacade.BackupDatabase(backupPath);
         }
 
-        public void RestoreDatabase(string timestamp)
+        public void RestoreDatabase(string backup)
         {
-            string backupName = timestamp + ".bak";
+            string backupName = backup + ".bak";
             string backupPath = Path.Combine(backupsFolder, backupName);
             dataAccessFacade.RestoreDatabase(backupPath);
         }
