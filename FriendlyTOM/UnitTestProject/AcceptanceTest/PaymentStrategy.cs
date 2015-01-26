@@ -79,6 +79,7 @@ namespace UnitTestProject.AcceptanceTest
             booking.ProductRetention = 2m;
             booking.SupplierRetention = 70m;
 
+            bookingController.UpdateBooking(booking);
             bookingController.CreatePaymentsForBooking(booking);
 
             // Check that TransferAmount and IVA match real world data
@@ -122,6 +123,7 @@ namespace UnitTestProject.AcceptanceTest
             booking.ProductRetention = 2m;
             booking.SupplierRetention = 0m;
 
+            bookingController.UpdateBooking(booking);
             bookingController.CreatePaymentsForBooking(booking);
 
             // Check that TransferAmount and IVA match real world data
@@ -172,6 +174,7 @@ namespace UnitTestProject.AcceptanceTest
             booking.ProductRetention = 0m;
             booking.SupplierRetention = 0m;
 
+            bookingController.UpdateBooking(booking);
             bookingController.CreatePaymentsForBooking(booking);
 
             // Check that TransferAmount and IVA match real world data
