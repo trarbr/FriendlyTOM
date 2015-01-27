@@ -48,6 +48,7 @@
     </ComponentGroup>
 
     <ComponentGroup Id="SqlScripts" Directory="SqlScripts">
+      <!-- Install scripts - only include the ones for the current version -->
       <Component Id="cmp_install_020_000.sql" Guid="{0835583B-EB97-4B71-901A-6EECBD4A21CC}">
         <File Id="fil_install_020_000.sql" KeyPath="yes" 
               Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-2-0_000.sql"/>
@@ -55,6 +56,15 @@
       <Component Id="cmp_install_020_001.sql" Guid="{575E9E70-8506-45E9-9C52-78E664725964}">
         <File Id="fil_install_020_001.sql" KeyPath="yes"
               Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-2-0_001.sql"/>
+      </Component>
+      <!-- Schema migration scripts - include all previous versions -->
+      <Component Id="cmp_migrate_011_000.sql" Guid="{FF5A0C66-EB5F-4D1C-AE67-EBBE86D176D4}">
+        <File Id="fil_migrate_011_000.sql" KeyPath="yes" 
+              Source="$(var.DataAccess.ProjectDir)\SqlScripts\migrate_0-1-1_000.sql"/>
+      </Component>
+      <Component Id="cmp_migrate_011_001.sql" Guid="{8A56677D-DFCB-4D5B-988B-144FC902111A}">
+        <File Id="fil_migrate_011_001.sql" KeyPath="yes" 
+              Source="$(var.DataAccess.ProjectDir)\SqlScripts\migrate_0-1-1_001.sql"/>
       </Component>
     </ComponentGroup>
 
