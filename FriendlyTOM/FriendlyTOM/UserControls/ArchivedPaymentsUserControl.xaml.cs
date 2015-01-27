@@ -95,12 +95,17 @@ namespace FriendlyTOM.UserControls
         {
             if (selectedPayment != null)
             {
-                foreach (IPayment payment in paymentsDataGrid.SelectedItems)
+                MessageBoxResult doDelete = MessageBox.Show("Delete selected payment(s)?", "Confirm deletion",
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (doDelete == MessageBoxResult.Yes)
                 {
-                    paymentController.DeletePayment(payment);
+                    foreach (IPayment payment in paymentsDataGrid.SelectedItems)
+                    {
+                        paymentController.DeletePayment(payment);
+                    }
+                    paymentsDataGrid.SelectedItem = null;
+                    RefreshPaymentDataGrid();
                 }
-                paymentsDataGrid.SelectedItem = null;
-                RefreshPaymentDataGrid();
             }
         }
 

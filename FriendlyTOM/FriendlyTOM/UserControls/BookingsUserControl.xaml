@@ -29,8 +29,11 @@ limitations under the License.
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap"
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Filter:"/>
+                <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap"
                  HorizontalAlignment="Left" Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
+        </StackPanel>
         <DataGrid x:Name="bookingsDataGrid" Grid.Row="1" Width="auto" Height="auto"
                   HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" AutoGenerateColumns="False"
@@ -76,6 +79,7 @@ limitations under the License.
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="0">
@@ -88,9 +92,9 @@ limitations under the License.
                 <Label Content="Type:"/>
                 <Label Content="IVA Exempt:"/>
                 <Label Content="IVA Subject:"/>
-                <Label Content="Service:"/>
-                <Label Content="Product Retention:"/>
-                <Label Content="Supplier Retention:"/>
+                <Label Content="Service (%):"/>
+                <Label Content="Product Retention (%):"/>
+                <Label Content="Supplier Retention (%):"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="5,0,0,0">
                 <local:AutoCompleteTextBox x:Name="supplierTextBox" Height="26" Threshold="1" DelayTime="150"/>
@@ -106,7 +110,15 @@ limitations under the License.
                 <TextBox x:Name="productRetentionTextBox" Height="26" TextWrapping="Wrap"/>
                 <TextBox x:Name="supplierRetentionTextBox" Height="26" TextWrapping="Wrap"/>
             </StackPanel>
-            <StackPanel Grid.Column="2" Margin="20,0,0,0">
+            <StackPanel Grid.Column="2">
+                <Label Content="*"/>
+                <Label Content="*"/>
+                <Label Content="*"/>
+                <Label Content=""/>
+                <Label Content="*"/>
+                <Label Content="*"/>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Margin="20,0,0,0">
                 <Label Content="Note:"/>
                 <TextBox x:Name="noteTextBox" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                     HorizontalScrollBarVisibility="Auto"/>
@@ -115,7 +127,7 @@ limitations under the License.
         <StackPanel x:Name="bottomButtonsGrid" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,15,0,0">
             <Button x:Name="saveButton" Width="75" Margin="5,0,0,5" ToolTip="Save changes" Click="saveButton_Click" 
                     ContentTemplate="{StaticResource SaveButton}"/>
-            <Button x:Name="calculatePayments" Margin="5,0,0,5" Click="calculatePayments_Click">
+            <Button x:Name="createPayments" Margin="5,0,0,5" Click="createPayments_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/calculator.png" Width="16"/>
                     <TextBlock VerticalAlignment="Center" Margin="2,0,0,0">Create payments</TextBlock>

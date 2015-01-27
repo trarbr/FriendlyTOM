@@ -96,7 +96,7 @@ namespace FriendlyTOM.UserControls
                     string name = nameTextBox.Text;
                     CustomerType type = (CustomerType)customerTypeComboBox.SelectedItem;
                     string note = noteTextBox.Text;
-                    ICustomer customer = customerController.CreateCustomer(type, note, name);
+                    ICustomer customer = customerController.CreateCustomer(name, note, type);
 
                     customer.ContactPerson = contactPersonTextBox.Text;
                     customer.Email = emailTextBox.Text;
@@ -175,12 +175,18 @@ namespace FriendlyTOM.UserControls
         {
             if (selectedCustomer != null)
             {
-                foreach (ICustomer customer in customersDataGrid.SelectedItems)
+                MessageBoxResult doDelete = MessageBox.Show(
+                    "Delete selected customer(s)? This will delete all bookings, payments and payment rules related to the customer(s)!", 
+                    "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (doDelete == MessageBoxResult.Yes)
                 {
-                    customerController.DeleteCustomer(customer);
+                    foreach (ICustomer customer in customersDataGrid.SelectedItems)
+                    {
+                        customerController.DeleteCustomer(customer);
+                    }
+                    customersDataGrid.SelectedItem = null;
+                    refreshDataGrid();
                 }
-                customersDataGrid.SelectedItem = null;
-                refreshDataGrid();
             }
         }
 

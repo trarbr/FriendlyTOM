@@ -55,7 +55,6 @@ namespace Domain.Model
                     dueDate = booking.EndDate.AddDays(paymentRule.DaysOffset);
                 }
 
-                booking.CalculateAmounts();
                 decimal dueAmount = booking.TransferAmount * paymentRule.Percentage / 100;
 
                 Customer lonelyTree = customerController.findLonelyTree();
@@ -78,10 +77,11 @@ namespace Domain.Model
                 Customer anyCustomer = customerController.findAnyCustomer();
                 paymentRulesForCustomer = findPaymentRulesForCustomer(suppliersPaymentRules, anyCustomer);
             }
+            // TODO: This is undocumented / unwanted behaviour!
             List<IPaymentRule> paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, bookingType);
             if (paymentRulesForBookingType.Count == 0)
             {
-                paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, BookingType.Undefined);
+                paymentRulesForBookingType = findPaymentRulesForBookingType(paymentRulesForCustomer, BookingType.Standard);
             }
 
             return paymentRulesForBookingType;

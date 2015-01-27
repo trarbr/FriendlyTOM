@@ -16,6 +16,7 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Interfaces;
 using DataAccess;
 using Domain.Collections;
@@ -26,24 +27,18 @@ namespace Domain.Controller
 {
     public class PaymentController
     {
-        #region Public Methods
-        public PaymentController()
-        {
-            dataAccessFacade = DataAccessFacade.GetInstance();
-
-            paymentCollection = new PaymentCollection(dataAccessFacade);
-        }
-
-        /// <summary>
-        /// For testing against a specified DataAccessFacade
-        /// </summary>
-        /// <param name="dataAccessFacade"></param>
-        public PaymentController(IDataAccessFacade dataAccessFacade)
+        #region Setup
+        internal PaymentController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
+        }
+        internal void Initialize()
+        {
             paymentCollection = new PaymentCollection(dataAccessFacade);
         }
+        #endregion
 
+        #region CRUD
         public IPayment CreatePayment(DateTime dueDate, decimal dueAmount, IParty payer, 
             IParty payee, PaymentType type, string sale, int booking)
         {
@@ -107,11 +102,19 @@ namespace Domain.Controller
             //Calls the paymentCollection class for delete
             paymentCollection.Delete((Payment)payment);
         }
+
+        internal void DeletePaymentForParty(AParty party)
+        {
+            var paymentsToDelete = ReadAllPayments()
+                .Where<IPayment>(p => p.Payee == party || p.Payer == party);
+            foreach (var payment in paymentsToDelete)
+            {
+                DeletePayment(payment);
+            }
+        }
         #endregion
 
-        #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private PaymentCollection paymentCollection;
-        #endregion
     }
 }

@@ -59,7 +59,7 @@ limitations under the License.
                                 RequestNavigate="hyperlink_RequestNavigate">
                                     Friendly TOM
                                 </Hyperlink>
-                                <Run FontSize="12">version 0.1.1</Run>
+                                <Run FontSize="12">version 0.2.0</Run>
                             </Paragraph> 
                             <Paragraph TextAlignment="Center">Your Friendly Tour Operations Manager</Paragraph>
                             <Paragraph TextAlignment="Center" FontSize="12">

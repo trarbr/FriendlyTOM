@@ -20,35 +20,27 @@ using Domain.Collections;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Controller
 {
     public class BookingController
     {
-        #region Public Constructor
-        public BookingController(PaymentController paymentController, CustomerController customerController)
-        {
-            dataAccessFacade = DataAccessFacade.GetInstance();
-            bookingCollection = new BookingCollection(dataAccessFacade);
-            this.paymentController = paymentController;
-            this.customerController = customerController;
-        }
-
-        /// <summary>
-        /// For testing against a specified DataAccessFacade
-        /// </summary>
-        /// <param name="dataAccessFacade"></param>
-        public BookingController(PaymentController paymentController, CustomerController customerController,
-            IDataAccessFacade dataAccessFacade)
+        #region Setup
+        internal BookingController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
-            bookingCollection = new BookingCollection(dataAccessFacade);
-            this.paymentController = paymentController;
+        }
+
+        internal void Initialize(CustomerController customerController, PaymentController paymentController)
+        {
             this.customerController = customerController;
+            this.paymentController = paymentController;
+            bookingCollection = new BookingCollection(dataAccessFacade);
         }
         #endregion
 
-        #region Public CRUD
+        #region CRUD
         public IBooking CreateBooking(ISupplier supplier, ICustomer customer, string sale, int bookingNumber,
             DateTime StartDate, DateTime EndDate)
         {
@@ -70,7 +62,8 @@ namespace Domain.Controller
 
         public void UpdateBooking(IBooking booking)
         {
-            //Calls Bookingcollection class for update
+            var bookingModel = (Booking)booking;
+            bookingModel.CalculateAmounts();
             bookingCollection.Update((Booking) booking);
         }
 
@@ -79,21 +72,29 @@ namespace Domain.Controller
             //Calls Bookingcollection class for delete
             bookingCollection.Delete((Booking) booking);
         }
+
+        internal void DeleteBookingsForParty(AParty party)
+        {
+            var bookingsToDelete = ReadAllBookings()
+                .Where<IBooking>(b => b.Supplier == party || b.Customer == party);
+            foreach (var booking in bookingsToDelete)
+            {
+                DeleteBooking(booking);
+            }
+        }
         #endregion
 
-        public void CalculatePaymentsForBooking(IBooking booking)
+        public void CreatePaymentsForBooking(IBooking booking)
         {
             Booking bookingModel = (Booking)booking;
-            bookingModel.CalculateAmounts();
             PaymentStrategy paymentStrategy = new PaymentStrategy(customerController);
             paymentStrategy.CreatePayments(bookingModel, paymentController);
         }
 
-        #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private BookingCollection bookingCollection;
         private PaymentController paymentController;
         private CustomerController customerController;
-        #endregion
+
     }
 }

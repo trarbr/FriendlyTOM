@@ -29,8 +29,11 @@ limitations under the License.
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap"
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Filter:"/>
+                <TextBox x:Name="searchTextBox" Grid.Row="0" Height="26" Width="200" TextWrapping="Wrap"
                  HorizontalAlignment="Left" Margin="0,0,0,2" TextChanged="searchTextBox_TextChanged"/>
+        </StackPanel>
         <DataGrid x:Name="suppliersDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
                   VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
                   AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
@@ -69,43 +72,41 @@ limitations under the License.
                 <TabItem x:Name="supplierTabControl" Header="Supplier">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition>
-                                
-                            </RowDefinition>
-                            <RowDefinition>
-                                
-                            </RowDefinition>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
+                        <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="0">
-                        <Label Content="Name:"/>
-                        <Label Content="SupplierType:"/>
-                        <Label Content="AccountNo:"/>
-                        <Label Content="AccountType:"/>
-                        <Label Content="AccountName:"/>
-                        <Label Content="OwnerId:"/>
-                        <Label Content="Bank:"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="5,0,0,0">
-                        <TextBox x:Name="nameTextBox" Height="26" TextWrapping="Wrap"/>
-                        <ComboBox x:Name="supplierTypeComboBox" Margin="0,2"/>
-                        <TextBox x:Name="accountNoTextBox" Height="26" TextWrapping="Wrap"/>
-                        <ComboBox x:Name="accountTypeComboBox" Margin="0,2"/>
-                        <TextBox x:Name="accountNameTextBox" Height="26" TextWrapping="Wrap"/>
-                        <TextBox x:Name="ownerIdTextBox" Height="26" TextWrapping="Wrap"/>
-                        <TextBox x:Name="bankTextBox" Height="26" TextWrapping="Wrap"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="2" Margin="20,0,0,0">
-                        <Label Content="Note:"/>
-                        <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
-                    HorizontalScrollBarVisibility="Auto"/>
-                    </StackPanel>
-                        </Grid>
+                            <Label Content="Name:"/>
+                            <Label Content="SupplierType:"/>
+                            <Label Content="AccountNo:"/>
+                            <Label Content="AccountType:"/>
+                            <Label Content="AccountName:"/>
+                            <Label Content="OwnerId:"/>
+                            <Label Content="Bank:"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                            <TextBox x:Name="nameTextBox" Height="26" TextWrapping="Wrap"/>
+                            <ComboBox x:Name="supplierTypeComboBox" Margin="0,2"/>
+                            <TextBox x:Name="accountNoTextBox" Height="26" TextWrapping="Wrap"/>
+                            <ComboBox x:Name="accountTypeComboBox" Margin="0,2"/>
+                            <TextBox x:Name="accountNameTextBox" Height="26" TextWrapping="Wrap"/>
+                            <TextBox x:Name="ownerIdTextBox" Height="26" TextWrapping="Wrap"/>
+                            <TextBox x:Name="bankTextBox" Height="26" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <Label Content="*"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Margin="20,0,0,0">
+                            <Label Content="Note:"/>
+                            <TextBox x:Name="noteTextBox" Height="125" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                                HorizontalScrollBarVisibility="Auto"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="paymentRuleTabControl" Header="PaymentRule">
@@ -116,46 +117,49 @@ limitations under the License.
                             <RowDefinition>
                             </RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Margin="0">
-                                <Label Content="Supplier:"/>
-                                <Label Content="Customer:"/>
-                                <Label Content="BookingType:"/>
-                                <Label Content="Percentage:"/>
-                                <Label Content="DaysOffset:"/>
-                                <Label Content="BaseDate:"/>
-                                <Label Content="PaymentType:"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Margin="5,0,0,0">
-                                <TextBox x:Name="supplierTextBox" Height="26" TextWrapping="Wrap" IsEnabled="False"/>
-                                <local:AutoCompleteTextBox Height="26" x:Name="customerTextBox" Threshold="1" DelayTime="150"/>
-                                <ComboBox x:Name="bookingTypeComboBox" Margin="0,2"/>
-                                <TextBox x:Name="percentageTextBox" Height="26" TextWrapping="Wrap"/>
-                                <TextBox x:Name="daysOffsetTextBox" Height="26" TextWrapping="Wrap"/>
-                                <ComboBox x:Name="baseDateComboBox" Margin="0,2"/>
-                                <ComboBox x:Name="paymentTypeComboBox" Margin="0,2"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="2" Margin="20,0,0,0">
-                                <DataGrid x:Name="paymentRuleDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
-                                      VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
-                                      AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
-                                      BorderBrush="#FFC6C6C9" SelectionChanged="paymentRuleDataGrid_SelectionChanged" >
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding  Customer.Name}"/>
-                                        <DataGridTextColumn Header = "BookingType" Width="*" Binding="{Binding BookingType}"/>
-                                        <DataGridTextColumn Header = "Percentage" Width="*" Binding="{Binding Percentage, StringFormat=N2}"/>
-                                        <DataGridTextColumn Header = "DaysOffSet" Width="*" Binding="{Binding DaysOffset}"/>
-                                        <DataGridTextColumn Header = "BaseDate" Width="*" Binding="{Binding BaseDate}"/>
-                                        <DataGridTextColumn Header = "PaymentType" Width="*" Binding="{Binding PaymentType}"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </StackPanel>
-                        </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0">
+                            <Label Content="Supplier:"/>
+                            <Label Content="Customer:"/>
+                            <Label Content="BookingType:"/>
+                            <Label Content="Percentage:"/>
+                            <Label Content="DaysOffset:"/>
+                            <Label Content="BaseDate:"/>
+                            <Label Content="PaymentType:"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                            <TextBox x:Name="supplierTextBox" Height="26" TextWrapping="Wrap" IsEnabled="False"/>
+                            <local:AutoCompleteTextBox Height="26" x:Name="customerTextBox" Threshold="1" DelayTime="150"/>
+                            <ComboBox x:Name="bookingTypeComboBox" Margin="0,2"/>
+                            <TextBox x:Name="percentageTextBox" Height="26" TextWrapping="Wrap"/>
+                            <TextBox x:Name="daysOffsetTextBox" Height="26" TextWrapping="Wrap"/>
+                            <ComboBox x:Name="baseDateComboBox" Margin="0,2"/>
+                            <ComboBox x:Name="paymentTypeComboBox" Margin="0,2"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <Label Content="*"/>
+                            <Label Content="*"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Margin="20,0,0,0">
+                            <DataGrid x:Name="paymentRuleDataGrid" Grid.Row="1" Width="auto" Height="auto" HorizontalContentAlignment="Stretch" 
+                                  VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" RowHeaderWidth="0" 
+                                  AutoGenerateColumns="False" IsReadOnly="True" Background="White" Margin="0"
+                                  BorderBrush="#FFC6C6C9" SelectionChanged="paymentRuleDataGrid_SelectionChanged" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header = "Customer" Width="*" Binding="{Binding  Customer.Name}"/>
+                                    <DataGridTextColumn Header = "BookingType" Width="*" Binding="{Binding BookingType}"/>
+                                    <DataGridTextColumn Header = "Percentage" Width="*" Binding="{Binding Percentage, StringFormat=N2}"/>
+                                    <DataGridTextColumn Header = "DaysOffSet" Width="*" Binding="{Binding DaysOffset}"/>
+                                    <DataGridTextColumn Header = "BaseDate" Width="*" Binding="{Binding BaseDate}"/>
+                                    <DataGridTextColumn Header = "PaymentType" Width="*" Binding="{Binding PaymentType}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
             </TabControl>

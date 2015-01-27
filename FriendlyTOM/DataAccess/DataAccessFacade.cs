@@ -57,14 +57,16 @@ namespace DataAccess
             //Creates a new instance of the mappers with the connection information
         }
 
-        public static IDataAccessFacade GetInstance()
+        public static IDataAccessFacade Instance
         {
-            if (instance == null)
+            get
             {
-                return instance = new DataAccessFacade();   
+                if (instance == null)
+                {
+                    instance = new DataAccessFacade();   
+                }
+                return instance;
             }
-
-            return instance;
         }
         #endregion
 
@@ -178,10 +180,6 @@ namespace DataAccess
         {
             //Calls update for a specific supplier.
             supplierMapper.Update((SupplierEntity)supplier);
-            foreach (IPaymentRule paymentRule in supplier.PaymentRules)
-            {
-                paymentRuleMapper.Update((PaymentRuleEntity)paymentRule);
-            }
         }
 
         public void DeleteSupplier(ISupplier supplier)
@@ -213,7 +211,7 @@ namespace DataAccess
            return customers;
         }
 
-        public void UpdateCustomers(ICustomer customer)
+        public void UpdateCustomer(ICustomer customer)
         {
             //Calls update for a specific customer.
            customerMapper.Update((CustomerEntity) customer);

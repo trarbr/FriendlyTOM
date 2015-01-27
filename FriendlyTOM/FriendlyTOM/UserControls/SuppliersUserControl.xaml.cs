@@ -131,24 +131,35 @@ namespace FriendlyTOM.UserControls
             {
                 if (selectedSupplier != null)
                 {
-                    foreach (ISupplier supplier in suppliersDataGrid.SelectedItems)
+                    MessageBoxResult doDelete = MessageBox.Show(
+                        "Delete selected suppliers(s)? This will delete all bookings, payments and payment rules related to the supplier(s)!", 
+                        "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (doDelete == MessageBoxResult.Yes)
                     {
-                        supplierController.DeleteSupplier(supplier);
+                        foreach (ISupplier supplier in suppliersDataGrid.SelectedItems)
+                        {
+                            supplierController.DeleteSupplier(supplier);
+                        }
+                        suppliersDataGrid.SelectedItem = null;
+                        refreshSupplierDataGrid();
                     }
-                    suppliersDataGrid.SelectedItem = null;
-                    refreshSupplierDataGrid();
                 }
             }
             else if (paymentRuleTabControl.IsSelected)
             {
                 if (selectedPaymentRule != null)
                 {
-                    foreach (IPaymentRule paymentRule in paymentRuleDataGrid.SelectedItems)
+                    MessageBoxResult doDelete = MessageBox.Show("Delete selected payment rules(s)?", 
+                        "Confirm deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (doDelete == MessageBoxResult.Yes)
                     {
-                        supplierController.DeletePaymentRule(paymentRule);
+                        foreach (IPaymentRule paymentRule in paymentRuleDataGrid.SelectedItems)
+                        {
+                            supplierController.DeletePaymentRule(paymentRule);
+                        }
+                        paymentRuleDataGrid.SelectedItem = null;
+                        refreshPaymentRuleDataGrid();
                     }
-                    paymentRuleDataGrid.SelectedItem = null;
-                    refreshPaymentRuleDataGrid();
                 }
             }
         }

@@ -27,33 +27,33 @@ namespace Domain.Model
         #region Public Properties
         public CustomerType Type
         {
-            get { return _customerEntity.Type; }
-            set { _customerEntity.Type = value; }
+            get { return _type; }
+            set { _type = value; }
         }
         public string ContactPerson
         {
-            get { return _customerEntity.ContactPerson; }
-            set { _customerEntity.ContactPerson = value; }
+            get { return _contactPerson; }
+            set { _contactPerson = value; }
         }
         public string Email
         {
-            get { return _customerEntity.Email; }
-            set { _customerEntity.Email = value; }
+            get { return _email; }
+            set { _email = value; }
         }
         public string Address
         {
-            get { return _customerEntity.Address; }
-            set { _customerEntity.Address = value; }
+            get { return _address; }
+            set { _address = value; }
         }
         public string PhoneNo
         {
-            get { return _customerEntity.PhoneNo; }
-            set { _customerEntity.PhoneNo = value; }
+            get { return _phoneNo; }
+            set { _phoneNo = value; }
         }
         public string FaxNo
         {
-            get { return _customerEntity.FaxNo; }
-            set { _customerEntity.FaxNo = value; }
+            get { return _faxNo; }
+            set { _faxNo = value; }
         }
         #endregion
 
@@ -62,17 +62,26 @@ namespace Domain.Model
         {
             this.dataAccessFacade = dataAccessFacade;
             _customerEntity = customerEntity;
+            _type = customerEntity.Type;
+            _contactPerson = customerEntity.ContactPerson;
+            _email = customerEntity.Email;
+            _address = customerEntity.Address;
+            _phoneNo = customerEntity.PhoneNo;
+            _faxNo = customerEntity.FaxNo;
+
             initializeParty(_customerEntity);
 
             Register register = Register.GetInstance();
             register.RegisterCustomer(_customerEntity, this);
         }
 
-        internal Customer(CustomerType type, string note, string name, IDataAccessFacade dataAccessFacade)
+        internal Customer(string name, string note, CustomerType type, IDataAccessFacade dataAccessFacade)
         {
             validateName(name);
             this.dataAccessFacade = dataAccessFacade;
             _customerEntity = dataAccessFacade.CreateCustomer(type, note, name);
+            _type = type;
+
             initializeParty(_customerEntity);
 
             Register register = Register.GetInstance();
@@ -98,7 +107,16 @@ namespace Domain.Model
         //Gets a new LastModified date to now. 
         internal void Update()
         {
-            dataAccessFacade.UpdateCustomers(_customerEntity);
+            _customerEntity.Name = _name;
+            _customerEntity.Note = _note;
+            _customerEntity.Type = _type;
+            _customerEntity.ContactPerson = _contactPerson;
+            _customerEntity.Email = _email;
+            _customerEntity.Address = _address;
+            _customerEntity.PhoneNo = _phoneNo;
+            _customerEntity.FaxNo = _faxNo;
+
+            dataAccessFacade.UpdateCustomer(_customerEntity);
         }
 
         //Calls for removing an object in a list of customers.
@@ -109,6 +127,12 @@ namespace Domain.Model
         #endregion
 
         #region Private fields
+        private CustomerType _type;
+        private string _contactPerson;
+        private string _email;
+        private string _address;
+        private string _phoneNo;
+        private string _faxNo;
         internal ICustomer _customerEntity;
         private IDataAccessFacade dataAccessFacade;
         #endregion

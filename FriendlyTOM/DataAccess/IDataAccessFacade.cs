@@ -46,7 +46,7 @@ namespace DataAccess
         #region Customer
         ICustomer CreateCustomer(CustomerType type, string note, string name);
         List<ICustomer> ReadAllCustomers();
-        void UpdateCustomers(ICustomer customer);
+        void UpdateCustomer(ICustomer customer);
         void DeleteCustomer(ICustomer customer);
         #endregion
 

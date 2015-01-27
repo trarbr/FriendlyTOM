@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 using System.Collections.Generic;
+using System.Linq;
 using Common.Enums;
 using Common.Interfaces;
 using DataAccess;
@@ -25,37 +26,31 @@ namespace Domain.Controller
 {
     public class CustomerController
     {
-        #region Public Methods
-        public CustomerController()
-        {
-            dataAccessFacade = DataAccessFacade.GetInstance();
-            customerCollection = new CustomerCollection(dataAccessFacade);
-        }
-
-        /// <summary>
-        /// For testing against a specified DataAccessFacade
-        /// </summary>
-        /// <param name="dataAccessFacade"></param>
-        public CustomerController(IDataAccessFacade dataAccessFacade)
+        #region Setup
+        internal CustomerController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
-            customerCollection = new CustomerCollection(dataAccessFacade);
         }
 
-        public ICustomer CreateCustomer(CustomerType type, string note, string name)
+        internal void Initialize(BookingController bookingController, PaymentController paymentController,
+            SupplierController supplierController)
         {
-            //Calls custommercollection class for Create
-            return customerCollection.Create(type, note, name);
+            this.bookingController = bookingController;
+            this.paymentController = paymentController;
+            this.supplierController = supplierController;
+            customerCollection = new CustomerCollection(dataAccessFacade);
+        }
+        #endregion
+
+        #region CRUD
+        public ICustomer CreateCustomer(string name, string note, CustomerType type)
+        {
+            return customerCollection.Create(name, note, type);
         }
 
         public List<ICustomer> ReadAllCustomers()
         {
-            //Calls custommercollection class for readAll
-            List<ICustomer> customers = new List<ICustomer>();
-            foreach (Customer customer in customerCollection.ReadAll())
-            {
-                customers.Add(customer);
-            }
+            var customers = customerCollection.ReadAll().Cast<ICustomer>().ToList();
             return customers;
         }
         
@@ -68,43 +63,30 @@ namespace Domain.Controller
         public void DeleteCustomer(ICustomer customer)
         {
             //Calls custommercollection class for delete
+            // Also deletes all related payments and bookings
             customerCollection.Delete((Customer) customer);
+            bookingController.DeleteBookingsForParty((AParty)customer);
+            paymentController.DeletePaymentForParty((AParty)customer);
+            supplierController.DeletePaymentRulesForCustomer(customer);
         }
         #endregion
 
         internal Customer findLonelyTree()
         {
-            Customer lonelyTree = null;
-            foreach (Customer customer in customerCollection.ReadAll())
-            {
-                if (customer.Name == "Lonely Tree")
-                {
-                    lonelyTree = customer;
-                    break;
-                }
-            }
-
+            var lonelyTree = customerCollection.ReadAll().FirstOrDefault(c => c.Name == "Lonely Tree");
             return lonelyTree;
         }
 
         internal Customer findAnyCustomer()
         {
-            Customer anyCustomer = null;
-            foreach (Customer customer in customerCollection.ReadAll())
-            {
-                if (customer.Name == "Any")
-                {
-                    anyCustomer = customer;
-                    break;
-                }
-            }
-
-            return anyCustomer;
+            var any = customerCollection.ReadAll().FirstOrDefault(c => c.Name == "Any");
+            return any;
         }
 
-        #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private CustomerCollection customerCollection;
-        #endregion
+        private BookingController bookingController;
+        private PaymentController paymentController;
+        private SupplierController supplierController;
     }
 }

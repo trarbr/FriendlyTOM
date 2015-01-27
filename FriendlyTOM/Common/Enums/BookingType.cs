@@ -24,6 +24,6 @@ namespace Common.Enums
 {
     public enum BookingType
     {
-        Undefined, Standard, FIT, Group, Charter
+        Charter, FIT, Group, Standard
     }
 }

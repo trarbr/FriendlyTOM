@@ -27,4 +27,4 @@ Developer documentation:
     :maxdepth: 2
 
     roadmap
-    changelog
+    ideas

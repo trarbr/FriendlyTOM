@@ -29,21 +29,17 @@ namespace Domain.Controller
 {
     public class SettingsController
     {
-        private IDataAccessFacade dataAccessFacade;
-        private string backupsFolder;
-        private string friendlyTOMFolder;
-        private readonly Version version = Version.Parse("0.1.1");
-
-        public SettingsController()
+        #region Setup
+        internal SettingsController(IDataAccessFacade dataAccessFacade)
         {
-            this.dataAccessFacade = DataAccessFacade.GetInstance();
+            this.dataAccessFacade = dataAccessFacade;
 
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             friendlyTOMFolder = Path.Combine(myDocuments, "FriendlyTOM");
             backupsFolder = Path.Combine(friendlyTOMFolder, "Backups");
         }
 
-        public void FirstRunSetup()
+        internal void FirstRunSetup()
         {
             ensureFolderExists(friendlyTOMFolder);
             ensureFolderExists(backupsFolder);
@@ -54,27 +50,15 @@ namespace Domain.Controller
             setupDatabase();
         }
 
-        private void setupDatabase()
+        private string ensureFolderExists(string folderName)
         {
-            dataAccessFacade.SetupDatabase(version);
-            dataAccessFacade.InitializeDatabase();
-        }
+            if (!Directory.Exists(folderName))
+            {
+                Directory.CreateDirectory(folderName);
+            }
 
-        public void BackupDatabase()
-        {
-            //string date = DateTime.Today.ToShortDateString();
-            string backupName = String.Format("{0:yyyy-MM-dd_HHmmss}.bak", DateTime.Now);
-            string backupPath = Path.Combine(backupsFolder, backupName);
-            dataAccessFacade.BackupDatabase(backupPath);
+            return folderName;
         }
-
-        public void RestoreDatabase(string timestamp)
-        {
-            string backupName = timestamp + ".bak";
-            string backupPath = Path.Combine(backupsFolder, backupName);
-            dataAccessFacade.RestoreDatabase(backupPath);
-        }
-
         private void ensureSqlBackupPermissions(string backupsFolder)
         {
             bool sqlUserHasPermission = false;
@@ -122,15 +106,26 @@ namespace Domain.Controller
                 dirInfo.SetAccessControl(dirSec);
             }
         }
-
-        private string ensureFolderExists(string folderName)
+        private void setupDatabase()
         {
-            if (!Directory.Exists(folderName))
-            {
-                Directory.CreateDirectory(folderName);
-            }
+            dataAccessFacade.SetupDatabase(version);
+            dataAccessFacade.InitializeDatabase();
+        }
+        #endregion
 
-            return folderName;
+        public void BackupDatabase()
+        {
+            string backupName = String.Format("{0:yyyy-MM-dd_HHmmss}-{1}.bak", DateTime.Now, 
+                version);
+            string backupPath = Path.Combine(backupsFolder, backupName);
+            dataAccessFacade.BackupDatabase(backupPath);
+        }
+
+        public void RestoreDatabase(string backup)
+        {
+            string backupName = backup + ".bak";
+            string backupPath = Path.Combine(backupsFolder, backupName);
+            dataAccessFacade.RestoreDatabase(backupPath);
         }
 
         public List<string> GetListOfBackups()
@@ -152,5 +147,10 @@ namespace Domain.Controller
 
             return backups;
         }
+
+        private IDataAccessFacade dataAccessFacade;
+        private string backupsFolder;
+        private string friendlyTOMFolder;
+        private readonly Version version = Version.Parse("0.2.0");
     }
 }

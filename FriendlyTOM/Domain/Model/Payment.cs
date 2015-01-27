@@ -34,7 +34,6 @@ namespace Domain.Model
             {
                 validateParty(value);
                 _payee = (AParty)value;
-                _paymentEntity.Payee = _payee._partyEntity;
             }
         }
         public IParty Payer
@@ -44,80 +43,80 @@ namespace Domain.Model
             {
                 validateParty(value);
                 _payer = (AParty)value;
-                _paymentEntity.Payer = _payer._partyEntity; 
             }
         }
         public string Note
         {
-            get { return _paymentEntity.Note; }
-            set { _paymentEntity.Note = value; }
+            get { return _note; }
+            set { _note = value; }
         }
         public DateTime DueDate
         {
-            get { return _paymentEntity.DueDate; }
-            set { _paymentEntity.DueDate = value; }
+            get { return _dueDate; }
+            set { _dueDate = value; }
         }
         public decimal DueAmount
         {
-            get { return _paymentEntity.DueAmount; }
+            get { return _dueAmount; }
             set
             {
                 validateDueAmount(value);
-                _paymentEntity.DueAmount = value;
+                _dueAmount = value;
             }
         }
         public DateTime PaidDate
         {
-            get { return _paymentEntity.PaidDate; }
-            set { _paymentEntity.PaidDate = value; }
+            get { return _paidDate; }
+            set { _paidDate = value; }
         }
         public decimal PaidAmount
         {
-            get { return _paymentEntity.PaidAmount; }
+            get { return _paidAmount; }
             set
             {
                 validatePaidAmount(value);
-                _paymentEntity.PaidAmount = value;
+                _paidAmount = value;
             }
         }
         public bool Archived
         {
-            get { return _paymentEntity.Archived; }
-            set { _paymentEntity.Archived = value; }
+            get { return _archived; }
+            set { _archived = value; }
         }
         public bool Paid
         {
-            get { return _paymentEntity.Paid; }
-            set { _paymentEntity.Paid = value; }
+            get { return _paid; }
+            set { _paid = value; }
         }
         public PaymentType Type
         {
-            get { return _paymentEntity.Type; }
-            set { _paymentEntity.Type = value; }
+            get { return _type; }
+            set { _type = value; }
         }
         public string Sale
         {
-            get { return _paymentEntity.Sale; }
+            get { return _sale; }
             set
             {
                 validateSale(value);
-                _paymentEntity.Sale = value;
+                _sale = value;
             }
         }
         public int Booking
         {
-            get { return _paymentEntity.Booking; }
-            set { _paymentEntity.Booking = value; }
+            get { return _booking; }
+            set { _booking = value; }
         }
         public string Invoice
         {
-            get { return _paymentEntity.Invoice; }
-            set { _paymentEntity.Invoice = value; }
+            get { return _invoice; }
+            set { _invoice = value; }
         }
         public IReadOnlyList<string> Attachments
         {
             get { return _paymentEntity.Attachments; }
         }
+
 
         //Deletes one attachment with the filepath as a parameter. accesses DeleteAttachment through
         //the specific paymentEntity, saved in the specific payment.
@@ -146,6 +145,17 @@ namespace Domain.Model
             validateParty(payee);
             validateSale(sale);
 
+            _dueDate = dueDate;
+            _dueAmount = dueAmount;
+            _payer = (AParty)payer;
+            _payee = (AParty)payee;
+            _type = type;
+            _sale = sale;
+            _booking = booking;
+            _paidDate = new DateTime(1900, 1, 1);
+            _note = "";
+            _invoice = "";
+
             // Get entities for DataAccess
             IParty payerEntity = ((AParty)payer)._partyEntity;
             IParty payeeEntity = ((AParty)payee)._partyEntity;
@@ -153,9 +163,6 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _paymentEntity = dataAccessFacade.CreatePayment(dueDate, dueAmount, payerEntity,
                 payeeEntity, type, sale, booking);
-
-            Payer = payer;
-            Payee = payee;
         }
 
         internal Payment(IPayment paymentEntity, IDataAccessFacade dataAccessFacade)
@@ -176,14 +183,38 @@ namespace Domain.Model
                 _payer = register.GetCustomer((ICustomer)_paymentEntity.Payer);
                 _payee = register.GetSupplier((ISupplier)_paymentEntity.Payee);
             }
-
+            _note = _paymentEntity.Note;
+            _dueDate = _paymentEntity.DueDate;
+            _dueAmount = _paymentEntity.DueAmount;
+            _paidDate = _paymentEntity.PaidDate;
+            _paidAmount = _paymentEntity.PaidAmount;
+            _archived = _paymentEntity.Archived;
+            _paid = _paymentEntity.Paid;
+            _type = _paymentEntity.Type;
+            _sale = _paymentEntity.Sale;
+            _booking = _paymentEntity.Booking;
+            _invoice = _paymentEntity.Invoice;
         }
-#endregion
+        #endregion
 
         #region Internal CRUD
         //updates _paymentEntity through dataAccesFacade
         internal void Update()
         {
+            _paymentEntity.Payee = _payee._partyEntity;
+            _paymentEntity.Payer = _payer._partyEntity;
+            _paymentEntity.Note = _note;
+            _paymentEntity.DueDate = _dueDate;
+            _paymentEntity.DueAmount = _dueAmount;
+            _paymentEntity.PaidDate = _paidDate;
+            _paymentEntity.PaidAmount = _paidAmount;
+            _paymentEntity.Archived = _archived;
+            _paymentEntity.Paid = _paid;
+            _paymentEntity.Type = _type;
+            _paymentEntity.Sale = _sale;
+            _paymentEntity.Booking = _booking;
+            _paymentEntity.Invoice = _invoice;
+
             dataAccessFacade.UpdatePayment(_paymentEntity);
         }
 
@@ -274,6 +305,17 @@ namespace Domain.Model
         private IDataAccessFacade dataAccessFacade;
         private AParty _payee;
         private AParty _payer;
+        private string _note;
+        private DateTime _dueDate;
+        private decimal _dueAmount;
+        private DateTime _paidDate;
+        private decimal _paidAmount;
+        private bool _archived;
+        private bool _paid;
+        private PaymentType _type;
+        private string _sale;
+        private int _booking;
+        private string _invoice;
         #endregion
     }
 }

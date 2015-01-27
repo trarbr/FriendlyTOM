@@ -44,7 +44,7 @@ namespace UnitTestProject
             dataAccessFacadeStub = new DataAccessFacadeStub();
             validDueDate = new DateTime(2010, 10, 10);
             validDueAmount = 1m;
-            validPayer = new Customer(CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
+            validPayer = new Customer("Lonely Tree", "", CustomerType.Agency, dataAccessFacadeStub);
             validPayee = new Supplier("Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
             validType = PaymentType.Balance;
             validSale = "VF Jan";
@@ -70,8 +70,7 @@ namespace UnitTestProject
         {
             Supplier payee = new Supplier(
                 "Galasam", "", SupplierType.Cruise, dataAccessFacadeStub);
-            Customer payer = new Customer(
-                CustomerType.Bureau, "", "Lonely Tree", dataAccessFacadeStub);
+            Customer payer = new Customer("Lonely Tree", "", CustomerType.Agency, dataAccessFacadeStub);
             IParty payeeEntity = payee._supplierEntity;
             IParty payerEntity = payer._customerEntity;
 
@@ -315,12 +314,16 @@ namespace UnitTestProject
             ISupplier commissioner4 = new Supplier("4", "Timoto", SupplierType.Cruise, dataAccessFacadeStub);
             Payment payment1 = createValidPayment();
             payment1.Payee = commissioner1;
+            payment1.Update();
             Payment payment2 = createValidPayment();
             payment2.Payee = commissioner2;
+            payment2.Update();
             Payment payment3 = createValidPayment();
             payment3.Payee = commissioner3;
+            payment3.Update();
             Payment payment4 = createValidPayment();
             payment4.Payee = commissioner4;
+            payment4.Update();
 
             List<Payment> actualPayments = Payment.ReadAll(dataAccessFacadeStub);
 

@@ -20,30 +20,29 @@ using DataAccess;
 using Domain.Collections;
 using Domain.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Controller
 {
     public class SupplierController
     {
-       #region Public Methods
-        public SupplierController()
-        {
-            dataAccessFacade = DataAccessFacade.GetInstance();
-            supplierCollection = new SupplierCollection(dataAccessFacade);
-        }
-
-        /// <summary>
-        /// For testing against a specified DataAccessFacade
-        /// </summary>
-        /// <param name="dataAccessFacade"></param>
-        public SupplierController(IDataAccessFacade dataAccessFacade)
+        #region Setup
+        internal SupplierController(IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
-            supplierCollection = new SupplierCollection(dataAccessFacade);
         }
 
-        public ISupplier CreateSupplier(string name, string note,
-            SupplierType type)
+        internal void Initialize(BookingController bookingController, 
+            PaymentController paymentController)
+        {
+            supplierCollection = new SupplierCollection(dataAccessFacade);
+            this.bookingController = bookingController;
+            this.paymentController = paymentController;
+        }
+        #endregion
+
+        #region CRUD
+        public ISupplier CreateSupplier(string name, string note, SupplierType type)
         {
             //Calls the suppliercollection class for create.
             return supplierCollection.Create(name, note, type);
@@ -70,7 +69,19 @@ namespace Domain.Controller
         public void DeleteSupplier(ISupplier supplier)
         {
             //Calls the suppliercollection class for delete
+            // Also deletes all related payments and bookings
+            List<IPaymentRule> paymentRulesToDelete = new List<IPaymentRule>();
+            foreach (var paymentRule in supplier.PaymentRules)
+            {
+                paymentRulesToDelete.Add(paymentRule);
+            }
+            foreach (var paymentRule in paymentRulesToDelete)
+            {
+                DeletePaymentRule(paymentRule);
+            }
             supplierCollection.Delete((Supplier) supplier);
+            bookingController.DeleteBookingsForParty((AParty)supplier);
+            paymentController.DeletePaymentForParty((AParty)supplier);
         }
 
         public void AddPaymentRule(ISupplier supplier, ICustomer customer, BookingType bookingType, decimal percentage,
@@ -89,11 +100,30 @@ namespace Domain.Controller
 
             supp.DeletePaymentRule(payRule);
         }
+        internal void DeletePaymentRulesForCustomer(ICustomer customer)
+        {
+            var paymentRulesForCustomer = new List<IPaymentRule>();
+            foreach (var supplier in ReadAllSuppliers())
+            {
+                foreach (var paymentRule in supplier.PaymentRules)
+                {
+                    if (paymentRule.Customer == customer)
+                    {
+                        paymentRulesForCustomer.Add(paymentRule);
+                    }
+                }
+            }
+            foreach (var paymentRule in paymentRulesForCustomer)
+            {
+                DeletePaymentRule(paymentRule);
+            }
+        }
         #endregion
 
-       #region Private Properties
         private IDataAccessFacade dataAccessFacade;
         private SupplierCollection supplierCollection;
-        #endregion
+        private BookingController bookingController;
+        private PaymentController paymentController;
+
     }
 }

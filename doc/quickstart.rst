@@ -6,7 +6,7 @@
 .. |PaymentRules| replace:: :guilabel:`Payment Rules`
 .. |Bookings| replace:: |Booking-icon| :guilabel:`Bookings`
 .. |CreatePayments| replace:: |CreatePayment-icon| :guilabel:`Create payments`
-.. |Accounting| replace:: |Accounting-icon| :guilabel:`Accounting`
+.. |Payments| replace:: |Payments-icon| :guilabel:`Payments`
 .. |Outgoing| replace:: |Outgoing-icon| :guilabel:`Outgoing`
 .. |Archive| replace:: |Archive-icon| :guilabel:`Archive`
 
@@ -17,10 +17,11 @@
 .. |Supplier-icon| image:: images/icons/supplier.png
 .. |Booking-icon| image:: images/icons/booking.png
 .. |CreatePayment-icon| image:: images/icons/createpayments.png
-.. |Accounting-icon| image:: images/icons/accounting.png
+.. |Payments-icon| image:: images/icons/payments.png
 .. |Outgoing-icon| image:: images/icons/outgoing.png
 .. |Archive-icon| image:: images/icons/archive.png
 
+.. _quickstart:
 
 Quickstart
 ==========
@@ -51,10 +52,13 @@ represent two special customers: ``Lonely Tree`` is your own company and
 ``Any`` will be used to represent any customer - we'll get back to that later.
 
 You can add your own customer by entering the name of the customer and 
-selecting an appropriate customer type. Let's add the bureau 
+selecting an appropriate customer type. Let's add the agency 
 called ``Awesome Travels``:
 
 .. image:: images/addawesometravels.png
+
+Note that required fields are marked with an asterisk, like :guilabel:`Name` in
+the above picture.
 
 Now click |Save| to add the customer:
 
@@ -127,10 +131,11 @@ list on the right:
 
 .. note::
 
-    IF you want to make a payment rule for a supplier that is valid for any
+    If you want to make a payment rule for a supplier that is valid for any
     customer, you should select the ``Any`` customer - makes sense, right? If
-    payment rules exists for a specific customer, these will be used instead of 
-    those defined for ``Any``.
+    payment rules exist for a specific customer, these will override those
+    those defined for ``Any`` when creating payments for that specific
+    customer.
 
 Now that you have defined a payment rule, you can go ahead and place a booking!
 
@@ -167,7 +172,7 @@ seems like nothing happened, but don't be fooled!
 Checking Payments
 -----------------
 
-Click the |Accounting| tab in the left-hand pane. This screen shows you all
+Click the |Payments| tab in the left-hand pane. This screen shows you all
 incoming payments. Then click the |Outgoing| tab in the top center and you'll
 see your outgoing payments. It should look like this:
 

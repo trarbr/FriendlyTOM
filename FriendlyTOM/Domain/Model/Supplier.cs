@@ -27,45 +27,44 @@ namespace Domain.Model
         #region Public Properties
         public SupplierType Type
         {
-            get { return _supplierEntity.Type; }
-            set { _supplierEntity.Type = value; }
+            get { return _type; }
+            set { _type = value; }
         }
 
         public string AccountNo
         {
-            get { return _supplierEntity.AccountNo; }
-            set { _supplierEntity.AccountNo = value; }
+            get { return _accountNo; }
+            set { _accountNo = value; }
         }
 
         public AccountType AccountType
         {
-            get { return _supplierEntity.AccountType; }
-            set { _supplierEntity.AccountType = value; }
+            get { return _accountType; }
+            set { _accountType = value; }
         }
 
         public string AccountName
         {
-            get { return _supplierEntity.AccountName; }
-            set { _supplierEntity.AccountName = value; }
+            get { return _accountName; }
+            set { _accountName = value; }
         }
 
         public string OwnerId
         {
-            get { return _supplierEntity.OwnerId; }
-            set { _supplierEntity.OwnerId = value; }
+            get { return _ownerId; }
+            set { _ownerId = value; }
         }
 
         public string Bank
         {
-            get { return _supplierEntity.Bank; }
-            set { _supplierEntity.Bank = value; }
+            get { return _bank; }
+            set { _bank = value; }
         }
 
         public IReadOnlyList<IPaymentRule> PaymentRules
         {
             get { return _paymentRules; }
         }
-
         #endregion
 
         internal ISupplier _supplierEntity;
@@ -77,6 +76,8 @@ namespace Domain.Model
             validateName(name);
             this.dataAccessFacade = dataAccessFacade;
             _supplierEntity = dataAccessFacade.CreateSupplier(name, note, type);
+            _paymentRules = new List<PaymentRule>();
+            _type = type;
             //Calls party class to put supplierentity as a party. 
             initializeParty(_supplierEntity);
 
@@ -84,16 +85,28 @@ namespace Domain.Model
             register.RegisterSupplier(_supplierEntity, this);
         }
 
-        internal Supplier(IDataAccessFacade dataAccessFacade, ISupplier supplierEntity)
+        internal Supplier(ISupplier supplierEntity, IDataAccessFacade dataAccessFacade)
         {
             this.dataAccessFacade = dataAccessFacade;
             _supplierEntity = supplierEntity;
-            initializeParty(_supplierEntity);
+            _type = supplierEntity.Type;
+            _accountNo = supplierEntity.AccountNo;
+            _accountType = supplierEntity.AccountType;
+            _accountName = supplierEntity.AccountName;
+            _ownerId = supplierEntity.OwnerId;
+            _bank = supplierEntity.Bank;
+            _paymentRules = new List<PaymentRule>();
 
-            readPaymentRules();
+            initializeParty(_supplierEntity);
 
             Register register = Register.GetInstance();
             register.RegisterSupplier(_supplierEntity, this);
+
+            foreach (var paymentRuleEntity in _supplierEntity.PaymentRules)
+            {
+                var paymentRule = new PaymentRule(paymentRuleEntity, dataAccessFacade);
+                _paymentRules.Add(paymentRule);
+            }
         }
 
         internal static List<Supplier> ReadAll(IDataAccessFacade dataAccessFacade)
@@ -104,7 +117,7 @@ namespace Domain.Model
 
             foreach (ISupplier supplierEntity in supplierEntities)
             {
-                Supplier supplier = new Supplier(dataAccessFacade, supplierEntity);
+                Supplier supplier = new Supplier(supplierEntity, dataAccessFacade);
                 suppliers.Add(supplier);
             }
             return suppliers;
@@ -113,7 +126,21 @@ namespace Domain.Model
         internal void Update()
         {
             //Calls update in the dataAccessFacade
+            _supplierEntity.Name = _name;
+            _supplierEntity.Note = _note;
+            _supplierEntity.Type = _type;
+            _supplierEntity.AccountNo = _accountNo;
+            _supplierEntity.AccountType = _accountType;
+            _supplierEntity.AccountName = _accountName;
+            _supplierEntity.OwnerId = _ownerId;
+            _supplierEntity.Bank = _bank;
+
             dataAccessFacade.UpdateSupplier(_supplierEntity);
+
+            foreach (var paymentRule in _paymentRules)
+            {
+                paymentRule.Update();
+            }
         }
 
         internal void Delete()
@@ -122,37 +149,54 @@ namespace Domain.Model
             dataAccessFacade.DeleteSupplier(_supplierEntity);
         }
 
-        internal void AddPaymentRule(Customer customer, BookingType bookingType, decimal percentage, int daysOffset, 
-            BaseDate baseDate, PaymentType paymentType)
-        {
-            PaymentRule paymentRule = new PaymentRule(this, customer, bookingType, percentage, daysOffset, baseDate,
-                paymentType, dataAccessFacade);
+        // supplier.AddPaymentRule
+        // p = new PaymentRule
+        //     daf.CreatePaymentRule
+        //         _supplierE.AddPaymentRule(p._paymentRuleEntity)
+        //             _paymentRules.Add
+        // _paymentRules.Add(p)
 
-            readPaymentRules();
+        // supplier.DeletePaymentRule()
+        // p.Delete()
+        //     daf.DeletePaymentRule
+        //         _supplierE.DeletePaymentRule(p._paymentRuleEntity)
+        //             _paymentRules.Add
+        // _paymentRules.Remove
+
+        // supplier.Update()
+        //     daf.UpdateSupplier()
+        //         foreach paymentRule, do update
+
+        // supplier.ReadAll()
+        //     foreach paymentRule that the supplierEntity has:
+        //         make new paymentRule, add it to _paymentRules
+
+        internal void AddPaymentRule(Customer customer, BookingType bookingType, decimal percentage, 
+            int daysOffset, BaseDate baseDate, PaymentType paymentType)
+        {
+            PaymentRule paymentRule = new PaymentRule(this, customer, bookingType, percentage, 
+                daysOffset, baseDate, paymentType, dataAccessFacade);
+
+            _paymentRules.Add(paymentRule);
         }
 
         internal void DeletePaymentRule(PaymentRule paymentRule)
         {
             paymentRule.Delete();
 
-            readPaymentRules();
+            _paymentRules.Remove(paymentRule);
         }
         #endregion
 
         #region Private Fields
         private IDataAccessFacade dataAccessFacade;
         private List<PaymentRule> _paymentRules;
+        private SupplierType _type;
+        private string _accountNo;
+        private AccountType _accountType;
+        private string _accountName;
+        private string _ownerId;
+        private string _bank;
         #endregion
-
-        private void readPaymentRules()
-        {
-            _paymentRules = new List<PaymentRule>();
-
-            foreach (IPaymentRule paymentRuleEntity in _supplierEntity.PaymentRules)
-            {
-                PaymentRule paymentRule = new PaymentRule(paymentRuleEntity, this, dataAccessFacade);
-                _paymentRules.Add(paymentRule);
-            }
-        }
     }
 }

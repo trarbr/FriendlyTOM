@@ -33,7 +33,6 @@ namespace Domain.Model
             {
                 validateSupplier(value);
                 _supplier = (Supplier)value;
-                _bookingEntity.Supplier = _supplier._supplierEntity;
             }
         }
         public ICustomer Customer
@@ -43,118 +42,116 @@ namespace Domain.Model
             {
                 validateCustomer(value);
                 _customer = (Customer)value;
-                _bookingEntity.Customer = _customer._customerEntity;
             }
         }
         public string Note
         {
-            get { return _bookingEntity.Note; }
-            set { _bookingEntity.Note = value; }
+            get { return _note; }
+            set { _note = value; }
         }
         public string Sale
         {
-            get { return _bookingEntity.Sale; }
+            get { return _sale; }
             set 
             {
                 validateSale(value);
-                _bookingEntity.Sale = value; 
+                _sale = value; 
             }
         }
         public int BookingNumber
         {
-            get { return _bookingEntity.BookingNumber; }
-            set { _bookingEntity.BookingNumber = value; }
+            get { return _bookingNumber; }
+            set { _bookingNumber = value; }
         }
         public DateTime StartDate
         {
-            get { return _bookingEntity.StartDate; }
-            set { _bookingEntity.StartDate = value; }
+            get { return _startDate; }
+            set { _startDate = value; }
         }
         public DateTime EndDate
         {
-            get { return _bookingEntity.EndDate; }
+            get { return _endDate; }
             set 
             {
                 validateEndDate(StartDate, value);
-                _bookingEntity.EndDate = value; 
+                _endDate = value; 
             }
         }
         public BookingType Type
         {
-            get { return _bookingEntity.Type; }
-            set { _bookingEntity.Type = value; }
+            get { return _type; }
+            set { _type = value; }
         }
         public decimal IVAExempt
         {
-            get { return _bookingEntity.IVAExempt; }
+            get { return _iVAExempt; }
             set 
             {
                 validateNotNegative("IVAExempt", value);
-                _bookingEntity.IVAExempt = value; 
+                _iVAExempt = value; 
             }
         }
         public decimal IVASubject
         {
-            get { return _bookingEntity.IVASubject; }
+            get { return _iVASubject; }
             set 
             { 
                 validateNotNegative("IVASubject", value);
-                _bookingEntity.IVASubject = value; 
+                _iVASubject = value; 
             }
         }
         public decimal Subtotal
         {
-            get { return _bookingEntity.Subtotal; }
+            get { return _subtotal; }
             set 
             { 
                 validateNotNegative("Subtotal", value);
-                _bookingEntity.Subtotal = value; 
+                _subtotal = value; 
             }
         }
         public decimal Service
         {
-            get { return _bookingEntity.Service; }
+            get { return _service; }
             set 
             { 
                 validateNotNegative("Service", value);
-                _bookingEntity.Service = value; 
+                _service = value;
             }
         }
         public decimal IVA
         {
-            get { return _bookingEntity.IVA; }
+            get { return _iVA; }
             set 
             { 
                 validateNotNegative("IVA", value);
-                _bookingEntity.IVA = value; 
+                _iVA = value; 
             }
         }
         public decimal ProductRetention
         {
-            get { return _bookingEntity.ProductRetention; }
+            get { return _productRetention; }
             set 
             {
                 validatePercentage("ProductRetention", value);
-                _bookingEntity.ProductRetention = value; 
+                _productRetention = value; 
             }
         }
-
         public decimal SupplierRetention
         {
-            get { return _bookingEntity.SupplierRetention; }
+            get { return _supplierRetention; }
             set
             {
                 validatePercentage("SupplierRetention", value);
-                _bookingEntity.SupplierRetention = value;
+                _supplierRetention = value;
             }
         }
         public decimal TransferAmount
         {
-            get { return _bookingEntity.TransferAmount; }
+            get { return _transferAmount; }
             set 
             { 
                 validateNotNegative("TransferAmount", value);
-                _bookingEntity.TransferAmount = value; 
+                _transferAmount = value; 
             }
         }
         #endregion
@@ -164,6 +161,20 @@ namespace Domain.Model
         {
             this.dataAccessFacade = dataAccessFacade;
             _bookingEntity = bookingEntity;
+            _note = bookingEntity.Note;
+            _sale = bookingEntity.Sale;
+            _bookingNumber = bookingEntity.BookingNumber;
+            _startDate = bookingEntity.StartDate;
+            _endDate = bookingEntity.EndDate;
+            _type = bookingEntity.Type;
+            _iVAExempt = bookingEntity.IVAExempt;
+            _iVASubject = bookingEntity.IVASubject;
+            _subtotal = bookingEntity.Subtotal;
+            _service = bookingEntity.Service;
+            _iVA = bookingEntity.IVA;
+            _productRetention = bookingEntity.ProductRetention;
+            _supplierRetention = bookingEntity.SupplierRetention;
+            _transferAmount = bookingEntity.TransferAmount;
 
             // Create Models of supplier and customer
             Register register = Register.GetInstance();
@@ -177,6 +188,13 @@ namespace Domain.Model
             validateSale(sale);
             validateEndDate(startDate, endDate);
 
+            _supplier = supplier;
+            _customer = customer;
+            _sale = sale;
+            _bookingNumber = bookingNumber;
+            _startDate = startDate;
+            _endDate = endDate;
+
             // Get entities for DataAccess
             ISupplier supplierEntity = supplier._supplierEntity;
             ICustomer customerEntity = customer._customerEntity;
@@ -184,9 +202,6 @@ namespace Domain.Model
             this.dataAccessFacade = dataAccessFacade;
             _bookingEntity = dataAccessFacade.CreateBooking(supplierEntity, customerEntity, sale, bookingNumber, 
                 startDate, endDate);
-
-            _supplier = supplier;
-            _customer = customer;
         }
         #endregion
 
@@ -207,6 +222,22 @@ namespace Domain.Model
 
         internal void Update()
         {
+            _bookingEntity.Supplier = _supplier._supplierEntity;
+            _bookingEntity.Customer = _customer._customerEntity;
+            _bookingEntity.Sale = _sale;
+            _bookingEntity.BookingNumber = _bookingNumber;
+            _bookingEntity.StartDate = _startDate;
+            _bookingEntity.EndDate = _endDate;
+            _bookingEntity.Type = _type;
+            _bookingEntity.IVAExempt = _iVAExempt;
+            _bookingEntity.IVASubject = _iVASubject;
+            _bookingEntity.Subtotal = _subtotal;
+            _bookingEntity.Service = _service;
+            _bookingEntity.IVA = _iVA;
+            _bookingEntity.ProductRetention = _productRetention;
+            _bookingEntity.SupplierRetention = _supplierRetention;
+            _bookingEntity.TransferAmount = _transferAmount;
+
             //Calls dataAccessFacade update method for updating a booking
             dataAccessFacade.UpdateBooking(_bookingEntity);
         }
@@ -222,7 +253,10 @@ namespace Domain.Model
         {
             Subtotal = IVAExempt + IVASubject;
             IVA = IVASubject * 0.12m;
-            TransferAmount = Subtotal - (Subtotal * ProductRetention/100) + Service + IVA - (IVA * SupplierRetention/100);
+            var serviceAbs = Subtotal * Service / 100;
+            var productRetentionAbs = Subtotal * ProductRetention / 100;
+            var supplierRetentionAbs = IVA * SupplierRetention / 100;
+            TransferAmount = Subtotal + serviceAbs + IVA - productRetentionAbs - supplierRetentionAbs;
 
             Update();
         }
@@ -232,6 +266,20 @@ namespace Domain.Model
         private IDataAccessFacade dataAccessFacade;
         private Customer _customer;
         private Supplier _supplier;
+        private string _note;
+        private string _sale;
+        private int _bookingNumber;
+        private DateTime _startDate;
+        private DateTime _endDate;
+        private BookingType _type;
+        private decimal _iVAExempt;
+        private decimal _iVASubject;
+        private decimal _subtotal;
+        private decimal _service;
+        private decimal _iVA;
+        private decimal _productRetention;
+        private decimal _supplierRetention;
+        private decimal _transferAmount;
         #endregion
 
         #region Validation

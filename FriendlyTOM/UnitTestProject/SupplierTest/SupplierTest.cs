@@ -40,7 +40,7 @@ namespace UnitTestProject
             DataAccessFacadeStub stub = new DataAccessFacadeStub();
             SupplierEntity entity = new SupplierEntity(type, note, name);
 
-            Supplier supplier = new Supplier(stub, entity);
+            Supplier supplier = new Supplier(entity, stub);
 
             string expectedName = "gert";
             string expectedNote = "total fed note";

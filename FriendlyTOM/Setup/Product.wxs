@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="Friendly TOM" Language="1033" Version="0.1.1" Manufacturer="The Friendly TOM Team" UpgradeCode="b0c3b329-dc82-40e5-929c-fa266b2123c8">
+  <Product Id="*" Name="Friendly TOM" Language="1033" Version="0.2.0" Manufacturer="The Friendly TOM Team" UpgradeCode="b0c3b329-dc82-40e5-929c-fa266b2123c8">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -48,13 +48,13 @@
     </ComponentGroup>
 
     <ComponentGroup Id="SqlScripts" Directory="SqlScripts">
-      <Component Id="cmp_install_010_000.sql" Guid="{0835583B-EB97-4B71-901A-6EECBD4A21CC}">
-        <File Id="fil_install_010_000.sql" KeyPath="yes" 
-              Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-1-0_000.sql"/>
+      <Component Id="cmp_install_020_000.sql" Guid="{0835583B-EB97-4B71-901A-6EECBD4A21CC}">
+        <File Id="fil_install_020_000.sql" KeyPath="yes" 
+              Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-2-0_000.sql"/>
       </Component>
-      <Component Id="cmp_install_010_001.sql" Guid="{575E9E70-8506-45E9-9C52-78E664725964}">
-        <File Id="fil_install_010_001.sql" KeyPath="yes"
-              Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-1-0_001.sql"/>
+      <Component Id="cmp_install_020_001.sql" Guid="{575E9E70-8506-45E9-9C52-78E664725964}">
+        <File Id="fil_install_020_001.sql" KeyPath="yes"
+              Source="$(var.DataAccess.ProjectDir)\SqlScripts\install_0-2-0_001.sql"/>
       </Component>
     </ComponentGroup>
 

@@ -64,11 +64,14 @@ namespace DataAccess.Helpers
                 // if it fails, create the database
                 createDatabase(version);
             }
-            // now check version number
-            Version schemaVersion = getSchemaVersion();
-            if (schemaVersion < version)
+            else
             {
-                upgradeSchema(schemaVersion, version);
+                // migrate if programs version is greater than database schema version
+                Version schemaVersion = getSchemaVersion();
+                if (schemaVersion < version)
+                {
+                    upgradeSchema(schemaVersion, version);
+                }
             }
         }
 
@@ -234,9 +237,10 @@ namespace DataAccess.Helpers
                 cmd.ExecuteNonQuery();
 
                 cmd = con.CreateCommand();
-                cmd.CommandText = "RESTORE DATABASE FTOM FROM DISK = @backupPath";
+                cmd.CommandText = String.Format("RESTORE DATABASE {0} FROM DISK = @backupPath", 
+                    databaseName);
 
-                cmd.Parameters.AddWithValue("backupPath", backupPath);
+                cmd.Parameters.AddWithValue("@backupPath", backupPath);
 
                 try
                 {

@@ -24,6 +24,6 @@ namespace Common.Enums
 {
     public enum PaymentType
     {
-        Full, Balance, Deposit, Credit
+        Balance, Credit, Deposit, Full
     }
 }

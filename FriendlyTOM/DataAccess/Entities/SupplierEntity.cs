@@ -41,7 +41,7 @@ namespace DataAccess.Entities
         {
             Type = type;
             AccountNo = "";
-            AccountType = AccountType.Undefined;
+            AccountType = AccountType.CheckingAccount;
             AccountName = "";
             OwnerId = "";
             Bank = "";

@@ -41,7 +41,7 @@ namespace UnitTestProject
             dataAccessFacadeStub = new DataAccessFacadeStub();
             validName = "VF Jan";
             validNote = "8 Persons";
-            validType = CustomerType.Bureau;
+            validType = CustomerType.Agency;
         }
 
         [TestMethod]
@@ -128,12 +128,16 @@ namespace UnitTestProject
         {
             Customer customer1 = createValidCustomer();
             customer1.Name = "1";
+            customer1.Update();
             Customer customer2 = createValidCustomer();
             customer2.Name = "2";
+            customer2.Update();
             Customer customer3 = createValidCustomer();
             customer3.Name = "3";
+            customer3.Update();
             Customer customer4 = createValidCustomer();
             customer4.Name = "4";
+            customer4.Update();
 
             List<Customer> actualCustomers = Customer.ReadAll(dataAccessFacadeStub);
             List<Customer> expectedCustomers = new List<Customer>();
@@ -150,7 +154,7 @@ namespace UnitTestProject
 
         private Customer createValidCustomer()
         {
-            Customer customer = new Customer(validType, validNote, validName, dataAccessFacadeStub);
+            Customer customer = new Customer(validName, validNote, validType, dataAccessFacadeStub);
             return customer;
         }
     }

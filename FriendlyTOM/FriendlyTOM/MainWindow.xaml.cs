@@ -43,26 +43,21 @@ namespace FriendlyTOM
         {
             InitializeComponent();
 
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
             try
             {
-                SettingsController settingsController = new SettingsController();
-                settingsController.FirstRunSetup();
+                AppController app = AppController.Instance;
+                app.Initialize();
 
-                CustomerController customerController = new CustomerController();
-                SupplierController supplierController = new SupplierController();
-                PaymentController paymentController = new PaymentController();
-                BookingController bookingController = new BookingController(paymentController, customerController);
-
-                settingsUserControl.Content = new SettingsUserControl(settingsController);
-                accountingControl = new AccountingUserControl(paymentController, supplierController, customerController);
-                accountingUserControl.Content = accountingControl;
-                suppliersControl = new SuppliersUserControl(supplierController, customerController);
+                settingsUserControl.Content = new SettingsUserControl(app.SettingsController);
+                paymentsControl = new AccountingUserControl(app.PaymentController, 
+                    app.SupplierController, app.CustomerController);
+                accountingUserControl.Content = paymentsControl;
+                suppliersControl = new SuppliersUserControl(app.SupplierController, 
+                    app.CustomerController);
                 suppliersUserControl.Content = suppliersControl;
-                customersUserControl.Content = new CustomersUserControl(customerController);
-                bookingsControl = new BookingsUserControl(bookingController, supplierController,
-                    customerController);
+                customersUserControl.Content = new CustomersUserControl(app.CustomerController);
+                bookingsControl = new BookingsUserControl(app.BookingController, 
+                    app.SupplierController, app.CustomerController);
                 bookingsUserControl.Content = bookingsControl;
             }
             catch (Exception ex)
@@ -78,7 +73,7 @@ namespace FriendlyTOM
             return new CultureInfo("en-US");
         }
 
-        private AccountingUserControl accountingControl;
+        private AccountingUserControl paymentsControl;
         private BookingsUserControl bookingsControl;
         private SuppliersUserControl suppliersControl;
         private int currentTabIndex;
@@ -87,7 +82,7 @@ namespace FriendlyTOM
         {
             if (mainTabNavigation.SelectedIndex != currentTabIndex)
             {
-                accountingControl.RefreshAll();
+                paymentsControl.RefreshAll();
                 bookingsControl.Refresh();
                 suppliersControl.Refresh();
 

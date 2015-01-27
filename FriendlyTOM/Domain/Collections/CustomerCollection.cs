@@ -43,10 +43,10 @@ namespace Domain.Collections
             return customers;
         }
 
-        internal Customer Create(CustomerType type, string note, string name)
+        internal Customer Create(string name, string note, CustomerType type)
         {
             //Adds a new customer object and adds it to the list. 
-            Customer customer = new Customer(type, note, name, dataAccessFacade);
+            Customer customer = new Customer(name, note, type, dataAccessFacade);
             customers.Add(customer);
             return customer;
         }
